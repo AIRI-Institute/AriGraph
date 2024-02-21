@@ -15,12 +15,12 @@ class KnowledgeSemiBiGraph:
                 "location": "Cosmic space",
                 "trying": -1,
                 "step": -1,
-                "n": -1,
+                "n": 1,
                 "explored_states": [],
                 "inventory": [],
                 "appearances": {},
                 "memorizings": {},
-                "embedding": [0] * 768,
+                "embedding": [0] * 767 + [0.001],
                 "visits": []
             }
         }
