@@ -73,7 +73,7 @@ def bigraph_pipeline(config):
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent()
     env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
-    n_trying = 9
+    n_trying = 3
     start = 1
     n_steps = 100
     print_steps = n_steps

@@ -20,7 +20,8 @@ class KnowledgeSemiBiGraph:
                 "inventory": [],
                 "appearances": {},
                 "memorizings": {},
-                "embedding": [0] * 768
+                "embedding": [0] * 768,
+                "visits": []
             }
         }
         self.metainf = {
