@@ -5,9 +5,9 @@ from copy import deepcopy
 from scipy.spatial.distance import cosine
 
 class KnowledgeSemiBiGraph:
-    def __init__(self, path, load = False, embedding_treshold = 0.05):
+    def __init__(self, path, load = False, embedding_treshold = 0.05, state_embeddin_treshold = 0.05):
         os.makedirs(path, exist_ok=True)
-        self.path, self.embedding_treshold = path, embedding_treshold
+        self.path, self.embedding_treshold, self.state_embeddin_treshold = path, embedding_treshold, state_embeddin_treshold
         self.items = {}
         self.states = {
             "Start graph": {
@@ -19,8 +19,9 @@ class KnowledgeSemiBiGraph:
                 "explored_states": [],
                 "inventory": [],
                 "appearances": {},
-                "memorizings": {}
-                }
+                "memorizings": {},
+                "embedding": [0] * 768
+            }
         }
         self.metainf = {
             "last_state": "Start graph"
@@ -46,18 +47,23 @@ class KnowledgeSemiBiGraph:
         return item      
 
     def add_state(self, observation, action,
-                location, trying, step, inventory):
+                location, trying, step, inventory, embedding):
         state_key = f'''
 Observation: {observation}
 Location: {location}
 '''     
-        if state_key in self.states:
+        state_key = self.get_state_key(state_key, embedding)
+        if state_key is not None:
             self.states[state_key]["visits"].append((trying, step, inventory))
             self.states[state_key]["n"] += 1
             self.states[state_key]["trying"] = trying
             self.states[state_key]["step"] = step
             self.states[state_key]["inventory"] = inventory
         else:
+            state_key = f'''
+Observation: {observation}
+Location: {location}
+'''
             self.states[state_key] = {
                 "observation": observation,
                 "location": location,
@@ -65,6 +71,7 @@ Location: {location}
                 "inventory": inventory, 
                 "step": step,
                 "n": 1,
+                "embedding": embedding,
                 "visits": [(trying, step, inventory)],
                 "explored_states": [],
                 "appearances": {},
@@ -73,11 +80,12 @@ Location: {location}
         self.states[self.metainf["last_state"]]["explored_states"].append((action, state_key, trying, step))
         self.metainf["last_state"] = state_key
 
-    def add_insight(self, insight, observation, location):
+    def add_insight(self, insight, observation, location, embedding):
         state_key = f'''
 Observation: {observation}
 Location: {location}
 '''    
+        state_key = self.get_state_key(state_key, embedding)
         assert state_key in self.states
         if "insights" not in self.states[state_key]:
             self.states[state_key]["insights"] = [insight]
@@ -94,13 +102,25 @@ Location: {location}
                 best_score = score
                 item = self.items[candidate]
         return item
+    
+    def get_state_key(self, state_key, embedding):
+        if state_key in self.states:
+            return state_key
+        true_key, best_score = None, 10
+        for candidate in self.states:
+            score = cosine(self.states[candidate]["embedding"], embedding)
+            if score < self.state_embeddin_treshold and score < best_score:
+                best_score = score
+                true_key = candidate
+        return true_key
 
     def observe_items(self, items,
-                observation, location):
+                observation, location, embedding):
         state_key = f'''
 Observation: {observation}
 Location: {location}
 '''     
+        state_key = self.get_state_key(state_key, embedding)
         for item in items:
             name = list(item.keys())[0]
             embedding = item[name]
@@ -113,11 +133,12 @@ Location: {location}
                 self.states[state_key]["appearances"][name] = 1
 
     def remember_items(self, items,
-                observation, location):
+                observation, location, embedding):
         state_key = f'''
 Observation: {observation}
 Location: {location}
 '''     
+        state_key = self.get_state_key(state_key, embedding)
         for item in items:
             name = list(item.keys())[0]
             embedding = item[name]

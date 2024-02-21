@@ -68,14 +68,14 @@ def pipeline(config):
         print("============================================================================================================================")
 
 def bigraph_pipeline(config):
-    graph_name = "Detective_bigraph_walkthrough_working"
-    load = True
+    graph_name = "Detective_bigraph"
+    load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent()
     env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
-    n_trying = 3
-    start = 3
-    n_steps = 150
+    n_trying = 9
+    start = 1
+    n_steps = 100
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
     observations = []
@@ -95,9 +95,14 @@ def bigraph_pipeline(config):
 
             observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
                             valid_actions, trying + 1, step + 1, inventory)
-            graph.add_state(observation, action, location, trying + 1, step + 1, inventory)
-            graph.observe_items(observed_items, observation, location)
-            graph.remember_items(remembered_items, observation, location)
+            state_key = f'''
+Observation: {observation}
+Location: {location}
+'''         
+            state_embedding = agent.get_embedding_local(state_key)
+            graph.add_state(observation, action, location, trying + 1, step + 1, inventory, state_embedding)
+            graph.observe_items(observed_items, observation, location, state_embedding)
+            graph.remember_items(remembered_items, observation, location, state_embedding)
             graph.save()
 
             filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
@@ -121,6 +126,8 @@ def bigraph_pipeline(config):
 Observation: {observation}
 Location: {location}
 '''    
+            state_embedding = agent.get_embedding_local(state_key)
+            state_key = graph.get_state_key(state_key, state_embedding)
             observations.append(graph.get_string_state(state_key))
             
             # action = agent.choose_action_vanilla(observations, observation, inventory, location, valid_actions)
@@ -153,8 +160,13 @@ Location: {location}
                 with open("game_log.txt", "a") as file:
                     file.write(f"{observation}\n")
                 observation = "***".join(observation.split("***")[:-1])
-                graph.add_state(observation, action, location, trying + 1, step + 2, inventory)
-                graph.add_insight("Game over", observation, location)
+                state_key = f'''
+Observation: {observation}
+Location: {location}
+'''    
+                state_embedding = agent.get_embedding_local(state_key)
+                graph.add_state(observation, action, location, trying + 1, step + 2, inventory, state_embedding)
+                graph.add_insight("Game over", observation, location, state_embedding)
                 break
         with open("game_log.txt", "a") as file:        
             file.write("============================================================================================================================\n")
@@ -219,6 +231,8 @@ def walkthrough_pipeline(config):
 Observation: {observation}
 Location: {location}
 '''    
+        state_embedding = agent.get_embedding_local(state_key)
+        state_key = graph.get_state_key(state_key, state_embedding)
         observations.append(graph.get_string_state(state_key))
         
         # action = agent.choose_action_vanilla(observations, observation, inventory, location, valid_actions)
