@@ -120,7 +120,7 @@ Location: {location}
                             associations, experienced_actions, reflection, n, inventory)
             else:
                 steps_from_reflection += 1
-            graph.add_insight(insight, observation, location)
+            graph.add_insight(insight, observation, location, state_embedding)
 
             state_key = f'''
 Observation: {observation}
