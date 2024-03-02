@@ -13,7 +13,7 @@ request_infos = textworld.EnvInfos(
 
 env_id = textworld.gym.register_game("tw_games/benchmark/navigation1/game.z8", request_infos,
                                      max_episode_steps=50)
-#jericho-game-suite/zork1.z5
+
 env = textworld.gym.make(env_id)
 
 
