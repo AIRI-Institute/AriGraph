@@ -39,5 +39,5 @@ M.set_player(roomA)
 
 M.render(interactive=True)
 
-M.test()
-#M.compile(path='benchmark/graph_test_3x3/graph_test_3x3.z8')
+#M.test()
+M.compile(path='benchmark/graph_test_3x3/graph_test_3x3.z8')
