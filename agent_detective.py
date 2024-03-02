@@ -310,16 +310,38 @@ and game consequences will be unexpected.
     def choose_action(self, observations, observation, location, 
                             valid_actions, trying, step, reflection,
                             associations, experienced_actions, allow_reflection, n, inventory):
+#         prompt = f'''
+# Previous 2 observations: {observations[-2:]} 
+# ####
+# Current observation: {observation}
+# ####
+# Location: {location} 
+# ####
+# How many times you have visited this state (include current one): {n}
+# ####
+# Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
+# ####
+# Number of current attempt: {trying}
+# ####
+# Step number on the current attempt: {step}
+# ####
+
+# Please, based on given information give some reasoning about current situation. Reasoning must contain 
+# crucial information about player state, based on this reasoning will be perform an action in the game.
+# Please, ignore all information which is useless to make current decision. Please, DO NOT make a decision,
+# just collect crucial information for it.
+
+# After reasoning make plan at two or three steps forward and write them after reasoning. Your reasoning must be a paragraph of text,
+# your plan must be another paragraph of text.
+
+# '''
+
         prompt = f'''
-Previous 2 observations: {observations[-2:]} 
+Previous actions: {observations} 
 ####
 Current observation: {observation}
 ####
 Location: {location} 
-####
-How many times you have visited this state (include current one): {n}
-####
-Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
 ####
 Number of current attempt: {trying}
 ####
