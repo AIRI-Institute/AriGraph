@@ -20,6 +20,7 @@ env = textworld.gym.make(env_id)
 obs, infos = env.reset()  # Start new episode.
 env.render()
 
+print("\n".join(map(str, infos["facts"])))
 score, moves, done = 0, 0, False
 while not done:
     #print("Entities: {}\n".format(infos["entities"]))
