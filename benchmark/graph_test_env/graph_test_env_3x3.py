@@ -40,4 +40,4 @@ M.set_player(roomA)
 M.render(interactive=True)
 
 M.test()
-#M.compile(path='tw_games/benchmark/graph_test_3x3/graph_test_3x3.z8')
+#M.compile(path='benchmark/graph_test_3x3/graph_test_3x3.z8')
