@@ -108,13 +108,13 @@ def pipeline(config):
         print("============================================================================================================================")
 
 def bigraph_pipeline(config):
-    graph_name = "Detective_bigraph_gpt3"
-    load = True
+    graph_name = "Navigation4"
+    load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
-    agent = GPTagent(model = "gpt-3.5-turbo-0125")
-    env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
+    agent = GPTagent(model = "gpt-4-0125-preview")
+    env = FrotzEnv("benchmark/navigation4/navigation4.z8")
     n_trying = 5
-    start = 4
+    start = 1
     n_steps = 100
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
