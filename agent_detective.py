@@ -1,8 +1,10 @@
 import requests
 import numpy as np
+import torch
 from time import time, sleep
 from InstructorEmbedding import INSTRUCTOR
 from scipy.spatial.distance import cosine
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 VPS_IP = "176.222.54.59"
 API_KEY = "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"
@@ -91,10 +93,23 @@ Key points to remember:
                 remembered_items[i] = { remembered_items[i]: self.get_embedding_local(remembered_items[i]) }
         
         return observed_items, remembered_items
+    
+    def is_equal(self, text_1, text_2, threshold, is_state = True):
+        # print(text_1, "\n\n\n\n", text_2)
+        # a = input("Would you like to continue?")
+        embedding_1, embedding_2 = self.get_embedding_local(text_1, is_state), self.get_embedding_local(text_2, is_state)
+        # print(cosine(embedding_1, embedding_2))
+        # breakpoint()
+        if cosine(embedding_1, embedding_2) > threshold:
+            print("="*55)
+            print(text_1, "\n\n\n\n", text_2)
+            print("="*55)
+        return cosine(embedding_1, embedding_2) < threshold
 
-    def get_embedding_local(self, text):
+    def get_embedding_local(self, text, is_state = False):
         text = text.replace("\n", " ")
-        instruction = "Represent the entity in knowledge graph:"
+        instruction = "Represent the entity in knowledge graph:" if not is_state else \
+            "There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters."
         embeddings = self.instructor.encode([[instruction, text]])
         return list(map(float, list(embeddings[0])))
     
@@ -193,27 +208,26 @@ Extracted data:
         return triplets
 
     def bigraph_processing(self, observations, observation, location, 
-                            valid_actions, trying, step, inventory):
+                            valid_actions, trying, step):
         prompt = f'''
 Previous 2 observations: {observations[-2:]} 
 Current observation: {observation}
 Location: {location} 
-Inventory: {inventory}
 Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
 Number of current attempt: {trying}
 Step number on the current attempt: {step}
 
 Please, based on given information choose things that relative to current situation. This things may be items or tools, locations, surrounding stuff,
-creatures and etc. This things also may be your thoughts about current situation. Things must NOT include any actions and must be named shortly (no longer than 3 words).
+creatures and etc. This things also may be your thoughts about current situation. Things must be named shortly (no longer than 3 words).
 Example:
     Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
     Crucial things: [small square, library, apple, flashlight, bird, bird's song, woman, woman's cry, fear, help, running]  
 
 Next, based on given information, name things which might be useful
-at current situation. Things must be named like Crucial things. 
+at current situation. Things must be named like Crucial things. Feel free to add any useful actions to useful things.
 Example:
     Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
-    Potentially useful things: [pistol, police, partner, flashlight, cry, help]  
+    Potentially useful things: [pistol, police, partner, flashlight, cry, help, run]  
 
 Warning! Answer must be in following format:
 Crucial things: [thing_1, thing_2, ...];
@@ -298,16 +312,19 @@ and game consequences will be unexpected.
                             associations, experienced_actions, allow_reflection, n, inventory):
         prompt = f'''
 Previous 2 observations: {observations[-2:]} 
+####
 Current observation: {observation}
+####
 Location: {location} 
-Inventory: {inventory}
-Your associations: {associations}
-Your plan which is based on knowledge graph: {reflection}
+####
 How many times you have visited this state (include current one): {n}
+####
 Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
-Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
+####
 Number of current attempt: {trying}
+####
 Step number on the current attempt: {step}
+####
 
 Please, based on given information give some reasoning about current situation. Reasoning must contain 
 crucial information about player state, based on this reasoning will be perform an action in the game.
@@ -322,18 +339,13 @@ your plan must be another paragraph of text.
         prompt = f'''
 {response}
 
-Allow using knowledge graph: {allow_reflection}
 Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
 
 Based on this information, choose an action to perform in the game. Your answer must contain ONLY action you chose without any descriptions.
-If you want to use knowledge graph for summarizing information you collected before and produce new plan, 
-you can do it with specific action "use graph" (which is valid when "Allow using knowledge graph" is True).
-Use graph when you repeat actions or for navigation, for solving difficult puzzles with several steps plan
-or in case when you need new plan. Please choose ONLY action which is valid for Detective game. 
+Please choose ONLY action which is valid for Detective game. 
 Pay attention that if you mislead format of answer, action might be incorrect
 and game consequences will be unexpected.
-Action: 
-'''
+Action: '''
         action = self.generate(prompt)
         # action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
         use_graph = action == "use graph" and allow_reflection
@@ -344,14 +356,19 @@ Action:
                             associations, experienced_actions, reflection, n, inventory):
         prompt = f'''
 Previous 2 observations: {observations[-2:]} 
+####
 Current observation: {observation}
+####
 Location: {location} 
-Inventory: {inventory}
-Your associations: {associations}
+####
 How many times you have visited this state (include current one): {n}
+####
 Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
+####
 Number of current attempt: {trying}
+####
 Step number on the current attempt: {step}
+####
 Your plan which is based on knowledge graph: {reflection}
 
 Please, based on given information give some reasoning about current situation. Reasoning must contain 
@@ -371,8 +388,7 @@ Recommended actions (may not contain all useful actions, it is a recommendation)
 Based on this information, choose an action to perform in the game. Your answer must contain ONLY action you chose without any descriptions.
 Please choose ONLY action which is valid for Detective game. Pay attention that if you mislead format of answer, action might be incorrect
 and game consequences will be unexpected.
-Action: 
-'''
+Action: '''
         action = self.generate(prompt)
         # action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
         return action, "Chosen action: " in response, response
@@ -420,4 +436,140 @@ Chosen action: action
         response = self.generate(prompt)
         action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
         return action
+    
+    
+    
+# Please, based on given information give some reasoning about current situation. Reasoning must contain 
+# crucial information about player state, based on this reasoning will be perform an action in the game.
+# Please, ignore all information which is useless to make current decision. Please, DO NOT make a decision,
+# just collect crucial information for it.
+
+# After reasoning make plan at two or three steps forward and write them after reasoning. Your reasoning must be a paragraph of text,
+# your plan must be another paragraph of text.
+# '''
+#         response = self.generate(prompt)
+#         prompt = f'''
+# {response}
+
+    
+    def get_action_planning(self, branches, branch, associations, experienced_actions, n, step):
+        known_information = ""
+        for experienced_branch in branches:
+            known_information += f'''# Following consequence of actions: {experienced_branch["actions"][step:]} was resulted to following final: {experienced_branch["final"]}
+''' 
+        prompt = f'''
+Previous 2 states: {branch["consequences"][-3:-1]} 
+####
+Current state: {branch["consequences"][-1]}
+####
+How many times you have visited this state (include current one): {n}
+####
+Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
+####
+Known consequences: {known_information}
+####
+Please, based on given information give some reasoning about current situation. Reasoning must contain 
+crucial information about player state, based on this reasoning will be perform an action in the game.
+Please, ignore all information which is useless to make current decision. Please, DO NOT make a decision,
+just collect crucial information for it.
+
+After reasoning make plan at two or three steps forward and write them after reasoning. Your reasoning must be a paragraph of text,
+your plan must be another paragraph of text.
+
+'''
+        response = self.generate(prompt)
+        prompt = f'''
+{response}
+####
+Current state: {branch["consequences"][-1]}
+####
+Based on this information, choose an action to perform in the game. Your answer must contain ONLY action you chose without any descriptions.
+Please choose ONLY action which is valid for Detective game. Pay attention that if you mislead format of answer, action might be incorrect
+and game consequences will be unexpected. Typical actions: north, south, east, west, take *something*, drop *something*. 
+Formulate actions brief and formulaic.
+Action: '''
+        action = self.generate(prompt)
+        # print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        # print(prompt)
+        # print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        return action
+
+    def get_predictions(self, branch, action, new_state, associations, experienced_actions, n):
+        prompt = f'''
+Previous 2 states: {branch["consequences"][-2:]} 
+####
+Chosen action: {action}
+####
+Estimated state: {new_state}
+####
+Your associations: {associations}
+####
+How many times you have visited this state (include current one): {n}
+####
+Actions which you tried at previous steps (useful for repeat good moves and effective exploration): {experienced_actions}
+####
+Please, based on given information clarify estimated state. Estimated state may contain legacy information about game progress, 
+you should use previous states for correct current state. Your answer must contain expected consequence of chosen action, 
+estimated consequense is an estimated state.
+Answer:
+'''
+        return self.generate(prompt)
+    
+    def select_branch(self, branches, observations, observation, location, trying, step, associations, n):
+        possible_variants = [
+            f'''Actions: {branch["actions"]}
+Final: {branch["final"]};'''
+            for branch in branches]
+        prompt = f'''
+Previous 2 observations: {observations[-2:]} 
+####
+Current observation: {observation}
+####
+Location: {location} 
+####
+How many times you have visited this state (include current one): {n}
+####
+Number of current attempt: {trying}
+####
+Step number on the current attempt: {step}
+####
+Possible variants: {possible_variants}
+####
+Please, based on given information choose the best variant of game state from Possible variants. Pay attention that you will move to this 
+state with actions which corresponds to it and will continue playing from it. Your answer must be just one number: number of the best variant in the possible variants. 
+Warning! If this number will be less than 1, more than number of possible variants or your answer will contain anything except number, 
+the best state will be chosen randomly and game consequences will be unexpected.
+Chosen number:
+'''
+        number = self.generate(prompt)
+        try:
+            number = int(number) - 1
+            if number < len(branches):
+                return number
+            else:
+                raise "just"
+        except:
+            print("BRANCH WAS CHOSEN RANDOMLY!!!")
+            return np.random.choice(range(len(branches)))
+        
+        
+class MixtralAgent(GPTagent):
+    def __init__(self, model = "gpt-4-1106-preview", system_prompt = None):
+        super().__init__(model, system_prompt)
+        self.tokenizer = AutoTokenizer.from_pretrained("mistralai/Mixtral-8x7B-Instruct-v0.1")
+        self.mixtral = AutoModelForCausalLM.from_pretrained("mistralai/Mixtral-8x7B-Instruct-v0.1", device_map = "auto", torch_dtype = torch.bfloat16)    
+        self.device = list(self.mixtral.parameters())[0].device
+        
+    def t(self, text):
+        return self.tokenizer.encode(text, add_special_tokens=False)    
+        
+    def generate(self, prompt):
+        prompt = f"<s>[INST] {self.system_prompt} Hi [/INST] Hello! how can I help you</s>[INST] {prompt} [/INST]"
+        # messages = [{"role": "system", "content": self.system_prompt},
+        #             {"role": "user", "content": prompt}]
+
+        # inputs = self.tokenizer.apply_chat_template(messages, return_tensors="pt").to(self.device)
+        inputs = self.tokenizer.encode(prompt, return_tensors="pt", add_special_tokens = False).to(self.device)
+        outputs = self.mixtral.generate(inputs, max_new_tokens=1024, do_sample=True)
+        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         
