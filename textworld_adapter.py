@@ -81,6 +81,12 @@ def draw_graph(G):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=labels, font_size=8, label_pos=0.3, verticalalignment='baseline')
     plt.title('Knowledge Graph')
     plt.show()
+    
+def get_text_graph(G):
+    graph_text = ""
+    for edge in G.edges(data = True):
+        graph_text += f'''\n{edge[0]} {edge[2]["label"]} {edge[1]},'''
+    return graph_text
 
 if __name__ == "__main__":
 

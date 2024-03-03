@@ -12,9 +12,7 @@ API_KEY = "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"
 class GPTagent:
     def __init__(self, model = "gpt-4-1106-preview", system_prompt = None):
         self.system_prompt = '''
-        Your objective is to navigate through the interactive world of a text-based 
-        detective game. You are a detective in a fictional world filled with puzzles, clues and ill-wishers. 
-        Your goal is to explore this world, avoiding dangers and following clues, and ultimately find the way to achieve the highest score possible. 
+        Your objective is to navigate through the interactive world of a text-based game. 
         Remember, the game involves navigating through various locations, 
         interacting with objects, and understanding the consequences of your actions. 
 
@@ -307,7 +305,7 @@ and game consequences will be unexpected.
 #         action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
 #         return action, "Chosen action: " in response
     
-    def choose_action(self, observations, observation, location, 
+    def choose_action(self, true_graph, observations, observation, location, 
                             valid_actions, trying, step, reflection,
                             associations, experienced_actions, allow_reflection, n, inventory):
 #         prompt = f'''
@@ -337,15 +335,11 @@ and game consequences will be unexpected.
 # '''
 
         prompt = f'''
+Your knowledges about game: {true_graph}
+####
 Previous actions: {observations} 
 ####
-Current observation: {observation}
-####
-Location: {location} 
-####
-Number of current attempt: {trying}
-####
-Step number on the current attempt: {step}
+Current observation: {observation} 
 ####
 
 Please, based on given information give some reasoning about current situation. Reasoning must contain 
@@ -360,11 +354,13 @@ your plan must be another paragraph of text.
         response = self.generate(prompt)
         prompt = f'''
 {response}
-
+####
+Current state: Current observation: {observation} 
+####
 Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
+####
 
 Based on this information, choose an action to perform in the game. Your answer must contain ONLY action you chose without any descriptions.
-Please choose ONLY action which is valid for Detective game. 
 Pay attention that if you mislead format of answer, action might be incorrect
 and game consequences will be unexpected.
 Action: '''

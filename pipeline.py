@@ -3,6 +3,7 @@ from jericho import FrotzEnv
 from agent_detective import GPTagent, MixtralAgent
 from graph import KnowledgeGraph
 from semi_bigraph import KnowledgeSemiBiGraph
+from textworld_adapter import TextWorldWrapper, graph_from_facts, get_text_graph
 
 def reflect(graph, agent, items, n_iters = 15):
     summary = graph.get_string_state("last")
@@ -108,14 +109,14 @@ def pipeline(config):
         print("============================================================================================================================")
 
 def bigraph_pipeline(config):
-    graph_name = "Navigation4"
+    graph_name = "Navigation2"
     load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent(model = "gpt-4-0125-preview")
-    env = FrotzEnv("benchmark/navigation4/navigation4.z8")
+    env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
     n_trying = 5
     start = 1
-    n_steps = 100
+    n_steps = 50
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
     observations = []
@@ -132,7 +133,7 @@ def bigraph_pipeline(config):
         reflection = {"insight": "Still nothing", "trying": trying + 1}
         for step in range(n_steps):
             old_obs = observation
-            location = env.get_player_location().name
+            location = env.get_player_location().name if env.get_player_location() is not None else "Room"
             valid_actions = env.get_valid_actions()
 
             observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
@@ -149,24 +150,28 @@ Location: {location}
             graph.remember_items(remembered_items, observation, location, state_embedding)
             graph.save()
 
-            filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
-            associations, experienced_actions, n = graph.get_associations(filtered_items)
-            action, use_graph, is_random, insight = agent.choose_action(observations, observation, location, 
+            # filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
+            # associations, experienced_actions, n = graph.get_associations(filtered_items)
+            associations, experienced_actions, n = 1, 1, 1
+            true_graph = get_text_graph(graph_from_facts(env.info))
+            # breakpoint()
+            observation = observation.split("\n\n\n\n")[-1]
+            action, use_graph, is_random, insight = agent.choose_action(true_graph, observations, observation, location, 
                             valid_actions, trying, step, reflection,
                             associations, experienced_actions, steps_from_reflection > -1, n, inventory)
             use_graph = use_graph or steps_from_reflection > 10
             use_graph = False
             # with open("game_log.txt", "a") as file:
             #     file.write(action + "\n")
-            if use_graph:
-                steps_from_reflection = 0
-                reflection = reflect(graph, agent, filtered_items)
-                reflection = {"insight": reflection, "trying": trying + 1, "step": step + 1}
-                action, is_random, insight = agent.choose_action_with_reflection(observations, observation, location, 
-                            valid_actions, trying, step,
-                            associations, experienced_actions, reflection, n, inventory)
-            else:
-                steps_from_reflection += 1
+            # if use_graph:
+            #     steps_from_reflection = 0
+            #     reflection = reflect(graph, agent, filtered_items)
+            #     reflection = {"insight": reflection, "trying": trying + 1, "step": step + 1}
+            #     action, is_random, insight = agent.choose_action_with_reflection(observations, observation, location, 
+            #                 valid_actions, trying, step,
+            #                 associations, experienced_actions, reflection, n, inventory)
+            # else:
+            #     steps_from_reflection += 1
 
             # state_key = graph.get_state_key(state_key, state_embedding)
             # need_plan = False
@@ -191,21 +196,23 @@ Location: {location}
             # branches[selected_branch]["consequences"].pop(0)
             # branches[selected_branch]["experienced_states"].pop(0)
 
-            graph.add_insight(insight, observation, location, state_embedding)
+            # graph.add_insight(insight, observation, location, state_embedding)
 
-            state_key = f'''
-Observation: {observation}
-Location: {location}
-'''    
-            state_embedding = agent.get_embedding_local(state_key, True)
-            state_key = graph.get_state_key(state_key, state_embedding)
-            new_obs = graph.get_string_state(state_key) + f"\nAction that led to this: {prev_action}" if prev_action is not None else graph.get_string_state(state_key)
-            observations.append(new_obs)
+#             state_key = f'''
+# Observation: {observation}
+# Location: {location}
+# '''    
+#             state_embedding = agent.get_embedding_local(state_key, True)
+#             state_key = graph.get_state_key(state_key, state_embedding)
+#             new_obs = graph.get_string_state(state_key) + f"\nAction that led to this: {prev_action}" if prev_action is not None else graph.get_string_state(state_key)
+#             observations.append(new_obs)
+
+            observations.append(observation + f"\n\nAction: {action}")
             
             # action = agent.choose_action_vanilla(observations, observation, inventory, location, valid_actions)
 
             observation, reward, done, info = env.step(action)
-            inventory = [item.name for item in env.get_inventory()]
+            inventory = [item.name for item in env.get_inventory()] if isinstance(env.get_inventory(), list) else env.get_inventory()
             observation += f"\nInventory: {inventory}"
             valid_actions = env.get_valid_actions()
             observation += f"\nValid actions (just recommendation): {valid_actions}"
@@ -215,7 +222,7 @@ Location: {location}
             rewards.append(reward)
             scores.append(info['score'])
             if step < print_steps:
-                with open("game_log.txt", "a") as file:
+                with open("game_log_navigation2_wg_pred.txt", "a") as file:
                     file.write(f"Step: {step + 1}\n")
                     for branch in branches:
                         file.write(f"Branch: {branch}\n")
@@ -237,7 +244,7 @@ Location: {location}
                     file.write(f"Reward: {reward}\n")
                     file.write("====================================================================\n")
             if done:
-                with open("game_log.txt", "a") as file:
+                with open("game_log_navigation2_wg_pred.txt", "a") as file:
                     file.write(f"{observation}\n")
                 observation = "***".join(observation.split("***")[:-1])
                 state_key = f'''
@@ -249,7 +256,7 @@ Location: {location}
                 graph.add_state(observation, action, action_embedding, location, trying + 1, step + 2, state_embedding)
                 graph.add_insight("Game over", observation, location, state_embedding)
                 break
-        with open("game_log.txt", "a") as file:        
+        with open("game_log_navigation2_wg_pred.txt", "a") as file:        
             file.write("============================================================================================================================\n")
             file.write(f"{trying + 1} Trying\n")
             file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
