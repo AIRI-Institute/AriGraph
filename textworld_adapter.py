@@ -2,6 +2,7 @@ import textworld as tw
 import textworld.gym as tw_gym
 import networkx as nx
 import matplotlib.pyplot as plt
+import re
 class TextWorldWrapper:
 
     def __init__(self, gamefile):
@@ -19,7 +20,9 @@ class TextWorldWrapper:
         )
         self.score = 0.
         self.env = None
-        self.info = None
+        self.curr_info = None
+        self.curr_location = None
+        self.curr_obs = None
 
     def reset(self, new_gamefile=None):
         if new_gamefile is not None or self.env is None:
@@ -27,30 +30,37 @@ class TextWorldWrapper:
             self.env = tw_gym.make(env_id)
 
         obs, infos = self.env.reset()
-        self.info = infos
+        self._update(obs, infos)
         self.score = 0.
         infos['score'] = self.score
         return obs, infos
 
     def step(self, action):
         obs, new_score, done, infos = self.env.step(action)
+        self._update(obs, infos)
         reward = new_score - self.score
         self.score = new_score
-        self.info = infos
         infos['score'] = self.score
         return obs, reward, done, infos
 
     def get_inventory(self):
-        return self.info['inventory']
+        return self.curr_info['inventory']
+
+    def _update(self, obs, infos):
+        self.curr_info = infos
+        self.curr_obs = obs
+        loc_result = re.search(r'-= (\D+) =-', self.curr_obs)
+        if loc_result:
+            self.curr_location = loc_result.group(1)
 
     def get_player_location(self):
-        return self.info['location']
+        return self.curr_location
 
     def get_max_score(self):
-        return self.info['max_score']
+        return self.curr_info['max_score']
 
     def get_valid_actions(self):
-        return self.info['admissible_commands']
+        return self.curr_info['admissible_commands']
 
 
 def graph_from_facts(info, only_entities=False, verbose=False):
@@ -86,7 +96,7 @@ if __name__ == "__main__":
 
     try:
         env = TextWorldWrapper(
-            "game_data/cooking_games/tw-cooking-recipe2+take2+go1-bBPgiel3Fo8qSb6q.z8"
+            "benchmark/cooking/navigation/take1_go6/tw-cooking-recipe1+take1+go6-redEHVr6CmKYhrJg.z8"
         )
         done = False
         reward = 0
@@ -99,8 +109,9 @@ if __name__ == "__main__":
             #draw_graph(graph)
             print(f"============= STEP#{nb_moves} OBS =================")
             print(f"STEP #{nb_moves+1}")
-            print("Your current observation:\n", infos['feedback'])
 
+            print("Your current observation:\n", infos['feedback'])
+            print("Your Location:", env.get_player_location())
             print("\nYour inventory:\n", env.get_inventory())
             print(f'\nYour possible Actions:\n', infos["admissible_commands"])
             print()
