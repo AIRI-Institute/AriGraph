@@ -6,7 +6,7 @@ from InstructorEmbedding import INSTRUCTOR
 from scipy.spatial.distance import cosine
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-VPS_IP = "176.222.54.59"
+VPS_IP = "5.180.174.234"
 API_KEY = "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"
 
 class GPTagent:
@@ -33,7 +33,7 @@ Key points to remember:
                     {"role": "user", "content": prompt}]
 
         response = requests.post(
-            f"http://{VPS_IP}:8000/openai_api",
+            f"http://{VPS_IP}:8001/openai_api",
             json={"api_key": API_KEY, "messages": messages, "model_type": self.model}
         )
         resp = response.json()["response"]
@@ -333,41 +333,46 @@ and game consequences will be unexpected.
 # your plan must be another paragraph of text.
 
 # '''
+        
+# Please, based on given information give some reasoning about current situation. Reasoning must contain 
+# crucial information about player state, based on this reasoning will be perform an action in the game.
+# Please, ignore all information which is useless to make current decision. Please, DO NOT make a decision,
+# just collect crucial information for it.
+
+# After reasoning make plan at two or three steps forward and write them after reasoning. Your reasoning must be a paragraph of text,
+# your plan must be another paragraph of text.
+
+# '''
+#         response = self.generate(prompt)
+#         prompt = f'''
+# {response}
+# ####
+# Current state: Current observation: {observation} 
+# ####
 
         prompt = f'''
 Your knowledges about game: {true_graph}
 ####
-Previous actions: {observations} 
+Previous 2 states: {observations[-2:]} 
 ####
 Current observation: {observation} 
-####
-
-Please, based on given information give some reasoning about current situation. Reasoning must contain 
-crucial information about player state, based on this reasoning will be perform an action in the game.
-Please, ignore all information which is useless to make current decision. Please, DO NOT make a decision,
-just collect crucial information for it.
-
-After reasoning make plan at two or three steps forward and write them after reasoning. Your reasoning must be a paragraph of text,
-your plan must be another paragraph of text.
-
-'''
-        response = self.generate(prompt)
-        prompt = f'''
-{response}
-####
-Current state: Current observation: {observation} 
 ####
 Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
 ####
 
-Based on this information, choose an action to perform in the game. Your answer must contain ONLY action you chose without any descriptions.
+Based on this information, choose an action to perform in the game. Your answer must contain short reasoning about current situation
+and action you chose without any descriptions.
 Pay attention that if you mislead format of answer, action might be incorrect
 and game consequences will be unexpected.
-Action: '''
-        action = self.generate(prompt)
-        # action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
+
+Warning! Your answer must contain your reasoning about current situation and
+action you want to perform. Format of answer:
+Reasoning: your reasoning
+Chosen action: action'''
+        response = self.generate(prompt)
+        action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
         use_graph = action == "use graph" and allow_reflection
-        return action, use_graph, "Chosen action: " in response, response
+        return action, use_graph, "Chosen action: " in action, response.split("Reasoning: ")[-1].split("\n")[0]
     
     def choose_action_with_reflection(self, observations, observation, location, 
                             valid_actions, trying, step, 
@@ -533,6 +538,30 @@ Answer:
 '''
         return self.generate(prompt)
     
+    def get_action_ground_truth(self, start_summary, summary, triplets, valid_actions):
+        prompt = f'''
+Your knowledges about game: {summary}
+{triplets}
+####
+Current observation: {start_summary} 
+####
+Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
+####
+
+Based on this information, choose an action to perform in the game. Your answer must contain short reasoning about current situation
+and action you chose without any descriptions.
+Pay attention that if you mislead format of answer, action might be incorrect
+and game consequences will be unexpected.
+
+Warning! Your answer must contain your reasoning about current situation and
+action you want to perform. Format of answer:
+Reasoning: your reasoning
+Chosen action: action'''
+        response = self.generate(prompt)
+        action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
+        use_graph = False
+        return action, use_graph, "Chosen action: " in action, response.split("Reasoning: ")[-1].split("\n")[0]
+    
     def select_branch(self, branches, observations, observation, location, trying, step, associations, n):
         possible_variants = [
             f'''Actions: {branch["actions"]}
@@ -570,6 +599,42 @@ Chosen number:
             print("BRANCH WAS CHOSEN RANDOMLY!!!")
             return np.random.choice(range(len(branches)))
         
+    def get_graph_items(self, graph, items, summary):
+        new_items, triplets = [], []
+        for edge in graph.edges(data = True):
+            if self.contain(edge[0], items, False):
+                new_items.append(edge[1])
+            elif self.contain(edge[1], items, False):
+                new_items.append(edge[0])
+        
+        prompt = f'''
+Summary: {summary}
+####
+Candidates: {new_items}
+####
+Please, based on given information clarify summary and choose needful items from candidates. If candidates contain crucial information, add it to summary.
+Selected items will be used to choose action in the game/
+Please, give answer in following format:
+Summary: new generated summary
+Items: [item_1, item_2, ...]
+'''
+        response = self.generate(prompt)
+        summary = response.split("Summary: ")[-1].split("Items: ")[0]
+        new_items = response.split("Items: ")[-1].strip("[]").split(",")
+        for i in range(len(new_items)):
+            new_items[i] = new_items[i].strip(" \n")
+        
+        for edge in graph.edges(data = True):
+            if self.contain(edge[0], new_items, False):
+                triplets.append(f'''\n{edge[0]} {edge[2]["label"]} {edge[1]}''')
+            elif self.contain(edge[1], new_items, False):
+                triplets.append(f'''\n{edge[0]} {edge[2]["label"]} {edge[1]}''')
+        
+        return summary, new_items, triplets
+    
+    def contain(self, item, items, is_state):
+        return np.any([self.is_equal(item, temp_item, 0.07, is_state) for temp_item in items])
+        
         
 class MixtralAgent(GPTagent):
     def __init__(self, model = "gpt-4-1106-preview", system_prompt = None):
@@ -590,4 +655,8 @@ class MixtralAgent(GPTagent):
         inputs = self.tokenizer.encode(prompt, return_tensors="pt", add_special_tokens = False).to(self.device)
         outputs = self.mixtral.generate(inputs, max_new_tokens=1024, do_sample=True)
         return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
+    
+        
+
         

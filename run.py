@@ -10,6 +10,7 @@ def install(package):
 # install("transformers==4.31.0")
 
 from pipeline import pipeline, bigraph_pipeline, walkthrough_pipeline
+from pipeline_reserve import bigraph_pipeline as bigraph_reserve
 
 with open('KG/config.yaml') as f:
     config = yaml.safe_load(f)
@@ -20,3 +21,5 @@ if config["pipeline"] == "bigraph":
     bigraph_pipeline(config)
 if config["pipeline"] == "walkthrough":
     walkthrough_pipeline(config)
+if config["pipeline"] == "reserve":
+    bigraph_reserve(config)

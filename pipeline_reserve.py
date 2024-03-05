@@ -16,6 +16,15 @@ def reflect(graph, agent, items, n_iters = 15):
         items = [graph.get_item(item, agent.get_embedding_local(item))["name"] for item in items if graph.get_item(item, agent.get_embedding_local(item)) is not None]
     return summary
 
+def reflect_ground_truth(graph, agent, items, summary, n_iters = 5):
+    triplets = []
+    for i in range(n_iters):
+        summary, items, triplets_ = agent.get_graph_items(graph, items, summary)
+        triplets += triplets_
+        if len(items) == 0:
+            break
+    return summary, triplets
+
 def planning(graph, agent, n_branches = 3, depth = 10):
     branches = []
     for it in range(n_branches):
@@ -110,13 +119,13 @@ def pipeline(config):
 
 def bigraph_pipeline(config):
     graph_name = "Navigation2"
-    load = False
+    load = True
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent(model = "gpt-4-0125-preview")
     env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
     n_trying = 3
-    start = 1
-    n_steps = 70
+    start = 9
+    n_steps = 50
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
     observations = []
@@ -132,6 +141,7 @@ def bigraph_pipeline(config):
         selected_branch, branches = 0, [{"actions": [], "consequences": []}]
         reflection = {"insight": "Still nothing", "trying": trying + 1}
         for step in range(n_steps):
+            observation = observation.split("$$$")[-1]
             old_obs = observation
             location = env.get_player_location().name if env.get_player_location() is not None else "Room"
             valid_actions = env.get_valid_actions()
@@ -152,15 +162,25 @@ Location: {location}
 
             # filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
             # associations, experienced_actions, n = graph.get_associations(filtered_items)
+            items = [list(item.keys())[0] for item in remembered_items]
             associations, experienced_actions, n = 1, 1, 1
-            true_graph = get_text_graph(graph_from_facts(env.info))
+            G = graph_from_facts(env.info)
+            start_summary = f'''Previous 2 observations: {observations[-2:]} 
+####
+Current observation: {observation}
+####
+'''
+            summary, triplets = reflect_ground_truth(G, agent, items, start_summary, n_iters = 5)
+            action, use_graph, is_random, insight = agent.get_action_ground_truth(start_summary, summary, triplets, valid_actions)
+
+            # true_graph = get_text_graph(G)
+
             # breakpoint()
-            observation = observation.split("$$$")[-1]
-            action, use_graph, is_random, insight = agent.choose_action(true_graph, observations, observation, location, 
-                            valid_actions, trying, step, reflection,
-                            associations, experienced_actions, steps_from_reflection > -1, n, inventory)
-            use_graph = use_graph or steps_from_reflection > 10
-            use_graph = False
+            # action, use_graph, is_random, insight = agent.choose_action(true_graph, observations, observation, location, 
+            #                 valid_actions, trying, step, reflection,
+            #                 associations, experienced_actions, steps_from_reflection > -1, n, inventory)
+            # use_graph = use_graph or steps_from_reflection > 10
+            # use_graph = False
             # with open("game_log.txt", "a") as file:
             #     file.write(action + "\n")
             # if use_graph:
@@ -222,7 +242,7 @@ Location: {location}
             rewards.append(reward)
             scores.append(info['score'])
             if step < print_steps:
-                with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:
+                with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:
                     file.write(f"Step: {step + 1}\n")
                     for branch in branches:
                         file.write(f"Branch: {branch}\n")
@@ -244,7 +264,7 @@ Location: {location}
                     file.write(f"Reward: {reward}\n")
                     file.write("====================================================================\n")
             if done:
-                with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:
+                with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:
                     file.write(f"{observation}\n")
                 observation = "***".join(observation.split("***")[:-1])
                 state_key = f'''
@@ -256,7 +276,7 @@ Location: {location}
                 graph.add_state(observation, action, action_embedding, location, trying + 1, step + 2, state_embedding)
                 graph.add_insight("Game over", observation, location, state_embedding)
                 break
-        with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:        
+        with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:        
             file.write("============================================================================================================================\n")
             file.write(f"{trying + 1} Trying\n")
             file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
