@@ -5,7 +5,7 @@ from copy import deepcopy
 from scipy.spatial.distance import cosine
 
 class KnowledgeSemiBiGraph:
-    def __init__(self, path, load = False, embedding_treshold = 0.07, state_embeddin_treshold = 0.02, steps_between_tryings = 250):
+    def __init__(self, path, load = False, embedding_treshold = 0.02, state_embeddin_treshold = 0.02, steps_between_tryings = 250):
         os.makedirs(path, exist_ok=True)
         self.path, self.embedding_treshold, self.state_embeddin_treshold = path, embedding_treshold, state_embeddin_treshold
         self.items, self.steps_between_tryings = {}, steps_between_tryings

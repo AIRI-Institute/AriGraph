@@ -1,10 +1,68 @@
-# from InstructorEmbedding import INSTRUCTOR
-# from scipy.spatial.distance import cosine
-# from jericho import FrotzEnv
+from InstructorEmbedding import INSTRUCTOR
+from scipy.spatial.distance import cosine
+from jericho import FrotzEnv
+import json
+from tqdm.auto import tqdm
 
-# from agent_detective import GPTagent
-# from graph import KnowledgeGraph
-# from semi_bigraph import KnowledgeSemiBiGraph
+from agent_detective import GPTagent
+from graph import KnowledgeGraph
+from semi_bigraph import KnowledgeSemiBiGraph
+from textworld_adapter import TextWorldWrapper, graph_from_facts, get_text_graph, draw_graph
+
+paths = {
+    "benchmark/recipe3_cook_cut/tw-cooking-recipe3+take3+cook+cut+drop+go1-7yGrcV9pTE8DF75n.z8": "Recipe_3_cook_cut",
+    "benchmark/take2_go9/tw-cooking-recipe2+take2+go9-Q9nDu630U5j3tqBG.z8": "Take2_go9",
+    "benchmark/navigation4/navigation4.z8": "Navigation4",
+    "benchmark/navigation2/navigation2.z8": "Navigation2",
+}
+# agent = GPTagent(model = "gpt-4-0125-preview")
+# query = f'''
+# Monday: You at a large hall. There is doors to north, east and west. You see iron chest, wooden chest, cat and a closet. You examine the iron chest. There is a
+# combination lock. After several attemptions, you enter '4321', and a chest become opened. Here you see three shelfs. You open third shelf and find a prize. Congratulations!
+# ####
+# Tuesday: You at a large hall. There is doors to north, east and west. You see iron chest, wooden chest, cat and a closet. You examine the closet. There is a
+# combination lock. After several attemptions, you enter '4321', and a closet become opened. Here you see three shelfs. You open third shelf and find a prize. Congratulations!
+# ####
+# Wednesday: You at a large hall. There is doors to north, east and west. You see iron chest, wooden chest, cat and a closet. You examine the closet. There is a
+# combination lock. After several attemptions, you enter '4321', and a closet become opened. Here you see three shelfs. You open third shelf and find nothing. 
+# ####
+# Thursday: You at a large hall. There is doors to north, east and west. You see iron chest, wooden chest, cat and a closet. You say meow to cat. Cat say moew too.
+# ####
+# Valid actions (just recommendtion): ['examine iron chest', 'examine wooden chest', 'examine closet', 'north', 'east', 'west', 'say meow to cat', 'follow cat']
+# ####
+# Please, based on this information choose action to perform in the game. 
+# Action:'''
+# for i in range(10):
+#     print(agent.generate(query, t = 1))
+
+# for game_path, graph_path in paths.items(): 
+#     env = TextWorldWrapper(game_path)
+#     observation, info = env.reset()
+#     # print(env.walkthrough())
+#     # breakpoint()
+#     graph = KnowledgeSemiBiGraph(graph_path, True)
+#     G = graph_from_facts(info)
+    # with open(graph_path + "/items.json", "r") as file:
+    #     items = json.load(file)
+    # print(graph_path, len(items))
+    # draw_graph(G, game_path.split("/")[1] + ".pdf")
+
+
+#     recall = 0
+#     # for node in tqdm(G.nodes):
+#     #     if agent.contain(node, list(items.keys()), False):
+#     #         recall += 1
+#     # print(graph_path, recall / len(G.nodes))
+#     for edge in tqdm(G.edges):
+#         embedding_1, embedding_2 = agent.get_embedding_local(edge[0]), agent.get_embedding_local(edge[1])
+#         item_1, item_2 = graph.get_item(edge[0], embedding_1), graph.get_item(edge[1], embedding_2)
+#         if item_1 is None or item_2 is None:
+#             continue
+#         for cand in item_1["factological_associations_items"]:
+#             if cand == item_2["name"]:
+#                 recall += 1
+#                 break
+#     print(graph_path, recall / len(G.edges))
 
 
 # def planning(graph, agent, n_branches = 3, depth = 10):
@@ -60,29 +118,20 @@
 #         branches.append(branch)
 #     return branches
 
-# # instructor = INSTRUCTOR('hkunlp/instructor-large')
+instructor = INSTRUCTOR('hkunlp/instructor-large')
 
-# # text = '''Location: House
-# # Observation: 
+text = '''Room A'''
 
-# # Taken.
+# instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
+instruction = '''Represent the entiny in the knowledge graph'''
+embeddings = instructor.encode([[instruction, text]])
+embedding_1 =  list(map(float, list(embeddings[0])))
 
-# # Inventory: ['paper note']'''
+text = '''Room B'''
+embeddings = instructor.encode([[instruction, text]])
+embedding_2 =  list(map(float, list(embeddings[0])))
 
-# # instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
-# # embeddings = instructor.encode([[instruction, text]])
-# # embedding_1 =  list(map(float, list(embeddings[0])))
-
-# # text = '''Location: Hallway
-# # Observation: 
-
-# # Taken.
-
-# # Inventory: ['paper note']'''
-# # embeddings = instructor.encode([[instruction, text]])
-# # embedding_2 =  list(map(float, list(embeddings[0])))
-
-# # print(cosine(embedding_1, embedding_2))
+print(cosine(embedding_1, embedding_2))
 
 # # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
 # # print(env.get_dictionary())
@@ -192,24 +241,24 @@
 #     print("$$$$$$$$$$$$$$$$$$$$$$$$")
 #     prev_action = action
     
-import textworld.gym
+# import textworld.gym
 
-# Register a text-based game as a new environment.
-env_id = textworld.gym.register_game("z-machine-games-master/jericho-game-suite/anchor.z8",
-                                     max_episode_steps=50)
+# # Register a text-based game as a new environment.
+# env_id = textworld.gym.register_game("z-machine-games-master/jericho-game-suite/anchor.z8",
+#                                      max_episode_steps=50)
 
-env = textworld.gym.make(env_id)  # Start the environment.
+# env = textworld.gym.make(env_id)  # Start the environment.
 
-obs, infos = env.reset()  # Start new episode.
-env.render()
+# obs, infos = env.reset()  # Start new episode.
+# env.render()
 
-score, moves, done = 0, 0, False
-while not done:
-    command = input("> ")
-    obs, score, done, infos = env.step(command)
-    env.render()
-    moves += 1
+# score, moves, done = 0, 0, False
+# while not done:
+#     command = input("> ")
+#     obs, score, done, infos = env.step(command)
+#     env.render()
+#     moves += 1
 
-env.close()
-print("moves: {}; score: {}".format(moves, score))
+# env.close()
+# print("moves: {}; score: {}".format(moves, score))
 

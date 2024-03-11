@@ -108,12 +108,12 @@ def pipeline(config):
         print(f"Rewards: {rewards}")
         print("============================================================================================================================")
 
-def bigraph_pipeline(config):
-    graph_name = "Navigation2"
+def bigraph_pipeline(config, graph_name, game_path, log_file):
+    graph_name = graph_name
     load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent(model = "gpt-4-0125-preview")
-    env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
+    env = TextWorldWrapper(game_path)
     n_trying = 3
     start = 1
     n_steps = 70
@@ -133,22 +133,22 @@ def bigraph_pipeline(config):
         reflection = {"insight": "Still nothing", "trying": trying + 1}
         for step in range(n_steps):
             old_obs = observation
-            location = env.get_player_location().name if env.get_player_location() is not None else "Room"
+            location = env.get_player_location() if env.get_player_location() is not None else "Room"
             valid_actions = env.get_valid_actions()
 
-            observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
-                            valid_actions, trying + 1, step + 1)
-            state_key = f'''
-Observation: {observation}
-Location: {location}
-'''         
-            state_embedding = agent.get_embedding_local(state_key, True)
-            action_embedding = agent.get_embedding_local(action)
-            graph.add_state(observation, action, action_embedding, location, trying + 1, step + 1, state_embedding)
-            graph.observe_items(observed_items, observation, location, state_embedding)
-            remembered_items.append({action: action_embedding})
-            graph.remember_items(remembered_items, observation, location, state_embedding)
-            graph.save()
+#             observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
+#                             valid_actions, trying + 1, step + 1)
+#             state_key = f'''
+# Observation: {observation}
+# Location: {location}
+# '''         
+#             state_embedding = agent.get_embedding_local(state_key, True)
+#             action_embedding = agent.get_embedding_local(action)
+#             graph.add_state(observation, action, action_embedding, location, trying + 1, step + 1, state_embedding)
+#             graph.observe_items(observed_items, observation, location, state_embedding)
+#             remembered_items.append({action: action_embedding})
+#             graph.remember_items(remembered_items, observation, location, state_embedding)
+#             graph.save()
 
             # filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
             # associations, experienced_actions, n = graph.get_associations(filtered_items)
@@ -222,7 +222,7 @@ Location: {location}
             rewards.append(reward)
             scores.append(info['score'])
             if step < print_steps:
-                with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:
+                with open(log_file, "a") as file:
                     file.write(f"Step: {step + 1}\n")
                     for branch in branches:
                         file.write(f"Branch: {branch}\n")
@@ -230,11 +230,11 @@ Location: {location}
                     file.write(f"Location: {location}\n")
                     file.write(f"Observation: {old_obs}\n")
                     # file.write(f"Inventory: {inventory}\n")
-                    temp = [list(item.keys())[0] for item in observed_items]
-                    file.write(f"Observed items: {temp}\n")
+                    # temp = [list(item.keys())[0] for item in observed_items]
+                    # file.write(f"Observed items: {temp}\n")
                     file.write(f"insight: {insight}\n")
-                    temp = [list(item.keys())[0] for item in remembered_items]
-                    file.write(f"Remembered items: {temp}\n")
+                    # temp = [list(item.keys())[0] for item in remembered_items]
+                    # file.write(f"Remembered items: {temp}\n")
                     file.write(f"associations: {associations}\n")
                     file.write(f"Experienced actions: {experienced_actions}\n")
                     # file.write(f"Use graph: {use_graph}\n")
@@ -244,7 +244,7 @@ Location: {location}
                     file.write(f"Reward: {reward}\n")
                     file.write("====================================================================\n")
             if done:
-                with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:
+                with open(log_file, "a") as file:
                     file.write(f"{observation}\n")
                 observation = "***".join(observation.split("***")[:-1])
                 state_key = f'''
@@ -256,7 +256,7 @@ Location: {location}
                 graph.add_state(observation, action, action_embedding, location, trying + 1, step + 2, state_embedding)
                 graph.add_insight("Game over", observation, location, state_embedding)
                 break
-        with open("game_log_navigation2_wg_pred_direct_choose.txt", "a") as file:        
+        with open(log_file, "a") as file:        
             file.write("============================================================================================================================\n")
             file.write(f"{trying + 1} Trying\n")
             file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
@@ -267,10 +267,10 @@ Location: {location}
 
 
 def walkthrough_pipeline(config):
-    graph_name = "Detective_bigraph_walkthrough_gpt"
-    load = False
+    graph_name = "Detective_bigraph_walkthrough"
+    load = True
     graph = KnowledgeSemiBiGraph(graph_name, load)
-    agent = GPTagent()
+    agent = GPTagent(model = "gpt-4-0125-preview")
     env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
     walkthrough = env.get_walkthrough()
     start = 1
@@ -296,7 +296,7 @@ def walkthrough_pipeline(config):
         valid_actions = env.get_valid_actions()
 
         observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
-                        valid_actions, 8, step + 1)
+                        valid_actions, 4, step + 1)
         # observed_items, remembered_items = [{"table": [1]}], [{"table": [1]}]
         state_key = f'''
 Observation: {observation}
@@ -304,7 +304,7 @@ Location: {location}
 '''         
         state_embedding = agent.get_embedding_local(state_key, True)
         action_embedding = agent.get_embedding_local(action)
-        graph.add_state(observation, prev_action, action_embedding, location, 8, step + 1, state_embedding)
+        graph.add_state(observation, prev_action, action_embedding, location, 4, step + 1, state_embedding)
         graph.observe_items(observed_items, observation, location, state_embedding)
         remembered_items.append({action: action_embedding})
         graph.remember_items(remembered_items, observation, location, state_embedding)
@@ -379,12 +379,12 @@ Location: {location}
 '''    
             state_embedding = agent.get_embedding_local(state_key, True)
             action_embedding = agent.get_embedding_local(action)
-            graph.add_state(observation, action, action_embedding, location, 8, step + 2, state_embedding)
+            graph.add_state(observation, action, action_embedding, location, 4, step + 2, state_embedding)
             graph.add_insight("Game over", observation, location, state_embedding)
             break
     with open("walkthrough_log.txt", "a") as file:        
         file.write("============================================================================================================================\n")
-        file.write(f"{8} Trying\n")
+        file.write(f"{4} Trying\n")
         file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
         file.write(f"Scores: {scores}\n")
         file.write(f"Rewards: {rewards}\n")

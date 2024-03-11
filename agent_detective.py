@@ -6,7 +6,10 @@ from InstructorEmbedding import INSTRUCTOR
 from scipy.spatial.distance import cosine
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-VPS_IP = "5.180.174.234"
+VPS_IP = "146.0.73.157"
+port = 8000
+# VPS_IP = "176.222.54.59"
+# port = 8000
 API_KEY = "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"
 
 class GPTagent:
@@ -14,7 +17,7 @@ class GPTagent:
         self.system_prompt = '''
         Your objective is to navigate through the interactive world of a text-based game. 
         Remember, the game involves navigating through various locations, 
-        interacting with objects, and understanding the consequences of your actions. 
+        interacting with objects, and understanding the consequences of your actions. Try to explore world and collect treasures and clues.
 
 Key points to remember:
 1. Pay attention to the descriptions given by the game. They contain crucial information for solving puzzles and moving forward.
@@ -28,13 +31,13 @@ Key points to remember:
         self.model = model
         self.instructor = INSTRUCTOR('hkunlp/instructor-large')
         
-    def generate(self, prompt):
+    def generate(self, prompt, t = 1):
         messages = [{"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}]
 
         response = requests.post(
-            f"http://{VPS_IP}:8001/openai_api",
-            json={"api_key": API_KEY, "messages": messages, "model_type": self.model}
+            f"http://{VPS_IP}:{port}/openai_api",
+            json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t}
         )
         resp = response.json()["response"]
         sleep(8)
@@ -98,10 +101,10 @@ Key points to remember:
         embedding_1, embedding_2 = self.get_embedding_local(text_1, is_state), self.get_embedding_local(text_2, is_state)
         # print(cosine(embedding_1, embedding_2))
         # breakpoint()
-        if cosine(embedding_1, embedding_2) > threshold:
-            print("="*55)
-            print(text_1, "\n\n\n\n", text_2)
-            print("="*55)
+        # if cosine(embedding_1, embedding_2) > threshold:
+        #     print("="*55)
+        #     print(text_1, "\n\n\n\n", text_2)
+        #     print("="*55)
         return cosine(embedding_1, embedding_2) < threshold
 
     def get_embedding_local(self, text, is_state = False):
@@ -538,10 +541,12 @@ Answer:
 '''
         return self.generate(prompt)
     
-    def get_action_ground_truth(self, start_summary, summary, triplets, valid_actions):
+    def get_action_ground_truth(self, start_summary, summary, triplets, valid_actions, observations):
         prompt = f'''
 Your knowledges about game: {summary}
 {triplets}
+####
+Previous 2 states: {observations[-2:]}
 ####
 Current observation: {start_summary} 
 ####

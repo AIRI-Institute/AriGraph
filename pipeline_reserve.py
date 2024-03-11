@@ -117,15 +117,15 @@ def pipeline(config):
         print(f"Rewards: {rewards}")
         print("============================================================================================================================")
 
-def bigraph_pipeline(config):
-    graph_name = "Navigation2"
-    load = True
+def bigraph_pipeline(config, graph_name, game_path, log_file):
+    graph_name = graph_name
+    load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent(model = "gpt-4-0125-preview")
-    env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
+    env = TextWorldWrapper(game_path)
     n_trying = 3
-    start = 9
-    n_steps = 50
+    start = 1
+    n_steps = 70
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
     observations = []
@@ -143,7 +143,7 @@ def bigraph_pipeline(config):
         for step in range(n_steps):
             observation = observation.split("$$$")[-1]
             old_obs = observation
-            location = env.get_player_location().name if env.get_player_location() is not None else "Room"
+            location = env.get_player_location() if env.get_player_location() is not None else "Room"
             valid_actions = env.get_valid_actions()
 
             observed_items, remembered_items = agent.bigraph_processing(observations, observation, location, 
@@ -162,7 +162,7 @@ Location: {location}
 
             # filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
             # associations, experienced_actions, n = graph.get_associations(filtered_items)
-            items = [list(item.keys())[0] for item in remembered_items]
+            items = [list(item.keys())[0] for item in observed_items + remembered_items]
             associations, experienced_actions, n = 1, 1, 1
             G = graph_from_facts(env.info)
             start_summary = f'''Previous 2 observations: {observations[-2:]} 
@@ -170,8 +170,8 @@ Location: {location}
 Current observation: {observation}
 ####
 '''
-            summary, triplets = reflect_ground_truth(G, agent, items, start_summary, n_iters = 5)
-            action, use_graph, is_random, insight = agent.get_action_ground_truth(start_summary, summary, triplets, valid_actions)
+            summary, triplets = reflect_ground_truth(G, agent, items, start_summary, n_iters = 3)
+            action, use_graph, is_random, insight = agent.get_action_ground_truth(start_summary, summary, triplets, valid_actions, observations)
 
             # true_graph = get_text_graph(G)
 
@@ -242,7 +242,7 @@ Current observation: {observation}
             rewards.append(reward)
             scores.append(info['score'])
             if step < print_steps:
-                with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:
+                with open(log_file, "a") as file:
                     file.write(f"Step: {step + 1}\n")
                     for branch in branches:
                         file.write(f"Branch: {branch}\n")
@@ -264,7 +264,7 @@ Current observation: {observation}
                     file.write(f"Reward: {reward}\n")
                     file.write("====================================================================\n")
             if done:
-                with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:
+                with open(log_file, "a") as file:
                     file.write(f"{observation}\n")
                 observation = "***".join(observation.split("***")[:-1])
                 state_key = f'''
@@ -276,7 +276,7 @@ Location: {location}
                 graph.add_state(observation, action, action_embedding, location, trying + 1, step + 2, state_embedding)
                 graph.add_insight("Game over", observation, location, state_embedding)
                 break
-        with open("game_log_navigation2_wg_pred_agent.txt", "a") as file:        
+        with open(log_file, "a") as file:        
             file.write("============================================================================================================================\n")
             file.write(f"{trying + 1} Trying\n")
             file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
