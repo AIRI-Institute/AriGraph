@@ -3,7 +3,7 @@ import textworld.gym as tw_gym
 import networkx as nx
 import matplotlib.pyplot as plt
 import re
-import re
+
 class TextWorldWrapper:
 
     def __init__(self, gamefile):
@@ -25,9 +25,6 @@ class TextWorldWrapper:
         self.curr_info = None
         self.curr_location = None
         self.curr_obs = None
-        self.curr_info = None
-        self.curr_location = None
-        self.curr_obs = None
 
     def reset(self, new_gamefile=None):
         if new_gamefile is not None or self.env is None:
@@ -36,14 +33,12 @@ class TextWorldWrapper:
 
         obs, infos = self.env.reset()
         self._update(obs, infos)
-        self._update(obs, infos)
         self.score = 0.
         infos['score'] = self.score
         return obs, infos
 
     def step(self, action):
         obs, new_score, done, infos = self.env.step(action)
-        self._update(obs, infos)
         self._update(obs, infos)
         reward = new_score - self.score
         self.score = new_score
