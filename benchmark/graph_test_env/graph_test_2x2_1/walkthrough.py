@@ -1,0 +1,1 @@
+walkthrough = ['take book', 'go east', 'put book on the shelf', 'go west', 'take apple', 'go south', 'examine refrigerator', 'open refrigerator', 'put apple in refrigerator', 'take icecream', 'eat icecream']
