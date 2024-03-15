@@ -208,15 +208,12 @@ Extracted data:
         triplets = self.process_triplets(raw_triplets)
         return triplets
 
-    def bigraph_processing(self, observations, observation, location, 
-                            valid_actions, trying, step):
-        prompt = f'''
-Previous 2 observations: {observations[-2:]} 
+    def bigraph_processing(self, observations, observation):
+        prompt = f'''####
+Previous observations: {observations[-1:]} 
+####
 Current observation: {observation}
-Location: {location} 
-Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
-Number of current attempt: {trying}
-Step number on the current attempt: {step}
+####
 
 Please, based on given information choose things that relative to current situation. This things may be items or tools, locations, surrounding stuff,
 creatures and etc. This things also may be your thoughts about current situation. Things must be named shortly (no longer than 3 words).
@@ -441,14 +438,12 @@ Relevant things: [thing_1, thing_2, ...]
         items = response.split("Relevant things: ")[1].strip("[]").split(",") if "Relevant things: " in response else []
         return summary, items
 
-    def choose_action_vanilla(self, observations, observation, inventory, location, 
-                            valid_actions):
-        prompt = f'''
-Previous 4 observations: {observations[-4:]} 
+    def choose_action_vanilla(self, observations, observation):
+        prompt = f'''####
+Previous observations: {observations} 
+####
 Current observation: {observation}
-Inventory: {inventory} 
-Location: {location} 
-Recommended actions (may not contain all useful actions, it is a recommendation): {valid_actions} 
+####
 
 Please, based on given information give some reasoning about current situation and choose an action to perform in the game. 
 Remember that action must be valid for Detective game, otherwise game consequences will be unexpected.
@@ -460,7 +455,7 @@ Reasoning: your reasoning
 Chosen action: action
 '''
         response = self.generate(prompt)
-        action = response.split("Chosen action: ")[-1] if "Chosen action: " in response else np.random.choice(valid_actions)
+        action = response.split("Chosen action: ")[-1]
         return action
     
     

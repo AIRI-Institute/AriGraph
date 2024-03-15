@@ -68,8 +68,9 @@ class TextWorldWrapper:
 
 
 def graph_from_facts(info, only_entities=False, verbose=False):
-    G = nx.Graph()
+    G = nx.DiGraph()
     objects = info['entities']
+    # print(info['facts'])
     for f in info['facts']:
         if len(f.arguments) != 2:
             continue

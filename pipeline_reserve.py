@@ -117,6 +117,55 @@ def pipeline(config):
         print(f"Rewards: {rewards}")
         print("============================================================================================================================")
 
+def vanilla_pipeline(config, graph_name, game_path, log_file):
+    agent = GPTagent(model = "gpt-4-0125-preview")
+    env = TextWorldWrapper(game_path)
+    n_trying = 3
+    start = 1
+    n_steps = 50
+    print_steps = n_steps
+    observations = []
+    inventory = []
+    for trying in range(start - 1, start - 1 + n_trying):
+        observation, info = env.reset()
+        done = False
+        rewards, scores = [], []
+        action = "start"
+        for step in range(n_steps):
+            observation = observation.split("$$$")[-1]
+            old_obs = observation
+            location = env.get_player_location() if env.get_player_location() is not None else "Room"
+            valid_actions = env.get_valid_actions()
+            action = agent.choose_action_vanilla(observations, observation)
+            observation, reward, done, info = env.step(action)
+            inventory = [item.name for item in env.get_inventory()] if isinstance(env.get_inventory(), list) else env.get_inventory()
+            observation += f"\nInventory: {inventory}"
+            valid_actions = env.get_valid_actions()
+            observation += f"\nValid actions (just recommendation): {valid_actions}"
+            observation += f"\nAction that led to this: {action}"
+
+            rewards.append(reward)
+            scores.append(info['score'])
+            if step < print_steps:
+                with open(log_file, "a") as file:
+                    file.write(f"Step: {step + 1}\n")
+                    file.write(f"Observation: {old_obs}\n")
+                    file.write(f"Chosen action: {action}\n")
+                    file.write(f"Reward: {reward}\n")
+                    file.write("====================================================================\n")
+            if done:
+                with open(log_file, "a") as file:
+                    file.write(f"{observation}\n")
+                break
+        with open(log_file, "a") as file:        
+            file.write("============================================================================================================================\n")
+            file.write(f"{trying + 1} Trying\n")
+            file.write(f"Scored {info['score']} out of {env.get_max_score()}, total steps: {len(scores)}\n")
+            file.write(f"Scores: {scores}\n")
+            file.write(f"Rewards: {rewards}\n")
+            file.write("============================================================================================================================\n")
+            file.write("\n\n\n\n\n\n\n\n")
+
 def bigraph_pipeline(config, graph_name, game_path, log_file):
     graph_name = graph_name
     load = False

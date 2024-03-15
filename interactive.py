@@ -2,12 +2,75 @@ from InstructorEmbedding import INSTRUCTOR
 from scipy.spatial.distance import cosine
 from jericho import FrotzEnv
 import json
+import numpy as np
+from copy import deepcopy
 from tqdm.auto import tqdm
 
 from agent_detective import GPTagent
 from graph import KnowledgeGraph
 from semi_bigraph import KnowledgeSemiBiGraph
 from textworld_adapter import TextWorldWrapper, graph_from_facts, get_text_graph, draw_graph
+from triplet_graph import TripletGraph
+
+def remove_equals(graph):
+    graph_copy = deepcopy(graph)
+    for triplet in graph_copy:
+        if graph.count(triplet) > 1:
+            graph.remove(triplet)
+    return graph      
+
+def process_triplets(raw_triplets):
+    raw_triplets = raw_triplets.split(";")
+    triplets = []
+    for triplet in raw_triplets:
+        if len(triplet.split(",")) > 3:
+            continue
+        elif len(triplet.split(",")) < 3:
+            continue
+        else:
+            subj, relation, obj = triplet.split(",")
+            subj, relation, obj = subj.strip(' \n"'), relation.strip(' \n"'), obj.strip(' \n"')
+            if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
+                continue
+            triplets.append([subj, relation, obj])
+        
+    return triplets
+
+def parse_triplets(text):
+    text = text.split("[[")[-1]
+    text = text.replace("[", "")
+    text = text.strip("]")
+    triplets = text.split("],")
+    parsed_triplets = []
+    for triplet in triplets:
+        parsed_triplet = triplet.split(",")
+        if len(parsed_triplet) != 3:
+            continue
+        subj, rel, obj = parsed_triplet[0].strip(''' '"\n'''), parsed_triplet[1].strip(''' '"\n'''), parsed_triplet[2].strip(''' '"\n''')
+        parsed_triplets.append([subj, obj, {"label": rel}])
+    return parsed_triplets
+
+def parse_triplets_removing(text):
+    text = text.split("[[")[-1]
+    text = text.replace("[", "")
+    text = text.strip("]")
+    pairs = text.split("],")
+    parsed_triplets = []
+    for pair in pairs:
+        splitted_pair = pair.split("->")
+        if len(splitted_pair) != 2:
+            continue
+        first_triplet = splitted_pair[0].split(",")
+        if len(first_triplet) != 3:
+            continue
+        subj, rel, obj = first_triplet[0].strip(''' '"\n'''), first_triplet[1].strip(''' '"\n'''), first_triplet[2].strip(''' '"\n''')
+        parsed_triplets.append([subj, obj, {"label": rel}])
+    return parsed_triplets
+
+def log(text):
+    print(text)
+    with open("interactive_logs_replacing_filter_subgraph_withoutLoc.txt", "a") as file:
+        file.write(text + "\n")
 
 paths = {
     "benchmark/recipe3_cook_cut/tw-cooking-recipe3+take3+cook+cut+drop+go1-7yGrcV9pTE8DF75n.z8": "Recipe_3_cook_cut",
@@ -15,7 +78,268 @@ paths = {
     "benchmark/navigation4/navigation4.z8": "Navigation4",
     "benchmark/navigation2/navigation2.z8": "Navigation2",
 }
-# agent = GPTagent(model = "gpt-4-0125-preview")
+
+Paths = [
+    "benchmark/recipe3_cook_cut/tw-cooking-recipe3+take3+cook+cut+drop+go1-7yGrcV9pTE8DF75n.z8",
+    "benchmark/take2_go9/tw-cooking-recipe2+take2+go9-Q9nDu630U5j3tqBG.z8",
+    # "benchmark/navigation4/navigation4.z8",
+    # "benchmark/navigation2/navigation2.z8",
+    "benchmark/take2_go12/tw-cooking-recipe2+take2+go12-Q9nDu630U5j3tqBG.z8",
+    "benchmark/recipe5_cook_cut/tw-cooking-recipe5+take5+cook+cut+drop+go1-7yGrcV9pTE8DF75n.z8",
+]
+# for path in Paths:
+#     print(path)
+#     env = TextWorldWrapper(path)
+#     env.reset()
+#     print(env.walkthrough())
+#     print("=====================")
+agent = GPTagent(model = "gpt-4-0125-preview")
+# env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
+env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
+agent.system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
+prompt_extraction = '''## 1. Overview
+Your task is to extract information from game observations in structured formats to build a knowledge graph.
+- **Nodes** represent entities and concepts. They are akin to Wikipedia nodes.
+- The aim is to achieve simplicity and clarity in the knowledge graph, making it useful for you in the future.
+- Use the following triplet format for extracted data: "triplet1; triplet2; ...", more detailed - "subject1, relation1, object1; subject2, relation2, object2; ...", where a triplet is "subject1, relation1, object1" or "subject2, relation2, object2".
+- For example, from the text "Albert Einstein, born in Germany, is known for developing the theory of relativity" you should extract the following data: "Albert Einstein, country, Germany; Albert Einstein, developed, Theory of relativity".
+- Both subject and object in triplets should be akin to Wikipedia nodes. Object can be a date or number, objects should not contain citations or sentences.
+- Instead of generating complex objects, divide triplet with complex object into two triplets with more precise objects. For example, the text "John Doe is a developer at Google" corresponds to two triplets: "John Doe, position, developer; John Doe, employed by, Google".
+- Exclude from the extracted data triplets where subject or object are collective entities such as "People".
+- Exclude from the extracted data triplets where object is a long phrase with more than 5 words.
+- Similar relations, such as "has friend" and "friend of", replace with uniform relation, for example, "has friend"
+- Similar entities, such as "House" and "house" or "small river" and "little river", replace with uniform relation, for example, "house" or "small river"
+- Include triplets which reflect temporal dependencies. For example, from observations 
+"Observation: You are at hall. You see table, golden key on it and way to west.
+Action: west
+Observation: You are at kitchen. There is golden chest which can be opened with golden key" you should extract the following data:
+"table, located in, hall;
+golden key, located at, table;
+green door, located in, hall;
+kithcen, west of, hall;
+golden chest, located in, kitchen;
+golden key, can open, golden chest;"   
+## 2. Coreference Resolution
+- **Maintain Entity Consistency**: When extracting entities, it is vital to ensure consistency.
+If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"),
+always use the most complete identifier for that entity throughout the knowledge graph. In this example, use "John Doe" as the entity ID.
+Remember, the knowledge graph should be coherent and easily understandable, so maintaining consistency in entity references is crucial.
+
+####
+Observation: {observation} 
+####
+Previous observations and actions: {observations}
+####
+
+Please, extract information from this data following instructions from begin of this prompt.
+
+Extracted data: '''
+
+prompt_filter_wrong = '''#### Graph: {graph}
+####
+Observation: {observation}
+####
+Previous observations and actions: {observations}
+####
+
+Please review the provided graph and select the triplets that are inaccurate based on the current game state.
+
+For example, in the following data: "Graph: [['John', 'at', 'hall'], ['hall', 'west of', 'kitchen'], ['kitchen', 'west of', 'hall']] Observation: John found himself at hall. He moved to the west before. Previous observations and actions: John found himself at the kitchen." You should exclude the following triplets: [['kitchen', 'west of', 'hall']]. This triplet is wrong because John moved from the kitchen to the west and found himself at the hall, so the relationships are reversed.
+
+In the answer list, provide the inaccurte triplets from the graph in the format: "[unactual triplet1, unactual triplet2, ...]". Please adhere to the specified format for the answer.
+
+Answer:'''
+
+prompt_filter_outdated = '''#### Graph: {graph}
+####
+Observation: {observation}
+####
+Previous observations and actions: {observations}
+####
+
+Please review the provided graph and select the triplets that are outdated based on the current game state. Consider triplets that are false now.
+
+For example: "Graph: [['player', 'at', 'kitchen'], ['key', 'located at', 'table'], ['table', 'located in', 'kitchen'], ['player', 'inventory contains', 'key']] Observation: Taken. Inventory: ['key']. John took the key before. Previous observations and actions: John found himself at the kitchen, he sees the table with the key on it." You should exclude the following triplet: [['key', 'located at', 'table']]. This triplet should be excluded because the player took the key from the table in the previous step and it is now in the player's inventory, so the key is no longer located on the table.
+
+In the answer list, provide the outdated triplets from the graph in the format: "[unactual triplet1, unactual triplet2, ...]". Please adhere to the specified format for the answer.
+
+Answer:'''
+
+prompt_goal = '''#### Graph: {graph}
+####
+Observation: {observation}
+####
+Previous observations and actions: {observations}
+####
+
+Based on the information provided above, your task is to set a clear and actionable goal for the next few steps in the game. This goal should be beneficial, directly contribute to winning the game, and be achievable given the current game context. Examples of appropriate goals include "Explore the east exit from the Kitchen", "Open the golden chest", "Find a path to the library", "Descend to the cellar", and "Deliver the red book to the home". Each of these goals could be relevant in different scenarios.
+
+Please define a goal considering the current situation in the game.
+Goal: '''
+
+prompt_refining = """The triplets denote facts about the environment where the player moves. The player takes actions and the environment changes, so some triplets from the list of existing triplets should be replaced with one of the new triplets. For example, the door was previously opened and now it is closed, so the triplet "Door, state, opened" should be replaced with the triplet "Door, state, closed". Another example, the player took the item from the locker and the triplet "Item, is in, Locker" should be replaced with the triplet "Player, has, Item".
+First example of existing triplets: "Golden locker, state, open"; "Room K, is west of, Room I".
+First example of new triplets: "Golden locker, state, closed"; "Room K, is west of, Room I".
+First example of replacing: [["Golden locker, state, open" -> "Golden locker, state, closed"],].
+In some cases there are no triplets to replace.
+Second example of existing triplets: Golden locker, state, open; "Room K, is west of, Room I".
+Second example of new triplets: "Room T, is north of, Room N".
+Second example of replacing: [].
+Generate replacing from existing triplets and new_triplets by analogy with first and second examples.
+Existing triplets: {ex_triplets}.
+New triplets: {new_triplets}.
+Replacing: """
+
+
+prompt_filter = """The triplets denote facts about the environment where the player moves. The player takes actions and the environment changes, so some triplets from the list of existing triplets should be deleted. For example, the door was previously opened and now it is closed, so the triplet "Door, state, opened" should be deleted. Another example, the player took the item from the locker and the triplet "Item, is in, Locker" should be deleted too.
+First example of observation: Taken. You keep in hand an apple. Action that led to this: take an apple
+First example of previous observations: You see a table. On this table you see an apple. Your hands are empty
+First example of existing triplets: [['apple', 'located at', 'table'], ['hands', 'are', 'empty'], ['apple', 'in', 'hands']]
+First example of deleted triplets: [['apple', 'located at', 'table'], ['hands', 'are', 'empty']]
+
+In some cases there are no triplets to replace.
+Second example of observation: You are at the street with many buses here. Action that led to this: north
+Second example of previous observations: You see a table. On this table you see an apple. Your hands are empty
+Second example of existing triplets: [['apple', 'located at', 'table'], ['hands', 'are', 'empty'], ['buses', 'located at', 'street']]
+Second example of deleted triplets: []
+
+Generate replacing from existing triplets and new_triplets by analogy with first and second examples.
+####
+Observation: {observation}
+Previous observations: {observations}
+Existing triplets: {ex_triplets}
+####
+Deleted triplets: """
+
+
+graph = TripletGraph()
+observations = []
+walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
+                   "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
+                   "go north", "go east", "go east", "go north", "unlock Orange locker with Key 2", "open Orange locker",
+                   "take Golden key from Orange locker", "go south", "go west", "go west", "go north", "go east",
+                   "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker"]
+locations = {"P"}
+env.reset()
+for action in walkthrough:
+    locations.add(env.curr_location)
+    env.step(action)
+
+for i in range(2):
+    log("Attempt: " + str(i + 1))
+    log("\n\n")
+    observation, info = env.reset()
+    G_new = graph_from_facts(info)
+    # walkthrough = env.walkthrough()
+    # walkthrough = env.get_walkthrough()
+    prev_action = "start"
+    n_truth, n, recall = 0, 0, 0
+    for step, action in enumerate(walkthrough[:30]):
+        log("Step: " + str(step + 1))
+        observation = observation.split("$$$")[-1]
+        inventory = env.get_inventory()
+        # inventory = [item.name for item in env.get_inventory()]
+        observation += f"\nInventory: {inventory}"
+        valid_actions = env.get_valid_actions()
+        observation += f"\nValid actions (just recommendation): {valid_actions}"
+        observation += f"\nAction that led to this: {prev_action}"
+        log("Observation: " + observation)
+        
+        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        log("Crucial items: " + str(items))
+        associated_subgraph = graph.get_associated_triplets(items)
+        log("Associated subgraph: " + str(associated_subgraph))
+        # breakpoint()
+        new_triplets = graph.exclude(G_new.edges(data = True))
+        prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
+        # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
+        response = agent.generate(prompt)
+        # predicted_outdated = parse_triplets(response)
+        predicted_outdated = parse_triplets_removing(response)
+        log("Model response: " + response)
+        outdated_edges = []
+        if step > 0:
+            old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
+            for edge in old_edges:
+                if edge not in new_edges:
+                    outdated_edges.append(edge)
+            log("Outdated triplets truth: " + str(outdated_edges))
+        # n_truth += int(input("n_truth: "))
+        # n += int(input("n: "))
+        # recall += int(input("recall: "))
+        n_local, n_truth_local, recall_local = graph.compute_stats(predicted_outdated, outdated_edges, exclude_nav = True, locations=locations)
+        n_truth += n_truth_local
+        n += n_local
+        recall += recall_local
+        
+        graph.delete_triplets(outdated_edges)
+        graph.add_triplets(G_new.edges(data = True))
+        # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # graph += triplets
+        # graph = remove_equals(graph)
+        # log("Observation: " + observation)
+        # log("=====================")
+        # log("Included triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_filter_wrong.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded wrong triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_filter_outdated.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded outdated triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # log("Goal at this step: " + response)
+        # log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        
+        observations.append(observation)
+        G_old = graph_from_facts(info)
+        observation, reward, done, info = env.step(action)
+        G_new = graph_from_facts(info)
+        # breakpoint()
+        # old_edges, new_edges = G.edges(data = True), G_new.edges(data = True)
+        # print(observation)
+        # for edge in new_edges:
+        #     if edge not in old_edges:
+        #         print("New edge: ", edge)
+        # for edge in old_edges:
+        #     if edge not in new_edges:
+        #         print("Outdated edge: ", edge)
+        # print("=========================================")
+        prev_action = action
+        if n > 0:
+            log("Precision: " + str(recall / n))
+        if n_truth > 0:
+            log("Recall:" + str(recall / n_truth))
+        log("============================")
+
+
+# print(agent.generate('''
+# Ниже дан фрагмент необходимого эссе. Пожалуйста, напиши этот фрагмент более развернуто - добавь детали и подробности, разбей шаги на более мелкие.
+# Дописывать эссе не нужно, сконцентрируйся на фрагменте и постарайся написать его как можно более интересно и подробно.
+# ####
+# Текст:
+# ### План действий и разработка стратегии
+# 1. Предварительное уведомление нарушителя. Первым шагом я решила написать официальное письмо в компанию-нарушителя с требованием удалить мой материал с их сайта и предложением добровольно урегулировать вопрос, чтобы избежать судебного разбирательства.
+# 2. Составление и подача иска в суд. Если компания игнорировала бы мое требование, следующим шагом стала бы подача иска в суд о защите авторских прав, согласно статье 1252 Гражданского кодекса РФ.
+# 3. Подготовка сопутствующих документов и доказательств. Значительную часть подготовки заняла бы сбор доказательств нарушения моих прав, включая скриншоты с сайта нарушителя, архив версий моего сайта (доказательство первичности моего авторства), а также экспертизы, подтверждающие идентичность текстов.
+# 4. Защита в суде. В суде я бы аргументировала свои требования ссылками на статьи Гражданского кодекса, подтверждающие мои исключительные права на произведение, а также привела бы аналогичные прецеденты из судебной практики.'''))
 # query = f'''
 # Monday: You at a large hall. There is doors to north, east and west. You see iron chest, wooden chest, cat and a closet. You examine the iron chest. There is a
 # combination lock. After several attemptions, you enter '4321', and a chest become opened. Here you see three shelfs. You open third shelf and find a prize. Congratulations!
@@ -118,20 +442,20 @@ paths = {
 #         branches.append(branch)
 #     return branches
 
-instructor = INSTRUCTOR('hkunlp/instructor-large')
+# instructor = INSTRUCTOR('hkunlp/instructor-large')
 
-text = '''Room A'''
+# text = '''Room A'''
 
-# instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
-instruction = '''Represent the entiny in the knowledge graph'''
-embeddings = instructor.encode([[instruction, text]])
-embedding_1 =  list(map(float, list(embeddings[0])))
+# # instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
+# instruction = '''Represent the entiny in the knowledge graph'''
+# embeddings = instructor.encode([[instruction, text]])
+# embedding_1 =  list(map(float, list(embeddings[0])))
 
-text = '''Room B'''
-embeddings = instructor.encode([[instruction, text]])
-embedding_2 =  list(map(float, list(embeddings[0])))
+# text = '''Room B'''
+# embeddings = instructor.encode([[instruction, text]])
+# embedding_2 =  list(map(float, list(embeddings[0])))
 
-print(cosine(embedding_1, embedding_2))
+# print(cosine(embedding_1, embedding_2))
 
 # # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
 # # print(env.get_dictionary())
