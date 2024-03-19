@@ -77,9 +77,13 @@ def parse_triplets_removing(text):
         parsed_triplets.append([subj, obj, {"label": rel}])
     return parsed_triplets
 
+def parse_plan(plan):
+    plan = plan.strip("[]").split(",")
+    return [action.strip('''\n'" ''') for action in plan]
+
 def log(text):
     print(text)
-    with open("interactive_logs_replacing_filter_subgraph_withoutLoc_2x2.txt", "a") as file:
+    with open("interactive_logs_replacing_filter_graph_withoutLoc_clean_3x3_mess.txt", "a") as file:
         file.write(text + "\n")
 
 paths = {
@@ -107,7 +111,7 @@ Paths = [
 #     print("=====================")
 agent = GPTagent(model = "gpt-4-0125-preview")
 # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
-env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
+env = TextWorldWrapper("benchmark/clean_3x3/clean_3x3_mess.z8")
 agent.system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
 prompt_extraction = '''## 1. Overview
 Your task is to extract information from game observations in structured formats to build a knowledge graph.
@@ -218,6 +222,7 @@ prompt_planning = '''I will provide you with graph of the environment. It consis
 ####
 Graph: {graph}
 ####
+
 I will also provide you with current game state. It consist of current observation and previous observations.
 ####
 Observation: {observation}
@@ -231,7 +236,9 @@ Goal: {goal}
 
 Write me a plan on how you will solve this task. 
 Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
-Plan: '''
+Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
+####
+Generated plan: '''
 
 
 
@@ -251,16 +258,19 @@ Plan: '''
 graph = TripletGraph()
 observations = []
 # One for navigation
-walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
-                   "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
-                   "go north", "go east", "go east", "go north", "unlock Orange locker with Key 2", "open Orange locker",
-                   "take Golden key from Orange locker", "go south", "go west", "go west", "go north", "go east",
-                   "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
+# walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
+#                    "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
+#                    "go north", "go east", "go east", "go north", "unlock Orange locker with Key 2", "open Orange locker",
+#                    "take Golden key from Orange locker", "go south", "go west", "go west", "go north", "go east",
+#                    "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
 
 # One for 2x2
 # walkthrough = ['take book', 'go east', 'put book on the shelf', 'go west', 'take apple', 'go south', 'examine refrigerator', 'open refrigerator', 'put apple in refrigerator', 'take icecream', 'eat icecream', 'END']
 
-locations = {"player"}
+# One for clean 3x3 default
+walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
+
+locations = {"player", "Kids' Room"}
 env.reset()
 for action in walkthrough:
     locations.add(env.curr_location)
@@ -277,7 +287,7 @@ for i in range(1):
     prev_action = "start"
     n_truth, n, recall = 0, 0, 0
     done = False
-    for step, action in enumerate(walkthrough[:30]):
+    for step, action in enumerate(walkthrough):
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
         inventory = env.get_inventory()
@@ -288,12 +298,12 @@ for i in range(1):
         observation += f"\nAction that led to this: {prev_action}"
         log("Observation: " + observation)
         
-        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
-        items = [list(item.keys())[0] for item in observed_items + remembered_items]
-        log("Crucial items: " + str(items))
-        associated_subgraph = graph.get_associated_triplets(items)
-        # associated_subgraph = graph.get_all_triplets()
-        log("Associated subgraph: " + str(associated_subgraph))
+        # observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        # items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        # log("Crucial items: " + str(items))
+        # associated_subgraph = graph.get_associated_triplets(items)
+        associated_subgraph = graph.get_all_triplets()
+        # log("Associated subgraph: " + str(associated_subgraph))
         # breakpoint()
         new_triplets = graph.exclude(G_new.edges(data = True))
         prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
@@ -319,7 +329,7 @@ for i in range(1):
         
         graph.delete_triplets(outdated_edges)
         graph.add_triplets(G_new.edges(data = True))
-        breakpoint()
+        # breakpoint()
         # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
         # response = agent.generate(prompt)
         # triplets = process_triplets(response)
@@ -376,6 +386,163 @@ for i in range(1):
             log("Recall:" + str(recall / n_truth))
         log("============================")
 
+
+raise "error"
+
+
+# Test goal + plan
+
+graph = TripletGraph()
+observations = []
+# One for navigation
+# walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
+#                    "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
+#                    "go north", "go east", "go east", "go north", "unlock Orange locker with Key 2", "open Orange locker",
+#                    "take Golden key from Orange locker", "go south", "go west", "go west", "go north", "go east",
+#                    "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
+
+# One for 2x2
+# walkthrough = ['take book', 'go east', 'put book on the shelf', 'go west', 'take apple', 'go south', 'examine refrigerator', 'open refrigerator', 'put apple in refrigerator', 'take icecream', 'eat icecream', 'END']
+
+# One for clean 3x3 default
+walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
+
+locations = {"player", "Kids' Room"}
+env.reset()
+for action in walkthrough:
+    locations.add(env.curr_location)
+    env.step(action)
+print("LOCATIONS: ", locations)
+n_steps = 50
+
+for i in range(1):
+    log("Attempt: " + str(i + 1))
+    log("\n\n")
+    observation, info = env.reset()
+    G_new = graph_from_facts(info)
+    # walkthrough = env.walkthrough()
+    # walkthrough = env.get_walkthrough()
+    prev_action = "start"
+    n_truth, n, recall = 0, 0, 0
+    done = False
+    for step in range(n_steps):
+        log("Step: " + str(step + 1))
+        observation = observation.split("$$$")[-1]
+        inventory = env.get_inventory()
+        # inventory = [item.name for item in env.get_inventory()]
+        observation += f"\nInventory: {inventory}"
+        valid_actions = env.get_valid_actions()
+        observation += f"\nValid actions (just recommendation): {valid_actions}"
+        observation += f"\nAction that led to this: {prev_action}"
+        log("Observation: " + observation)
+        
+        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        log("Crucial items: " + str(items))
+        associated_subgraph = graph.get_associated_triplets(items)
+        # associated_subgraph = graph.get_all_triplets()
+        log("Associated subgraph: " + str(associated_subgraph))
+        # breakpoint()
+        new_triplets = graph.exclude(G_new.edges(data = True))
+        prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = graph)
+        # prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
+        # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
+        goal = agent.generate(prompt)
+        log("Goal: " + goal)
+        prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = graph, goal = goal)
+        # predicted_outdated = parse_triplets(response)
+        response = agent.generate(prompt)
+        # predicted_outdated = parse_triplets_removing(response)
+        plan = parse_plan(response)
+        log("Model response: " + response)
+        is_nav = False
+        if len(plan) == 0:
+            action = np.random.choice(valid_actions)
+        elif plan[0].startswith("go to"):
+            is_nav = True
+        else:
+            action = plan[0]
+        outdated_edges = []
+        if step > 0:
+            old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
+            for edge in old_edges:
+                if edge not in new_edges:
+                    outdated_edges.append(edge)
+            log("Outdated triplets truth: " + str(outdated_edges))
+        # n_truth += int(input("n_truth: "))
+        # n += int(input("n: "))
+        # recall += int(input("recall: "))
+        # n_local, n_truth_local, recall_local = graph.compute_stats(predicted_outdated, outdated_edges, exclude_nav = True, locations=locations)
+        # n_truth += n_truth_local
+        # n += n_local
+        # recall += recall_local
+        
+        graph.delete_triplets(outdated_edges)
+        graph.add_triplets(G_new.edges(data = True))
+        # breakpoint()
+        # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # graph += triplets
+        # graph = remove_equals(graph)
+        # log("Observation: " + observation)
+        # log("=====================")
+        # log("Included triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_filter_wrong.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded wrong triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_filter_outdated.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded outdated triplets: " + response)
+        # log("=====================")
+        
+        # prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # log("Goal at this step: " + response)
+        # log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        
+        observations.append(observation)
+        if is_nav:
+            destination = plan[0].split("go to")[-1].strip('''\n'" ''')
+            path = graph.find_path(env.curr_location, destination, locations)
+            if not isinstance(path, list):
+                observation = path
+            else:
+                G_old = graph_from_facts(info)
+                log("\n\nNAVIGATION\n\n")
+                for hidden_step, hidden_action in enumerate(path):
+                    observation, reward, done, info = env.step(hidden_action)
+                    if done:
+                        break
+                    log("Navigation step: " + str(hidden_step + 1))
+                    log("Observation: " + observation + "\n\n")
+                
+            prev_action = plan[0]
+        else:
+            G_old = graph_from_facts(info)
+            if done: 
+                break
+            observation, reward, done, info = env.step(action)
+            prev_action = action
+            
+        G_new = graph_from_facts(info)
+        # if n > 0:
+        #     log("Precision: " + str(recall / n))
+        # if n_truth > 0:
+        #     log("Recall:" + str(recall / n_truth))
+        # log("============================")
 
 # print(agent.generate('''
 # Ниже дан фрагмент необходимого эссе. Пожалуйста, напиши этот фрагмент более развернуто - добавь детали и подробности, разбей шаги на более мелкие.

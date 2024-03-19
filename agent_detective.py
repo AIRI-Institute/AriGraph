@@ -217,13 +217,14 @@ Current observation: {observation}
 ####
 
 Please, based on given information choose things that relative to current situation. This things may be items or tools, locations, surrounding stuff,
-creatures and etc. This things also may be your thoughts about current situation. Things must be named shortly (no longer than 3 words).
+creatures and etc. This things also may be your thoughts about current situation. Things must be named shortly (no longer than 3 words). 
+You shouldn't include any actions.
 Example:
     Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
     Crucial things: [small square, library, apple, flashlight, bird, bird's song, woman, woman's cry, fear, help, running]  
 
 Next, based on given information, name things which might be useful
-at current situation. Things must be named like Crucial things. Feel free to add any useful actions to useful things.
+at current situation. Things must be named like Crucial things. If yo want to include actions, choose only crucial ones.
 Example:
     Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
     Potentially useful things: [pistol, police, partner, flashlight, cry, help, run]  
