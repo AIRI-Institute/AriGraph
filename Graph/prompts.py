@@ -82,3 +82,25 @@ Plan must consist of actions in environment. Examples of action: "take *somethin
 Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
 ####
 Generated plan: '''
+
+
+prompt_planning_without_obs = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
+####
+Graph: {graph}
+
+I will also provide you curent plan.
+####
+Current plan: {plan}
+####
+
+Your task is to achieve the goal. 
+####
+Goal: {goal}
+####
+
+Write me new plan on how you will solve this task. 
+Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
+Avoid to use actions like "north", "west", "south" and "east", use "go to" action instead to move at chosen location.
+Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
+####
+Generated plan: '''
