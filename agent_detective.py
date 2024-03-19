@@ -141,6 +141,7 @@ Your task is to extract information from game observation in structured formats 
 If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"), \n\
 always use the most complete identifier for that entity throughout the knowledge graph. In this example, use "John Doe" as the entity ID. \n\
 Remember, the knowledge graph should be coherent and easily understandable, so maintaining consistency in entity references is crucial. \n\
+\n\
 Observation:\n\
 {observation} \n\
 Extracted data: \n'

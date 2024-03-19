@@ -113,16 +113,18 @@ def bigraph_pipeline(config, graph_name, game_path, log_file):
     load = False
     graph = KnowledgeSemiBiGraph(graph_name, load)
     agent = GPTagent(model = "gpt-4-0125-preview")
+    agent.system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
     env = TextWorldWrapper(game_path)
-    n_trying = 3
+    n_trying = 1
     start = 1
-    n_steps = 70
+    n_steps = 50
     print_steps = n_steps
     # K, M, maxIters, eps, damping = 150, 250, None, 1e-5, 1
     observations = []
     inventory = []
     for trying in range(start - 1, start - 1 + n_trying):
         prev_action = None
+        plan = "Still nothing"
         observation, info = env.reset()
         observations.append({"observation": observation, "trying": trying + 1, "step": 0})
         done = False
@@ -156,11 +158,11 @@ def bigraph_pipeline(config, graph_name, game_path, log_file):
             true_graph = get_text_graph(graph_from_facts(env.info))
             # breakpoint()
             observation = observation.split("$$$")[-1]
-            action, use_graph, is_random, insight = agent.choose_action(true_graph, observations, observation, location, 
-                            valid_actions, trying, step, reflection,
-                            associations, experienced_actions, steps_from_reflection > -1, n, inventory)
-            use_graph = use_graph or steps_from_reflection > 10
-            use_graph = False
+            # action, use_graph, is_random, insight = agent.choose_action(true_graph, observations, observation, location, 
+            #                 valid_actions, trying, step, reflection,
+            #                 associations, experienced_actions, steps_from_reflection > -1, n, inventory)
+            # use_graph = use_graph or steps_from_reflection > 10
+            # use_graph = False
             # with open("game_log.txt", "a") as file:
             #     file.write(action + "\n")
             # if use_graph:
@@ -207,6 +209,20 @@ def bigraph_pipeline(config, graph_name, game_path, log_file):
 #             new_obs = graph.get_string_state(state_key) + f"\nAction that led to this: {prev_action}" if prev_action is not None else graph.get_string_state(state_key)
 #             observations.append(new_obs)
 
+            prompt = '''#### Graph: {graph}
+####
+Observation: {observation}
+####
+Previous observations and actions: {observations}
+####
+
+Based on the information provided above, your task is to set a clear and actionable goal for the next few steps in the game. This goal should be beneficial, directly contribute to winning the game, and be achievable given the current game context. Examples of appropriate goals include "Explore the east exit from the Kitchen", "Open the golden chest", "Find a path to the library", "Descend to the cellar", and "Deliver the red book to the home". Each of these goals could be relevant in different scenarios.
+
+Please define a goal considering the current situation in the game.
+Goal: '''.format(graph = true_graph, observation = observation, observations = observations[:-1])
+            goal = agent.generate(prompt)
+            
+            
             observations.append(observation + f"\n\nAction: {action}")
             
             # action = agent.choose_action_vanilla(observations, observation, inventory, location, valid_actions)

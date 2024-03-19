@@ -53,9 +53,12 @@ class TextWorldWrapper:
     def _update(self, obs, infos):
         self.curr_info = infos
         self.curr_obs = obs
-        loc_result = re.search(r'-= (\D+) =-', self.curr_obs)
-        if loc_result:
-            self.curr_location = loc_result.group(1)
+        # loc_result = re.search(r'-= (\D+) =-', self.curr_obs)
+        # breakpoint()
+        # if loc_result:
+        #     self.curr_location = loc_result.group(1)
+        if "-=" in self.curr_obs and "=-" in self.curr_obs:
+            self.curr_location = self.curr_obs.split("-=")[-1].split("=-")[0].strip(" \n'")
 
     def get_player_location(self):
         return self.curr_location
@@ -67,16 +70,21 @@ class TextWorldWrapper:
         return self.curr_info['admissible_commands']
 
 
-def graph_from_facts(info, only_entities=False, verbose=False):
+def graph_from_facts(info, only_entities=False, verbose=False, need_tags = True):
     G = nx.DiGraph()
     objects = info['entities']
     # print(info['facts'])
     for f in info['facts']:
-        if len(f.arguments) != 2:
+        if len(f.arguments) == 1 and need_tags:
+            edge = f.name
+            a, b = f.arguments[0].name, "itself"
+            
+        elif len(f.arguments) == 2:
+            edge = f.name
+            a, b = f.arguments[0].name, f.arguments[1].name
+            
+        else:
             continue
-
-        edge = f.name
-        a, b = f.arguments[0].name, f.arguments[1].name
 
         if only_entities and (a not in objects or b not in objects):
             continue

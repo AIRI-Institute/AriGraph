@@ -12,6 +12,16 @@ from semi_bigraph import KnowledgeSemiBiGraph
 from textworld_adapter import TextWorldWrapper, graph_from_facts, get_text_graph, draw_graph
 from triplet_graph import TripletGraph
 
+# env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
+# obs, info = env.reset()
+# done = False
+# while not done:
+#     print(obs)
+#     print("Valid actions (just recommendation):", env.get_valid_actions())
+#     print("Can you choose an action to perform in the game now?")
+#     obs, reward, done, info = env.step(input(">>> "))
+
+# raise "False"
 def remove_equals(graph):
     graph_copy = deepcopy(graph)
     for triplet in graph_copy:
@@ -69,7 +79,7 @@ def parse_triplets_removing(text):
 
 def log(text):
     print(text)
-    with open("interactive_logs_replacing_filter_subgraph_withoutLoc.txt", "a") as file:
+    with open("interactive_logs_replacing_filter_subgraph_withoutLoc_2x2.txt", "a") as file:
         file.write(text + "\n")
 
 paths = {
@@ -87,6 +97,8 @@ Paths = [
     "benchmark/take2_go12/tw-cooking-recipe2+take2+go12-Q9nDu630U5j3tqBG.z8",
     "benchmark/recipe5_cook_cut/tw-cooking-recipe5+take5+cook+cut+drop+go1-7yGrcV9pTE8DF75n.z8",
 ]
+
+
 # for path in Paths:
 #     print(path)
 #     env = TextWorldWrapper(path)
@@ -109,16 +121,7 @@ Your task is to extract information from game observations in structured formats
 - Exclude from the extracted data triplets where object is a long phrase with more than 5 words.
 - Similar relations, such as "has friend" and "friend of", replace with uniform relation, for example, "has friend"
 - Similar entities, such as "House" and "house" or "small river" and "little river", replace with uniform relation, for example, "house" or "small river"
-- Include triplets which reflect temporal dependencies. For example, from observations 
-"Observation: You are at hall. You see table, golden key on it and way to west.
-Action: west
-Observation: You are at kitchen. There is golden chest which can be opened with golden key" you should extract the following data:
-"table, located in, hall;
-golden key, located at, table;
-green door, located in, hall;
-kithcen, west of, hall;
-golden chest, located in, kitchen;
-golden key, can open, golden chest;"   
+- If some subject just has some state or property, object in triplet must be "itself" (for example, from text "John open the door and fry chiken" you should extract the following data: "Door, opened, itself; Chiken, fried, itself").  
 ## 2. Coreference Resolution
 - **Maintain Entity Consistency**: When extracting entities, it is vital to ensure consistency.
 If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"),
@@ -211,21 +214,60 @@ Existing triplets: {ex_triplets}
 ####
 Deleted triplets: """
 
+prompt_planning = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
+####
+Graph: {graph}
+####
+I will also provide you with current game state. It consist of current observation and previous observations.
+####
+Observation: {observation}
+Previous observations: {observations}
+####
+
+Your task is to achieve the goal. 
+####
+Goal: {goal}
+####
+
+Write me a plan on how you will solve this task. 
+Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
+Plan: '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Replacing test
 
 graph = TripletGraph()
 observations = []
+# One for navigation
 walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
                    "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
                    "go north", "go east", "go east", "go north", "unlock Orange locker with Key 2", "open Orange locker",
                    "take Golden key from Orange locker", "go south", "go west", "go west", "go north", "go east",
-                   "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker"]
-locations = {"P"}
+                   "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
+
+# One for 2x2
+# walkthrough = ['take book', 'go east', 'put book on the shelf', 'go west', 'take apple', 'go south', 'examine refrigerator', 'open refrigerator', 'put apple in refrigerator', 'take icecream', 'eat icecream', 'END']
+
+locations = {"player"}
 env.reset()
 for action in walkthrough:
     locations.add(env.curr_location)
     env.step(action)
+print("LOCATIONS: ", locations)
 
-for i in range(2):
+for i in range(1):
     log("Attempt: " + str(i + 1))
     log("\n\n")
     observation, info = env.reset()
@@ -234,6 +276,7 @@ for i in range(2):
     # walkthrough = env.get_walkthrough()
     prev_action = "start"
     n_truth, n, recall = 0, 0, 0
+    done = False
     for step, action in enumerate(walkthrough[:30]):
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
@@ -249,6 +292,7 @@ for i in range(2):
         items = [list(item.keys())[0] for item in observed_items + remembered_items]
         log("Crucial items: " + str(items))
         associated_subgraph = graph.get_associated_triplets(items)
+        # associated_subgraph = graph.get_all_triplets()
         log("Associated subgraph: " + str(associated_subgraph))
         # breakpoint()
         new_triplets = graph.exclude(G_new.edges(data = True))
@@ -275,6 +319,7 @@ for i in range(2):
         
         graph.delete_triplets(outdated_edges)
         graph.add_triplets(G_new.edges(data = True))
+        breakpoint()
         # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
         # response = agent.generate(prompt)
         # triplets = process_triplets(response)
@@ -310,6 +355,8 @@ for i in range(2):
         
         observations.append(observation)
         G_old = graph_from_facts(info)
+        if done: 
+            break
         observation, reward, done, info = env.step(action)
         G_new = graph_from_facts(info)
         # breakpoint()

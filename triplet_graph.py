@@ -9,6 +9,37 @@ from InstructorEmbedding import INSTRUCTOR
 def check_loc(triplet, locations):
     return triplet[0] in locations and triplet[1] in locations
 
+def check_conn(connection):
+    return "north" in connection or "south" in connection or "east" in connection or "west" in connection
+
+def clear_triplet(triplet):
+    if triplet[0] == "I":
+        triplet = ("inventory", triplet[1], triplet[2])
+    if triplet[1] == "I":
+        triplet = (triplet[0], "inventory", triplet[2])
+    if triplet[0] == "P":
+        triplet = ("player", triplet[1], triplet[2])
+    if triplet[1] == "P":
+        triplet = (triplet[0], "player", triplet[2])
+    return triplet
+
+def find_relation(spatial_graph, parent, loc, first):
+    reverse = {
+        "north": "south", "south": "north", "east": "west", "west": "east"
+    }
+    for connection in spatial_graph[parent]["connections"]:
+        if connection[1] == loc:
+            if "north" in connection[0]:
+                return "south"
+            if "east" in connection[0]:
+                return "west"
+            if "south" in connection[0]:
+                return "north"
+            if "west" in connection[0]:
+                return "east"
+            if "reversed" in connection[0] and first:
+                return reverse[find_relation(spatial_graph, loc, parent, False)]
+
 class TripletGraph:
     def __init__(self, threshold = 0.02):
         self.triplets, self.items, self.threshold = [], [], threshold
@@ -45,16 +76,24 @@ class TripletGraph:
     
     def compute_stats(self, predicted, true, exclude_nav = False, locations = set()):
         n, n_right, recall = 0, 0, 0
-        true_embeddings = [self.get_embedding_local(self.str(true_triplet)) for true_triplet in true]
+        true_embeddings = [self.get_embedding_local(self.str(clear_triplet(true_triplet))) for true_triplet in true]
+        for true_triplet in true:
+            true_triplet = clear_triplet(true_triplet)
+            if exclude_nav and check_loc(true_triplet, locations): 
+                continue
+            n_right += 1
         for pred_triplet in predicted:
+            pred_triplet = clear_triplet(pred_triplet)
             pred_embedding = self.get_embedding_local(self.str(pred_triplet))
+            # breakpoint()
             if not self.contain(pred_triplet, pred_embedding) or (exclude_nav and check_loc(pred_triplet, locations)):
                 continue
             n += 1
             for true_embedding, true_triplet in zip(true_embeddings, true):
+                true_triplet = clear_triplet(true_triplet)
+                # breakpoint()
                 if exclude_nav and check_loc(true_triplet, locations): 
                     continue
-                n_right += 1
                 if cosine(true_embedding, pred_embedding) < self.threshold:
                     recall += 1
                     break
@@ -73,10 +112,7 @@ class TripletGraph:
     
     def add_triplets(self, triplets):
         for triplet in triplets:
-            if triplet[0] == "I":
-                triplet = ("inventory", triplet[1], triplet[2])
-            if triplet[1] == "I":
-                triplet = (triplet[0], "inventory", triplet[2])
+            triplet = clear_triplet(triplet)
             embedding = self.get_embedding_local(self.str(triplet))
             if not self.contain(triplet, embedding):
                 embedding1, embedding2 = self.get_embedding_local(triplet[0], True), self.get_embedding_local(triplet[1], True)
@@ -102,14 +138,72 @@ class TripletGraph:
     def exclude(self, triplets):
         new_triplets = []
         for triplet in triplets:
-            if triplet[0] == "I":
-                triplet = ("inventory", triplet[1], triplet[2])
-            if triplet[1] == "I":
-                triplet = (triplet[0], "inventory", triplet[2])
+            triplet = clear_triplet(triplet)
             embedding = self.get_embedding_local(self.str(triplet))
             if not self.contain(triplet, embedding):
                 new_triplets.append(self.str(triplet))
                 
         return new_triplets
-        
+    
+    # Must be with emb!
+    def compute_spatial_graph(self, locations):
+        locations = deepcopy(locations)
+        locations.remove("player")
+        graph = {}
+        for triplet in self.triplets:
+            if triplet[0][0][0] in locations and triplet[0][1][0] in locations:
+                if triplet[0][0][0] in graph:
+                    graph[triplet[0][0][0]]["connections"].append((triplet[0][2]["label"], triplet[0][1][0]))
+                else:
+                    graph[triplet[0][0][0]] = {"connections": [(triplet[0][2]["label"], triplet[0][1][0])]}
+                
+                if triplet[0][1][0] in graph:
+                    graph[triplet[0][1][0]]["connections"].append(("reversed", triplet[0][0][0]))
+                else:
+                    graph[triplet[0][1][0]] = {"connections": [("reversed", triplet[0][0][0])]}
+                    
+        for loc in graph:
+            connections = deepcopy(graph[loc]["connections"])
+            connected_loc = [connection[1] for connection in connections if check_conn(connection[0])]
+            for connection in connections:
+                if connection[1] in connected_loc and connection[0] == "reversed":
+                    graph[loc]["connections"].remove(connection)
+        return graph
+    
+    # Must be with emb!
+    def find_path(self, A, B, locations):
+        items = [item[0] for item in self.items]
+        if A not in items or B not in items:
+            return "locations are unexplored"
+        spatial_graph = self.compute_spatial_graph(locations)
+        current_set = {A}
+        future_set = set()
+        total_set = {A}
+        found = False
+        while len(current_set) > 0:
+            for loc in current_set:
+                for child in spatial_graph[loc]["connections"]:
+                    if child[1] not in total_set:
+                        future_set.add(child[1])
+                        total_set.add(child[1])
+                        spatial_graph[child[1]]["parent"] = loc
+                        if child[1] == B:
+                            found = True
+                            break
+                if found:
+                    break
+            if found:
+                break
+            current_set = future_set
+            future_set = set()
+        if not found:
+            return "Destination isn't available"
+        path = []
+        current_loc = B
+        while current_loc != A:
+            parent = spatial_graph[current_loc]["parent"]
+            relation = find_relation(spatial_graph, parent, current_loc, True)
+            path.append(relation)
+            current_loc = parent
+        return list(reversed(path))
                 
