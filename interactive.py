@@ -83,7 +83,7 @@ def parse_plan(plan):
 
 def log(text):
     print(text)
-    with open("interactive_logs_goal_plan_navigation2.txt", "a") as file:
+    with open("interactive_logs_goal_plan_withoutObs_navigation2.txt", "a") as file:
         file.write(text + "\n")
 
 paths = {
@@ -240,6 +240,28 @@ Goal: {goal}
 
 Write me new plan on how you will solve this task. 
 Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
+Avoid to use actions like "north", "west", "south" and "east", use "go to" action instead to move at chosen location.
+Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
+####
+Generated plan: '''
+
+prompt_planning_without_obs = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
+####
+Graph: {graph}
+
+I will also provide you curent plan.
+####
+Current plan: {plan}
+####
+
+Your task is to achieve the goal. 
+####
+Goal: {goal}
+####
+
+Write me new plan on how you will solve this task. 
+Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
+Avoid to use actions like "north", "west", "south" and "east", use "go to" action instead to move at chosen location.
 Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
 ####
 Generated plan: '''
@@ -442,11 +464,11 @@ for i in range(1):
         observation += f"\nAction that led to this: {prev_action}"
         log("Observation: " + observation)
         
-        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
-        items = [list(item.keys())[0] for item in observed_items + remembered_items]
-        log("Crucial items: " + str(items))
-        associated_subgraph = graph.get_associated_triplets(items)
-        # associated_subgraph = graph.get_all_triplets()
+        # observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        # items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        # log("Crucial items: " + str(items))
+        # associated_subgraph = graph.get_associated_triplets(items)
+        associated_subgraph = graph.get_all_triplets()
         log("Associated subgraph: " + str(associated_subgraph))
         # breakpoint()
         new_triplets = graph.exclude(G_new.edges(data = True))
@@ -455,7 +477,8 @@ for i in range(1):
         # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
         goal = agent.generate(prompt)
         log("Goal: " + goal)
-        prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = graph, goal = goal, plan = plan)
+        # prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = graph, goal = goal, plan = plan)
+        prompt = prompt_planning_without_obs.format(graph = graph, goal = goal, plan = plan)
         # predicted_outdated = parse_triplets(response)
         response = agent.generate(prompt)
         # predicted_outdated = parse_triplets_removing(response)
