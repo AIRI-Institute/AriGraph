@@ -282,8 +282,8 @@ Generated plan: '''
 
 # Replacing test
 
-# graph = TripletGraph()
-# observations = []
+graph = TripletGraph()
+observations = []
 # # One for navigation
 # # walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
 # #                    "open Grey locker", "take Note 2 from Grey locker", "examine Note 2", "take Key 2 from Grey locker",
@@ -295,126 +295,127 @@ Generated plan: '''
 # # walkthrough = ['take book', 'go east', 'put book on the shelf', 'go west', 'take apple', 'go south', 'examine refrigerator', 'open refrigerator', 'put apple in refrigerator', 'take icecream', 'eat icecream', 'END']
 
 # # One for clean 3x3 default
-# walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
+walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
 
-# locations = {"player", "Kids' Room"}
-# env.reset()
-# for action in walkthrough:
-#     locations.add(env.curr_location)
-#     env.step(action)
-# print("LOCATIONS: ", locations)
+locations = {"player", "Kids' Room"}
+env.reset()
+for action in walkthrough:
+    locations.add(env.curr_location)
+    env.step(action)
+print("LOCATIONS: ", locations)
 
-# for i in range(1):
-#     log("Attempt: " + str(i + 1))
-#     log("\n\n")
-#     observation, info = env.reset()
-#     G_new = graph_from_facts(info)
-#     # walkthrough = env.walkthrough()
-#     # walkthrough = env.get_walkthrough()
-#     prev_action = "start"
-#     n_truth, n, recall = 0, 0, 0
-#     done = False
-#     for step, action in enumerate(walkthrough):
-#         log("Step: " + str(step + 1))
-#         observation = observation.split("$$$")[-1]
-#         inventory = env.get_inventory()
-#         # inventory = [item.name for item in env.get_inventory()]
-#         observation += f"\nInventory: {inventory}"
-#         valid_actions = env.get_valid_actions()
-#         observation += f"\nValid actions (just recommendation): {valid_actions}"
-#         observation += f"\nAction that led to this: {prev_action}"
-#         log("Observation: " + observation)
+for i in range(1):
+    log("Attempt: " + str(i + 1))
+    log("\n\n")
+    observation, info = env.reset()
+    # G_new = graph_from_facts(info)
+    # walkthrough = env.walkthrough()
+    # walkthrough = env.get_walkthrough()
+    prev_action = "start"
+    done = False
+    for step, action in enumerate(walkthrough):
+        log("Step: " + str(step + 1))
+        observation = observation.split("$$$")[-1]
+        inventory = env.get_inventory()
+        # inventory = [item.name for item in env.get_inventory()]
+        observation += f"\nInventory: {inventory}"
+        valid_actions = env.get_valid_actions()
+        observation += f"\nValid actions (just recommendation): {valid_actions}"
+        observation += f"\nAction that led to this: {prev_action}"
+        log("Observation: " + observation)
         
-#         # observed_items, remembered_items = agent.bigraph_processing(observations, observation)
-#         # items = [list(item.keys())[0] for item in observed_items + remembered_items]
-#         # log("Crucial items: " + str(items))
-#         # associated_subgraph = graph.get_associated_triplets(items)
-#         associated_subgraph = graph.get_all_triplets()
-#         # log("Associated subgraph: " + str(associated_subgraph))
-#         # breakpoint()
-#         new_triplets = graph.exclude(G_new.edges(data = True))
-#         prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
-#         # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
-#         response = agent.generate(prompt)
-#         # predicted_outdated = parse_triplets(response)
-#         predicted_outdated = parse_triplets_removing(response)
-#         log("Model response: " + response)
-#         outdated_edges = []
-#         if step > 0:
-#             old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
-#             for edge in old_edges:
-#                 if edge not in new_edges:
-#                     outdated_edges.append(edge)
-#             log("Outdated triplets truth: " + str(outdated_edges))
-#         # n_truth += int(input("n_truth: "))
-#         # n += int(input("n: "))
-#         # recall += int(input("recall: "))
-#         n_local, n_truth_local, recall_local = graph.compute_stats(predicted_outdated, outdated_edges, exclude_nav = True, locations=locations)
-#         n_truth += n_truth_local
-#         n += n_local
-#         recall += recall_local
+        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        log("Crucial items: " + str(items))
+        associated_subgraph = graph.get_associated_triplets(items)
+        # associated_subgraph = graph.get_all_triplets()
+        # log("Associated subgraph: " + str(associated_subgraph))
+        # breakpoint()
+        # new_triplets = graph.exclude(G_new.edges(data = True))
+        prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
+        # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
+        response = agent.generate(prompt)
+        # predicted_outdated = parse_triplets(response)
+        predicted_outdated = parse_triplets_removing(response)
+        log("Model response: " + response)
+        # outdated_edges = []
+        # if step > 0:
+        #     old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
+        #     for edge in old_edges:
+        #         if edge not in new_edges:
+        #             outdated_edges.append(edge)
+        #     log("Outdated triplets truth: " + str(outdated_edges))
+        # n_truth += int(input("n_truth: "))
+        # n += int(input("n: "))
+        # recall += int(input("recall: "))
+        # n_local, n_truth_local, recall_local = graph.compute_stats(predicted_outdated, outdated_edges, exclude_nav = True, locations=locations)
+        # n_truth += n_truth_local
+        # n += n_local
+        # recall += recall_local
         
-#         graph.delete_triplets(outdated_edges)
-#         graph.add_triplets(G_new.edges(data = True))
-#         # breakpoint()
-#         # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
-#         # response = agent.generate(prompt)
-#         # triplets = process_triplets(response)
-#         # graph += triplets
-#         # graph = remove_equals(graph)
-#         # log("Observation: " + observation)
-#         # log("=====================")
-#         # log("Included triplets: " + response)
-#         # log("=====================")
+        graph.delete_triplets(outdated_edges)
+        graph.add_triplets(G_new.edges(data = True))
         
-#         # prompt = prompt_filter_wrong.format(observation = observation, observations = observations[-1:], graph = graph)
-#         # response = agent.generate(prompt)
-#         # triplets = process_triplets(response)
-#         # for triplet in triplets:
-#         #     if triplet in graph:
-#         #         graph.remove(triplet)
-#         # log("Excluded wrong triplets: " + response)
-#         # log("=====================")
+        n_truth, n, recall = graph.compare(graph_from_facts(info), exclude_nav = True, locations=locations)
+        # breakpoint()
+        # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # graph += triplets
+        # graph = remove_equals(graph)
+        # log("Observation: " + observation)
+        # log("=====================")
+        # log("Included triplets: " + response)
+        # log("=====================")
         
-#         # prompt = prompt_filter_outdated.format(observation = observation, observations = observations[-1:], graph = graph)
-#         # response = agent.generate(prompt)
-#         # triplets = process_triplets(response)
-#         # for triplet in triplets:
-#         #     if triplet in graph:
-#         #         graph.remove(triplet)
-#         # log("Excluded outdated triplets: " + response)
-#         # log("=====================")
+        # prompt = prompt_filter_wrong.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded wrong triplets: " + response)
+        # log("=====================")
         
-#         # prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = graph)
-#         # response = agent.generate(prompt)
-#         # log("Goal at this step: " + response)
-#         # log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        # prompt = prompt_filter_outdated.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # triplets = process_triplets(response)
+        # for triplet in triplets:
+        #     if triplet in graph:
+        #         graph.remove(triplet)
+        # log("Excluded outdated triplets: " + response)
+        # log("=====================")
         
-#         observations.append(observation)
-#         G_old = graph_from_facts(info)
-#         if done: 
-#             break
-#         observation, reward, done, info = env.step(action)
-#         G_new = graph_from_facts(info)
-#         # breakpoint()
-#         # old_edges, new_edges = G.edges(data = True), G_new.edges(data = True)
-#         # print(observation)
-#         # for edge in new_edges:
-#         #     if edge not in old_edges:
-#         #         print("New edge: ", edge)
-#         # for edge in old_edges:
-#         #     if edge not in new_edges:
-#         #         print("Outdated edge: ", edge)
-#         # print("=========================================")
-#         prev_action = action
-#         if n > 0:
-#             log("Precision: " + str(recall / n))
-#         if n_truth > 0:
-#             log("Recall:" + str(recall / n_truth))
-#         log("============================")
+        # prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = graph)
+        # response = agent.generate(prompt)
+        # log("Goal at this step: " + response)
+        # log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        
+        observations.append(observation)
+        # G_old = graph_from_facts(info)
+        if done: 
+            break
+        observation, reward, done, info = env.step(action)
+        # G_new = graph_from_facts(info)
+        # breakpoint()
+        # old_edges, new_edges = G.edges(data = True), G_new.edges(data = True)
+        # print(observation)
+        # for edge in new_edges:
+        #     if edge not in old_edges:
+        #         print("New edge: ", edge)
+        # for edge in old_edges:
+        #     if edge not in new_edges:
+        #         print("Outdated edge: ", edge)
+        # print("=========================================")
+        prev_action = action
+        if n > 0:
+            log("Precision: " + str(recall / n))
+        if n_truth > 0:
+            log("Recall:" + str(recall / n_truth))
+        log("============================")
 
 
-# raise "error"
+raise "error"
 
 
 # Test goal + plan

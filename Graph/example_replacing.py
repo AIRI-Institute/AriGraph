@@ -44,6 +44,7 @@ def log(text):
 
 graph = TripletGraph()
 agent = GPTagent(model = "gpt-4-0125-preview")
+agent.system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
 env = TextWorldWrapper("benchmark/clean_3x3/clean_3x3_mess.z8")
 observations = []
 
