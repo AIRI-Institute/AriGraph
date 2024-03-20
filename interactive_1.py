@@ -42,7 +42,7 @@ def process_triplets(raw_triplets):
             subj, relation, obj = subj.strip(' \n"'), relation.strip(' \n"'), obj.strip(' \n"')
             if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
                 continue
-            triplets.append([subj, relation, obj])
+            triplets.append([subj, obj, {"label": relation}])
         
     return triplets
 
@@ -83,7 +83,7 @@ def parse_plan(plan):
 
 def log(text):
     print(text)
-    with open("interactive_logs_goal_plan_withoutObs_navigation2.txt", "a") as file:
+    with open("interactive_logs_expanding_replacing_clean_3x3.txt", "a") as file:
         file.write(text + "\n")
 
 paths = {
@@ -111,7 +111,7 @@ Paths = [
 #     print("=====================")
 agent = GPTagent(model = "gpt-4-0125-preview")
 # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
-env = TextWorldWrapper("benchmark/navigation2/navigation2.z8")
+env = TextWorldWrapper("benchmark/clean_3x3/clean_3x3_mess.z8")
 agent.system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
 prompt_extraction = '''## 1. Overview
 Your task is to extract information from game observations in structured formats to build a knowledge graph.
@@ -328,16 +328,23 @@ for i in range(1):
         items = [list(item.keys())[0] for item in observed_items + remembered_items]
         log("Crucial items: " + str(items))
         associated_subgraph = graph.get_associated_triplets(items)
-        # associated_subgraph = graph.get_all_triplets()
-        # log("Associated subgraph: " + str(associated_subgraph))
-        # breakpoint()
-        # new_triplets = graph.exclude(G_new.edges(data = True))
+
+
+        prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
+        response = agent.generate(prompt)
+        new_triplets_raw = process_triplets(response)
+        new_triplets = graph.exclude(new_triplets_raw)
+        # log("Model response: " + response)
+        # log("New triplets: " + str(new_triplets_raw))
+        log("New triplets excluded: " + str(new_triplets))
+        
+        
         prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
         # prompt = prompt_filter.format(ex_triplets = associated_subgraph, observation = observation, observations = observations[-1:])
         response = agent.generate(prompt)
         # predicted_outdated = parse_triplets(response)
         predicted_outdated = parse_triplets_removing(response)
-        log("Model response: " + response)
+        log("Outdated triplets: " + response)
         # outdated_edges = []
         # if step > 0:
         #     old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
@@ -353,10 +360,10 @@ for i in range(1):
         # n += n_local
         # recall += recall_local
         
-        graph.delete_triplets(outdated_edges)
-        graph.add_triplets(G_new.edges(data = True))
+        graph.delete_triplets(predicted_outdated)
+        graph.add_triplets(new_triplets_raw)
         
-        n_truth, n, recall = graph.compare(graph_from_facts(info), exclude_nav = True, locations=locations)
+        n, n_truth, recall = graph.compare(graph_from_facts(info).edges(data = True), exclude_nav = True, locations=locations)
         # breakpoint()
         # prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
         # response = agent.generate(prompt)
