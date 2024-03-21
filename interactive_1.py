@@ -1,5 +1,5 @@
 from InstructorEmbedding import INSTRUCTOR
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 from jericho import FrotzEnv
 import json
 import numpy as np
@@ -709,7 +709,7 @@ for i in range(1):
 # embeddings = instructor.encode([[instruction, text]])
 # embedding_2 =  list(map(float, list(embeddings[0])))
 
-# print(cosine(embedding_1, embedding_2))
+# print(euclidean(embedding_1, embedding_2))
 
 # # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
 # # print(env.get_dictionary())

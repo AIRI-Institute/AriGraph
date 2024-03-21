@@ -1,5 +1,5 @@
 from InstructorEmbedding import INSTRUCTOR
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 from jericho import FrotzEnv
 import json
 import numpy as np
@@ -690,18 +690,18 @@ Generated plan: '''
 
 instructor = INSTRUCTOR('hkunlp/instructor-large')
 
-text = '''located at'''
+text = '''refrigerator, closed, itself'''
 
 # instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
-instruction = '''Represent relation'''
+instruction = '''Represent the triplet in the knowledge graph:'''
 embeddings = instructor.encode([[instruction, text]])
 embedding_1 =  list(map(float, list(embeddings[0])))
 
-text = '''contain'''
+text = '''refrigerator, opened, itself'''
 embeddings = instructor.encode([[instruction, text]])
 embedding_2 =  list(map(float, list(embeddings[0])))
 
-print(cosine(embedding_1, embedding_2))
+print(euclidean(embedding_1, embedding_2))
 
 # # env = FrotzEnv("z-machine-games-master/jericho-game-suite/detective.z5")
 # # print(env.get_dictionary())

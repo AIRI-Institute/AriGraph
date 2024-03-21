@@ -1,5 +1,5 @@
 from InstructorEmbedding import INSTRUCTOR
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 from jericho import FrotzEnv
 import json
 import numpy as np
@@ -12,7 +12,7 @@ from triplet_graph import TripletGraph
 from prompts import *
 from utils import *
 
-log_file = "log_example_planning_withObs_nav4.txt"
+log_file = "log_example_planning_withObs_subgraph_nav4.txt"
 env_name = "benchmark/navigation4/navigation4.z8"
 
 log = Logger(log_file)
@@ -67,21 +67,27 @@ for i in range(1):
         observation += f"\nAction that led to this: {prev_action}"
         log("Observation: " + observation)
         
-
-        associated_subgraph = graph.get_all_triplets()
         G_true = graph_from_facts(info)
-        G_true_in_text = get_text_graph(G_true)
-        # log("Associated subgraph: " + str(associated_subgraph))
-        new_triplets = graph.exclude(G_new.edges(data = True))
-        prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = G_true_in_text, goal = goal, plan = plan)
+        graph.delete_all()
+        graph.add_triplets(G_true.edges(data = True))
+        
+        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        log("Crucial items: " + str(items))
+        associated_subgraph = graph.get_associated_triplets(items, steps = 2)
+        # associated_subgraph = get_text_graph(G_true)
+        log("Associated subgraph: " + str(associated_subgraph))
+  
+        prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
         goal = agent.generate(prompt)
         log("Goal: " + goal)
         log("Current plan: " + str(plan))
-        prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = G_true_in_text, goal = goal, plan = plan)
-        # prompt = prompt_planning_without_obs.format(graph = G_true_in_text, goal = goal, plan = plan)
+        prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
+        # prompt = prompt_planning_without_obs.format(graph = associated_subgraph, goal = goal, plan = plan)
         response = agent.generate(prompt)
         plan = parse_plan(response)
         log("Model response: " + response)
+        
         is_nav = False
         if len(plan) == 0:
             action = np.random.choice(valid_actions)
@@ -89,16 +95,6 @@ for i in range(1):
             is_nav = True
         else:
             action = plan[0]
-        outdated_edges = []
-        if step > 0:
-            old_edges, new_edges = G_old.edges(data = True), G_new.edges(data = True)
-            for edge in old_edges:
-                if edge not in new_edges:
-                    outdated_edges.append(edge)
-            # log("Outdated triplets truth: " + str(outdated_edges))
-        
-        graph.delete_triplets(outdated_edges)
-        graph.add_triplets(G_new.edges(data = True))
         
         observations.append(observation)
         if is_nav:

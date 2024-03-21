@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 from copy import deepcopy
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 from InstructorEmbedding import INSTRUCTOR
 
 # Must be with emb!
@@ -56,7 +56,7 @@ class TripletGraph:
     
     def is_equal(self, text1, text2, entity = False):
         embedding1, embedding2 = self.get_embedding_local(text1, entity), self.get_embedding_local(text2, entity)
-        return cosine(embedding1, embedding2) < self.threshold
+        return euclidean(embedding1, embedding2) < self.threshold
     
     def str(self, triplet):
         return triplet[0] + ", " + triplet[2]["label"] + ", " + triplet[1]
@@ -67,7 +67,7 @@ class TripletGraph:
     def contain(self, triplet, embedding, delete = False):
         ans = False
         for contained in self.triplets:
-            ans = ans or cosine(embedding, contained[1]) < self.threshold    
+            ans = ans or euclidean(embedding, contained[1]) < self.threshold    
             if ans and delete:
                 self.triplets.remove(contained)
                 break        
@@ -97,7 +97,7 @@ class TripletGraph:
                 # breakpoint()
                 if exclude_nav and check_loc(true_triplet, locations): 
                     continue
-                if cosine(true_embedding, pred_embedding) < self.threshold:
+                if euclidean(true_embedding, pred_embedding) < self.threshold:
                     recall += 1
                     break
         return n, n_right, recall
@@ -121,12 +121,12 @@ class TripletGraph:
             n += 1
             embedding_1, embedding_2 = pred_triplet[0][0][1], pred_triplet[0][1][1]
             for (true_embedding_1, true_embedding_2, true_rel_emb) in true_embeddings:
-                if (cosine(embedding_1, true_embedding_1) < self.threshold and \
-                    cosine(embedding_2, true_embedding_2) < self.threshold) or\
-                    (cosine(embedding_1, true_embedding_2) < self.threshold and \
-                    cosine(embedding_2, true_embedding_1) < self.threshold):
+                if (euclidean(embedding_1, true_embedding_1) < self.threshold and \
+                    euclidean(embedding_2, true_embedding_2) < self.threshold) or\
+                    (euclidean(embedding_1, true_embedding_2) < self.threshold and \
+                    euclidean(embedding_2, true_embedding_1) < self.threshold):
                     relation_emb = self.get_embedding_local(pred_triplet[0][2]["label"], True)
-                    # if (cosine(relation_emb, true_rel_emb) < self.threshold):    
+                    # if (euclidean(relation_emb, true_rel_emb) < self.threshold):    
                     recall += 1
                     break
         # breakpoint()
@@ -135,10 +135,13 @@ class TripletGraph:
     def get_all_triplets(self):
         return [self.str_self(triplet) for triplet in self.triplets]
     
+    def delete_all(self):
+        self.triplets, self.items = [], []
+    
     def add_item(self, item):
         embedding = self.get_embedding_local(item, entity = True)
         for existing_item in self.items:
-            if cosine(existing_item[1], embedding) < self.threshold:
+            if euclidean(existing_item[1], embedding) < self.threshold:
                 return existing_item[0]
         self.items.append((item, embedding))
         return item
@@ -158,14 +161,49 @@ class TripletGraph:
             embedding = self.get_embedding_local(self.str(triplet))
             self.contain(triplet, embedding, delete = True)
             
-    def get_associated_triplets(self, items):
+    def get_associated_triplets(self, items, steps = 1):
         associated_triplets = []
+        visited_items = set()
+        now = set()
         for triplet in self.triplets:
             for item in items:
                 embedding = self.get_embedding_local(item, entity = True)
-                if cosine(embedding, triplet[0][0][1]) < self.threshold or cosine(embedding, triplet[0][1][1]) < self.threshold:
+                if euclidean(embedding, triplet[0][0][1]) < self.threshold:
                     associated_triplets.append(self.str_self(triplet))
+                    visited_items.add(triplet[0][0][0])
+                    visited_items.add(triplet[0][1][0])
+                    now.add(triplet[0][1][0])
                     break
+                if euclidean(embedding, triplet[0][1][1]) < self.threshold:
+                    associated_triplets.append(self.str_self(triplet))
+                    visited_items.add(triplet[0][0][0])
+                    visited_items.add(triplet[0][1][0])
+                    now.add(triplet[0][0][0])
+                    break
+        
+        if "itself" in now:
+            now.remove("itself")
+        for i in range(steps - 1):
+            now_emb = [(it, self.get_embedding_local(it, entity = True)) for it in now]
+            now = set()
+            for triplet in self.triplets:
+                for it, emb in now_emb:
+                    if euclidean(emb, triplet[0][0][1]) < self.threshold and self.str_self(triplet) not in visited_items:
+                        associated_triplets.append(self.str_self(triplet))
+                        if triplet[0][1][0] not in visited_items:
+                            now.add(triplet[0][1][0])
+                        visited_items.add(triplet[0][0][0])
+                        visited_items.add(triplet[0][1][0])
+                        break
+                    if euclidean(embedding, triplet[0][1][1]) < self.threshold and self.str_self(triplet) not in visited_items:
+                        associated_triplets.append(self.str_self(triplet))
+                        if triplet[0][0][0] not in visited_items:
+                            now.add(triplet[0][0][0])
+                        visited_items.add(triplet[0][0][0])
+                        visited_items.add(triplet[0][1][0])
+                        break
+            if "itself" in now:
+                now.remove("itself")          
         return associated_triplets
     
     def exclude(self, triplets):
@@ -184,7 +222,9 @@ class TripletGraph:
         locations.remove("player")
         graph = {}
         for triplet in self.triplets:
-            if triplet[0][0][0] in locations and triplet[0][1][0] in locations and triplet[0][2]["label"] != "free":
+            if triplet[0][2]["label"] == "free":
+                continue
+            if triplet[0][0][0] in locations and triplet[0][1][0] in locations:
                 if triplet[0][0][0] in graph:
                     graph[triplet[0][0][0]]["connections"].append((triplet[0][2]["label"], triplet[0][1][0]))
                 else:

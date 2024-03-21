@@ -1,5 +1,5 @@
 from InstructorEmbedding import INSTRUCTOR
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 from jericho import FrotzEnv
 import json
 import numpy as np

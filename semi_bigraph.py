@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 from copy import deepcopy
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 
 class KnowledgeSemiBiGraph:
     def __init__(self, path, load = False, embedding_treshold = 0.02, state_embeddin_treshold = 0.02, steps_between_tryings = 250):
@@ -116,7 +116,7 @@ Location: {location}
             return self.items[name]
         item, best_score = None, 10
         for candidate in self.items:
-            score = cosine(self.items[candidate]["embedding"], embedding)
+            score = euclidean(self.items[candidate]["embedding"], embedding)
             if score < self.embedding_treshold and score < best_score:
                 best_score = score
                 item = self.items[candidate]
@@ -127,7 +127,7 @@ Location: {location}
             return state_key
         true_key, best_score = None, 10
         for candidate in self.states:
-            score = cosine(self.states[candidate]["embedding"], embedding)
+            score = euclidean(self.states[candidate]["embedding"], embedding)
             if score < self.state_embeddin_treshold and score < best_score:
                 best_score = score
                 true_key = candidate

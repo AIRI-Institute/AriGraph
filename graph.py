@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 from copy import deepcopy
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 
 def merge_dicts(primal_dict, side_dict):
     keys = set(list(primal_dict.keys()) + list(side_dict.keys()))
@@ -149,7 +149,7 @@ class KnowledgeGraph:
         source_nodes_names = set()
         for embedding in source_embeddings:
             try:
-                idx = np.argmin([cosine(embedding, node["embedding"]) for node in self.nodes.values()])
+                idx = np.argmin([euclidean(embedding, node["embedding"]) for node in self.nodes.values()])
             except:
                 print(np.array(embedding).shape)
                 print([np.array(node["embedding"]).shape for node in self.nodes.values()])
