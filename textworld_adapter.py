@@ -3,6 +3,9 @@ import textworld.gym as tw_gym
 import networkx as nx
 import matplotlib.pyplot as plt
 import re
+
+from triplet_graph import clear_triplet
+
 class TextWorldWrapper:
 
     def __init__(self, gamefile):
@@ -71,7 +74,7 @@ class TextWorldWrapper:
 
 
 def graph_from_facts(info, only_entities=False, verbose=False, need_tags = True):
-    G = nx.DiGraph()
+    G = nx.MultiDiGraph()
     objects = info['entities']
     # print(info['facts'])
     for f in info['facts']:
@@ -108,7 +111,8 @@ def draw_graph(G, path = "default"):
 def get_text_graph(G):
     graph_text = ""
     for edge in G.edges(data = True):
-        graph_text += f'''\n{edge[0]} {edge[2]["label"]} {edge[1]},'''
+        clear_edge = clear_triplet(edge)
+        graph_text += f'''\n{clear_edge[0]} {clear_edge[2]["label"]} {clear_edge[1]},'''
     return graph_text
 
 if __name__ == "__main__":

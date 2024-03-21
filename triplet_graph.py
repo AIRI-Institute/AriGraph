@@ -112,7 +112,7 @@ class TripletGraph:
             if exclude_nav and check_loc(true_triplet, locations): 
                 continue
             n_right += 1
-            true_embeddings.append((self.get_embedding_local(true_triplet[0], True), self.get_embedding_local(true_triplet[1], True)))
+            true_embeddings.append((self.get_embedding_local(true_triplet[0], True), self.get_embedding_local(true_triplet[1], True), self.get_embedding_local(true_triplet[2]["label"], True)))
             
             
         for pred_triplet in self.triplets:
@@ -120,11 +120,13 @@ class TripletGraph:
                 continue
             n += 1
             embedding_1, embedding_2 = pred_triplet[0][0][1], pred_triplet[0][1][1]
-            for (true_embedding_1, true_embedding_2) in true_embeddings:
+            for (true_embedding_1, true_embedding_2, true_rel_emb) in true_embeddings:
                 if (cosine(embedding_1, true_embedding_1) < self.threshold and \
                     cosine(embedding_2, true_embedding_2) < self.threshold) or\
                     (cosine(embedding_1, true_embedding_2) < self.threshold and \
                     cosine(embedding_2, true_embedding_1) < self.threshold):
+                    relation_emb = self.get_embedding_local(pred_triplet[0][2]["label"], True)
+                    # if (cosine(relation_emb, true_rel_emb) < self.threshold):    
                     recall += 1
                     break
         # breakpoint()
@@ -182,7 +184,7 @@ class TripletGraph:
         locations.remove("player")
         graph = {}
         for triplet in self.triplets:
-            if triplet[0][0][0] in locations and triplet[0][1][0] in locations:
+            if triplet[0][0][0] in locations and triplet[0][1][0] in locations and triplet[0][2]["label"] != "free":
                 if triplet[0][0][0] in graph:
                     graph[triplet[0][0][0]]["connections"].append((triplet[0][2]["label"], triplet[0][1][0]))
                 else:
@@ -203,6 +205,8 @@ class TripletGraph:
     
     # Must be with emb!
     def find_path(self, A, B, locations):
+        if A == B:
+            return "You are already there"
         items = [item[0] for item in self.items]
         if A not in items or B not in items:
             return "Destionation is unknown. Please, choose another destination or explore new paths and locations."
