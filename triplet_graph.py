@@ -5,7 +5,6 @@ from copy import deepcopy
 from scipy.spatial.distance import cosine, euclidean
 from InstructorEmbedding import INSTRUCTOR
 
-# Must be with emb!
 def check_loc(triplet, locations):
     return triplet[0] in locations and triplet[1] in locations
 
@@ -44,6 +43,11 @@ def find_relation(spatial_graph, parent, loc, first):
                 return reverse[find_relation(spatial_graph, loc, parent, False)]
 
 class TripletGraph:
+    # Triplets - list of pairs (triplet, triplet_embedding),
+    # where triplet - ((subj, subj_emb), (obj, obj_emb), {"label": relation})
+    
+    # Items - list of pairs (item, item_emb)
+    
     def __init__(self, threshold = 0.02):
         self.triplets, self.items, self.threshold = [], [], threshold
         self.instructor = INSTRUCTOR('hkunlp/instructor-large')
@@ -58,9 +62,11 @@ class TripletGraph:
         embedding1, embedding2 = self.get_embedding_local(text1, entity), self.get_embedding_local(text2, entity)
         return euclidean(embedding1, embedding2) < self.threshold
     
+    # For triplet withou embeddings
     def str(self, triplet):
         return triplet[0] + ", " + triplet[2]["label"] + ", " + triplet[1]
     
+    # For triplet with embeddings
     def str_self(self, triplet):
         return triplet[0][0][0] + ", " + triplet[0][2]["label"] + ", " + triplet[0][1][0]
     
@@ -73,10 +79,12 @@ class TripletGraph:
                 break        
         return ans
     
+    # Contain for triplet without embedding
     def contain_raw(self, triplet, delete = False):
         embedding = self.get_embedding_local(self.str(triplet))
         return self.contain(triplet, embedding, delete)
     
+    # Method for replacing evaluation
     def compute_stats(self, predicted, true, exclude_nav = False, locations = set()):
         n, n_right, recall = 0, 0, 0
         true_embeddings = [self.get_embedding_local(self.str(clear_triplet(true_triplet))) for true_triplet in true]
@@ -102,6 +110,7 @@ class TripletGraph:
                     break
         return n, n_right, recall
     
+    # Method for extracting + replacing evaluation (compare only existing of relation)
     def compare(self, true, exclude_nav = False, locations=set()):
         n, n_right, recall = 0, 0, 0
         true_embeddings = []
@@ -146,6 +155,7 @@ class TripletGraph:
         self.items.append((item, embedding))
         return item
     
+    # Filling graph
     def add_triplets(self, triplets):
         for triplet in triplets:
             triplet = clear_triplet(triplet)
@@ -161,6 +171,7 @@ class TripletGraph:
             embedding = self.get_embedding_local(self.str(triplet))
             self.contain(triplet, embedding, delete = True)
             
+    # Associations by set of items. Step is a parameter for BFS
     def get_associated_triplets(self, items, steps = 1):
         associated_triplets = []
         visited_items = set()
@@ -206,6 +217,7 @@ class TripletGraph:
                 now.remove("itself")          
         return associated_triplets
     
+    # Exclude facts from 'triplets' which already in graph
     def exclude(self, triplets):
         new_triplets = []
         for triplet in triplets:
@@ -216,7 +228,7 @@ class TripletGraph:
                 
         return new_triplets
     
-    # Must be with emb!
+    # Compute useful shape of graph with only spatial information
     def compute_spatial_graph(self, locations):
         locations = deepcopy(locations)
         locations.remove("player")
@@ -243,7 +255,6 @@ class TripletGraph:
                     graph[loc]["connections"].remove(connection)
         return graph
     
-    # Must be with emb!
     def find_path(self, A, B, locations):
         if A == B:
             return "You are already there"

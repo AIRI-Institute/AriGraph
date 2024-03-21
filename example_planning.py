@@ -67,27 +67,36 @@ for i in range(1):
         observation += f"\nAction that led to this: {prev_action}"
         log("Observation: " + observation)
         
+        # Extracting true graph
         G_true = graph_from_facts(info)
         graph.delete_all()
         graph.add_triplets(G_true.edges(data = True))
         
+        # Extracting subgraph
         observed_items, remembered_items = agent.bigraph_processing(observations, observation)
         items = [list(item.keys())[0] for item in observed_items + remembered_items]
         log("Crucial items: " + str(items))
         associated_subgraph = graph.get_associated_triplets(items, steps = 2)
+        
+        #Using full graph
         # associated_subgraph = get_text_graph(G_true)
+        
         log("Associated subgraph: " + str(associated_subgraph))
-  
+
+        # Setting goal
         prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
         goal = agent.generate(prompt)
         log("Goal: " + goal)
         log("Current plan: " + str(plan))
+        
+        # Constructing plan
         prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
         # prompt = prompt_planning_without_obs.format(graph = associated_subgraph, goal = goal, plan = plan)
         response = agent.generate(prompt)
         plan = parse_plan(response)
         log("Model response: " + response)
         
+        # Parse action
         is_nav = False
         if len(plan) == 0:
             action = np.random.choice(valid_actions)
@@ -97,6 +106,8 @@ for i in range(1):
             action = plan[0]
         
         observations.append(observation)
+        
+        # Proceed navigation
         if is_nav:
             destination = plan[0].split("go to")[-1].strip('''\n'" ''')
             path = graph.find_path(env.curr_location, destination, locations)
@@ -113,6 +124,8 @@ for i in range(1):
                     log("Observation: " + observation + "\n\n")
                 
             prev_action = plan[0]
+        
+        # Proceed action 
         else:
             G_old = graph_from_facts(info)
             if done: 

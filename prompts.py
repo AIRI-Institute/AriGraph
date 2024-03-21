@@ -34,6 +34,10 @@ Extracted data: '''
 # For setting intermediate goal at several steps
 prompt_goal = '''#### Graph: {graph}
 ####
+Previous goal: {goal}
+####
+Current plan: {plan}
+####
 Observation: {observation}
 ####
 Previous observations and actions: {observations}
