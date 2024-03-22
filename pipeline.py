@@ -154,7 +154,7 @@ def bigraph_pipeline(config, graph_name, game_path, log_file):
 
             # filtered_items = [graph.get_item(list(item.keys())[0], list(item.values())[0])["name"] for item in remembered_items if graph.get_item(list(item.keys())[0], list(item.values())[0]) is not None]
             # associations, experienced_actions, n = graph.get_associations(filtered_items)
-            associations, experienced_actions, n = 1, 1, 1
+            # associations, experienced_actions, n = 1, 1, 1
             true_graph = get_text_graph(graph_from_facts(env.info))
             # breakpoint()
             observation = observation.split("$$$")[-1]
@@ -240,19 +240,19 @@ Goal: '''.format(graph = true_graph, observation = observation, observations = o
             if step < print_steps:
                 with open(log_file, "a") as file:
                     file.write(f"Step: {step + 1}\n")
-                    for branch in branches:
-                        file.write(f"Branch: {branch}\n")
+                    # for branch in branches:
+                    #     file.write(f"Branch: {branch}\n")
                     # file.write(f"Is action chosen: {is_random}\n")
                     file.write(f"Location: {location}\n")
                     file.write(f"Observation: {old_obs}\n")
                     # file.write(f"Inventory: {inventory}\n")
                     # temp = [list(item.keys())[0] for item in observed_items]
                     # file.write(f"Observed items: {temp}\n")
-                    file.write(f"insight: {insight}\n")
+                    # file.write(f"insight: {insight}\n")
                     # temp = [list(item.keys())[0] for item in remembered_items]
                     # file.write(f"Remembered items: {temp}\n")
-                    file.write(f"associations: {associations}\n")
-                    file.write(f"Experienced actions: {experienced_actions}\n")
+                    # file.write(f"associations: {associations}\n")
+                    # file.write(f"Experienced actions: {experienced_actions}\n")
                     # file.write(f"Use graph: {use_graph}\n")
                     file.write(f"Summary: {reflection}\n")
                     file.write(f"Valid actions: {valid_actions}\n")

@@ -47,18 +47,20 @@ for i in range(1):
         observation += f"\nAction that led to this: {prev_action}"
         log("Observation: " + observation)
         
+        # Extracting crucial items
         observed_items, remembered_items = agent.bigraph_processing(observations, observation)
         items = [list(item.keys())[0] for item in observed_items + remembered_items]
         log("Crucial items: " + str(items))
         associated_subgraph = graph.get_associated_triplets(items)
 
+        # Extracting triplets
         prompt = prompt_extraction.format(observation = observation, observations = observations[-1:])
         response = agent.generate(prompt)
         new_triplets_raw = process_triplets(response)
         new_triplets = graph.exclude(new_triplets_raw)
         log("New triplets excluded: " + str(new_triplets))
         
-        
+        # Replacing triplets
         prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
         response = agent.generate(prompt)
         predicted_outdated = parse_triplets_removing(response)
@@ -67,6 +69,7 @@ for i in range(1):
         graph.delete_triplets(predicted_outdated)
         graph.add_triplets(new_triplets_raw)
         
+        # Compute scores of current graph in comparison with true graph
         n, n_truth, recall = graph.compare(graph_from_facts(info).edges(data = True), exclude_nav = True, locations=locations)
         
         observations.append(observation)
