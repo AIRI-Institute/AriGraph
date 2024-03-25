@@ -12,14 +12,20 @@ from triplet_graph import TripletGraph
 from prompts import *
 from utils import *
 
-log_file = "log_example_planning_withObs_subgraph_nav4.txt"
-env_name = "benchmark/navigation4/navigation4.z8"
+log_file = "log_example_planning_clean.txt"
+env_name = "benchmark/clean_3x3/clean_3x3_mess.z8"
 
 log = Logger(log_file)
 graph = TripletGraph()
 agent = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_prompt)
 env = TextWorldWrapper(env_name)
 observations = []
+
+locations = {"player", "Kids' Room", "Kitchen"}
+env.reset()
+
+# ATTENTION!!!
+# walkthrough = env.walkthrough()
 
 # For navigation2
 # walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go south", "unlock Grey locker with Key 1",
@@ -29,25 +35,27 @@ observations = []
 #                    "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
 
 # For navigation4
-walkthrough = ["examine Task note",
-"take key 1", "go west", "go south", "go east", "go east", "go east", "go south", "go east", "unlock Bronze locker with Key 1", 
-"open Bronze locker", "examine Note 2", "take Key 2", "go west", "go north", "go west", "go west", "go west", 
-"unlock Red locker with Key 2", "open Red locker", "examine Note 3", "take Key 3 from Red locker", "go east", "go east", 
-"go north", "go north", "go east", "unlock Cyan locker with Key 3", "open Cyan locker", "examine Note 4", "drop Key 1", 
-"take Key 4 from Cyan locker", "go west", "go south", "go south", "go east", "go north", "unlock Black locker with Key 4", 
-"open Black locker", "drop Key 2", "take Golden Key from Black locker", "go south", "go west", "go west", 
-"go west", "go north", "go east", "unlock Golden locker with Golden Key", "open Golden locker", "take treasure from Golden locker", 
-"examine treasure"]
+# walkthrough = ["examine Task note",
+# "take key 1", "go west", "go south", "go east", "go east", "go east", "go south", "go east", "unlock Bronze locker with Key 1", 
+# "open Bronze locker", "examine Note 2", "take Key 2", "go west", "go north", "go west", "go west", "go west", 
+# "unlock Red locker with Key 2", "open Red locker", "examine Note 3", "take Key 3 from Red locker", "go east", "go east", 
+# "go north", "go north", "go east", "unlock Cyan locker with Key 3", "open Cyan locker", "examine Note 4", "drop Key 1", 
+# "take Key 4 from Cyan locker", "go west", "go south", "go south", "go east", "go north", "unlock Black locker with Key 4", 
+# "open Black locker", "drop Key 2", "take Golden Key from Black locker", "go south", "go west", "go west", 
+# "go west", "go north", "go east", "unlock Golden locker with Golden Key", "open Golden locker", "take treasure from Golden locker", 
+# "examine treasure"]
 
-locations = {"player", "Kids' Room"}
-env.reset()
+# One for clean 3x3 default
+walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
+
 for action in walkthrough:
     locations.add(env.curr_location)
     env.step(action)
-print("LOCATIONS: ", locations)
+log("LOCATIONS: " + str(locations))
 n_steps = 50
+n_attempts = 3
 
-for i in range(1):
+for i in range(n_attempts):
     log("Attempt: " + str(i + 1))
     log("\n\n")
     observation, info = env.reset()
@@ -73,13 +81,13 @@ for i in range(1):
         graph.add_triplets(G_true.edges(data = True))
         
         # Extracting subgraph
-        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
-        items = [list(item.keys())[0] for item in observed_items + remembered_items]
-        log("Crucial items: " + str(items))
-        associated_subgraph = graph.get_associated_triplets(items, steps = 2)
+        # observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        # items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        # log("Crucial items: " + str(items))
+        # associated_subgraph = graph.get_associated_triplets(items, steps = 2)
         
         #Using full graph
-        # associated_subgraph = get_text_graph(G_true)
+        associated_subgraph = get_text_graph(G_true)
         
         log("Associated subgraph: " + str(associated_subgraph))
 

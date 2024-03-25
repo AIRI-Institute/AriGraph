@@ -1,4 +1,15 @@
-system_prompt = '''You play at the text game, goal and some needful information are given in Task note. Please, try to achieve the goal fast and effective. If you think you haven’t some crucial knowledges about the game, explore new areas and items. Otherwise, go to the goal and pay no attention to noisy things.'''
+system_prompt = '''You play at the text game, goal and some needful information are given in Task note. 
+Please, try to achieve the goal fast and effective. 
+If you think you haven’t some crucial knowledges about the game, explore new areas and items. 
+Otherwise, go to the goal in the Task note and pay no attention to noisy things. 
+If you forget or doesn't know main goal, you can always read Task note and remember main goal.'''
+
+exploration_system_prompt = '''You play at the text game, goal and some needful information are given in Task note. 
+Your main task now is to explore as much as possible. Find new locations, interact with objects you didn't interact with,
+try unusual solutions and etc. Remember: now we construct a knowledge graph which contain all known information about game environment,
+you should find locations, items and states which you haven't seen before. At each step graph contain all information which you already know.
+Warning! Try to not visit locations that is contained in knowlrdge graph. Your task is TO EXPLORE and TO FIND NEW things and locations.
+If you forget or doesn't know main goal, you can always read Task note and remember main goal.'''
 
 # For extraction triplets from observation
 prompt_extraction = '''## 1. Overview
@@ -63,6 +74,41 @@ Existing triplets: {ex_triplets}.
 New triplets: {new_triplets}.
 Replacing: """
 
+
+# For planning expermental
+prompt_planning_new = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
+####
+Graph: {graph}
+####
+
+I will also provide you with current plan.
+####
+Current plan: {plan}
+####
+
+
+I will also provide you with current game state. It consist of current observation and previous observations.
+####
+Observation: {observation}
+Previous observations: {observations}
+####
+
+Your task is to achieve the goal. 
+####
+Goal: {goal}
+####
+
+Write me a plan on how you will solve this task. 
+Plan must consist of actions in environment. Examples of action: "take *something*", "open *something*", "go to *some location*".
+Avoid to use actions like "north", "west", "south" and "east" if you want to go at known location, use "go to" action instead to move at known location.
+Feel free to use actions like "north", "west", "south" and "east" for explore new locations.
+When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
+Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
+If your previous actions didn't led to expected results (for example, game can't uderstand your action), try to rebuild or reformulate plan.
+Aviod to use action "examine *something*", but if you want to "examine Task note", feel free to do it. 
+####
+Warning! Plan must be generated in format of list of actions (like in example above). Correct format of answer: [action_1, action_2, ...]
+Generated plan: '''
 
 # For planning
 prompt_planning = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 

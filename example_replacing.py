@@ -29,7 +29,7 @@ env.reset()
 for action in walkthrough:
     locations.add(env.curr_location)
     env.step(action)
-print("LOCATIONS: ", locations)
+log("LOCATIONS: " + str(locations))
 
 for i in range(1):
     log("Attempt: " + str(i + 1))
@@ -73,7 +73,7 @@ for i in range(1):
         n += n_local
         recall += recall_local
         
-        graph.delete_triplets(outdated_edges)
+        graph.delete_triplets(outdated_edges, locations)
         graph.add_triplets(G_new.edges(data = True))
         
         observations.append(observation)

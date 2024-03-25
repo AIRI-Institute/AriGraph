@@ -690,7 +690,7 @@ Generated plan: '''
 
 instructor = INSTRUCTOR('hkunlp/instructor-large')
 
-text = '''refrigerator, closed, itself'''
+text = '''refrigerator, opened, itself'''
 
 # instruction = '''There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters.'''
 instruction = '''Represent the triplet in the knowledge graph:'''
