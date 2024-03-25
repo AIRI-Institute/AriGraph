@@ -1,4 +1,7 @@
+import numpy as np
 from copy import deepcopy
+
+from prompts import system_prompt, exploration_system_prompt
 
 def process_triplets(raw_triplets):
     raw_triplets = raw_triplets.split(";")
@@ -16,6 +19,17 @@ def process_triplets(raw_triplets):
             triplets.append([subj, obj, {"label": relation}])
         
     return triplets
+
+def find_direction(action):
+    if "north" in action:
+        return "north of"
+    if "east" in action:
+        return "east of"
+    if "south" in action:
+        return "south of"
+    if "west" in action:
+        return "west of"
+    raise "ACTION ISN'T A DIRECTION"
 
 def parse_triplets_removing(text):
     text = text.split("[[")[-1]
@@ -35,8 +49,42 @@ def parse_triplets_removing(text):
     return parsed_triplets
 
 def parse_plan(plan):
-    plan = plan.strip("[]").split(",")
+    plan = plan.split("Plan:")[-1].strip(" \n[]")
+    plan = plan.split(",")
     return [action.strip('''\n'" ''') for action in plan]
+
+class Switch:
+    def __init__(self, n_min, n_max):
+        self.scores, self.exploitation, self.explor_steps, self.exploit_steps = [], False, 0, 0
+        self.n_min, self.n_max = n_min, n_max
+        
+    def __call__(self, agent, curr_score):
+        self.scores.append(curr_score)
+        if self.criterium:
+            agent.system_prompt = system_prompt
+            self.exploitation = True
+        elif self.exploitation and self.exploit_steps >= self.explor_steps:
+            agent.system_prompt = exploration_system_prompt
+            self.scores, self.exploitation, self.explor_steps, self.exploit_steps = [], False, 0, 0
+        if self.exploitation:
+            self.exploit_steps += 1
+        else:
+            self.explor_steps += 1
+        
+    @property    
+    def criterium(self):
+        if len(self.scores) > self.n_max:
+            return True
+        i, r = self.scores.index(max(self.scores)), len(self.scores) - 1
+        l = max(0, 2*i - r)
+        if len(self.scores[i + 1:]) < self.n_min:
+            return False
+        
+        summ, weighted_summ = np.sum(self.scores[l:]), 0
+        dist = r - i
+        for j in range(l, r + 1):
+            weighted_summ += self.scores[j] * (j - i + dist) / dist    
+        return summ > weighted_summ
 
 class Logger:
     def __init__(self, path):

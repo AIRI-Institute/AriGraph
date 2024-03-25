@@ -29,7 +29,7 @@ env.reset()
 for action in walkthrough:
     locations.add(env.curr_location)
     env.step(action)
-print("LOCATIONS: ", locations)
+log("LOCATIONS: " + str(locations))
 
 for i in range(1):
     log("Attempt: " + str(i + 1))
@@ -66,7 +66,7 @@ for i in range(1):
         predicted_outdated = parse_triplets_removing(response)
         log("Outdated triplets: " + response)
         
-        graph.delete_triplets(predicted_outdated)
+        graph.delete_triplets(predicted_outdated, locations)
         graph.add_triplets(new_triplets_raw)
         
         # Compute scores of current graph in comparison with true graph

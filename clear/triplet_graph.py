@@ -166,8 +166,16 @@ class TripletGraph:
                 self.add_item(triplet[0])
                 self.add_item(triplet[1])
                 
-    def delete_triplets(self, triplets):
+    def delete_triplets(self, triplets, locations):
         for triplet in triplets:
+            first, second = False, False
+            for loc in locations:
+                if self.is_equal(triplet[0], loc, True):
+                    first = True
+                if self.is_equal(triplet[1], loc, True):
+                    second = True
+            if first and second:
+                continue
             embedding = self.get_embedding_local(self.str(triplet))
             self.contain(triplet, embedding, delete = True)
             
@@ -231,7 +239,8 @@ class TripletGraph:
     # Compute useful shape of graph with only spatial information
     def compute_spatial_graph(self, locations):
         locations = deepcopy(locations)
-        locations.remove("player")
+        if "player" in locations:
+            locations.remove("player")
         graph = {}
         for triplet in self.triplets:
             if triplet[0][2]["label"] == "free":
@@ -256,11 +265,15 @@ class TripletGraph:
         return graph
     
     def find_path(self, A, B, locations):
+        if A == 'Kids" Room':
+            A = "Kids' Room"
+        if B == 'Kids" Room':
+            B = "Kids' Room"
         if A == B:
             return "You are already there"
         items = [item[0] for item in self.items]
         if A not in items or B not in items:
-            return "Destionation is unknown. Please, choose another destination or explore new paths and locations."
+            return "Destination is unknown. Please, choose another destination or explore new paths and locations."
         spatial_graph = self.compute_spatial_graph(locations)
         current_set = {A}
         future_set = set()
