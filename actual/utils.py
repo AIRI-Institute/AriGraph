@@ -1,7 +1,24 @@
+import os
+import json
 import numpy as np
+from inspect import signature
 from copy import deepcopy
 
 from prompts import system_prompt, exploration_system_prompt
+
+def find_args(callable, args):
+    needful_arg_signature = signature(callable).parameters
+    needful_args = list(needful_arg_signature.keys())
+    args_for_return = {}
+    for arg in needful_args:
+        if arg == "self":
+            continue
+        if arg not in args and "=" not in str(needful_arg_signature[arg]):
+            raise "Haven't needful argument"
+        elif arg not in args:
+            continue
+        args_for_return[arg] = args[arg]
+    return args_for_return
 
 def process_triplets(raw_triplets):
     raw_triplets = raw_triplets.split(";")
@@ -49,9 +66,18 @@ def parse_triplets_removing(text):
     return parsed_triplets
 
 def parse_plan(plan):
-    plan = plan.split("Plan:")[-1].strip(" \n[]")
+    plan = plan.split("[")[-1].split("]")[0]
     plan = plan.split(",")
     return [action.strip('''\n'" ''') for action in plan]
+
+def process_crucial_items(response):
+    observed_items = []
+    if "Crucial things: " in response:
+        observed_items = response.split("Crucial things: ")[1].split(";")[0].strip("[]").split(",")
+        for i in range(len(observed_items)):
+            observed_items[i] = observed_items[i].strip(" \n.")
+    
+    return observed_items
 
 class Switch:
     def __init__(self, n_min, n_max):
@@ -89,11 +115,19 @@ class Switch:
 class Logger:
     def __init__(self, path):
         self.path = path
+        os.makedirs(path, exist_ok=True)
         
-    def __call__(self, text):
+    def __call__(self, text, filename = "log.txt"):
         print(text)
-        with open(self.path, "a") as file:
+        with open(self.path + "/" + filename, "a") as file:
             file.write(text + "\n")
+            
+    def to_json(self, obj, filename = "history.json"):
+        try:
+            with open(self.path + "/" + filename, "w") as file:
+                json.dump(obj, file)
+        except:
+            raise "Object isn't json serializible"
         
 def remove_equals(graph):
     graph_copy = deepcopy(graph)
@@ -101,3 +135,24 @@ def remove_equals(graph):
         if graph.count(triplet) > 1:
             graph.remove(triplet)
     return graph 
+
+def proceed_navigation(action, graph, env, locations, log):
+    destination = action.split("go to")[-1].strip('''\n'" ''')
+    path = graph.find_path(env.curr_location, destination, locations)
+    if not isinstance(path, list):
+        observation, reward, done, info = path, 0, False, env.curr_info
+    else:
+        log("\n\nNAVIGATION\n\n")
+        for hidden_step, hidden_action in enumerate(path):
+            observation, reward, done, info = env.step(hidden_action)
+            if curr_loc != env.curr_location:
+                if env.curr_location not in locations:
+                    new_triplets_raw = [(env.curr_location, curr_loc, {"label": hidden_action + "_of"})]
+                    graph.add_triplets(new_triplets_raw)
+                    locations.add(env.curr_location)
+                curr_loc = env.curr_location
+            if done:
+                break
+            log("Navigation step: " + str(hidden_step + 1))
+            log("Observation: " + observation + "\n\n")
+    return observation, reward, done, info

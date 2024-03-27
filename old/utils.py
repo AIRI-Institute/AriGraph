@@ -49,7 +49,7 @@ def parse_triplets_removing(text):
     return parsed_triplets
 
 def parse_plan(plan):
-    plan = plan.split("Plan:")[-1].strip(" \n[]")
+    plan = plan.split("[")[-1].split("]")[0]
     plan = plan.split(",")
     return [action.strip('''\n'" ''') for action in plan]
 

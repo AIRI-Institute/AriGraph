@@ -69,12 +69,56 @@ Key points to remember:
             "There is a description of game state. Pay attention to location and inventory. Location and inventory are the most crucial parameters."
         embeddings = self.instructor.encode([[instruction, text]])
         return list(map(float, list(embeddings[0])))
+    
+    def get_embedding(self, text):
+        response = requests.post(
+            f"http://{VPS_IP}:8000/openai_api_embedding",
+            json={"api_key": API_KEY, "messages": [text], "model_type": "text-embedding-ada-002"}
+        )
+        emb = response.json()["response"]
+        sleep(8)
+        return emb
 
     def bigraph_processing(self, observations, observation):
         prompt = f'''####
 Previous observations: {observations[-1:]} 
 ####
 Current observation: {observation}
+####
+
+Please, based on given information choose things that relative to current situation. This things may be items or tools, locations, surrounding stuff,
+creatures and etc. This things also may be your thoughts about current situation. Things must be named shortly (no longer than 3 words). 
+You shouldn't include any actions.
+Example:
+    Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
+    Crucial things: [small square, library, apple, flashlight, bird, bird's song, woman, woman's cry, fear, help, running]  
+
+Next, based on given information, name things which might be useful
+at current situation. Things must be named like Crucial things. If yo want to include actions, choose only crucial ones.
+Example:
+    Situation: You are at small square near the library. Apple and flashlight are in your hands, you hear bird's song and woman's cry. You are fearing.
+    Potentially useful things: [pistol, police, partner, flashlight, cry, help, run]  
+
+Warning! Answer must be in following format:
+Crucial things: [thing_1, thing_2, ...];
+Potentially useful things: [thing_1, thing_2, ...];
+
+Pay attention that if you mislead format of answer, action might be incorrect
+and game consequences will be unexpected.
+'''
+        response = self.generate(prompt)
+        observed_items, remembered_items = \
+            self.process_bigraph_response(response)
+
+        return observed_items, remembered_items
+    
+    def bigraph_processing_wGoal(self, observations, observation, goal):
+        prompt = f'''####
+Previous observations: {observations[-1:]} 
+####
+Current observation: {observation}
+####
+Your goal: {goal}
 ####
 
 Please, based on given information choose things that relative to current situation. This things may be items or tools, locations, surrounding stuff,

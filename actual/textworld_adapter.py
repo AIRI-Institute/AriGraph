@@ -4,7 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import re
 
-from triplet_graph import clear_triplet
+from parent_graph import clear_triplet
 
 class TextWorldWrapper:
 
@@ -30,7 +30,7 @@ class TextWorldWrapper:
 
     def reset(self, new_gamefile=None):
         if new_gamefile is not None or self.env is None:
-            env_id = tw_gym.register_game(self.gamepath, self.request_infos)
+            env_id = tw_gym.register_game(self.gamepath, self.request_infos, max_episode_steps = 100000000)
             self.env = tw_gym.make(env_id)
 
         obs, infos = self.env.reset()
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
     try:
         env = TextWorldWrapper(
-            "game_data/cooking_games/tw-cooking-recipe2+take2+go1-bBPgiel3Fo8qSb6q.z8"
+            "benchmark/navigation2/navigation2.z8"
         )
         done = False
         reward = 0

@@ -100,7 +100,7 @@ Goal: {goal}
 
 Write me a plan on how you will solve this task. 
 Plan must consist of actions in environment. Examples of action: "take *something*", "open *something*", "go to *some location*".
-Avoid to use actions like "north", "west", "south" and "east" if you want to go at known location, use "go to" action instead to move at known location.
+Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
 Feel free to use actions like "north", "west", "south" and "east" for explore new locations.
 When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
 Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
@@ -135,12 +135,12 @@ Goal: {goal}
 
 Write me a plan on how you will solve this task. 
 Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
-Avoid to use actions like "north", "west", "south" and "east", use "go to" action instead to move at chosen location.
+Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
 When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
 Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
 ####
 Warning! Plan must be generated in format of list of actions (like in example above). Correct format of answer: [action_1, action_2, ...]
-Generated plan: '''
+Plan: '''
 
 
 prompt_planning_without_obs = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
@@ -159,9 +159,29 @@ Goal: {goal}
 
 Write me new plan on how you will solve this task. 
 Plan must consist of actions in environment. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
-Avoid to use actions like "north", "west", "south" and "east", use "go to" action instead to move at chosen location.
+Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
 When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
 Example of correct plan for making sandwich and give it to son: ["go to kitchen", "take bread", "take butter", "make sandwich", "go to living room", "give sandwich to son"]
 ####
 Warning! Plan must be generated in format of list of actions (like in example above). Correct format of answer: [action_1, action_2, ...]
-Generated plan: '''
+Plan: '''
+
+prompt_action = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
+####
+Graph: {graph}
+####
+
+I will also provide you with current game state. It consist of current observation and previous observations.
+####
+Observation: {observation}
+Previous observations: {observations}
+####
+
+Please, according to information above give some reasoning in format of Chain of Thought and choose next action in game. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
+Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
+When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
+####
+Warning! Correct format of answer: 
+Reasoning: your reasoning
+Action: your action
+'''

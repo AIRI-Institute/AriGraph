@@ -1,9 +1,18 @@
 import os
 import json
+import requests
+from time import sleep
 import numpy as np
 from copy import deepcopy
 from scipy.spatial.distance import cosine, euclidean
 from InstructorEmbedding import INSTRUCTOR
+
+from utils import *
+from prompts import *
+
+VPS_IP = "146.0.73.157"
+port = 8000
+API_KEY = "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"
 
 def check_loc(triplet, locations):
     return triplet[0] in locations and triplet[1] in locations
@@ -48,9 +57,52 @@ class TripletGraph:
     
     # Items - list of pairs (item, item_emb)
     
-    def __init__(self, threshold = 0.02):
+    def __init__(self, model, system_prompt, threshold = 0.02):
         self.triplets, self.items, self.threshold = [], [], threshold
+        self.model, self.system_prompt = model, system_prompt
         self.instructor = INSTRUCTOR('hkunlp/instructor-large')
+        
+    def generate(self, prompt, t = 1):
+        messages = [{"role": "system", "content": self.system_prompt},
+                    {"role": "user", "content": prompt}]
+
+        response = requests.post(
+            f"http://{VPS_IP}:{port}/openai_api",
+            json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t}
+        )
+        resp = response.json()["response"]
+        sleep(8)
+        return resp
+    
+    # Main function
+    def update(self, observation, observations, goal, locations, curr_location, previous_location, action, log):        
+         # Extracting triplets
+        prompt = prompt_extraction.format(observation = observation, observations = observations)
+        response = self.generate(prompt)
+        new_triplets_raw = process_triplets(response)
+        new_triplets = self.exclude(new_triplets_raw)
+        log("New triplets excluded: " + str(new_triplets))
+        
+        # Using subgraph
+        # associated_subgraph = self.get_associated_triplets(items, steps = 2)
+        
+        #Using full graph
+        associated_subgraph = self.get_all_triplets()
+        
+        # Replacing triplets
+        prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
+        response = self.generate(prompt)
+        predicted_outdated = parse_triplets_removing(response)
+        log("Outdated triplets: " + response)
+        
+        # Updating graph
+        self.delete_triplets(predicted_outdated, locations)
+        if curr_location != previous_location:
+            new_triplets_raw.append((curr_location, previous_location, {"label": find_direction(action)}))
+        self.add_triplets(new_triplets_raw)
+        
+        return self.get_all_triplets()
+        
         
     def get_embedding_local(self, text, entity = False):
         text = text.replace("\n", " ")
@@ -62,7 +114,7 @@ class TripletGraph:
         embedding1, embedding2 = self.get_embedding_local(text1, entity), self.get_embedding_local(text2, entity)
         return euclidean(embedding1, embedding2) < self.threshold
     
-    # For triplet withou embeddings
+    # For triplet without embeddings
     def str(self, triplet):
         return triplet[0] + ", " + triplet[2]["label"] + ", " + triplet[1]
     
@@ -137,6 +189,7 @@ class TripletGraph:
                     relation_emb = self.get_embedding_local(pred_triplet[0][2]["label"], True)
                     # if (euclidean(relation_emb, true_rel_emb) < self.threshold):    
                     recall += 1
+                    true_embeddings.remove((true_embedding_1, true_embedding_2, true_rel_emb))
                     break
         # breakpoint()
         return n, n_right, recall
@@ -158,6 +211,8 @@ class TripletGraph:
     # Filling graph
     def add_triplets(self, triplets):
         for triplet in triplets:
+            if triplet[2]["label"] == "free":
+                continue
             triplet = clear_triplet(triplet)
             embedding = self.get_embedding_local(self.str(triplet))
             if not self.contain(triplet, embedding):
@@ -166,6 +221,7 @@ class TripletGraph:
                 self.add_item(triplet[0])
                 self.add_item(triplet[1])
                 
+    # Delete triplets exclude navigation ones            
     def delete_triplets(self, triplets, locations):
         for triplet in triplets:
             first, second = False, False
@@ -264,6 +320,7 @@ class TripletGraph:
                     graph[loc]["connections"].remove(connection)
         return graph
     
+    # Find shortest path between A and B if both in locations
     def find_path(self, A, B, locations):
         if A == 'Kids" Room':
             A = "Kids' Room"

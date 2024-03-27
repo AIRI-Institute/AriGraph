@@ -137,6 +137,7 @@ class TripletGraph:
                     relation_emb = self.get_embedding_local(pred_triplet[0][2]["label"], True)
                     # if (euclidean(relation_emb, true_rel_emb) < self.threshold):    
                     recall += 1
+                    true_embeddings.remove((true_embedding_1, true_embedding_2, true_rel_emb))
                     break
         # breakpoint()
         return n, n_right, recall

@@ -12,16 +12,21 @@ from triplet_graph import TripletGraph
 from prompts import *
 from utils import *
 
-log_file = "log_example_planning_clean.txt"
-env_name = "benchmark/clean_3x3/clean_3x3_mess.z8"
+log_file = "log_example_interm_act_nav2_subgraph.txt"
+env_name = "benchmark/navigation4/navigation4.z8"
 
 log = Logger(log_file)
 graph = TripletGraph()
+
+# Only for clean
+# system_prompt = "You are a housewife. Currently you are at large home where you should clean up, namely find things that are out of place and take them to their place."
+
 agent = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_prompt)
 env = TextWorldWrapper(env_name)
 observations = []
 
 locations = {"player", "Kids' Room", "Kitchen"}
+# locations = {"player", "kitchen", "bedroom", "livingroom", "corridor", "bathroom", "pantry", "backyard", "garden", "shed"}
 env.reset()
 
 # ATTENTION!!!
@@ -35,25 +40,25 @@ env.reset()
 #                    "unlock Golden locker with Golden key", "open Golden locker", "take treasure from Golden locker", "END"]
 
 # For navigation4
-# walkthrough = ["examine Task note",
-# "take key 1", "go west", "go south", "go east", "go east", "go east", "go south", "go east", "unlock Bronze locker with Key 1", 
-# "open Bronze locker", "examine Note 2", "take Key 2", "go west", "go north", "go west", "go west", "go west", 
-# "unlock Red locker with Key 2", "open Red locker", "examine Note 3", "take Key 3 from Red locker", "go east", "go east", 
-# "go north", "go north", "go east", "unlock Cyan locker with Key 3", "open Cyan locker", "examine Note 4", "drop Key 1", 
-# "take Key 4 from Cyan locker", "go west", "go south", "go south", "go east", "go north", "unlock Black locker with Key 4", 
-# "open Black locker", "drop Key 2", "take Golden Key from Black locker", "go south", "go west", "go west", 
-# "go west", "go north", "go east", "unlock Golden locker with Golden Key", "open Golden locker", "take treasure from Golden locker", 
-# "examine treasure"]
+walkthrough = ["examine Task note",
+"take key 1", "go west", "go south", "go east", "go east", "go east", "go south", "go east", "unlock Bronze locker with Key 1", 
+"open Bronze locker", "examine Note 2", "take Key 2", "go west", "go north", "go west", "go west", "go west", 
+"unlock Red locker with Key 2", "open Red locker", "examine Note 3", "take Key 3 from Red locker", "go east", "go east", 
+"go north", "go north", "go east", "unlock Cyan locker with Key 3", "open Cyan locker", "examine Note 4", "drop Key 1", 
+"take Key 4 from Cyan locker", "go west", "go south", "go south", "go east", "go north", "unlock Black locker with Key 4", 
+"open Black locker", "drop Key 2", "take Golden Key from Black locker", "go south", "go west", "go west", 
+"go west", "go north", "go east", "unlock Golden locker with Golden Key", "open Golden locker", "take treasure from Golden locker", 
+"examine treasure"]
 
 # One for clean 3x3 default
-walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
+# walkthrough = ['take toothbrush', 'go north', 'take dumbbell', 'take dirty plate', 'go east', 'take raw meat', 'go south', 'take school notebooks', 'go south', 'take tv remote', 'take flippers', 'go west', 'take teddy bear', 'put flippers on equipment rack', 'go west', 'take fantasy book', 'put dumbbell on dumbbell stand', 'go north', 'take buisness suit', 'open refrigerator', 'put raw meat in refrigerator', 'close refrigerator', 'open dishwasher', 'put dirty plate in dishwasher', 'close dishwasher', 'go north', 'take sleeping mask', 'take dining chair', 'put toothbrush on bathroom sink', 'go east', 'open toy storage cabinet', 'put teddy bear in toy storage cabinet', 'close toy storage cabinet', 'put school notebooks on study table', 'go east', 'put tv remote on tv table', 'go south', 'open wardrobe', 'put buisness suit in wardrobe', 'close wardrobe', 'put sleeping mask on bedside table', 'go south', 'put fantasy book on bookcase', 'go west', 'go north', 'drop dining chair', 'END']
 
 for action in walkthrough:
     locations.add(env.curr_location)
     env.step(action)
 log("LOCATIONS: " + str(locations))
 n_steps = 50
-n_attempts = 3
+n_attempts = 1
 
 for i in range(n_attempts):
     log("Attempt: " + str(i + 1))
@@ -61,8 +66,6 @@ for i in range(n_attempts):
     observation, info = env.reset()
     G_new = graph_from_facts(info)
     prev_action = "start"
-    goal = "Nothing"
-    plan = "Nothing"
     n_truth, n, recall = 0, 0, 0
     done = False
     for step in range(n_steps):
@@ -80,44 +83,31 @@ for i in range(n_attempts):
         graph.delete_all()
         graph.add_triplets(G_true.edges(data = True))
         
-        # Extracting subgraph
-        # observed_items, remembered_items = agent.bigraph_processing(observations, observation)
-        # items = [list(item.keys())[0] for item in observed_items + remembered_items]
-        # log("Crucial items: " + str(items))
-        # associated_subgraph = graph.get_associated_triplets(items, steps = 2)
+        # Using subgraph
+        observed_items, remembered_items = agent.bigraph_processing(observations, observation)
+        items = [list(item.keys())[0] for item in observed_items + remembered_items]
+        log("Crucial items: " + str(items))
+        associated_subgraph = graph.get_associated_triplets(items, steps = 2)
         
         #Using full graph
-        associated_subgraph = get_text_graph(G_true)
+        # associated_subgraph = get_text_graph(G_true)
         
         log("Associated subgraph: " + str(associated_subgraph))
-
-        # Setting goal
-        prompt = prompt_goal.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
-        goal = agent.generate(prompt)
-        log("Goal: " + goal)
-        log("Current plan: " + str(plan))
-        
-        # Constructing plan
-        prompt = prompt_planning.format(observation = observation, observations = observations[-1:], graph = associated_subgraph, goal = goal, plan = plan)
-        # prompt = prompt_planning_without_obs.format(graph = associated_subgraph, goal = goal, plan = plan)
-        response = agent.generate(prompt)
-        plan = parse_plan(response)
-        log("Model response: " + response)
         
         # Parse action
         is_nav = False
-        if len(plan) == 0:
-            action = np.random.choice(valid_actions)
-        elif plan[0].startswith("go to"):
+        prompt = prompt_action.format(observation = observation, observations = observations[-1:], graph = associated_subgraph)
+        action = agent.generate(prompt).split("Action:")[-1].strip(''' '"\n''')
+        log("Action: " + action)
+        if action.startswith("go to"):
             is_nav = True
-        else:
-            action = plan[0]
         
         observations.append(observation)
+        breakpoint()
         
         # Proceed navigation
         if is_nav:
-            destination = plan[0].split("go to")[-1].strip('''\n'" ''')
+            destination = action.split("go to")[-1].strip('''\n'" ''')
             path = graph.find_path(env.curr_location, destination, locations)
             if not isinstance(path, list):
                 observation = path
@@ -130,8 +120,6 @@ for i in range(n_attempts):
                         break
                     log("Navigation step: " + str(hidden_step + 1))
                     log("Observation: " + observation + "\n\n")
-                
-            prev_action = plan[0]
         
         # Proceed action 
         else:
@@ -139,10 +127,11 @@ for i in range(n_attempts):
             if done: 
                 break
             observation, reward, done, info = env.step(action)
-            prev_action = action
+            
+        prev_action = action
             
         G_new = graph_from_facts(info)
-        if len(plan) > 0:
-            plan.pop(0)
 
         log("============================")
+    log("Game itog: " + observation)
+    log("\n"*10)

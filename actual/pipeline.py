@@ -1,0 +1,107 @@
+from parent_agent import GPTagent
+from textworld_adapter import TextWorldWrapper
+from parent_graph import TripletGraph
+from graphs.subgraph_strategy import SubgraphStrategy
+from prompts import *
+from utils import *
+
+# There is configs of exp, changeable part of pipeline
+log_file = "exp_test"
+env_name = "benchmark/navigation2/navigation2.z8"
+main_goal = "Find the treasure"
+model = "gpt-4-0125-preview"
+agent_instance = GPTagent
+graph_instance = TripletGraph
+goal_freq = 3
+threshold = 0.02
+n_prev = 1
+max_steps, n_attempts = 5, 1
+# End of changeable part
+
+system_prompt = actual_system_prompt.format(main_goal = main_goal)
+config = {
+    "log_file": log_file,
+    "env_name": env_name,
+    "main_goal": main_goal,
+    "model": model,
+    "goal_freq": goal_freq,
+    "threshold": threshold,
+    "system_prompt": system_prompt,
+    "n_prev": n_prev
+}
+
+log = Logger(log_file)
+
+# Flexible init with only arguments class need
+graph = graph_instance(**find_args(graph_instance, config))
+agent = agent_instance(**find_args(agent_instance, config))
+env = TextWorldWrapper(env_name)
+
+observations, history = [], []
+locations = set()
+
+for i in range(n_attempts):
+    log("Attempt: " + str(i + 1))
+    log("=" * 70)
+    observation, info = env.reset()
+    agent.reset()
+    action = "start"
+    goal = "Start game"
+    previous_location = env.curr_location
+    done = False
+    for step in range(max_steps):
+        log("Step: " + str(step + 1))
+        observation = observation.split("$$$")[-1]
+        inventory = env.get_inventory()
+        observation += f"\nInventory: {inventory}"
+        valid_actions = env.get_valid_actions()
+        observation += f"\nValid actions (just recommendation): {valid_actions}"
+        observation += f"\nAction that led to this: {action}"
+        log("Observation: " + observation)
+        
+        locations.add(env.curr_location)
+        
+        needful_args = {
+            "observation": observation,
+            "observations": observations,
+            "goal": goal,
+            "locations": list(locations),
+            "curr_location": env.curr_location,
+            "previous_location": previous_location,
+            "action": action,
+            "env": env,
+            "graph": graph,
+            "agent": agent,
+            "log": log,
+            "main_goal": main_goal,
+            "attempt": i + 1,
+            "step": step + 1,
+        }
+        
+        # Everything happens there
+        subgraph = graph.update(**find_args(graph.update, needful_args))
+        needful_args["subgraph"] = subgraph
+        action, goal, is_nav = agent.make_decision(**find_args(agent.make_decision, needful_args))
+    
+        needful_args.pop("env")
+        needful_args.pop("graph")
+        needful_args.pop("agent")
+        needful_args.pop("log")
+        needful_args["action"] = action
+        needful_args["goal"] = goal
+        history.append(deepcopy(needful_args))
+        log.to_json(history)
+        observations.append(observation)
+        observations = observations[-n_prev:]
+        previous_location = env.curr_location
+        
+        if is_nav:
+            observation, reward, done, info = proceed_navigation(action)
+        else:
+            observation, reward, done, info = env.step(action)
+            
+        log("=" * 70)
+        if done:
+            log("Game itog: " + observation)
+            log("\n" * 10)
+            break
