@@ -6,17 +6,17 @@ from prompts import *
 from utils import *
 
 # There is configs of exp, changeable part of pipeline
-log_file = "exp_test"
+# If you add some parameters, please, edit config
+log_file = "exp_nav2"
 env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
 graph_instance = TripletGraph
-goal_freq = 3
+goal_freq = 10
 threshold = 0.02
 n_prev = 1
-max_steps, n_attempts = 5, 1
-# End of changeable part
+max_steps, n_attempts = 50, 2
 
 system_prompt = actual_system_prompt.format(main_goal = main_goal)
 config = {
@@ -29,6 +29,7 @@ config = {
     "system_prompt": system_prompt,
     "n_prev": n_prev
 }
+# End of changeable part
 
 log = Logger(log_file)
 
