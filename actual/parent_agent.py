@@ -30,7 +30,7 @@ class GPTagent:
             json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t}
         )
         resp = response.json()["response"]
-        sleep(8)
+        sleep(1)
         return resp
     
     def is_equal(self, text_1, text_2, threshold, is_state = True):
@@ -50,7 +50,7 @@ class GPTagent:
             json={"api_key": API_KEY, "messages": [text], "model_type": "text-embedding-ada-002"}
         )
         emb = response.json()["response"]
-        sleep(8)
+        sleep(1)
         return emb       
     
     def reset(self):
@@ -67,7 +67,7 @@ class GPTagent:
         action = response.split("Action:")[-1].strip(''' '"\n.''')
         log("Action: " + action)
         
-        return action, self.goal, "go to" in action
+        return action, self.goal, "go to" in action.lower()
     
     # Setting current goal
     def goal_setting(self, observation, observations, main_goal, step, subgraph, log):        

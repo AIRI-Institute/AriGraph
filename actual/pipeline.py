@@ -7,16 +7,16 @@ from utils import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_nav2"
+log_file = "exp_nav2_subgraph"
 env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = TripletGraph
+graph_instance = SubgraphStrategy
 goal_freq = 10
 threshold = 0.02
 n_prev = 1
-max_steps, n_attempts = 50, 2
+max_steps, n_attempts = 20, 1
 
 system_prompt = actual_system_prompt.format(main_goal = main_goal)
 config = {
@@ -48,7 +48,7 @@ for i in range(n_attempts):
     agent.reset()
     action = "start"
     goal = "Start game"
-    previous_location = env.curr_location
+    previous_location = env.curr_location.lower()
     done = False
     for step in range(max_steps):
         log("Step: " + str(step + 1))
@@ -60,14 +60,14 @@ for i in range(n_attempts):
         observation += f"\nAction that led to this: {action}"
         log("Observation: " + observation)
         
-        locations.add(env.curr_location)
+        locations.add(env.curr_location.lower())
         
         needful_args = {
             "observation": observation,
             "observations": observations,
             "goal": goal,
             "locations": list(locations),
-            "curr_location": env.curr_location,
+            "curr_location": env.curr_location.lower(),
             "previous_location": previous_location,
             "action": action,
             "env": env,
@@ -94,7 +94,7 @@ for i in range(n_attempts):
         log.to_json(history)
         observations.append(observation)
         observations = observations[-n_prev:]
-        previous_location = env.curr_location
+        previous_location = env.curr_location.lower()
         
         if is_nav:
             observation, reward, done, info = proceed_navigation(action)

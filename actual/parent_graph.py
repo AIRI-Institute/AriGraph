@@ -101,7 +101,9 @@ class TripletGraph:
             new_triplets_raw.append((curr_location, previous_location, {"label": find_direction(action)}))
         self.add_triplets(new_triplets_raw)
         
-        return self.get_all_triplets()
+        associated_subgraph = self.get_all_triplets()
+        log("Associated_subgraph: " + str(associated_subgraph))
+        return associated_subgraph
         
         
     def get_embedding_local(self, text, entity = False):

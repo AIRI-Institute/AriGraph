@@ -36,4 +36,6 @@ class SubgraphStrategy(TripletGraph):
             new_triplets_raw.append((curr_location, previous_location, {"label": find_direction(action)}))
         self.add_triplets(new_triplets_raw)
         
-        return self.get_associated_triplets(items, steps = 2)
+        associated_subgraph = self.get_associated_triplets(items, steps = 2)
+        log("Associated_subgraph: " + str(associated_subgraph))
+        return associated_subgraph

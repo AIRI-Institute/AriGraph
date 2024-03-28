@@ -16,18 +16,20 @@ actual_system_prompt = '''Your mission is to progress through a text-based adven
 - Exploration and Learning: When you're unsure of your next steps or need to acquire new knowledge (this includes discovering items, places, and creatures), shift your focus to exploring. This approach helps you uncover new options and solutions.
 - Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary. Your aim should be to uncover new areas and possibilities.
 - Knowledge Graph: All the details and information you gather will be added to a "knowledge graph". Think of this as your game's database which provide you with necessary information. Expanding this graph through exploration will significantly aid in making informed decisions as the game progresses.
+- Game Environment: Don't forget that you are playing the text game with strictly rules that not match your shape of environment. There is crucial to uderstand the environment feedback and adapt your strategy to actual rules.
+- Game Environment and Knowledge Graph: You should learning to play the game while you are playing. To perform that learning, feel free to add at knowledge graph meta information about game rules.  
 
-Remember, the key is to balance between acting on your current knowledge and exploring to gather new information. This strategy will guide you towards achieving your main goal in the game.'''
+Remember, the key is to collect information about HOW TO PLAY this game. This strategy will guide you towards achieving your main goal in the game.'''
 
 
-prompt_extracting_items = '''Based on the information provided, your task is to filter and identify objects, locations, or elements that are relevant to your specified goal from the current situation. Be sure to include items directly connected to your goal and exclude any that are not pertinent. The items you list should be succinctly named, using no more than three words per item. Also, focus only on identifying relevant elements without suggesting any actions.
+prompt_extracting_items = '''Based on the information provided, your task is to filter and identify objects, locations, or elements that are relevant to your specified goal from the current situation. Be sure to include objects directly connected to your goal and exclude any that are not pertinent. The objects you list should be succinctly named, using no more than three words per item. Feel free to add objects that relative to game rules (for example: "search", "new data", "environment", "game")
 
 Here's how you should structure your response:
 
 Previous observations: {observations}
 Current observation: {observation}
 Your goal: {goal}
-Given this setup, extract and list only the items from the current situation that are relevant to achieving your goal.
+Given this setup, extract and list only the objects from the current situation that are relevant to achieving your goal.
 
 Example:
 
@@ -38,7 +40,7 @@ Current observation: "You are in the hall with a chest and a table"
 Your goal: "Find a path to the rabbit which lives in the cabinet"
 Then your response should be:
 
-Crucial things: ["kitchen", "hall", "rabbit", "cabinet"]
+Crucial things: ["kitchen", "hall", "rabbit", "cabinet", "search", "moving"]
 
 Remember, your response must adhere to this format:
 Crucial things: [item1, item2, ...]
@@ -46,34 +48,50 @@ Crucial things: [item1, item2, ...]
 Your response: '''
 
 # For extraction triplets from observation
-prompt_extraction = '''## 1. Overview
-Your task is to extract information from game observations in structured formats to build a knowledge graph.
-- **Nodes** represent entities and concepts. They are akin to Wikipedia nodes.
-- The aim is to achieve simplicity and clarity in the knowledge graph, making it useful for you in the future.
-- Use the following triplet format for extracted data: "triplet1; triplet2; ...", more detailed - "subject1, relation1, object1; subject2, relation2, object2; ...", where a triplet is "subject1, relation1, object1" or "subject2, relation2, object2".
-- For example, from the text "Albert Einstein, born in Germany, is known for developing the theory of relativity" you should extract the following data: "Albert Einstein, country, Germany; Albert Einstein, developed, Theory of relativity".
-- Both subject and object in triplets should be akin to Wikipedia nodes. Object can be a date or number, objects should not contain citations or sentences.
-- Instead of generating complex objects, divide triplet with complex object into two triplets with more precise objects. For example, the text "John Doe is a developer at Google" corresponds to two triplets: "John Doe, position, developer; John Doe, employed by, Google".
-- Exclude from the extracted data triplets where subject or object are collective entities such as "People".
-- Exclude from the extracted data triplets where object is a long phrase with more than 5 words.
-- Similar relations, such as "has friend" and "friend of", replace with uniform relation, for example, "has friend"
-- Similar entities, such as "House" and "house" or "small river" and "little river", replace with uniform relation, for example, "house" or "small river"
-- If some subject just has some state or property, object in triplet must be "itself" (for example, from text "John open the door and fry chiken" you should extract the following data: "Door, opened, itself; Chiken, fried, itself").  
-## 2. Coreference Resolution
-- **Maintain Entity Consistency**: When extracting entities, it is vital to ensure consistency.
-If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"),
-always use the most complete identifier for that entity throughout the knowledge graph. In this example, use "John Doe" as the entity ID.
-Remember, the knowledge graph should be coherent and easily understandable, so maintaining consistency in entity references is crucial.
+prompt_extraction = '''Extracting Information:
 
-####
-Observation: {observation} 
-####
-Previous observations and actions: {observations}
-####
+- Your main job is to process game observations and extract meaningful data from them.
+- This data should be formatted as triplets: "subject, relation, object".
+- A subject is the main entity (e.g., "Albert Einstein").
+- A relation describes the connection between the subject and the object (e.g., "born in").
+- An object is what the subject is related to (e.g., "Germany").
 
-Please, extract information from this data following instructions from begin of this prompt.
+## Formatting Triplets:
 
-Extracted data: '''
+- Triplets must be simple and to the point.
+- If any information is complex, break it down into simpler, separate triplets.
+- Avoid including collective entities or long phrases as objects.
+- Standardize similar terms to maintain uniformity.
+
+## Handling States and Properties:
+
+- If an entity simply possesses a state or feature, use "itself" as the object in your triplet (e.g., "Door, opened, itself").
+
+## Maintaining Entity Consistency:
+
+- Ensure that you consistently reference entities using the most complete and clear identifier, even if they are mentioned in different ways throughout the text.
+
+## Extracting Meta Information and Insights:
+
+- Besides observations, extract information about game rules and unique qualities of the game environment that might affect gameplay.
+- Concentrate on game properties that are unexpected for you.
+- You can also extract your insights which are based on game observation.
+
+A practical example from the text "Albert Einstein, born in Germany, is known for developing the theory of relativity" becomes:
+"Albert Einstein, country, Germany; Albert Einstein, developed, Theory of relativity".
+A practical example from the text "There is a small room. Action that led to this: turn on flashlight. \n Previous observation: You are at dark." becomes:
+"light, can provide, new data".
+A practical example from the text "I can't understand yout command. Action that lead to this: use key and explore chest" becomes:
+"use, incorrect, action; explore, incorrect, action; game, can't perform, several actions".
+
+This approach aims to make complex text data easily understandable and useful, particularly for creating knowledge graphs that enhance comprehension and future use.
+Please, extract triplets from this game state following the instructions above:
+####
+Observation: {observation}
+Previous observations: {observations}
+####
+Triplets must be extracted in format: subject_1, relation_1, object_1; subject_2, relation_2, object_2; ...
+Extracted triplets: '''
 
 
 # For setting intermediate goal at several steps
@@ -103,9 +121,12 @@ In some cases there are no triplets to replace.
 Second example of existing triplets: Golden locker, state, open; "Room K, is west of, Room I".
 Second example of new triplets: "Room T, is north of, Room N".
 Second example of replacing: [].
+####
 Generate replacing from existing triplets and new_triplets by analogy with first and second examples.
 Existing triplets: {ex_triplets}.
 New triplets: {new_triplets}.
+####
+Warning! Replacing must be generated strictly in following format: [[outdated_triplet_1 -> actual_triplet_1], [outdated_triplet_2 -> actual_triplet_2], ...]
 Replacing: """
 
 
@@ -247,6 +268,7 @@ prompt_acceptor_goal = """You are playing a game.
 Your current goal is: {goal}.
 You get an observation: {observation}
 Define, if you achieved the goal in the current observation. Generate a short answer: "yes" or "no".
+If goal is formulated smooth (like "explore" or "examine"), be more loyal in your assessment.
 Answer: """
 
 prompt_generate_goal = """You are playing the game.

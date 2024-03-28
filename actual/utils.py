@@ -24,16 +24,15 @@ def process_triplets(raw_triplets):
     raw_triplets = raw_triplets.split(";")
     triplets = []
     for triplet in raw_triplets:
-        if len(triplet.split(",")) > 3:
+        if len(triplet.split(",")) != 3:
             continue
-        elif len(triplet.split(",")) < 3:
+        if triplet[0] in "123456789":
+            triplet = triplet[2:]
+        subj, relation, obj = triplet.split(",")
+        subj, relation, obj = subj.strip(' \n"'), relation.strip(' \n"'), obj.strip(' \n"')
+        if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
             continue
-        else:
-            subj, relation, obj = triplet.split(",")
-            subj, relation, obj = subj.strip(' \n"'), relation.strip(' \n"'), obj.strip(' \n"')
-            if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
-                continue
-            triplets.append([subj, obj, {"label": relation}])
+        triplets.append([subj, obj, {"label": relation}])
         
     return triplets
 
@@ -75,7 +74,7 @@ def process_crucial_items(response):
     if "Crucial things: " in response:
         observed_items = response.split("Crucial things: ")[1].split(";")[0].strip("[]").split(",")
         for i in range(len(observed_items)):
-            observed_items[i] = observed_items[i].strip(" \n.")
+            observed_items[i] = observed_items[i].strip(''' \n.'"''')
     
     return observed_items
 
@@ -137,20 +136,20 @@ def remove_equals(graph):
     return graph 
 
 def proceed_navigation(action, graph, env, locations, log):
-    destination = action.split("go to")[-1].strip('''\n'" ''')
-    path = graph.find_path(env.curr_location, destination, locations)
+    destination = action.split("go to")[-1].strip('''\n'" ''').lower()
+    path = graph.find_path(env.curr_location.lower(), destination, locations)
     if not isinstance(path, list):
         observation, reward, done, info = path, 0, False, env.curr_info
     else:
         log("\n\nNAVIGATION\n\n")
         for hidden_step, hidden_action in enumerate(path):
             observation, reward, done, info = env.step(hidden_action)
-            if curr_loc != env.curr_location:
-                if env.curr_location not in locations:
-                    new_triplets_raw = [(env.curr_location, curr_loc, {"label": hidden_action + "_of"})]
+            if curr_loc != env.curr_location.lower():
+                if env.curr_location.lower() not in locations:
+                    new_triplets_raw = [(env.curr_location.lower(), curr_loc, {"label": hidden_action + "_of"})]
                     graph.add_triplets(new_triplets_raw)
-                    locations.add(env.curr_location)
-                curr_loc = env.curr_location
+                    locations.add(env.curr_location.lower())
+                curr_loc = env.curr_location.lower()
             if done:
                 break
             log("Navigation step: " + str(hidden_step + 1))
