@@ -57,10 +57,6 @@ for i in range(n_attempts):
     done = False
     for step in range(max_steps):
         start = time()
-        if previous_location not in tried_action:
-            tried_action[previous_location] = {action}
-        else:
-            tried_action[previous_location].add(action)
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
         inventory = env.get_inventory()
@@ -68,7 +64,8 @@ for i in range(n_attempts):
         valid_actions = env.get_valid_actions()
         observation += f"\nValid actions (just recommendation): {valid_actions}"
         observation += f"\nAction that led to this: {action}"
-        observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
+        if env.curr_location.lower() in tried_action:
+            observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         log("Observation: " + observation)
         
         locations.add(env.curr_location.lower())
@@ -111,6 +108,10 @@ for i in range(n_attempts):
             observation, reward, done, info = proceed_navigation(action, graph, env, locations, log)
         else:
             observation, reward, done, info = env.step(action)
+        if previous_location not in tried_action:
+            tried_action[previous_location] = {action}
+        else:
+            tried_action[previous_location].add(action)
             
         
         step_amount = graph.total_amount + agent.total_amount - total_amount
