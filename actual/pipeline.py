@@ -98,8 +98,7 @@ for i in range(n_attempts):
         needful_args.pop("log")
         needful_args["action"] = action
         needful_args["goal"] = goal
-        history.append(deepcopy(needful_args))
-        log.to_json(history)
+        
         observations.append(observation)
         observations = observations[-n_prev:]
         previous_location = env.curr_location.lower()
@@ -124,6 +123,10 @@ for i in range(n_attempts):
         total_time += step_time
         log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             
+        needful_args['step_time'] = step_time
+        needful_args['step_amount'] = step_amount
+        history.append(deepcopy(needful_args))
+        log.to_json(history)
         log("=" * 70)
         if done:
             log("Game itog: " + observation)
