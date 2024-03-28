@@ -48,7 +48,7 @@ def find_direction(action):
     raise "ACTION ISN'T A DIRECTION"
 
 def parse_triplets_removing(text):
-    text = text.split("[[")[-1]
+    text = text.split("[[")[-1] if "[[" in text else text.split("[\n[")[-1]
     text = text.replace("[", "")
     text = text.strip("]")
     pairs = text.split("],")

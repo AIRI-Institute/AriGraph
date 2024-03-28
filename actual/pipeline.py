@@ -1,3 +1,5 @@
+from time import time
+
 from parent_agent import GPTagent
 from textworld_adapter import TextWorldWrapper
 from parent_graph import TripletGraph
@@ -12,7 +14,7 @@ env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = SubgraphStrategy
+graph_instance = TripletGraph
 goal_freq = 10
 threshold = 0.02
 n_prev = 1
@@ -40,6 +42,7 @@ env = TextWorldWrapper(env_name)
 
 observations, history = [], []
 locations = set()
+total_amount, total_time = 0, 0
 
 for i in range(n_attempts):
     log("Attempt: " + str(i + 1))
@@ -49,8 +52,15 @@ for i in range(n_attempts):
     action = "start"
     goal = "Start game"
     previous_location = env.curr_location.lower()
+    attempt_amount, attempt_time = 0, 0
+    tried_action = {}
     done = False
     for step in range(max_steps):
+        start = time()
+        if previous_location not in tried_action:
+            tried_action[previous_location] = {action}
+        else:
+            tried_action[previous_location].add(action)
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
         inventory = env.get_inventory()
@@ -58,6 +68,7 @@ for i in range(n_attempts):
         valid_actions = env.get_valid_actions()
         observation += f"\nValid actions (just recommendation): {valid_actions}"
         observation += f"\nAction that led to this: {action}"
+        observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         log("Observation: " + observation)
         
         locations.add(env.curr_location.lower())
@@ -97,9 +108,20 @@ for i in range(n_attempts):
         previous_location = env.curr_location.lower()
         
         if is_nav:
-            observation, reward, done, info = proceed_navigation(action)
+            observation, reward, done, info = proceed_navigation(action, graph, env, locations, log)
         else:
             observation, reward, done, info = env.step(action)
+            
+        
+        step_amount = graph.total_amount + agent.total_amount - total_amount
+        attempt_amount += step_amount
+        total_amount += step_amount
+        log(f"\nTotal amount: {round(total_amount, 2)}$, attempt amount: {round(attempt_amount, 2)}$, step amount: {round(step_amount, 2)}$")
+        
+        step_time = time() - start
+        attempt_time += step_time
+        total_time += step_time
+        log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             
         log("=" * 70)
         if done:

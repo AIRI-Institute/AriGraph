@@ -61,6 +61,7 @@ class TripletGraph:
         self.triplets, self.items, self.threshold = [], [], threshold
         self.model, self.system_prompt = model, system_prompt
         self.instructor = INSTRUCTOR('hkunlp/instructor-large')
+        self.total_amount = 0
         
     def generate(self, prompt, t = 1):
         messages = [{"role": "system", "content": self.system_prompt},
@@ -71,14 +72,17 @@ class TripletGraph:
             json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t}
         )
         resp = response.json()["response"]
-        sleep(8)
-        return resp
+        usage = response.json()["usage"]
+        cost = usage["completion_tokens"] * 3 / 100000 + usage["prompt_tokens"] * 1 / 100000
+        self.total_amount += cost
+        sleep(1)
+        return resp, cost
     
     # Main function
     def update(self, observation, observations, goal, locations, curr_location, previous_location, action, log):        
          # Extracting triplets
         prompt = prompt_extraction.format(observation = observation, observations = observations)
-        response = self.generate(prompt)
+        response, cost = self.generate(prompt)
         new_triplets_raw = process_triplets(response)
         new_triplets = self.exclude(new_triplets_raw)
         log("New triplets excluded: " + str(new_triplets))
@@ -91,7 +95,7 @@ class TripletGraph:
         
         # Replacing triplets
         prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
-        response = self.generate(prompt)
+        response, cost = self.generate(prompt)
         predicted_outdated = parse_triplets_removing(response)
         log("Outdated triplets: " + response)
         

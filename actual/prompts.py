@@ -14,7 +14,7 @@ If you forget or doesn't know main goal, you can always read Task note and remem
 actual_system_prompt = '''Your mission is to progress through a text-based adventure game. The main objective is: {main_goal}. This game requires you to navigate different areas, interact with various items, and think carefully about the outcomes of your decisions. Here is how to play effectively:
 - Direct Action: If you know what you need to do to advance, focus on those actions. Ignore distractions or "noise" that don't contribute to your goal.
 - Exploration and Learning: When you're unsure of your next steps or need to acquire new knowledge (this includes discovering items, places, and creatures), shift your focus to exploring. This approach helps you uncover new options and solutions.
-- Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary. Your aim should be to uncover new areas and possibilities.
+- Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary (but feel free to repeat navigational actions like "go to" or "north"). Your aim should be to uncover new areas and possibilities.
 - Knowledge Graph: All the details and information you gather will be added to a "knowledge graph". Think of this as your game's database which provide you with necessary information. Expanding this graph through exploration will significantly aid in making informed decisions as the game progresses.
 - Game Environment: Don't forget that you are playing the text game with strictly rules that not match your shape of environment. There is crucial to uderstand the environment feedback and adapt your strategy to actual rules.
 - Game Environment and Knowledge Graph: You should learning to play the game while you are playing. To perform that learning, feel free to add at knowledge graph meta information about game rules.  
@@ -22,7 +22,7 @@ actual_system_prompt = '''Your mission is to progress through a text-based adven
 Remember, the key is to collect information about HOW TO PLAY this game. This strategy will guide you towards achieving your main goal in the game.'''
 
 
-prompt_extracting_items = '''Based on the information provided, your task is to filter and identify objects, locations, or elements that are relevant to your specified goal from the current situation. Be sure to include objects directly connected to your goal and exclude any that are not pertinent. The objects you list should be succinctly named, using no more than three words per item. Feel free to add objects that relative to game rules (for example: "search", "new data", "environment", "game")
+prompt_extracting_items = '''Based on the information provided, your task is to filter and identify objects, locations, or elements that are relevant to your specified goal from the current situation. Be sure to include objects directly connected to your goal and exclude any that are not pertinent. The objects you list should be succinctly named, using no more than three words per item. Feel free to add objects that relative to game rules (for example: "search", "new data", "environment", "game", "action")
 
 Here's how you should structure your response:
 
@@ -76,6 +76,7 @@ prompt_extraction = '''Extracting Information:
 - Besides observations, extract information about game rules and unique qualities of the game environment that might affect gameplay.
 - Concentrate on game properties that are unexpected for you.
 - You can also extract your insights which are based on game observation.
+- You shouldn't extract all valid actions, extract only needful from its.
 
 A practical example from the text "Albert Einstein, born in Germany, is known for developing the theory of relativity" becomes:
 "Albert Einstein, country, Germany; Albert Einstein, developed, Theory of relativity".
@@ -255,20 +256,22 @@ Your mission, should you choose to accept it, is as follows:
 Your Goal: {goal}
 
 To accomplish your mission, you'll need to think carefully about the information provided and plan your next step in the game. This could involve picking up an item, examining something more closely, opening an object, or moving directly to a specific room without passing through intermediate locations. Remember, use direct actions like "go to a specific room" instead of compass directions. Your path should leap over intermediate locations directly to your target.
-When formulating your response, please start by outlining your thought process that leads to your decision. This should be a logical explanation of how you arrived at your next action based on the available information. Conclude with the specific action you decide to take to advance towards your goal.
+When formulating your response, provide the specific action you decide to take to advance towards your goal. Action must be clear and brief, example of correct actions contains in observations. Any descriptions of chosen action are redundant.
 
 Here's how to structure your answer correctly:
+Action: chosen action.
 
-Reasoning: Explain your thought process here.
-Action: Specify your next step in the game here.
 Keep in mind, this format helps keep the advice clear and actionable. Happy gaming!
-'''
+####
+Action: '''
 
 prompt_acceptor_goal = """You are playing a game.
 Your current goal is: {goal}.
-You get an observation: {observation}
+You get an observation: {observation}.
+Previous observations: {observations}
 Define, if you achieved the goal in the current observation. Generate a short answer: "yes" or "no".
-If goal is formulated smooth (like "explore" or "examine"), be more loyal in your assessment.
+Pay attention to the action that lead to this observation. Many information about current state contains in action that lead to it.
+If goal is smooth (like "examine"), be more loyal in your assessment.
 Answer: """
 
 prompt_generate_goal = """You are playing the game.
