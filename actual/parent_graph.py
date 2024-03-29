@@ -63,6 +63,24 @@ class TripletGraph:
         self.instructor = INSTRUCTOR('hkunlp/instructor-large')
         self.total_amount = 0
         
+    def save(self, path):
+        with open(path + "/TRIPLETS.json", "w") as file:
+            json.dump(self.triplets, file)
+        with open(path + "/ITEMS.json", "w") as file:
+            json.dump(self.items, file)
+        metainf = {"model": self.model, "threshold": self.threshold, "system_prompt": self.system_prompt}
+        with open(path + "/METAINF.json", "w") as file:
+            json.dump(metainf, file)
+            
+    def load(self, path):
+        with open(path + "/TRIPLETS.json", "r") as file:
+            self.triplets = json.load(file)
+        with open(path + "/ITEMS.json", "r") as file:
+            self.items = json.load(file)
+        with open(path + "/METAINF.json", "r") as file:
+            metainf = json.load(file)
+            self.model, self.threshold, self.system_prompt = metainf["model"], metainf["threshold"], metainf["system_prompt"]
+        
     def generate(self, prompt, t = 1):
         messages = [{"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}]

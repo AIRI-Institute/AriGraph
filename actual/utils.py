@@ -155,3 +155,40 @@ def proceed_navigation(action, graph, env, locations, log):
             log("Navigation step: " + str(hidden_step + 1))
             log("Observation: " + observation + "\n\n")
     return observation, reward, done, info
+
+def check_loc(triplet, locations):
+    return triplet[0] in locations and triplet[1] in locations
+
+def simplify(triplet):
+    return (triplet[0][0][0], triplet[0][1][0],  {"label": triplet[0][2]["label"] })
+
+def check_conn(connection):
+    return "north" in connection or "south" in connection or "east" in connection or "west" in connection
+
+def clear_triplet(triplet):
+    if triplet[0] == "I":
+        triplet = ("inventory", triplet[1], triplet[2])
+    if triplet[1] == "I":
+        triplet = (triplet[0], "inventory", triplet[2])
+    if triplet[0] == "P":
+        triplet = ("player", triplet[1], triplet[2])
+    if triplet[1] == "P":
+        triplet = (triplet[0], "player", triplet[2])
+    return (triplet[0].lower(), triplet[1].lower(), {"label": triplet[2]["label"].lower()})
+
+def find_relation(spatial_graph, parent, loc, first):
+    reverse = {
+        "north": "south", "south": "north", "east": "west", "west": "east"
+    }
+    for connection in spatial_graph[parent]["connections"]:
+        if connection[1] == loc:
+            if "north" in connection[0]:
+                return "south"
+            if "east" in connection[0]:
+                return "west"
+            if "south" in connection[0]:
+                return "north"
+            if "west" in connection[0]:
+                return "east"
+            if "reversed" in connection[0] and first:
+                return reverse[find_relation(spatial_graph, loc, parent, False)]

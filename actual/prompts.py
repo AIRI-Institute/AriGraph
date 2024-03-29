@@ -14,12 +14,8 @@ If you forget or doesn't know main goal, you can always read Task note and remem
 actual_system_prompt = '''Your mission is to progress through a text-based adventure game. The main objective is: {main_goal}. This game requires you to navigate different areas, interact with various items, and think carefully about the outcomes of your decisions. Here is how to play effectively:
 - Direct Action: If you know what you need to do to advance, focus on those actions. Ignore distractions or "noise" that don't contribute to your goal.
 - Exploration and Learning: When you're unsure of your next steps or need to acquire new knowledge (this includes discovering items, places, and creatures), shift your focus to exploring. This approach helps you uncover new options and solutions.
-- Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary (but feel free to repeat navigational actions like "go to" or "north"). Your aim should be to uncover new areas and possibilities.
-- Knowledge Graph: All the details and information you gather will be added to a "knowledge graph". Think of this as your game's database which provide you with necessary information. Expanding this graph through exploration will significantly aid in making informed decisions as the game progresses.
-- Game Environment: Don't forget that you are playing the text game with strictly rules that not match your shape of environment. There is crucial to uderstand the environment feedback and adapt your strategy to actual rules.
-- Game Environment and Knowledge Graph: You should learning to play the game while you are playing. To perform that learning, feel free to add at knowledge graph meta information about game rules.  
-
-Remember, the key is to collect information about HOW TO PLAY this game. This strategy will guide you towards achieving your main goal in the game.'''
+- Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary. Your aim should be to uncover new areas and possibilities.
+- Knowledge Graph: All the details and information you gather will be added to a "knowledge graph". Think of this as your game's database which provide you with necessary information. Expanding this graph through exploration will significantly aid in making informed decisions as the game progresses.'''
 
 
 prompt_extracting_items = '''Based on the information provided, your task is to filter and identify objects, locations, or elements that are relevant to your specified goal from the current situation. Be sure to include objects directly connected to your goal and exclude any that are not pertinent. The objects you list should be succinctly named, using no more than three words per item. Feel free to add objects that relative to game rules (for example: "search", "new data", "environment", "game", "action")
@@ -222,32 +218,33 @@ Example of correct plan for making sandwich and give it to son: ["go to kitchen"
 Warning! Plan must be generated in format of list of actions (like in example above). Correct format of answer: [action_1, action_2, ...]
 Plan: '''
 
-prompt_action = '''I will provide you with graph of the environment. It consists of connected rooms with different items. 
-####
-Graph: {graph}
-####
+prompt_action = '''Imagine you're playing a game set in an environment visualized through a graph. This graph outlines various rooms connected to each other, each containing different items.
+I'll provide you with the layout of this environment, represented as a graph. Here's how it's structured:
 
-I will also provide you with current game state. It consist of current observation and previous observations.
-####
-Observation: {observation}
-Previous observations: {observations}
-####
+Graph: {subgraph}
 
-Please, according to information above give some reasoning in format of Chain of Thought and choose next action in game. Examples of action: "take *something*", "examine *something*", "open *something*", "go to *some location*".
-Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
-When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
+Additionally, you'll be given a snapshot of the current game state, which includes what you're observing right now and what you've observed in the past and also actions you did before. Pay attention on previous actions and try to find meaningful clues for now. You shouldn't repeat actions that you have already tried at current location without necessity. Here's the information on that:
+
+Current Observation: {observation}
+Previous Observations: {observations}
+
+To accomplish your mission, you'll need to think carefully about the information provided and plan your next step in the game. This could involve picking up an item, examining something more closely, opening an object, or moving directly to a specific room without passing through intermediate locations. Remember, use direct actions like "go to a specific room" instead of compass directions. Your path should leap over intermediate locations directly to your target.
+When formulating your response, provide the specific action you decide to take to advance towards your goal. Action must be clear and brief, example of correct actions contains in observations. Any descriptions of chosen action are redundant.
+Remember that you shouldn't repeat actions that you have already tried at current location (list of them is provided in Current observation) without necessity.
+
+Here's how to structure your answer correctly:
+Action: chosen action.
+
+Keep in mind, this format helps keep the advice clear and actionable. Happy gaming and remember that you shouldn't repeat actions that you have already tried at current location (list of them is provided in Current observation) without necessity!
 ####
-Warning! Correct format of answer: 
-Reasoning: your reasoning
-Action: your action
-'''
+Action: '''
 
 prompt_action_wGoal = '''Imagine you're playing a game set in an environment visualized through a graph. This graph outlines various rooms connected to each other, each containing different items.
 I'll provide you with the layout of this environment, represented as a graph. Here's how it's structured:
 
 Graph: {subgraph}
 
-Additionally, you'll be given a snapshot of the current game state, which includes what you're observing right now and what you've observed in the past. Here's the information on that:
+Additionally, you'll be given a snapshot of the current game state, which includes what you're observing right now and what you've observed in the past and also actions you did before. Pay attention on previous actions and try to find meaningful clues for now. You shouldn't repeat actions that you have already tried at current location without necessity. Here's the information on that:
 
 Current Observation: {observation}
 Previous Observations: {observations}
@@ -257,11 +254,12 @@ Your Goal: {goal}
 
 To accomplish your mission, you'll need to think carefully about the information provided and plan your next step in the game. This could involve picking up an item, examining something more closely, opening an object, or moving directly to a specific room without passing through intermediate locations. Remember, use direct actions like "go to a specific room" instead of compass directions. Your path should leap over intermediate locations directly to your target.
 When formulating your response, provide the specific action you decide to take to advance towards your goal. Action must be clear and brief, example of correct actions contains in observations. Any descriptions of chosen action are redundant.
+Remember that you shouldn't repeat actions that you have already tried at current location (list of them is provided in Current observation) without necessity.
 
 Here's how to structure your answer correctly:
 Action: chosen action.
 
-Keep in mind, this format helps keep the advice clear and actionable. Happy gaming!
+Keep in mind, this format helps keep the advice clear and actionable. Happy gaming and remember that you shouldn't repeat actions that you have already tried at current location (list of them is provided in Current observation) without necessity!
 ####
 Action: '''
 

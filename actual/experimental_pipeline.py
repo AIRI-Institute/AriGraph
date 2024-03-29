@@ -5,6 +5,8 @@ from textworld_adapter import TextWorldWrapper
 from parent_graph import TripletGraph
 from graphs.subgraph_strategy import SubgraphStrategy
 from agents.direct_action_agent import DirectActionAgent
+from graphs.history import History
+from graphs.extended_graphs import ExtendedGraphSubgraphStrategy
 from graphs.dummy_graph import DummyGraph
 from prompts import *
 from utils import *
@@ -16,11 +18,14 @@ env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
 agent_instance = DirectActionAgent
-graph_instance = DummyGraph
+graph_instance = ExtendedGraphSubgraphStrategy
+history_instance = History
 goal_freq = 10
 threshold = 0.02
-n_prev = 1
+n_prev, majority_part = 1, 0.51
+
 max_steps, n_attempts = 50, 1
+n = 4
 
 system_prompt = actual_system_prompt.format(main_goal = main_goal)
 config = {
@@ -31,7 +36,8 @@ config = {
     "goal_freq": goal_freq,
     "threshold": threshold,
     "system_prompt": system_prompt,
-    "n_prev": n_prev
+    "n_prev": n_prev,
+    "majority_part": majority_part
 }
 # End of changeable part
 
@@ -40,9 +46,10 @@ log = Logger(log_file)
 # Flexible init with only arguments class need
 graph = graph_instance(**find_args(graph_instance, config))
 agent = agent_instance(**find_args(agent_instance, config))
+history = history_instance(**find_args(history_instance, config))
 env = TextWorldWrapper(env_name)
 
-observations, history = [], []
+observations, hist = [], []
 locations = set()
 total_amount, total_time = 0, 0
 
@@ -72,6 +79,22 @@ for i in range(n_attempts):
         
         locations.add(env.curr_location.lower())
         
+        n_last, last_acts, last_locs = history.n_last(n)
+        n_by_action, action_acts, action_locs = history.n_by_action(action, n)
+        n_by_location, location_acts, location_locs = history.n_by_location(env.curr_location, n)
+        
+        summaries = [history.summary(obss + [observation]) for obss in [n_last, n_by_action, n_by_location]]
+        log("Summary last: " + str(summaries[0]))
+        log("Summary action: " + str(summaries[1]))
+        log("Summary location: " + str(summaries[2]))
+        
+        history.add_state(observation, i + 1, step + 1, action, env.curr_location)
+        history.add_metastate(summaries[0], i + 1, step + 1, last_acts, last_locs)
+        history.add_metastate(summaries[1], i + 1, step + 1, action_acts, action_locs)
+        history.add_metastate(summaries[2], i + 1, step + 1, location_acts, location_locs)
+        
+        subgraph = graph.update(observation, summaries, locations, env.curr_location.lower(), previous_location, action, log)
+        
         needful_args = {
             "observation": observation,
             "observations": observations,
@@ -90,7 +113,6 @@ for i in range(n_attempts):
         }
         
         # Everything happens there
-        subgraph = graph.update(**find_args(graph.update, needful_args))
         needful_args["subgraph"] = subgraph
         action, goal, is_nav = agent.make_decision(**find_args(agent.make_decision, needful_args))
     
@@ -115,7 +137,7 @@ for i in range(n_attempts):
             tried_action[previous_location].add(action)
             
         
-        step_amount = graph.total_amount + agent.total_amount - total_amount
+        step_amount = graph.total_amount + agent.total_amount + history.total_amount - total_amount
         attempt_amount += step_amount
         total_amount += step_amount
         log(f"\nTotal amount: {round(total_amount, 2)}$, attempt amount: {round(attempt_amount, 2)}$, step amount: {round(step_amount, 2)}$")
@@ -127,8 +149,8 @@ for i in range(n_attempts):
             
         needful_args['step_time'] = step_time
         needful_args['step_amount'] = step_amount
-        history.append(deepcopy(needful_args))
-        log.to_json(history)
+        hist.append(deepcopy(needful_args))
+        log.to_json(hist)
         log("=" * 70)
         if done:
             log("Game itog: " + observation)
