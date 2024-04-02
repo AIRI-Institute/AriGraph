@@ -6,26 +6,26 @@ from parent_graph import TripletGraph
 from graphs.subgraph_strategy import SubgraphStrategy
 from agents.direct_action_agent import DirectActionAgent
 from graphs.history import History
-from graphs.extended_graphs import ExtendedGraphSubgraphStrategy
+from graphs.extended_graphs import ExtendedGraphSubgraphStrategy, ExtendedGraphPagerankStrategy, ExtendedGraphMixtralPagerankStrategy
 from graphs.dummy_graph import DummyGraph
 from prompts import *
 from utils import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_nav2_dummy_graph_direct_act"
+log_file = "exp_nav2_extended_graph_pagerank_brief"
 env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
 agent_instance = DirectActionAgent
-graph_instance = ExtendedGraphSubgraphStrategy
+graph_instance = ExtendedGraphPagerankStrategy
 history_instance = History
 goal_freq = 10
 threshold = 0.02
 n_prev, majority_part = 1, 0.51
 
 max_steps, n_attempts = 50, 1
-n = 4
+n_neighbours = 4
 
 system_prompt = actual_system_prompt.format(main_goal = main_goal)
 config = {
@@ -51,6 +51,7 @@ env = TextWorldWrapper(env_name)
 
 observations, hist = [], []
 locations = set()
+tried_action = {}
 total_amount, total_time = 0, 0
 
 for i in range(n_attempts):
@@ -62,7 +63,6 @@ for i in range(n_attempts):
     goal = "Start game"
     previous_location = env.curr_location.lower()
     attempt_amount, attempt_time = 0, 0
-    tried_action = {}
     done = False
     for step in range(max_steps):
         start = time()
@@ -79,9 +79,9 @@ for i in range(n_attempts):
         
         locations.add(env.curr_location.lower())
         
-        n_last, last_acts, last_locs = history.n_last(n)
-        n_by_action, action_acts, action_locs = history.n_by_action(action, n)
-        n_by_location, location_acts, location_locs = history.n_by_location(env.curr_location, n)
+        n_last, last_acts, last_locs = history.n_last(n_neighbours)
+        n_by_action, action_acts, action_locs = history.n_by_action(action, n_neighbours)
+        n_by_location, location_acts, location_locs = history.n_by_location(env.curr_location, n_neighbours)
         
         summaries = [history.summary(obss + [observation]) for obss in [n_last, n_by_action, n_by_location]]
         log("Summary last: " + str(summaries[0]))
@@ -111,6 +111,11 @@ for i in range(n_attempts):
             "attempt": i + 1,
             "step": step + 1,
         }
+        
+        if done:
+            log("Game itog: " + observation)
+            log("\n" * 10)
+            break
         
         # Everything happens there
         needful_args["subgraph"] = subgraph
@@ -152,7 +157,4 @@ for i in range(n_attempts):
         hist.append(deepcopy(needful_args))
         log.to_json(hist)
         log("=" * 70)
-        if done:
-            log("Game itog: " + observation)
-            log("\n" * 10)
-            break
+        

@@ -1,3 +1,4 @@
+import json
 import numpy as np
 from sklearn.utils import shuffle
 
@@ -10,6 +11,25 @@ class History(TripletGraph):
         super().__init__(model, system_prompt)
         self.states, self.metastates = [], []
         self.majority_part = majority_part
+        
+    def save(self, path):
+        with open(path + "/STATES_HISTORY.json", "w") as file:
+            json.dump(self.states, file)
+        with open(path + "/METASTATES_HISTORY.json", "w") as file:
+            json.dump(self.metastates, file)
+        metainf = {"model": self.model, "threshold": self.threshold, "system_prompt": self.system_prompt}
+        with open(path + "/METAINF_HISTORY.json", "w") as file:
+            json.dump(metainf, file)
+            
+    def load(self, path):
+        with open(path + "/STATES_HISTORY.json", "r") as file:
+            self.states = json.load(file)
+        with open(path + "/METASTATES_HISTORY.json", "r") as file:
+            self.metastates = json.load(file)
+        with open(path + "/METAINF_HISTORY.json", "r") as file:
+            metainf = json.load(file)
+            self.model, self.threshold, self.system_prompt = metainf["model"], metainf["threshold"], metainf["system_prompt"]
+        
         
     def add_state(self, state, attempt, step, action, location):
         self.states.append({

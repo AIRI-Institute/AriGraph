@@ -26,20 +26,32 @@ class GraphWithoutEmbeddings(TripletGraph):
     
     # Filling graph
     def add_triplets(self, triplets):
+        success = []
         for triplet in triplets:
             if triplet[2]["label"] == "free":
+                success.append(False)
                 continue
             triplet = clear_triplet(triplet)
             if triplet not in self.triplets:
                 self.triplets.append(triplet)
+                success.append(True)
+            else:
+                success.append(False)
+        return success
                 
     # Delete triplets exclude navigation ones            
     def delete_triplets(self, triplets, locations):
+        success = []
         for triplet in triplets:
             if triplet[0] in locations and triplet[1] in locations:
+                success.append(False)
                 continue
             if triplet in self.triplets:
                 self.triplets.remove(triplet)
+                success.append(True)
+            else:
+                success.append(False)
+        return success
             
     # Associations by set of items. Step is a parameter for BFS
     def get_associated_triplets(self, items, steps = 1):
