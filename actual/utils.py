@@ -192,3 +192,15 @@ def find_relation(spatial_graph, parent, loc, first):
                 return "east"
             if "reversed" in connection[0] and first:
                 return reverse[find_relation(spatial_graph, loc, parent, False)]
+            
+def check_equals(lists, threshold = 0.5):
+    if not lists:
+        return lists
+    new_lists, total_obs = [lists[0]], set(lists[0])
+    for candidate in lists[1:]:
+        if len(set(candidate) & total_obs) / len(candidate) > threshold:
+            new_lists.append([])
+        else:
+            new_lists.append(candidate)
+            total_obs = total_obs | set(candidate)
+    return new_lists

@@ -9,6 +9,19 @@ prompt_summary_obs = '''STATES: {observations}
 Remember that you should be brief and include only insights that can be useful in the future. Also remember that your summary must not be longer than one paragraph of text.
 Try to formulate insights like set of thesises. Your summary:'''
 
+prompt_summary_wplan = '''Your task is to summarize game states which given below. 
+Please, include in summary only information that can be useful with respect to plan: {plan}
+This summary must be brief and must contain your insights about game environment and player actions. 
+This summary must include not more than 3 sentences.
+You should include only insights with concrete information (For example: "rooms usually locked", 
+"clues usually can be found by moving", "examine action usually not provide additional information", 
+"environment contains creatures except player" and etc.).
+Be brief and extract only insights that are not a common knowledge and are specific to current game (for example, "locker usually locked" is good insight, but "lockers can be unlock with key" is bad insight). '''
+
+prompt_summary_wplan_obs = '''STATES: {observations}
+Remember that you should be brief and include only insights that can be useful with respect to plan given above in json format. Also remember that your summary must include not more than 3 insights.
+Try to formulate insight like current thesis. Your summary:'''
+
 prompt_refining_meta = """The triplets denote facts about the environment where the player moves. The player takes actions and the environment changes, so some triplets from the list of existing triplets should be replaced with one of the new triplets. For example, the door was previously opened and now it is closed, so the triplet "Door, opened, itself" should be replaced with the triplet "Door, closed, itself". Another example, the player took the item from the locker and the triplet "Item, is in, Locker" should be replaced with the triplet "Player, has, Item".
 In some cases there are no triplets to replace.
 Example of existing triplets: Golden locker, state, open; "Room K, is west of, Room I".
@@ -71,3 +84,48 @@ Observation: {observation}
 Remember that triplets must be extracted in format: "subject_1, relation_1, object_1; subject_2, relation_2, object_2; ..."
 
 Extracted triplets:'''
+
+prompt_action_with_plan = '''You are an action selector within an agent system designed to navigate an environment in a text-based game. Your role involves receiving information about an agent and the state of the environment alongside a list of valid actions.
+Your primary objective is to choose an action that aligns with the goals outlined in the plan, giving precedence to sub-goals in the order they appear (with sub_goal_1 being of the highest priority). However do not miss on actions that can benefit your main goal or can be dirrectly applied to achive one of the sub-goals, without disterbing you to much from hier order sub-goals.
+In tasks centered around exploration or locating something, prioritize actions that guide the agent to previously unexplored areas. You can deduce which locations have been visited based on the history of observations or knowledge triples stored in your memory.
+Respond only with the action you select.
+####
+Current data:
+\n1. Main goal: {main_goal}
+\n2. History of last observations and actions: {observations} 
+\n3. Your current observation: {observation}
+\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {associated_subgraph}
+\n5. Your current plan: {plan}
+
+Please, in answer write only action you have chosen without any descriptions. Action: '''
+
+prompt_plan_new = prompt = '''You are a planner within the agent system tasked with navigating the environment in a text-based game. 
+Your role is to create a concise plan to achieve your primary goal or modify your current plan based on new information received. 
+
+If you wish to alter or delete a sub-goal within the current plan, confirm that this sub-goal has been achieved according to the current observation. Untill then do not change wording in "sub_goal_..." elements of your plan, you may only change wording in "reason" behind this sub-goal, taking into account the events occurring in the environment. If you think sub-goal was achived, replase it with new one or with other sub-goals from the plan. 
+Current data:
+\n1. Main goal: {main_goal}
+\n2. History of last observations and actions: {observations} 
+\n3. Your current observation: {observation}
+\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {associated_subgraph}
+\n5. Your current plan: {plan}
+
+Write your answer exactly in this json format:
+{
+  "main_goal": "...",
+  "plan_steps": [
+    {
+      "sub_goal_1": "...",
+      "reason": "..."
+    },
+    {
+      "sub_goal_2": "...",
+      "reason": "..."
+    },
+    {
+      "sub_goal_...": "...",
+      "reason": "..."
+    }
+  ],
+}
+Answer: '''

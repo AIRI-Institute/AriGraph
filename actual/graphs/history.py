@@ -97,4 +97,18 @@ class History(TripletGraph):
             summary, cost = self.generate(prompt)
         return summary
     
+class HistoryWithPlan(History):
+    def __init__(self, model, system_prompt, majority_part = 0.51):
+        super().__init__(model, system_prompt, majority_part)
+        
+    def summary(self, obss, plan, instruction = None):
+        summary = None
+        if len(obss) > 2:
+            prompt = prompt_summary_wplan.format(plan = plan)
+            if instruction is not None:
+                prompt += f"\nSPECIAL INSTRUCTIONS: {instruction}\n"
+            prompt += prompt_summary_wplan_obs.format(observations = obss)
+            summary, cost = self.generate(prompt)
+        return summary
+    
         
