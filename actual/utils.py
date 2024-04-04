@@ -198,7 +198,7 @@ def check_equals(lists, threshold = 0.5):
         return lists
     new_lists, total_obs = [lists[0]], set(lists[0])
     for candidate in lists[1:]:
-        if len(set(candidate) & total_obs) / len(candidate) > threshold:
+        if len(set(candidate) & total_obs) / (len(candidate) + 1e-9) > threshold:
             new_lists.append([])
         else:
             new_lists.append(candidate)

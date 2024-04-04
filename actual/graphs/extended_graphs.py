@@ -129,7 +129,8 @@ class ExtendedGraphPagerankStrategy(ExtendedGraphSubgraphStrategy):
         return associated_subgraph
     
     def get_associated_triplets_pagerank(self, triplets, max_len):
-        part = min(1., 0.4 * max_len / len(self.triplets) + 0.6)
+        x = len(self.triplets)
+        part = 1 / (0.1 * x + 1) + 0.008 * x / (0.01 * x + 1)
         triplets = [clear_triplet(triplet) for triplet in triplets]
         personalization = {self.str(triplet): 1 / len(triplets) for triplet in triplets}
         done, max_iter = False, 100
@@ -149,7 +150,7 @@ class ExtendedGraphPagerankStrategy(ExtendedGraphSubgraphStrategy):
         for score, triplet in scores:
             curr_sum += score
             sorted_triplets.append(triplet)
-            if curr_sum / sum_score > part:
+            if curr_sum / sum_score > part or len(sorted_triplets) >= max_len:
                 break
         return sorted_triplets
     

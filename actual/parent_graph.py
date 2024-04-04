@@ -44,13 +44,13 @@ class TripletGraph:
             metainf = json.load(file)
             self.model, self.threshold, self.system_prompt = metainf["model"], metainf["threshold"], metainf["system_prompt"]
         
-    def generate(self, prompt, t = 1):
+    def generate(self, prompt, t = 1, jsn = False):
         messages = [{"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}]
 
         response = requests.post(
             f"http://{VPS_IP}:{port}/openai_api",
-            json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t}
+            json={"api_key": API_KEY, "messages": messages, "model_type": self.model, "temperature": t, "jsn": jsn}
         )
         resp = response.json()["response"]
         usage = response.json()["usage"]

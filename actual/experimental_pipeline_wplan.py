@@ -14,7 +14,7 @@ from utils import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_nav2_extended_graph_pagerank_brief"
+log_file = "exp_nav2_extended_graph_pagerank_plan_60"
 env_name = "benchmark/navigation2/navigation2.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
@@ -25,7 +25,7 @@ goal_freq = 10
 threshold = 0.02
 n_prev, majority_part = 1, 0.51
 
-max_steps, n_attempts = 50, 1
+max_steps, n_attempts = 50, 2
 n_neighbours = 4
 
 system_prompt = actual_system_prompt.format(main_goal = main_goal)
@@ -86,9 +86,7 @@ for i in range(n_attempts):
         n_by_location, location_acts, location_locs = history.n_by_location(env.curr_location, n_neighbours)
         [n_last, n_by_action, n_by_location] = check_equals([n_last, n_by_action, n_by_location])
         
-        summaries = [None, None, None]
-        if step % 3 == 2:
-            summaries = [history.summary(obss + [observation], agent.plan) for obss in [n_last, n_by_action, n_by_location]]
+        summaries = [history.summary(obss + [observation], agent.plan) for obss in [n_last, n_by_action, n_by_location]]
         log("Summary last: " + str(summaries[0]))
         log("Summary action: " + str(summaries[1]))
         log("Summary location: " + str(summaries[2]))
@@ -163,3 +161,5 @@ for i in range(n_attempts):
         log.to_json(hist)
         log("=" * 70)
         
+        graph.save(log_file)
+        history.save(log_file)

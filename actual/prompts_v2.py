@@ -66,7 +66,7 @@ prompt_extraction_summary = '''Your task is to extract information from insight 
 - **Nodes** represent entities and concepts. They are akin to Wikipedia nodes.
 - The aim is to achieve simplicity and clarity in the knowledge graph, making it useful for you in the future.
 - Triplets must save semantic structure of original text.
-- Triplets must contain general knowledges about the game and must not contain particaular knowledges.
+- Triplets must contain general knowledges about the game.
 - Use the following triplet format for extracted data: "triplet1; triplet2; ...", more detailed - "subject1, relation1, object1; subject2, relation2, object2; ...", where a triplet is "subject1, relation1, object1" or "subject2, relation2, object2".
 - Both subject and object in triplets should be akin to Wikipedia nodes. Object can be a date or number, objects should not contain citations or sentences.
 - Instead of generating complex objects, divide triplet with complex object into two triplets with more precise objects. For example, the text "John Doe is a developer at Google" corresponds to two triplets: "John Doe, position, developer; John Doe, employed by, Google".
@@ -76,8 +76,8 @@ prompt_extraction_summary = '''Your task is to extract information from insight 
 - When extracting entities, it is vital to ensure consistency. If an entity, such as "John Doe", is mentioned multiple times in the text but is referred to by different names or pronouns (e.g., "Joe", "he"),
 always use the most complete identifier for that entity throughout the knowledge graph. In this example, use "John Doe" as the entity ID.
 Remember, the knowledge graph should be coherent and easily understandable, so maintaining consistency in entity references is crucial.
-- Triplets must not include particular information, use generalizations instead (for example, from text "John see a rabbit, a horse and a dog" you should extract following data: "John, see, animals" and you should not include particular triplets like "John, see, rabbit", "John see, horse", "John, see, dog").
-- Triplets that you are extracting must describe game rules, player's insights and generalization over past experience. You should not include triplets with current items unless this item isn't really crucial for game understanding. 
+- Triplets must not include generalizations together with particular information (for example, from text "John see a rabbit, a horse and a dog" you should extract following data: "John, see, animals" with particular triplets like "John, see, rabbit", "John see, horse", "John, see, dog").
+- Triplets that you are extracting must describe game rules, player's insights and generalization over past experience.
 
 Observation: {observation}
 
@@ -94,7 +94,7 @@ Current data:
 \n1. Main goal: {main_goal}
 \n2. History of last observations and actions: {observations} 
 \n3. Your current observation: {observation}
-\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {associated_subgraph}
+\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {subgraph}
 \n5. Your current plan: {plan}
 
 Please, in answer write only action you have chosen without any descriptions. Action: '''
@@ -107,25 +107,25 @@ Current data:
 \n1. Main goal: {main_goal}
 \n2. History of last observations and actions: {observations} 
 \n3. Your current observation: {observation}
-\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {associated_subgraph}
+\n4. Information from the memory module that can be relevant to current situation. Pay attention to it it can contain information about location of different objects that an agent encountered earlier:  {subgraph}
 \n5. Your current plan: {plan}
 
 Write your answer exactly in this json format:
-{
+{{
   "main_goal": "...",
   "plan_steps": [
-    {
+    {{
       "sub_goal_1": "...",
       "reason": "..."
-    },
-    {
+    }},
+    {{
       "sub_goal_2": "...",
       "reason": "..."
-    },
-    {
+    }},
+    {{
       "sub_goal_...": "...",
       "reason": "..."
-    }
+    }}
   ],
-}
+}}
 Answer: '''
