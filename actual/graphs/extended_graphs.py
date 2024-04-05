@@ -13,7 +13,6 @@ class ExtendedGraphSubgraphStrategy(GraphWithoutEmbeddings):
         super().__init__(model, system_prompt, threshold)
         
     def update_items(self, obs):
-        prompt = prompt_extraction_current.format(observation = obs.split("\nInventory: ")[0])
         response, cost = self.generate(prompt)
         new_triplets = process_triplets(response)
         items = {self.add_item(triplet[0]) for triplet in new_triplets} | {self.add_item(triplet[1]) for triplet in new_triplets}
