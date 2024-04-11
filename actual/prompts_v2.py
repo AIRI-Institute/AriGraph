@@ -144,7 +144,7 @@ Previous observations: {observations}
 Instruction:
 You are an explanator in the system of agents. You should describe what happens in the game at current step.
 Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
-Information you extract must be relative to current plan: {plan}.
+Information you extract must be relative to previous plan: {plan}.
 Please, carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
 ####
 Your description: '''
@@ -152,12 +152,12 @@ Your description: '''
 prompt_exactly_describe_subgraph = '''Your task is to briefly describe what happening in current situation:
 Observation: {observation}
 Previous observations: {observations}
-Knowledges that you have used at previous step: {subgraph}
+Knowledges that you have used at previous step (they may be outdated now): {subgraph}
 ####
 Instruction:
 You are an explanator in the system of agents. You should describe what happens in the game at current step.
 Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
-Information you extract must be relative to current plan: {plan}.
+Information you extract must be relative to previous plan: {plan}.
 Please, carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
 Remember, agents which will make decision will base only on your description, so try to exclude things that can confuse them.
 Your description must be no longer that 3 paragraphs.

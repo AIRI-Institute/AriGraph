@@ -1,5 +1,6 @@
 from time import time
 
+from observedgpaph import ObservedGraph
 from parent_agent import GPTagent
 from textworld_adapter import TextWorldWrapper
 from parent_graph import TripletGraph
@@ -13,6 +14,7 @@ from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
 from graphs.dummy_graph import DummyGraph
 from prompts import *
 from utils import *
+from textworld_adapter import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
@@ -47,6 +49,7 @@ config = {
 log = Logger(log_file)
 
 # Flexible init with only arguments class need
+obs_graph = ObservedGraph()
 graph = graph_instance(**find_args(graph_instance, config))
 agent = agent_instance(**find_args(agent_instance, config))
 history = history_instance(**find_args(history_instance, config))
@@ -76,9 +79,16 @@ for i in range(n_attempts):
     attempt_amount, attempt_time = 0, 0
     done = False
     # for step in range(max_steps):
-    for step, new_action in enumerate(walkthrough[:25]):
+    for step, new_action in enumerate(walkthrough):
         start = time()
-        log("Step: " + str(step + 1))
+        
+        old_obs = observation
+        G_true = graph_from_facts(info)
+        full_graph = G_true.edges(data = True)
+        obs_graph.update_graph_based_on_observation(observation, full_graph)
+        print(obs_graph.graph.edges(data = True))
+        breakpoint()
+        
         observation = observation.split("$$$")[-1]
         observation = "Step: " + str(step + 1) + "\n" + observation
         inventory = env.get_inventory()
@@ -86,66 +96,20 @@ for i in range(n_attempts):
         observation += f"\nAction that led to this: {action}"
         if env.curr_location.lower() in tried_action:
             observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
-        # observation += f"\nGoal that led to this: {goal}"
-        log("Observation: " + observation)
         
         locations.add(env.curr_location.lower())
         
-        # n_last, last_acts, last_locs = history.n_last(n_neighbours)
-        # n_by_action, action_acts, action_locs = history.n_by_action(action, n_neighbours)
-        # n_by_location, location_acts, location_locs = history.n_by_location(env.curr_location, n_neighbours)
-        # [n_last, n_by_action, n_by_location] = check_equals([n_last, n_by_action, n_by_location])
-        
-        # summaries = [None, None, None]
-        # # summaries = [history.summary(obss + [observation], agent.plan) for obss in [n_last, n_by_action, n_by_location]]
-        # log("Summary last: " + str(summaries[0]))
-        # log("Summary action: " + str(summaries[1]))
-        # log("Summary location: " + str(summaries[2]))
-        
-        # history.add_state(observation, i + 1, step + 1, action, env.curr_location)
-        # history.add_metastate(summaries[0], i + 1, step + 1, last_acts, last_locs)
-        # history.add_metastate(summaries[1], i + 1, step + 1, action_acts, action_locs)
-        # history.add_metastate(summaries[2], i + 1, step + 1, location_acts, location_locs)
-        
-        subgraph, description = graph.update(observation, observations, agent.plan, subgraph, locations, env.curr_location.lower(), previous_location, action, step + 1, log)
-        valid_actions = env.get_valid_actions()
-        description += f"\nValid actions (just recommendation): {valid_actions}"
-        
-        needful_args = {
-            "observation": description,
-            "original_observation": observation,
-            "observations": observations,
-            "goal": goal,
-            "locations": list(locations),
-            "curr_location": env.curr_location.lower(),
-            "previous_location": previous_location,
-            "action": action,
-            "env": env,
-            "graph": graph,
-            "agent": agent,
-            "log": log,
-            "main_goal": main_goal,
-            "attempt": i + 1,
-            "step": step + 1,
-        }
+        # subgraph, description = graph.update(observation, observations, agent.plan, subgraph, locations, env.curr_location.lower(), previous_location, action, step + 1, log)
+        # valid_actions = env.get_valid_actions()
+        # description += f"\nValid actions (just recommendation): {valid_actions}"
         
         if done:
             log("Game itog: " + observation)
             log("\n" * 10)
             break
         
-        # Everything happens there
-        needful_args["subgraph"] = subgraph
-        # action, goal, is_nav = agent.make_decision(**find_args(agent.make_decision, needful_args))
         action, goal, is_nav = new_action, "without goal", False    
-    
-        needful_args.pop("env")
-        needful_args.pop("graph")
-        needful_args.pop("agent")
-        needful_args.pop("log")
-        needful_args["action"] = action
-        needful_args["goal"] = goal
-        
+
         observations.append(observation)
         observations = observations[-n_prev:]
         previous_location = env.curr_location.lower()
@@ -159,6 +123,11 @@ for i in range(n_attempts):
         else:
             tried_action[previous_location].add(action)
             
+         # Update the knowledge graph based on observations and actions
+        if any(direction in action for direction in ["west", "east", "south", "north"]):
+            obs_graph.update_graph_for_movement(old_obs, action, observation, full_graph)
+        else:
+            obs_graph.update_graph_based_on_action(observation, action, full_graph)            
         
         step_amount = graph.total_amount + agent.total_amount + history.total_amount - total_amount
         attempt_amount += step_amount
@@ -169,12 +138,3 @@ for i in range(n_attempts):
         attempt_time += step_time
         total_time += step_time
         log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
-            
-        needful_args['step_time'] = step_time
-        needful_args['step_amount'] = step_amount
-        hist.append(deepcopy(needful_args))
-        log.to_json(hist)
-        log("=" * 70)
-        
-        graph.save(log_file)
-        history.save(log_file)
