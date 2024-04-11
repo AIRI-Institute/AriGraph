@@ -12,6 +12,8 @@ Warning! Try to not visit locations that is contained in knowlrdge graph. Your t
 If you forget or doesn't know main goal, you can always read Task note and remember main goal.'''
 
 actual_system_prompt = '''Your mission is to progress through a text-based adventure game. The main objective is: {main_goal}. This game requires you to navigate different areas, interact with various items, and think carefully about the outcomes of your decisions. Here is how to play effectively:
+- Effectiveness: first do actions that are most useful at current situation and relative to your goals. Ignore side noisy actions that can be useful for future, but aren't so useful now. When you formulate new goals, also prioretize the most useful ones and ignore potentially useful but non-urgent ones.
+- Simplicity: first try to behave by strtegies that are most simple. You should not to explore ALL game environment, you just should achieve the main goal. Try more complex and difficult strategies only in case if you previous attempts not achieve your goals.
 - Direct Action: If you know what you need to do to advance, focus on those actions. Ignore distractions or "noise" that don't contribute to your goal.
 - Exploration and Learning: When you're unsure of your next steps or need to acquire new knowledge (this includes discovering items, places, and creatures), shift your focus to exploring. This approach helps you uncover new options and solutions.
 - Avoid Repetition: As you explore, try not to revisit the same locations or repeat actions unless necessary. Your aim should be to uncover new areas and possibilities.

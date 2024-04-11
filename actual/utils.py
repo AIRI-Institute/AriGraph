@@ -36,16 +36,47 @@ def process_triplets(raw_triplets):
         
     return triplets
 
+def process_candidates(raw_triplets):
+    raw_triplets = raw_triplets.strip("[] \n.")
+    raw_triplets = raw_triplets.split(";")
+    triplets = []
+    for triplet in raw_triplets:
+        if len(triplet.split(",")) != 3:
+            continue
+        subj, relation, obj = triplet.split(",")
+        if not subj.strip(''' '1234567890.\n"''').startswith("Step"):
+            continue
+        step = subj.strip(''' '1234567890.\n"''').replace("Step", "")
+        step = int(step.split(":")[0].strip(' .\n"'))
+        subj = subj.split(":")[-1]
+        subj, relation, obj = subj.strip(''' '.\n"'''), relation.strip(' .\n"'), obj.strip(''' '\n."''')
+        if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
+            continue
+        triplets.append([subj, obj, {"label": relation, "step": step}])
+        
+    return triplets
+
 def find_direction(action):
     if "north" in action:
-        return "north of"
+        return "is north of"
     if "east" in action:
-        return "east of"
+        return "is east of"
     if "south" in action:
-        return "south of"
+        return "is south of"
     if "west" in action:
-        return "west of"
-    raise "ACTION ISN'T A DIRECTION"
+        return "is west of"
+    return "can be achieved from"
+
+def find_opposite_direction(action):
+    if "north" in action:
+        return "is south of"
+    if "east" in action:
+        return "is west of"
+    if "south" in action:
+        return "is north of"
+    if "west" in action:
+        return "is east of"
+    return "can be achieved from"
 
 def parse_triplets_removing(text):
     text = text.split("[[")[-1] if "[[" in text else text.split("[\n[")[-1]

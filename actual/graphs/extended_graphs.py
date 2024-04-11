@@ -13,6 +13,7 @@ class ExtendedGraphSubgraphStrategy(GraphWithoutEmbeddings):
         super().__init__(model, system_prompt, threshold)
         
     def update_items(self, obs):
+        prompt = prompt_extraction_current.format(observation = obs)
         response, cost = self.generate(prompt)
         new_triplets = process_triplets(response)
         items = {self.add_item(triplet[0]) for triplet in new_triplets} | {self.add_item(triplet[1]) for triplet in new_triplets}
@@ -25,7 +26,7 @@ class ExtendedGraphSubgraphStrategy(GraphWithoutEmbeddings):
         objects = {self.add_item(triplet[0]) for triplet in new_triplets} | {self.add_item(triplet[1]) for triplet in new_triplets}
         return new_triplets, list(objects)
     
-    def update(self, obs, summaries, locations, curr_location, previous_location, action, log):
+    def update(self, obs, summaries, locations, curr_location, previous_location, action, step, log):
         new_items_triplets, items = self.update_items(obs)
         new_items_triplets_ = self.exclude(new_items_triplets)
         log("New triplets items: " + str(new_items_triplets_))
@@ -70,12 +71,16 @@ class ExtendedGraphPagerankStrategy(ExtendedGraphSubgraphStrategy):
     def __init__(self, model, system_prompt, threshold = 0.02):
         super().__init__(model, system_prompt, threshold)
         self.G = nx.MultiGraph()
+        self.personalization = {}
+        self.personalization_history = []
         
     def delete_triplets(self, triplets, locations):
         success = super().delete_triplets(triplets, locations)
         for triplet, succ in zip(triplets, success):
-            if succ and self.str(clear_triplet(triplet)) in self.G:
-                self.G.remove_node(self.str(clear_triplet(triplet)))
+            triplet_name = self.str(clear_triplet(triplet))
+            if succ and triplet_name in self.G:
+                self.G.remove_node(triplet_name)
+                self.personalization.pop(triplet_name)
                 
     def add_triplets(self, triplets):
         success = super().add_triplets(triplets)
@@ -123,22 +128,25 @@ class ExtendedGraphPagerankStrategy(ExtendedGraphSubgraphStrategy):
         self.add_triplets(new_meta_triplets + new_items_triplets)
     
 
-        associated_subgraph = self.get_associated_triplets_pagerank(new_meta_triplets + new_items_triplets, max_len = 100)
+        associated_subgraph = self.get_associated_triplets_pagerank(new_meta_triplets + new_items_triplets, max_len = 30, beta = 0.8)
+        self.personalization_history.append(deepcopy(self.personalization))
+        log.to_json(self.personalization_history, "personalization_history.json")
         log("Associated_subgraph: " + str(associated_subgraph))
         return associated_subgraph
     
-    def get_associated_triplets_pagerank(self, triplets, max_len):
+    def get_associated_triplets_pagerank(self, triplets, max_len, beta):
         x = len(self.triplets)
-        part = 1 / (0.1 * x + 1) + 0.008 * x / (0.01 * x + 1)
+        part = 2.
         triplets = [clear_triplet(triplet) for triplet in triplets]
         personalization = {self.str(triplet): 1 / len(triplets) for triplet in triplets}
+        self.personalization = self.merge(personalization, beta)
         done, max_iter = False, 100
         while not done:
             if max_iter > 3200:
                 scores = personalization
                 done = True
             try:
-                scores = nx.pagerank(self.G, personalization=personalization, weight = None, alpha = 0.9, max_iter=max_iter, tol = 1e-3)
+                scores = nx.pagerank(self.G, personalization=self.personalization, weight = None, alpha = 0.9, max_iter=max_iter, tol = 1e-4)
                 done = True
             except:
                 max_iter = int(max_iter * 2)
@@ -152,6 +160,21 @@ class ExtendedGraphPagerankStrategy(ExtendedGraphSubgraphStrategy):
             if curr_sum / sum_score > part or len(sorted_triplets) >= max_len:
                 break
         return sorted_triplets
+    
+    def merge(self, personalization, beta):
+        new_personalization = {}
+        keys = set(self.personalization.keys()) | set(personalization.keys())
+        for key in keys:
+            if key in self.personalization and key in personalization:
+                new_personalization[key] = beta * self.personalization[key] + (1 - beta) * personalization[key]
+            elif key in self.personalization:
+                new_personalization[key] = self.personalization[key]
+            elif key in personalization:
+                new_personalization[key] = personalization[key]
+        summ = sum([value for value in new_personalization.values()])
+        for key in new_personalization:
+            new_personalization[key] /= summ
+        return new_personalization
     
     
 class ExtendedGraphMixtralPagerankStrategy(ExtendedGraphPagerankStrategy):
@@ -170,3 +193,13 @@ class ExtendedGraphMixtralPagerankStrategy(ExtendedGraphPagerankStrategy):
         outputs = self.mixtral.generate(inputs, max_new_tokens=1024, do_sample=True)
         return self.tokenizer.decode(outputs[0], skip_special_tokens=True), 0
     
+
+class ExtendedGraphDescriptionPagerankStrategy(ExtendedGraphPagerankStrategy):
+    def __init__(self, model, system_prompt, threshold = 0.02):
+        super().__init__(model, system_prompt, threshold)
+        
+    def update(self, observation, observations, plan, summaries, locations, curr_location, previous_location, action, log):
+        prompt = prompt_exactly_describe.format(observation=observation, observations=observations, plan=plan)
+        description, cost = self.generate(prompt)
+        log("Subjective perception: " + description)
+        return super().update(description, summaries, locations, curr_location, previous_location, action, log), description

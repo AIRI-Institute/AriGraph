@@ -30,6 +30,7 @@ class PlanInJsonAgent(GPTagent):
         #Generate action
         prompt = prompt_action_with_plan.format(main_goal = main_goal, observations = observations, observation = observation, plan = self.plan, subgraph = subgraph)
         action, cost_action = self.generate(prompt)
+        action = action.strip(""" "'\n.""")
         log("Chosen action: " + action)
         
         return action, sub_goal_1, "go to" in action.lower()

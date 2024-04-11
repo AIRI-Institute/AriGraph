@@ -55,6 +55,11 @@ prompt_extraction_current = '''Objective: The main goal is to meticulously gathe
 Guidelines for Building the Knowledge Graph:
 
 Creating Nodes and Triplets: Nodes should depict entities or concepts, similar to Wikipedia nodes. Use a structured triplet format to capture data, as follows: "subject, relation, object." For example, from "Albert Einstein, born in Germany, is known for developing the theory of relativity," extract "Albert Einstein, country of birth, Germany; Albert Einstein, developed, Theory of Relativity." Simplification and Clarity: Aim for simplicity and readability in your knowledge graph to facilitate future use. If encountering complex objects within triplets, break them down into simpler, distinct triplets for clarity. Uniformity: Ensure uniformity in entities and relations. For example, similar entities like "House" and "house" should be standardized to a single form, e.g., "house." Use consistent relations for similar actions or states, like replacing "has friend" and "friend of" with a uniform relation. Special Cases in Triplets: Exclude triplets where the subject or object are collective entities or the object is a long phrase exceeding 5 words. Coreference Resolution: Maintain entity consistency throughout the knowledge graph to ensure clarity and coherence. Use the most complete and accurate identifier for entities appearing multiple times under different names or pronouns. Application to the Text-based Adventure Game: Leverage these guidelines while navigating through the game. Pay attention to: Direct actions necessary for game progression. Exploration opportunities for discovering new items, locations, and information. Avoiding repetitive actions unless they contribute to new outcomes. Learning game mechanics through gameplay and incorporating meta-information about game rules into the knowledge graph. The essence of these instructions is to help you methodically record and organize knowledge as you progress through the game, enhancing your decision-making and strategic planning capabilities.
+Remember that you should break complex triplets like "John, position, engineer in Google" into simple triplets like "John, position, engineer", "John, work at, Google".
+Length of your triplet should not be more than 7 words.
+
+
+example of triplets you have extracted before: {example}
 
 Observation: {observation}
 
@@ -87,6 +92,8 @@ Extracted triplets:'''
 
 prompt_action_with_plan = '''You are an action selector within an agent system designed to navigate an environment in a text-based game. Your role involves receiving information about an agent and the state of the environment alongside a list of valid actions.
 Your primary objective is to choose an action that aligns with the goals outlined in the plan, giving precedence to sub-goals in the order they appear (with sub_goal_1 being of the highest priority). However do not miss on actions that can benefit your main goal or can be dirrectly applied to achive one of the sub-goals, without disterbing you to much from hier order sub-goals.
+Avoid to use actions like "north", "west", "south" and "east" to go to known location, use "go to" action instead.
+When you use "go to" action you should not visiting intermediate locations, you should go directly to target (for example, if you are at kitchen and want to bedroom, you path would be "kitchen", "living room", "bedroom", and so you should just do "go to bedroom" without "go to living room" before).
 In tasks centered around exploration or locating something, prioritize actions that guide the agent to previously unexplored areas. You can deduce which locations have been visited based on the history of observations or knowledge triples stored in your memory.
 Respond only with the action you select.
 ####
@@ -99,7 +106,7 @@ Current data:
 
 Please, in answer write only action you have chosen without any descriptions. Action: '''
 
-prompt_plan_new = prompt = '''You are a planner within the agent system tasked with navigating the environment in a text-based game. 
+prompt_plan_new =  '''You are a planner within the agent system tasked with navigating the environment in a text-based game. 
 Your role is to create a concise plan to achieve your primary goal or modify your current plan based on new information received. 
 
 If you wish to alter or delete a sub-goal within the current plan, confirm that this sub-goal has been achieved according to the current observation. Untill then do not change wording in "sub_goal_..." elements of your plan, you may only change wording in "reason" behind this sub-goal, taking into account the events occurring in the environment. If you think sub-goal was achived, replase it with new one or with other sub-goals from the plan. 
@@ -129,3 +136,44 @@ Write your answer exactly in this json format:
   ],
 }}
 Answer: '''
+
+prompt_exactly_describe = '''Your task is to briefly describe what happening in current situation:
+Observation: {observation}
+Previous observations: {observations}
+####
+Instruction:
+You are an explanator in the system of agents. You should describe what happens in the game at current step.
+Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
+Information you extract must be relative to current plan: {plan}.
+Please, carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
+####
+Your description: '''
+
+prompt_exactly_describe_subgraph = '''Your task is to briefly describe what happening in current situation:
+Observation: {observation}
+Previous observations: {observations}
+Knowledges that you have used at previous step: {subgraph}
+####
+Instruction:
+You are an explanator in the system of agents. You should describe what happens in the game at current step.
+Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
+Information you extract must be relative to current plan: {plan}.
+Please, carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
+Remember, agents which will make decision will base only on your description, so try to exclude things that can confuse them.
+Your description must be no longer that 3 paragraphs.
+####
+Your description: '''
+
+prompt_choose_triplets = '''Situation: {descr}
+You have chosen before this triplets: {triplets}
+Candidates: {candidates}
+####
+Please, choose {number} triplets from candidates. You should choose triplets which are the most useful 
+in Situation and contain information that is absent in triplets chosen before. Remember that triplets you will choose 
+will be used for decision-making, and so crucial triplets must be chosen. If candidates contain less than {number} triplets, your answer must contain all candidates.
+When you choose candidate, please list it in answer in exactly format which appears in candidates. 
+If candidates is empty, you should answer "[]". Ignore triplets contained information that already appears in Situation or in triplets chosen before.
+Prioritize triplets with concrete information to triplets with common knowledges.
+Triplets you chould choose must contain information about previous actions and its consequences.
+Answer must be in format: [triplet1; triplet2, ..., triplet{number}]
+{number} chosen triplets: '''

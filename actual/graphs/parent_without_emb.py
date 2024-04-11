@@ -23,6 +23,13 @@ class GraphWithoutEmbeddings(TripletGraph):
     
     def delete_all(self):
         self.triplets, self.items = [], []
+        
+    def add_item(self, item):
+        item = item.lower()
+        if item in self.items:
+            return item
+        self.items.append(item)
+        return item
     
     # Filling graph
     def add_triplets(self, triplets):
@@ -62,6 +69,7 @@ class GraphWithoutEmbeddings(TripletGraph):
         for i in range(steps):
             for triplet in self.triplets:
                 for item in items:
+                    item = item.lower()
                     if item == triplet[0] and triplet[1] not in visited_items:
                         associated_triplets.append(self.str(triplet))
                         visited_items.add(triplet[0])
