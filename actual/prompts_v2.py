@@ -44,10 +44,11 @@ Example of replacing: [].
 If you find triplet in Existing triplets which semantically duplicate some triplet in New triplets, replace such triplet from Existing triplets.
 ####
 Generate replacing from existing triplets and new_triplets by analogy with first and second examples.
+Generate only replacing, no descriptions are needed.
 Existing triplets: {ex_triplets}.
 New triplets: {new_triplets}.
 ####
-Warning! Replacing must be generated strictly in following format: [[outdated_triplet_1 -> actual_triplet_1], [outdated_triplet_2 -> actual_triplet_2], ...]
+Warning! Replacing must be generated strictly in following format: [[outdated_triplet_1 -> actual_triplet_1], [outdated_triplet_2 -> actual_triplet_2], ...], you MUST NOT include any descriptions in answer.
 Replacing: """
 
 prompt_extraction_current = '''Objective: The main goal is to meticulously gather information from game observations and organize this data into a clear, structured knowledge graph.
@@ -56,7 +57,9 @@ Guidelines for Building the Knowledge Graph:
 
 Creating Nodes and Triplets: Nodes should depict entities or concepts, similar to Wikipedia nodes. Use a structured triplet format to capture data, as follows: "subject, relation, object." For example, from "Albert Einstein, born in Germany, is known for developing the theory of relativity," extract "Albert Einstein, country of birth, Germany; Albert Einstein, developed, Theory of Relativity." Simplification and Clarity: Aim for simplicity and readability in your knowledge graph to facilitate future use. If encountering complex objects within triplets, break them down into simpler, distinct triplets for clarity. Uniformity: Ensure uniformity in entities and relations. For example, similar entities like "House" and "house" should be standardized to a single form, e.g., "house." Use consistent relations for similar actions or states, like replacing "has friend" and "friend of" with a uniform relation. Special Cases in Triplets: Exclude triplets where the subject or object are collective entities or the object is a long phrase exceeding 5 words. Coreference Resolution: Maintain entity consistency throughout the knowledge graph to ensure clarity and coherence. Use the most complete and accurate identifier for entities appearing multiple times under different names or pronouns. Application to the Text-based Adventure Game: Leverage these guidelines while navigating through the game. Pay attention to: Direct actions necessary for game progression. Exploration opportunities for discovering new items, locations, and information. Avoiding repetitive actions unless they contribute to new outcomes. Learning game mechanics through gameplay and incorporating meta-information about game rules into the knowledge graph. The essence of these instructions is to help you methodically record and organize knowledge as you progress through the game, enhancing your decision-making and strategic planning capabilities.
 Remember that you should break complex triplets like "John, position, engineer in Google" into simple triplets like "John, position, engineer", "John, work at, Google".
-Length of your triplet should not be more than 7 words.
+Length of your triplet should not be more than 7 words. You should extract only concrete knowledges, any assumptions must be described as hypothesis.
+For example, from phrase "John have scored many points and potentiallyy will be winner" you should extract "John, scored many, points; John, could be, winner" and should not extract "John, will be, winner".
+Remember that object and subject must be an atomary units while relation can be more complex and long.
 
 
 example of triplets you have extracted before: {example}
@@ -158,8 +161,12 @@ Instruction:
 You are an explanator in the system of agents. You should describe what happens in the game at current step.
 Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
 Information you extract must be relative to previous plan: {plan}.
-Please, carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
+Carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
 Remember, agents which will make decision will base only on your description, so try to exclude things that can confuse them.
+Be accurate with your assumptions, its can confuse decision-making agents. Write only information, that:
+1. You are confident in;
+2. Could be useful.
+Carefully describe what you have tried before and to what consequences past action have led. 
 Your description must be no longer that 3 paragraphs.
 ####
 Your description: '''
@@ -173,7 +180,9 @@ in Situation and contain information that is absent in triplets chosen before. R
 will be used for decision-making, and so crucial triplets must be chosen. If candidates contain less than {number} triplets, your answer must contain all candidates.
 When you choose candidate, please list it in answer in exactly format which appears in candidates. 
 If candidates is empty, you should answer "[]". Ignore triplets contained information that already appears in Situation or in triplets chosen before.
-Prioritize triplets with concrete information to triplets with common knowledges.
-Triplets you chould choose must contain information about previous actions and its consequences.
+Prioritize triplets with concrete information to triplets with common knowledges and to triplets with assumtions and current goal.
+Remember, your task is to find objective and relevant information and ignore assumtions, redundancy and etc.
+Your past actions, achieved goals and collected insights about items and locations are the most crucial information. 
+Triplets you chould choose must contain information about previous actions and its consequences (including items properties).
 Answer must be in format: [triplet1; triplet2, ..., triplet{number}]
 {number} chosen triplets: '''

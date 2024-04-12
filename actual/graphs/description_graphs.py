@@ -17,7 +17,7 @@ class DescriptionGraphBeamSearchStrategy(GraphWithoutEmbeddings):
         
     def update(self, observation, observations, plan, prev_subgraph, locations, curr_location, previous_location, action, step, log):
         prompt = prompt_exactly_describe_subgraph.format(observation=observation, observations=observations, plan=plan, subgraph = prev_subgraph)
-        description, cost = self.generate(prompt)
+        description, cost = self.generate(prompt, t = 0.)
         log("Subjective perception: " + description)
         
         example = [re.sub(r"Step \d+: ", "", triplet) for triplet in prev_subgraph]

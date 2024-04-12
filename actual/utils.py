@@ -29,7 +29,7 @@ def process_triplets(raw_triplets):
         if triplet[0] in "123456789":
             triplet = triplet[2:]
         subj, relation, obj = triplet.split(",")
-        subj, relation, obj = subj.strip(' \n"'), relation.strip(' \n"'), obj.strip(' \n"')
+        subj, relation, obj = subj.strip(''' '\n"'''), relation.strip(''' '\n"'''), obj.strip(''' '\n"''')
         if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
             continue
         triplets.append([subj, obj, {"label": relation}])
