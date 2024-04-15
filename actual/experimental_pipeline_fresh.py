@@ -89,6 +89,7 @@ for i in range(n_attempts):
     previous_location = env.curr_location.lower()
     attempt_amount, attempt_time = 0, 0
     done = False
+    action_history = []
     for step in range(max_steps):
     # for step, new_action in enumerate(walkthrough[:25]):
         start = time()
@@ -97,9 +98,10 @@ for i in range(n_attempts):
         observation = "Step: " + str(step + 1) + "\n" + observation
         inventory = env.get_inventory()
         observation += f"\nInventory: {inventory}"
-        observation += f"\nAction that led to this: {action}"
-        if env.curr_location.lower() in tried_action:
-            observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
+        # observation += f"\nAction that led to this: {action}"
+        # if env.curr_location.lower() in tried_action:
+        #     observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
+        observation += f"\nActions that you made since game started: {action_history}"
         observation += f"\nGoal that led to this: {goal}"
         log("Observation: " + observation)
         
@@ -201,7 +203,10 @@ Valid actions in current situation (only example, not full list): {valid_actions
             tried_action[previous_location] = {action}
         else:
             tried_action[previous_location].add(action)
-            
+        act_for_hist = action.lower()
+        if is_nav or "north" in act_for_hist or "south" in act_for_hist or "east" in act_for_hist or "west" in act_for_hist:
+            act_for_hist += f" (found yourself at {env.curr_location})"
+        action_history.append(act_for_hist)
         
         step_amount = graph.total_amount + agent_plan.total_amount + agent_action.total_amount - total_amount
         attempt_amount += step_amount

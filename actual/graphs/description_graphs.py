@@ -43,7 +43,7 @@ class DescriptionGraphBeamSearchStrategy(GraphWithoutEmbeddings):
             new_triplets.append([previous_location, curr_location, {"label": find_opposite_direction(action)}])
         self.add_triplets(new_triplets_, step)
         
-        associated_subgraph = self.beam_search_on_triplets(items, description, visited, depth = 3, width = 7, step = step)
+        associated_subgraph = self.beam_search_on_triplets(items, description, visited, depth = 3, width = 15, step = step)
         log("Associated_subgraph: " + str(associated_subgraph))
         return associated_subgraph, description
         
