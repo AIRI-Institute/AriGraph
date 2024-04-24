@@ -154,7 +154,6 @@ Your description: '''
 
 prompt_exactly_describe_subgraph = '''Your task is to briefly describe what happening in current situation:
 Observation: {observation}
-Previous observations: {observations}
 Knowledges that you have used at previous step (they may be outdated now): {subgraph}
 ####
 Instruction:
@@ -162,6 +161,7 @@ You are an explanator in the system of agents. You should describe what happens 
 Pay attention that your description will be used for information extraction and choosing next action, so try to describe all needful things and filter all redundant or noisy information.
 Information you extract must be relative to previous plan: {plan}.
 Carefully describe actions you have tried and their consequences. There is crucial for next decision-making.
+Be careful in your description: mistakes and inaccurations may lead to wrong knowledges in the graph and terrible decisions. If information from graph conflict with current observation, give preference to observation.
 Remember, agents which will make decision will base only on your description, so try to exclude things that can confuse them.
 Be accurate with your assumptions, its can confuse decision-making agents. Write only information, that:
 1. You are confident in;

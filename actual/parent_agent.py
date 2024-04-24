@@ -99,6 +99,35 @@ class GPTagent:
             new_goals = new_goals[1:]
         self.goals = new_goals
         
+    def process_bigraph_response1(self, response):
+        observed_items = []
+        
+        observed_items = response.split("[")[-1].strip("[]").split(",")
+        for i in range(len(observed_items)):
+            observed_items[i] = observed_items[i].strip(""" \n."'""")
+            observed_items[i] = { observed_items[i]: self.get_embedding_local(observed_items[i]) }        
+        
+        return observed_items
+    
+    def bigraph_processing1(self, observation, plan):
+        prompt = f'''####
+You are a retriever part of the agent system that navigates the evironment in a text-based game.
+You will be provided with agents' obsevation, ana a plan that it follows.
+Your task is to extract entities from this data that can later be used to que the agent's memory module to find relevent informtion that can help to solve the task.
+In answer sort entities by usefullness in decreasing order.
+
+Current observation: {observation}
+Current plan: {plan}
+
+Answer in following format:
+Importain entities: [entitie_1, entitie_2, ...]
+
+'''
+        response, cost = self.generate(prompt)
+        observed_items = self.process_bigraph_response1(response)
+
+        return observed_items
+        
         
             
             

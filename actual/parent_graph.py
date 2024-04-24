@@ -60,34 +60,41 @@ class TripletGraph:
         return resp, cost
     
     # Main function
-    def update(self, observation, observations, goal, locations, curr_location, previous_location, action, log):        
+    def update(self, observation, observations, plan, locations, curr_location, previous_location, action, log, items):        
          # Extracting triplets
         prompt = prompt_extraction.format(observation = observation, observations = observations)
-        response, cost = self.generate(prompt)
-        new_triplets_raw = process_triplets(response)
-        new_triplets = self.exclude(new_triplets_raw)
-        log("New triplets excluded: " + str(new_triplets))
+        response = self.generate(prompt)
+        new_triplets_raw = process_triplets(response[0])
+        # new_triplets = self.exclude(new_triplets_raw)
+        #log("New triplets excluded: " + str(new_triplets))
         
         # Using subgraph
-        # associated_subgraph = self.get_associated_triplets(items, steps = 2)
+        # associated_subgraph_old = self.get_associated_triplets(items, steps = 1)
         
         #Using full graph
-        associated_subgraph = self.get_all_triplets()
+        #associated_subgraph = self.get_all_triplets()
         
-        # Replacing triplets
-        prompt = prompt_refining.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
-        response, cost = self.generate(prompt)
-        predicted_outdated = parse_triplets_removing(response)
-        log("Outdated triplets: " + response)
+        #Replacing triplets
+        #prompt = prompt_refining.format(ex_triplets = associated_subgraph_old, new_triplets = new_triplets)
+        #response = self.generate(prompt)
+        #predicted_outdated = parse_triplets_removing(response)
+        #log("Outdated triplets: " + response)
         
         # Updating graph
-        self.delete_triplets(predicted_outdated, locations)
+        #self.delete_triplets(predicted_outdated, locations)
+        # Add opposit directions to graph
         if curr_location != previous_location:
             new_triplets_raw.append((curr_location, previous_location, {"label": find_direction(action)}))
+            new_triplets_raw.append([previous_location, curr_location, {"label": find_opposite_direction(action)}])  
+
+
         self.add_triplets(new_triplets_raw)
+        #log("Navigation triplets new: " + str(new_triplets_raw))
+
+        #associated_subgraph = self.get_all_triplets()
         
-        associated_subgraph = self.get_all_triplets()
-        log("Associated_subgraph: " + str(associated_subgraph))
+        associated_subgraph = self.get_associated_triplets(items, steps = 1)
+        # log("Associated_subgraph: " + str(associated_subgraph))
         return associated_subgraph
         
         

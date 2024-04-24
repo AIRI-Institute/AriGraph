@@ -15,8 +15,8 @@ class DescriptionGraphBeamSearchStrategy(GraphWithoutEmbeddings):
             step = triplet[2]["step"]
         return f"Step {step}: " + triplet[0] + ", " + triplet[2]["label"] + ", " + triplet[1] 
         
-    def update(self, observation, observations, plan, prev_subgraph, locations, curr_location, previous_location, action, step, log):
-        prompt = prompt_exactly_describe_subgraph.format(observation=observation, observations=observations, plan=plan, subgraph = prev_subgraph)
+    def update(self, observation, plan, prev_subgraph, prev_desc, locations, curr_location, previous_location, action, step, log):
+        prompt = prompt_exactly_describe_subgraph.format(observation=observation, plan=plan, subgraph = prev_desc)
         description, cost = self.generate(prompt, t = 0.)
         log("Subjective perception: " + description)
         
@@ -43,7 +43,7 @@ class DescriptionGraphBeamSearchStrategy(GraphWithoutEmbeddings):
             new_triplets.append([previous_location, curr_location, {"label": find_opposite_direction(action)}])
         self.add_triplets(new_triplets_, step)
         
-        associated_subgraph = self.beam_search_on_triplets(items, description, visited, depth = 3, width = 15, step = step)
+        associated_subgraph = self.beam_search_on_triplets(items, description, visited, depth = 2, width = 12, step = step, log = log)
         log("Associated_subgraph: " + str(associated_subgraph))
         return associated_subgraph, description
         
@@ -95,13 +95,14 @@ class DescriptionGraphBeamSearchStrategy(GraphWithoutEmbeddings):
                 
         return new_triplets
     
-    def beam_search_on_triplets(self, items, description, visited, depth, width, step):
+    def beam_search_on_triplets(self, items, description, visited, depth, width, step, log):
         items = set(items)
         visited = {self.str_with_step(clear_triplet(triplet), step) for triplet in visited}
         chosen = set()
         for step in range(depth):
             candidates = [self.str_with_step(triplet) for triplet in self.triplets 
                           if (triplet[0] in items or triplet[1] in items) and self.str_with_step(triplet) not in visited]
+            log("Length of candidates: " + str(len(candidates)))
             for triplet in candidates:
                 visited.add(triplet)
             if not candidates:

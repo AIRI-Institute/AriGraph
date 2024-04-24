@@ -23,65 +23,50 @@ class GraphWithoutEmbeddings(TripletGraph):
     
     def delete_all(self):
         self.triplets, self.items = [], []
-        
-    def add_item(self, item):
-        item = item.lower()
-        if item in self.items:
-            return item
-        self.items.append(item)
-        return item
     
     # Filling graph
     def add_triplets(self, triplets):
-        success = []
         for triplet in triplets:
             if triplet[2]["label"] == "free":
-                success.append(False)
                 continue
+            
+            #if any(keyword in triplet[2]['label'] for keyword in ['south', 'north', 'east', 'west']) and "of" in triplet[2]['label'] :
+            #    triplet[2]['label'] = 'is_' + triplet[2]['label']
+
             triplet = clear_triplet(triplet)
             if triplet not in self.triplets:
                 self.triplets.append(triplet)
-                success.append(True)
-            else:
-                success.append(False)
-        return success
+            if triplet[0] not in self.items:
+                self.items.append(triplet[0])
+            if triplet[1] not in self.items:
+                self.items.append(triplet[1])       
                 
     # Delete triplets exclude navigation ones            
     def delete_triplets(self, triplets, locations):
-        success = []
         for triplet in triplets:
             if triplet[0] in locations and triplet[1] in locations:
-                success.append(False)
                 continue
             if triplet in self.triplets:
                 self.triplets.remove(triplet)
-                success.append(True)
-            else:
-                success.append(False)
-        return success
             
     # Associations by set of items. Step is a parameter for BFS
-    def get_associated_triplets(self, items, steps = 1):
-        items = deepcopy(items)
+    def get_associated_triplets(self, items, steps = 2):
+        items = deepcopy([string.lower() for string in items])
         associated_triplets = []
-        visited_items = set()
         now = set()
         for i in range(steps):
             for triplet in self.triplets:
                 for item in items:
-                    item = item.lower()
-                    if item == triplet[0] and triplet[1] not in visited_items:
+                    
+                    if (item == triplet[0] or item == triplet[1]) and self.str(triplet) not in associated_triplets:
                         associated_triplets.append(self.str(triplet))
-                        visited_items.add(triplet[0])
-                        visited_items.add(triplet[1])
-                        now.add(triplet[1])
+                        if item == triplet[0]:
+                            now.add(triplet[1])
+                        if item == triplet[1]:
+                            now.add(triplet[0])    
+                        
                         break
-                    if item == triplet[1] and triplet[0] not in visited_items:
-                        associated_triplets.append(self.str(triplet))
-                        visited_items.add(triplet[0])
-                        visited_items.add(triplet[1])
-                        now.add(triplet[0])
-                        break      
+                    
             if "itself" in now:
                 now.remove("itself")  
             items = now
@@ -104,9 +89,7 @@ class GraphWithoutEmbeddings(TripletGraph):
             locations.remove("player")
         graph = {}
         for triplet in self.triplets:
-            if triplet[2]["label"] == "free":
-                continue
-            if triplet[0] in locations and triplet[1] in locations:
+            if triplet[0] in locations and triplet[1] in locations and check_conn(triplet[2]["label"]):
                 if triplet[0] in graph:
                     graph[triplet[0]]["connections"].append((triplet[2]["label"], triplet[1]))
                 else:
@@ -125,15 +108,23 @@ class GraphWithoutEmbeddings(TripletGraph):
                     graph[loc]["connections"].remove(connection)
         return graph
     
+    def add_item(self, item):
+        if item not in self.items:
+            self.items.append(item)
+        return item
+
     # Find shortest path between A and B if both in locations
-    def find_path(self, A, B, locations):
+    def find_path(self, a, b, locations):
+        A = a.lower()
+        B = b.lower()
         if A == 'Kids" Room':
             A = "Kids' Room"
         if B == 'Kids" Room':
             B = "Kids' Room"
         if A == B:
             return "You are already there"
-        if A not in self.items or B not in self.items:
+        
+        if A.lower() not in locations or B.lower() not in locations:
             return "Destination is unknown. Please, choose another destination or explore new paths and locations."
         spatial_graph = self.compute_spatial_graph(locations)
         current_set = {A}
@@ -166,3 +157,9 @@ class GraphWithoutEmbeddings(TripletGraph):
             path.append(relation)
             current_loc = parent
         return list(reversed(path))
+    
+    def print_graph(self):
+    # Print all triplets
+        print("Triplets in the graph:")
+        for triplet_str in self.get_all_triplets():
+            print(triplet_str)

@@ -1,4 +1,7 @@
 from time import time
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1, 2, 3"
 
 from parent_agent import GPTagent
 from textworld_adapter import TextWorldWrapper
@@ -12,25 +15,27 @@ from graphs.extended_graphs import ExtendedGraphSubgraphStrategy, ExtendedGraphP
 from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
 from graphs.parent_without_emb import GraphWithoutEmbeddings
 from graphs.dummy_graph import DummyGraph
-from graphs.steps_in_triplets import StepsInTripletsGraph
+from graphs.steps_in_triplets import StepsInTripletsGraph, LLaMAStepsInTripletsGraph
 from prompts import *
 from utils import *
 from prompts_diff_agents import *
+from agents.llama_agent import LLaMAagent
+
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_nav3_big"
+log_file = "exp_nav3_llama"
 env_name = "benchmark/navigation3/navigation3_1.z8"
 main_goal = "Find the treasure"
 model = "gpt-4-0125-preview"
-agent_instance = GPTagent
-graph_instance = StepsInTripletsGraph
+agent_instance = LLaMAagent
+graph_instance = LLaMAStepsInTripletsGraph
 history_instance = HistoryWithPlan
 goal_freq = 10
 threshold = 0.02
 n_prev, majority_part = 3, 0.51
 
-max_steps, n_attempts = 150, 5
+max_steps, n_attempts = 80, 1
 n_neighbours = 4
 
 system_prompt = system_prompt
@@ -50,8 +55,9 @@ config = {
 log = Logger(log_file)
 
 # Flexible init with only arguments class need
-graph = graph_instance(**find_args(graph_instance, config))
 agent = agent_instance(**find_args(agent_instance, config))
+config["pipeline"] = agent.pipeline
+graph = graph_instance(**find_args(graph_instance, config))
 history = history_instance(**find_args(history_instance, config))
 env = TextWorldWrapper(env_name)
 walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go east", "go east", "unlock White locker with Key 1", 
@@ -65,9 +71,9 @@ walkthrough = ["examine Task note", "take Key 1", "go west", "go south", "go eas
 explore_all_rooms = ["west", "north", "south", "south", "south", "north", "east", "east", "south", "north", "north", "north", 
                      "west", "east", "east"]
 
-agent_if_exp = GPTagent(model = model, system_prompt= if_exp_prompt) 
-agent_plan = GPTagent(model = model, system_prompt=system_plan_agent)
-agent_action = GPTagent(model = model, system_prompt=system_action_agent_sub_expl)
+agent_if_exp = LLaMAagent(system_prompt= if_exp_prompt, pipeline = agent.pipeline) 
+agent_plan = LLaMAagent(system_prompt=system_plan_agent, pipeline = agent.pipeline)
+agent_action = LLaMAagent(system_prompt=system_action_agent_sub_expl, pipeline = agent.pipeline)
 
 locations = set()
 # observation, info = env.reset()
@@ -93,15 +99,14 @@ description = "Nothing there"
 # os.makedirs("Visit_graph", exist_ok=True)
 # graph.save("Visit_graph")
     
+
+observations, hist = [], []
+tried_action = {}
 total_amount, total_time = 0, 0
 
 for i in range(n_attempts):
-    log("\n\n\n\n\n\n\nAttempt: " + str(i + 1))
+    log("Attempt: " + str(i + 1))
     log("=" * 70)
-    observations, hist = [], []
-    locations = set()
-    tried_action = {}
-    env = TextWorldWrapper(env_name)
     observation, info = env.reset()
     agent.reset()
     action = "start"
@@ -120,8 +125,6 @@ for i in range(n_attempts):
     previous_location = env.curr_location.lower()
     attempt_amount, attempt_time = 0, 0
     done = False
-    key1, key2, key3 = False, False, False
-    graph = graph_instance(**find_args(graph_instance, config))
     action_history = []
     for step in range(max_steps):
     # for step, new_action in enumerate(walkthrough[:25]):
@@ -132,16 +135,8 @@ for i in range(n_attempts):
             observation += f""" \n Your task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further."""
         observation = "Step: " + str(step + 1) + "\n" + observation
         inventory = env.get_inventory()
-        if "Key 1" in inventory:
-            key1 = True
-        if "Key 2" in inventory:
-            key2 = True
-        if "Key 3" in inventory:
-            key3 = True
-        if (not key1 and step > 40) or (not key2 and step > 70) or (not key3 and step > 100):
-            done = True 
         observation += f"\nInventory: {inventory}"
-        observation += f"\nAction that led to this observation: {action}\n\n"
+        observation += f"\nAction that led to this: {action}"
         # if env.curr_location.lower() in tried_action:
         #     observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         # observation += f"\nActions that you made since game started: {action_history}"
@@ -177,8 +172,9 @@ for i in range(n_attempts):
     \n4. Information from the memory module that can be relevant to current situation: {subgraph}
     \n5. Your current plan: {plan0}
     \n6. History of your actions: {action_history}
-    \n7. Actions that you haven't tried at current location (This actions must have highest priority when you explore): {not_yet_tried}
-    
+    Remember that you should not repeat actions when you explore.
+    \n7. Actions that you haven't tried at current location: {not_yet_tried}
+    This actions must have highest priority when you explore.
     
     Remember that you should not visit locations and states that you visited before when you are exploring.
     '''
@@ -213,7 +209,9 @@ for i in range(n_attempts):
 \n4. Information from the memory module that can be relevant to current situation:  {subgraph}
 \n5. Your current plan: {plan0}
 \n6. History of your actions: {action_history}
-\n7. Actions that you haven't tried at current location (This actions must have highest priority when you explore): {not_yet_tried}
+Remember that you should not repeat actions when you explore.
+\n7. Actions that you haven't tried at current location: {not_yet_tried}
+This actions must have highest priority when you explore. 
 
 Possible actions in current situation (you should choose three actions from this list and estimate their probabilities): {valid_actions}'''          
         action0, cost_action = agent_action.generate(prompt, jsn=True, t=0.2)
