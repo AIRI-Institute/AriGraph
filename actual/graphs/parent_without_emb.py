@@ -8,6 +8,7 @@ from scipy.spatial.distance import cosine, euclidean
 
 from utils import *
 from prompts import *
+from prompts_v2 import *
 from parent_graph import TripletGraph
 
 class GraphWithoutEmbeddings(TripletGraph):
@@ -163,3 +164,4 @@ class GraphWithoutEmbeddings(TripletGraph):
         print("Triplets in the graph:")
         for triplet_str in self.get_all_triplets():
             print(triplet_str)
+        

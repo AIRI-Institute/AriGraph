@@ -1,8 +1,10 @@
 import os
+import re
 import json
 import numpy as np
 from inspect import signature
 from copy import deepcopy
+import matplotlib.pyplot as plt
 
 from prompts import system_prompt, exploration_system_prompt
 
@@ -235,3 +237,77 @@ def check_equals(lists, threshold = 0.5):
             new_lists.append(candidate)
             total_obs = total_obs | set(candidate)
     return new_lists
+
+def plot_score_progression(scores, steps):
+    """
+    Plots the progression of scores over game steps, styled for inclusion in a machine learning paper.
+
+    Parameters:
+    scores (list of int/float): List of scores at each game step.
+    steps (list of int): Corresponding game steps.
+
+    """
+    sns.set(style="whitegrid")  # Set the seaborn style to whitegrid for a clean background with grid
+    plt.figure(figsize=(8, 4))  # Adjust the size to be suitable for papers
+
+    plt.plot(steps, scores, marker='o', linestyle='-', color='b', markersize=8, linewidth=2, label='Score progression')
+    plt.title('Game Score Progression', fontsize=14, fontweight='bold')  # Title with increased font size and weight
+    plt.xlabel('Game Step', fontsize=12)  # Increase label font size for readability
+    plt.ylabel('Score', fontsize=12)
+    plt.xticks(fontsize=10)  # Adjust tick size for better readability
+    plt.yticks(fontsize=10)
+
+    plt.legend(fontsize=10)  # Add a legend with a suitable font size
+    plt.grid(True, linestyle='--')  # Customize grid to be dashed lines
+
+    plt.show()
+
+
+
+def tupleize_state(state):
+    """
+    Convert state list with dictionaries to a tuple form that can be used in sets.
+    """
+    return set((item, location, tuple(sorted(properties.items()))) for item, location, properties in state)
+
+def find_changes(prev_state, current_state):
+    """
+    Identifies items that have been taken or placed by comparing the previous and current states.
+    """
+    prev_set = tupleize_state(prev_state)
+    current_set = tupleize_state(current_state)
+    
+    env_change = current_set - prev_set
+    
+    # Convert tuples back to original form (item, location, properties dict)
+    env_change = [(item, loc, dict(props)) for item, loc, props in env_change]
+    
+    return env_change
+
+def get_reward_for_changes(env_change, win_cond_take, win_cond_place):
+    step_reward = 0
+
+    # Check if taken items were correct
+    skip_actions = ['examine', 'open', 'close', 'look', 'inventory']
+    if env_change !=[]:   
+        if (env_change[0] in win_cond_take) or (env_change[0] in win_cond_place):
+            step_reward += 1
+        elif env_change[0][0] == "P" or [s for s in skip_actions if s in env_change[0][2]['label']]:
+            step_reward = step_reward 
+        else:
+            step_reward -= 1
+
+    return step_reward
+
+def simulate_environment_actions(prev_state, current_state, win_cond_take, win_cond_place):
+    env_change = find_changes(prev_state, current_state)
+    step_reward = get_reward_for_changes(env_change, win_cond_take, win_cond_place)
+    return step_reward
+
+
+def remove_trailing_part(text):
+    # This pattern matches '>' followed by any characters until the end of the string
+    pattern = r">.*$"
+    # Replace the matched pattern with an empty string
+    cleaned_text = re.sub(pattern, "", text, flags=re.DOTALL)
+    return cleaned_text

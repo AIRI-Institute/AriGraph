@@ -79,17 +79,23 @@ Write your answer exactly in this json format:
 Do not write anything else.
 """
 
-# {
-#   "action1": {
-#       "action": "chosen action1",
-#       "prob": "probability_1"
-#     },
-#   "action2": {
-#       "action": "chosen action2",
-#       "prob": "probability_2"
-#     },
-#   "action3": {
-#       "action": "chosen action3",
-#       "prob": "probability_3"
-#     },
-# }
+summary_prompt = """You are a guide within a team of agents engaging in a text-based game. Your role is to concisely yet thoroughly detail all the essential aspects of the current situation. Ensure that your summary aids in information extraction and facilitates the decision-making process by focusing on pertinent details and excluding extraneous information. Incorporate a strategic outlook in your narrative, emphasizing information integral to forming a tactical plan.
+
+Accurately relay the outcomes of previously attempted actions, as this is pivotal for shaping subsequent choices. Your account will form the sole basis on which the decision-making agents operate; thus, clarity and avoidance of potential confusion are paramount.
+
+Be judicious with your inferences, presenting only well-substantiated information that is likely to be of practical benefit. Your account should be succinct, encapsulated within a maximum of three paragraphs."""
+
+system_action_summary = """You are an action selector within an agent system designed to navigate an environment in a text-based game. Your role involves receiving information about an agent and the state of the environment alongside a list of valid actions.
+Your primary objective is to choose an action that aligns with the summary and current observation.
+Performing same action and visiting same locations typically will not provide different results, so if you are stuck, try to perform other actions or prioritize goals to explore the environment.
+In answer you must generate the most probable actions and its estimated probabilities. Remember that sum of this three probabilities must be equal to 1.
+Write your answer exactly in this json format:
+
+{
+  "first action name": "probability_1",
+  "second action name": "probability_2", 
+  ...
+}
+
+Do not write anything else.
+"""

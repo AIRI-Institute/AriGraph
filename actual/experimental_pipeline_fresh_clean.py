@@ -1,7 +1,7 @@
 from time import time
 
 from parent_agent import GPTagent
-from textworld_adapter import TextWorldWrapper
+from textworld_adapter import TextWorldWrapper, graph_from_facts
 from parent_graph import TripletGraph
 from graphs.subgraph_strategy import SubgraphStrategy
 from agents.direct_action_agent import DirectActionAgent
@@ -13,24 +13,26 @@ from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
 from graphs.parent_without_emb import GraphWithoutEmbeddings
 from graphs.dummy_graph import DummyGraph
 from graphs.steps_in_triplets import StepsInTripletsGraph
+from graphs.contriever_graph import ContrieverGraph
 from prompts import *
 from utils import *
 from prompts_diff_agents import *
+from win_cond import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_nav3_big"
-env_name = "benchmark/navigation3/navigation3_1.z8"
-main_goal = "Find the treasure"
+log_file = "exp_cleaning_agent"
+env_name = "benchmark/clean_3x3/clean_3x3_mess_1.z8"
+main_goal = "You are at large house and your goal is to clean up it. Namely, you should find items that are out of place and return them to their place"
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = StepsInTripletsGraph
+graph_instance = ContrieverGraph
 history_instance = HistoryWithPlan
 goal_freq = 10
-threshold = 0.02
+threshold, topk = None, 5
 n_prev, majority_part = 3, 0.51
 
-max_steps, n_attempts = 150, 5
+max_steps, n_attempts = 150, 2
 n_neighbours = 4
 
 system_prompt = system_prompt
@@ -41,9 +43,11 @@ config = {
     "model": model,
     "goal_freq": goal_freq,
     "threshold": threshold,
+    "topk": topk,
     "system_prompt": system_prompt,
     "n_prev": n_prev,
-    "majority_part": majority_part
+    "majority_part": majority_part,
+    "device": "cpu"
 }
 # End of changeable part
 
@@ -123,23 +127,28 @@ for i in range(n_attempts):
     key1, key2, key3 = False, False, False
     graph = graph_instance(**find_args(graph_instance, config))
     action_history = []
+    reward = 0
+    step_reward = 0
+    rewards = []
     for step in range(max_steps):
     # for step, new_action in enumerate(walkthrough[:25]):
         start = time()
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
-        if step == 0:
-            observation += f""" \n Your task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further."""
+        G_true = graph_from_facts(info)    
+        full_graph = G_true.edges(data = True)
+        # if step == 0:
+        #     observation += f""" \n Your task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further."""
         observation = "Step: " + str(step + 1) + "\n" + observation
         inventory = env.get_inventory()
-        if "Key 1" in inventory:
-            key1 = True
-        if "Key 2" in inventory:
-            key2 = True
-        if "Key 3" in inventory:
-            key3 = True
-        if (not key1 and step > 40) or (not key2 and step > 70) or (not key3 and step > 100):
-            done = True 
+        # if "Key 1" in inventory:
+        #     key1 = True
+        # if "Key 2" in inventory:
+        #     key2 = True
+        # if "Key 3" in inventory:
+        #     key3 = True
+        # if (not key1 and step > 40) or (not key2 and step > 70) or (not key3 and step > 100):
+        #     done = True 
 
         if done:
             log("Game itog: " + observation)
@@ -147,7 +156,7 @@ for i in range(n_attempts):
             break
 
         observation += f"\nInventory: {inventory}"
-        observation += f"\nAction that led to this observation: {action}\n\n"
+        observation += f"\nAction that led to this observation: {action}"
         # if env.curr_location.lower() in tried_action:
         #     observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         # observation += f"\nActions that you made since game started: {action_history}"
@@ -181,7 +190,7 @@ for i in range(n_attempts):
     \n2. History of {n_prev} last observations and actions: {observations} 
     \n3. Your current observation: {observation}
     \n4. Information from the memory module that can be relevant to current situation: {subgraph}
-    \n5. Your current plan: {plan0}    
+    \n5. Your current plan: {plan0}
     
     Remember that you should not visit locations and states that you visited before when you are exploring.
     '''
@@ -272,6 +281,13 @@ Possible actions in current situation (you should choose several actions from th
             tried_action[previous_location] = [(action, step + 1)]
         else:
             tried_action[previous_location].append((action, step + 1))
+
+        G_true_new = graph_from_facts(info)    
+        full_graph_new = G_true_new.edges(data = True)
+
+        step_reward = simulate_environment_actions(full_graph, full_graph_new, win_cond_clean_take, win_cond_clean_place)
+        reward += step_reward
+        rewards.append(reward)
         
         step_amount = agent.total_amount + graph.total_amount + agent_plan.total_amount + agent_action.total_amount + agent_if_exp.total_amount - total_amount
         attempt_amount += step_amount
@@ -286,3 +302,4 @@ Possible actions in current situation (you should choose several actions from th
         
         graph.save(log_file)
         history.save(log_file)
+        log(f"\n\nREWARDS: {rewards}\n\n")
