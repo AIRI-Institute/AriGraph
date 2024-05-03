@@ -46,15 +46,14 @@ def process_candidates(raw_triplets):
         if len(triplet.split(",")) != 3:
             continue
         subj, relation, obj = triplet.split(",")
-        if not subj.strip(''' '1234567890.\n"''').startswith("Step"):
-            continue
-        step = subj.strip(''' '1234567890.\n"''').replace("Step", "")
-        step = int(step.split(":")[0].strip(' .\n"'))
-        subj = subj.split(":")[-1]
+        # step = subj.strip(''' '1234567890.\n"''').replace("Step", "")
+        # step = int(step.split(":")[0].strip(' .\n"'))
+        # subj = subj.split(":")[-1]
         subj, relation, obj = subj.strip(''' '.\n"'''), relation.strip(' .\n"'), obj.strip(''' '\n."''')
         if len(subj) == 0 or len(relation) == 0 or len(obj) == 0:
             continue
-        triplets.append([subj, obj, {"label": relation, "step": step}])
+        # triplets.append([subj, obj, {"label": relation, "step": step}])
+        triplets.append([subj, obj, {"label": relation}])
         
     return triplets
 
