@@ -1,65 +1,69 @@
-# from prompts import *
-# from prompts_v2 import *
-# from graphs.extended_graphs import ExtendedGraphPagerankStrategy
+import numpy as np
+import seaborn
+import matplotlib.pyplot as plt
 
-# main_goal = "Find the treasure"
-# model, system_prompt = "gpt-4-0125-preview", actual_system_prompt.format(main_goal = main_goal)
-# graph = ExtendedGraphPagerankStrategy(model, system_prompt)
-# graph.load("exp_detective_extended_graph_with_walkthrough")
-# breakpoint()
+from graphs.contriever_graph import ContrieverGraph
 
-# from transformers import AutoModelForCausalLM
-# import torch
-# from llama_cpp import Llama
+graph = ContrieverGraph("", "", 150, None, 10)
+graph_test = {
+        'items': ['toothbrush', 'dirty plate', 'fantasy book'],
+        'graph': ['dining room, contains, dining table', 'dining table, has on, toothbrush',
+                  'dining table, has on, centerpiece', 'dining table, has on, candles',
+                #   'dining table, has on, salt and pepper shakers', 'dining room, has exit, east',
+                #   'dining room, has exit, north', 'dining room, has exit, south', 'dining room, has exit, west',
+                  'kitchen, contains, dishwasher', 'kitchen, contains, refrigerator', 'kitchen, contains, cook table',
+                  'dishwasher, is, closed', 'refrigerator, is, closed', 'cook table, has on, business suit',
+                #   'kitchen, has exit, east', 'kitchen, has exit, north', 'kitchen, has exit, south',
+                #   'kitchen, is west of, dining room', 'dining room, is east of, kitchen', 'bathroom, contains, toilet',
+                #   'toilet, has on, toilet paper', 'toilet paper, is on, toilet', 'toilet, has on, sleeping lamp',
+                #   'sleeping lamp, is on, toilet', 'bathroom, contains, sink', 'sink, has on, deodorant',
+                #   'deodorant, is on, sink', 'bathroom, contains, towel rack', 'towel rack, is, empty',
+                #   'bathroom, has exit, east', 'bathroom, has exit, south', 'bathroom, contains, table runner',
+                  'table runner, is on, floor', 'bathroom, is north of, kitchen', 'kitchen, is south of, bathroom',
+                  'kids room, contains, toy storage cabinet', 'kids room, contains, study table',
+                  'kids room, contains, kids bed', 'study table, has on, school notebooks',
+                #   'study table, has on, felt tip pens', 'study table, has on, dumbbell',
+                #   'kids bed, has on, dirty plate', 'kids room, has exit, east', 'kids room, has exit, south',
+                #   'kids room, has exit, west', 'kids room, is east of, bathroom', 'bathroom, is west of, kids room',
+                #   'living room, contains, tv table', 'tv table, has on, tv', 'living room, contains, sofa',
+                #   'sofa, has on, raw meat', 'sofa, has on, decorative pillow',
+                #   'living room, contains, game console cabinet', 'game console cabinet, has in, gaming console',
+                #   'living room, has exit, south', 'living room, has exit, west', 'living room, is east of, kids room',
+                #   'kids room, is west of, living room', 'master bedroom, contains, wardrobe',
+                #   'master bedroom, contains, king size bed', 'king size bed, has on, wet towel',
+                #   'master bedroom, contains, bedside table', 'bedside table, has on, alarm clock',
+                #   'bedside table, has on, bed lamp', 'master bedroom, has exit, north',
+                #   'master bedroom, has exit, south', 'master bedroom, has exit, west',
+                #   'master bedroom, is south of, living room', 'living room, is north of, master bedroom',
+                #   'library, has odor, bad odor', 'library, contains, bookcase', 'bookcase, has on, detective book',
+                #   'library, contains, reading table', 'reading table, has on, swimming fins',
+                #   'reading table, has on, reading glasses', 'library, has exit, north', 'library, has exit, west',
+                #   'library, is south of, master bedroom', 'master bedroom, is north of, library',
+                #   'swimming pool area, contains, pool equipment rack',
+                #   'swimming pool area, contains, table for pool chemicals', 'swimming pool area, contains, toy car',
+                #   'swimming pool area, has exit, east', 'swimming pool area, has exit, north',
+                #   'swimming pool area, has exit, west', 'pool equipment rack, has on, swimming goggles',
+                #   'pool equipment rack, has on, life ring', 'table for pool chemicals, has on, chlorine',
+                #   'toy car, is on, floor', 'swimming pool area, is west of, library',
+                #   'library, is east of, swimming pool area', 'gym, contains, sport equipment locker',
+                #   'gym, contains, empty dumbbell stand', 'gym, contains, empty treadmill', 'fantasy book, is on, floor',
+                #   'gym, has exit, east', 'gym, has exit, north', 'gym, is west of, swimming pool area',
+                  'swimming pool area, is east of, gym']
+    }
+triplets = []
+for triplet in graph_test["graph"]:
+    temp = triplet.split(", ")
+    triplets.append([temp[0], temp[2], {"label": temp[1]}])
+graph.add_triplets(triplets)
+graph.expand_graph(0.9, True)
+# associated_graph, history = graph.reasoning(graph_test["items"])
+# best_idx = np.argsort(history[-1])[-10:]
+# history = np.transpose(np.array(history))
+# assert history.shape[0] == len(graph.triplets)
+# f = plt.figure(figsize = (20, 20))
+# for i in best_idx:
+#     plt.plot(history[i], label = graph.str(graph.triplets[i]), figure = f)
+# plt.legend()
+# plt.savefig("importances.pdf")
+# print(associated_graph)
 
-# llm = Llama(
-#     model_path="/trinity/home/n.semenov/.cache/huggingface/hub/models--LLaMA3-70B-Instruct/Meta-Llama-3-70B-Instruct.fp16-00001-of-00004.gguf",
-#     n_ctx=4000,  # Context length to use
-#     n_threads=32,            # Number of CPU threads to use
-#     n_gpu_layers=-1        # Number of model layers to offload to GPU
-# )
-# model = AutoModelForCausalLM.from_pretrained("/trinity/home/n.semenov/.cache/huggingface/hub/models--LLaMA3-70B-Instruct", torch_dtype = torch.bfloat16, device_map = "auto")
-
-# from transformers import AutoTokenizer, AutoModelForCausalLM
-# import torch
-
-# tokenizer = AutoTokenizer.from_pretrained("Undi95/Meta-Llama-3-70B-Instruct-hf")
-# model = AutoModelForCausalLM.from_pretrained("Undi95/Meta-Llama-3-70B-Instruct-hf", device_map = "auto", torch_dtype = torch.bfloat16)
-
-import transformers
-import torch
-
-model_id = "Undi95/Meta-Llama-3-70B-Instruct-hf"
-
-pipeline = transformers.pipeline(
-    "text-generation",
-    model=model_id,
-    model_kwargs={"torch_dtype": torch.bfloat16},
-    device_map="auto",
-)
-
-messages = [
-    {"role": "system", "content": "You are a pirate chatbot who always responds in pirate speak!"},
-    {"role": "user", "content": "Who are you?"},
-]
-
-prompt = pipeline.tokenizer.apply_chat_template(
-        messages, 
-        tokenize=False, 
-        add_generation_prompt=True
-)
-
-terminators = [
-    pipeline.tokenizer.eos_token_id,
-    pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
-]
-
-outputs = pipeline(
-    prompt,
-    max_new_tokens=2048,
-    eos_token_id=terminators,
-    do_sample=True,
-    temperature=0.6,
-    top_p=0.9,
-)
-print(outputs[0]["generated_text"][len(prompt):])

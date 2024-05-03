@@ -21,7 +21,7 @@ from win_cond import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_cleaning_agent"
+log_file = "exp_cleaning_agent_test"
 env_name = "benchmark/clean_3x3/clean_3x3_mess_1.z8"
 main_goal = "You are at large house and your goal is to clean up it. Namely, you should find items that are out of place and return them to their place"
 model = "gpt-4-0125-preview"
@@ -29,7 +29,7 @@ agent_instance = GPTagent
 graph_instance = ContrieverGraph
 history_instance = HistoryWithPlan
 goal_freq = 10
-threshold, topk = None, 5
+threshold, topk, depth = None, 5, 25
 n_prev, majority_part = 3, 0.51
 
 max_steps, n_attempts = 150, 2
@@ -47,7 +47,8 @@ config = {
     "system_prompt": system_prompt,
     "n_prev": n_prev,
     "majority_part": majority_part,
-    "device": "cpu"
+    "device": "cpu",
+    "depth": depth
 }
 # End of changeable part
 
@@ -170,7 +171,7 @@ for i in range(n_attempts):
         log("Crucial items: " + str(items))
         items_lower = [element.lower() for element in items]
         # associated_subgraph = graph.update(observation=observation, observations=observations, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items=items, goal="")
-        subgraph = graph.update(observation, observations, plan=plan0, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items = items)
+        subgraph = graph.update(observation, observations, plan=plan0, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items = items_lower)
         
         log("Length of subgraph: " + str(len(subgraph)))
         log("Associated triplets: " + str(subgraph))
