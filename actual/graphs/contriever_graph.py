@@ -43,19 +43,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
  
         return associated_subgraph
     
-    def add_triplets(self, triplets):
-        for triplet in triplets:
-            if triplet[2]["label"] == "free":
-                continue
-            triplet = clear_triplet(triplet)
-            if triplet not in self.triplets:
-                self.triplets.append(triplet)
-                self.triplets_emb[self.str(triplet)] = self.retriever.embed([self.str(triplet)])[0].cpu().detach().numpy()
-                if triplet[0] not in self.items_emb:
-                    self.items_emb[triplet[0]] = self.retriever.embed([triplet[0]])[0].cpu().detach().numpy()
-                if triplet[1] not in self.items_emb:
-                    self.items_emb[triplet[1]] = self.retriever.embed([triplet[1]])[0].cpu().detach().numpy()
-                    
+    # Use for subgraph retrieve    
     def reasoning(self, items):
         scores_hist = []
         scores = np.zeros(len(self.triplets))
@@ -72,6 +60,61 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             scores_hist.append(np.copy(scores))
         
         return [self.str(triplet) for triplet in current_triplets], scores_hist
+    
+    # Use for subgraph retrieve
+    def beam_search_on_triplets(self, items, observation, plan, visited, depth, width, log):
+        items = set(items)
+        visited = {self.str(clear_triplet(triplet)) for triplet in visited}
+        chosen = set()
+        for step in range(depth):
+            candidates = [self.str(triplet) for triplet in self.triplets 
+                          if (triplet[0] in items or triplet[1] in items) and self.str(triplet) not in visited]
+            log("Length of candidates: " + str(len(candidates)))
+            for triplet in candidates:
+                visited.add(triplet)
+            if not candidates:
+                break
+            
+            prompt = prompt_choose_triplets.format(descr = observation + f"\nYour plan: {plan}", triplets = chosen, candidates = candidates, number = width)
+            response, cost = self.generate(prompt, t = 0.2)
+            filtered_candidates = process_candidates(response)
+            items = {self.add_item(triplet[0]) for triplet in filtered_candidates} | {self.add_item(triplet[1]) for triplet in filtered_candidates}
+            for triplet in filtered_candidates:
+                chosen.add(self.str(triplet))
+        chosen = list(chosen)
+        return chosen
+    
+    # Use for subgraph retrieve
+    def heuristic_connections(self, observation, plan, items):
+        items = self.find_items(items)
+        connections = []
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}")
+        return list(set(connections))
+    
+    
+    
+    def add_triplets(self, triplets):
+        for triplet in triplets:
+            if triplet[2]["label"] == "free":
+                continue
+            triplet = clear_triplet(triplet)
+            if triplet not in self.triplets:
+                self.triplets.append(triplet)
+                self.triplets_emb[self.str(triplet)] = self.retriever.embed([self.str(triplet)])[0].cpu().detach().numpy()
+                if triplet[0] not in self.items_emb:
+                    self.items_emb[triplet[0]] = self.retriever.embed([triplet[0]])[0].cpu().detach().numpy()
+                if triplet[1] not in self.items_emb:
+                    self.items_emb[triplet[1]] = self.retriever.embed([triplet[1]])[0].cpu().detach().numpy()
+                    
+    def delete_triplets(self, triplets, locations):
+        for triplet in triplets:
+            if triplet[0] in locations and triplet[1] in locations:
+                continue
+            if triplet in self.triplets:
+                self.triplets.remove(triplet)
+                self.triplets_emb.pop(self.str(triplet))
     
     def get_triplets_by_ids(self, best_ids):
         return [self.triplets[i] for i in best_ids]
@@ -155,38 +198,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                 future = set()
             components.append(component)
         return components
-            
-    # Use for subgraph retrieve
-    def beam_search_on_triplets(self, items, observation, plan, visited, depth, width, log):
-        items = set(items)
-        visited = {self.str(clear_triplet(triplet)) for triplet in visited}
-        chosen = set()
-        for step in range(depth):
-            candidates = [self.str(triplet) for triplet in self.triplets 
-                          if (triplet[0] in items or triplet[1] in items) and self.str(triplet) not in visited]
-            log("Length of candidates: " + str(len(candidates)))
-            for triplet in candidates:
-                visited.add(triplet)
-            if not candidates:
-                break
-            
-            prompt = prompt_choose_triplets.format(descr = observation + f"\nYour plan: {plan}", triplets = chosen, candidates = candidates, number = width)
-            response, cost = self.generate(prompt, t = 0.2)
-            filtered_candidates = process_candidates(response)
-            items = {self.add_item(triplet[0]) for triplet in filtered_candidates} | {self.add_item(triplet[1]) for triplet in filtered_candidates}
-            for triplet in filtered_candidates:
-                chosen.add(self.str(triplet))
-        chosen = list(chosen)
-        return chosen
-        
-    # Use for subgraph retrieve
-    def heuristic_connections(self, observation, plan, items):
-        items = self.find_items(items)
-        connections = []
-        for i in range(len(items)):
-            for j in range(i + 1, len(items)):
-                connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}")
-        return list(set(connections))
+
     
     def find_items(self, items, threshold = 0.9):
         found_items = []
