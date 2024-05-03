@@ -168,7 +168,7 @@ Your summary: '''
         summary, cost = agent_summary.generate(prompt, t = 0.6)
         log("Summary: " + summary)
 
-        valid_actions = env.get_valid_actions() + [f"go to {loc}" for loc in locations]
+        valid_actions = env.get_valid_actions()
         tried_now = {act[0] for act in tried_action[env.curr_location.lower()]}\
             if env.curr_location.lower() in tried_action else {}
         not_yet_tried = list({act for act in valid_actions if act not in tried_now})

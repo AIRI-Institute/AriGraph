@@ -156,7 +156,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             components.append(component)
         return components
             
-        
+    # Use for subgraph retrieve
     def beam_search_on_triplets(self, items, observation, plan, visited, depth, width, log):
         items = set(items)
         visited = {self.str(clear_triplet(triplet)) for triplet in visited}
@@ -179,5 +179,89 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         chosen = list(chosen)
         return chosen
         
+    # Use for subgraph retrieve
+    def heuristic_connections(self, observation, plan, items):
+        items = self.find_items(items)
+        connections = []
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}")
+        return list(set(connections))
+    
+    def find_items(self, items, threshold = 0.9):
+        found_items = []
+        for item in items:
+            if item in self.items_emb:
+                found_items.append(item)
+                continue
+            for_add, best_score = None, -1
+            current_emb = self.retriever.embed(item)[0].cpu().detach().numpy()
+            for existed_item, emb in self.items_emb.items():
+                if np.dot(emb, current_emb) > best_score and np.dot(emb, current_emb) > threshold:
+                    for_add, best_score = existed_item, np.dot(emb, current_emb)
+            if for_add is not None:
+                found_items.append(for_add)
+        return found_items
+    
+    def A_star(self, start, goal, descr, max_iter = 10000):
+        descr_emb = self.retriever.embed(descr)[0].cpu().detach().numpy()
+        triplets_scores = {key: 1 / (np.dot(value, descr_emb) + 1e-10) for key, value in self.triplets_emb.items()}
+        mean_score = np.mean(list(triplets_scores.values()))
+        
+        items_scores = self.find_depths(goal)
+        current = start
+        path, it = [], 0
+        while current != goal and it < max_iter:
+            it += 1
+            next_item, next_score, best_triplet = None, np.inf, None
+            for triplet in self.triplets:
+                if triplet[0] == current:
+                    # heuristic there
+                    final_score = triplets_scores[self.str(triplet)] + items_scores[triplet[1]] * mean_score
+                    if final_score < next_score:
+                        next_item = triplet[1]
+                        next_score = final_score
+                        best_triplet = self.str(triplet)
+                        
+                if triplet[1] == current:
+                    # heuristic there
+                    final_score = triplets_scores[self.str(triplet)] + items_scores[triplet[0]] * mean_score
+                    if final_score < next_score:
+                        next_item = triplet[0]
+                        next_score = final_score
+                        best_triplet = self.str(triplet)
+                        
+            assert next_item is not None
+            path.append(best_triplet)
+            current = next_item
+            
+        if it == max_iter:
+            path = []
+        return path
+    
+    def find_depths(self, start):
+        assert start in self.items_emb
+        items_scores = {start: 0}
+        i = 1
+        
+        current, future, visited = {start}, set(), {start}
+        while len(current) > 0:
+            for item in current:
+                for triplet in self.triplets:
+                    if triplet[0] == item and triplet[1] not in visited:
+                        visited.add(triplet[1])
+                        future.add(triplet[1])
+                        items_scores[triplet[1]] = i
+                    if triplet[1] == item and triplet[0] not in visited:
+                        visited.add(triplet[0])
+                        future.add(triplet[0])
+                        items_scores[triplet[0]] = i
+            current = deepcopy(future)
+            future = set()
+            i += 1
+        return items_scores
+        
+            
+                    
         
             
