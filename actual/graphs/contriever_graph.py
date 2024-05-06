@@ -149,7 +149,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         for i in range(matrix.shape[0]):
             for j in range(i + 1, matrix.shape[1]):
                 if matrix[i][j] > threshold and conn_matrix[i][j] == 0:
-                    for_add.append([items[i], items[j], {"label": "associated with"}])
+                    for_add.append([items[i], items[j], {"label": "is associated with"}])
         self.add_triplets(for_add)
         if force_connect:
             connections = self.find_connections(matrix)
@@ -166,7 +166,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                     for l in components[j]:
                         if matrix[k][l] > maximum:
                             idx1, idx2, maximum = k, l, matrix[k][l]
-                connections.append([items[idx1], items[idx2], {"label": "associated with"}])
+                connections.append([items[idx1], items[idx2], {"label": "is associated with"}])
         return connections
     
     def find_components(self):
@@ -272,7 +272,37 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             future = set()
             i += 1
         return items_scores
-        
+    
+    def filter_associated(self, triplets):
+        return [triplet for triplet in triplets if "associated with" not in triplet]
+    
+    def extended_bfs(self, items, steps = 2):
+        items = deepcopy([string.lower() for string in items])
+        associated_triplets = []
+        now = set()
+        for i in range(steps):
+            for triplet in self.triplets:
+                for item in items:
+                    
+                    if (item == triplet[0] or item == triplet[1]) and self.str(triplet) not in associated_triplets:
+                        associated_triplets.append(self.str(triplet))
+                        if item == triplet[0]:
+                            if triplet[2]["label"] == "is associated with":
+                                items.append(triplet[1])    
+                            else:
+                                now.add(triplet[1])
+                        if item == triplet[1]:
+                            if triplet[2]["label"] == "is associated with":
+                                items.append(triplet[0])    
+                            else:
+                                now.add(triplet[0])
+                        
+                        break
+                    
+            if "itself" in now:
+                now.remove("itself")  
+            items = now
+        return associated_triplets
             
                     
         

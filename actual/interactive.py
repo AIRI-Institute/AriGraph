@@ -101,7 +101,7 @@ from utils import *
 # plt.legend()
 # plt.savefig("importances.pdf")
 # print(associated_graph)
-exp_name = "exp_retrieve"
+exp_name = "exp_retrieve_1_1"
 with open("KG/files/items.json") as f:
     itemss = json.load(f)
 with open("KG/files/obs.json") as f:
@@ -111,7 +111,7 @@ with open("KG/files/graph.json") as f:
 with open("KG/files/plans.json") as f:
     plans = json.load(f)
     
-for name in ["beamsearch"]:
+for name in ["heuristic"]:
     graph = ContrieverGraph(model = "gpt-4-0125-preview", system_prompt = system_prompt, depth = 150, threshold = None, topk = 5)
     log = Logger(exp_name + "_" + name)
 
@@ -128,7 +128,7 @@ for name in ["beamsearch"]:
             temp = triplet.split(", ")
             triplets.append([temp[0], temp[2], {"label": temp[1]}])
         graph.add_triplets(triplets)
-        graph.expand_graph(0.9, True)
+        graph.expand_graph(1.1, True)
         log("Observation: " + obs)
         log("Items: " + str(items))
         log("Plan: " + str(plan))
