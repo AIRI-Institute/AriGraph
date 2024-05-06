@@ -278,14 +278,13 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     
     def extended_bfs(self, items, steps = 2):
         items = deepcopy([string.lower() for string in items])
-        associated_triplets = []
+        associated_triplets = set()
         now = set()
         for i in range(steps):
-            for triplet in self.triplets:
-                for item in items:
-                    
+            for item in items:
+                for triplet in self.triplets:                    
                     if (item == triplet[0] or item == triplet[1]) and self.str(triplet) not in associated_triplets:
-                        associated_triplets.append(self.str(triplet))
+                        associated_triplets.add(self.str(triplet))
                         if item == triplet[0]:
                             if triplet[2]["label"] == "is associated with":
                                 items.append(triplet[1])    
@@ -295,14 +294,11 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                             if triplet[2]["label"] == "is associated with":
                                 items.append(triplet[0])    
                             else:
-                                now.add(triplet[0])
-                        
-                        break
-                    
+                                now.add(triplet[0])                    
             if "itself" in now:
                 now.remove("itself")  
             items = now
-        return associated_triplets
+        return list(associated_triplets)
             
                     
         
