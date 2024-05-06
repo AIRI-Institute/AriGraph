@@ -21,7 +21,7 @@ from win_cond import *
 
 # There is configs of exp, changeable part of pipeline
 # If you add some parameters, please, edit config
-log_file = "exp_cleaning_agent_test"
+log_file = "exp_cleaning_agent_v1"
 env_name = "benchmark/clean_3x3/clean_3x3_mess_1.z8"
 main_goal = "You are at large house and your goal is to clean up it. Namely, you should find items that are out of place and return them to their place"
 model = "gpt-4-0125-preview"
@@ -32,7 +32,7 @@ goal_freq = 10
 threshold, topk, depth = None, 5, 25
 n_prev, majority_part = 3, 0.51
 
-max_steps, n_attempts = 150, 2
+max_steps, n_attempts = 150, 1
 n_neighbours = 4
 
 system_prompt = system_prompt
@@ -182,7 +182,7 @@ for i in range(n_attempts):
         #     subgraph.append(f"Step {step + 1}: {triplet}")
         
         # if if_explore == True:
-        valid_actions = env.get_valid_actions() + [f"go to {loc}" for loc in locations]
+        valid_actions = env.get_valid_actions()
         tried_now = {act[0] for act in tried_action[env.curr_location.lower()]}\
             if env.curr_location.lower() in tried_action else {}
         not_yet_tried = list({act for act in valid_actions if act not in tried_now})
@@ -265,13 +265,13 @@ Possible actions in current situation (you should choose several actions from th
             else:
                 log("\n\nNAVIGATION\n\n")
                 for hidden_step, hidden_action in enumerate(path):
-                    observation, reward, done, info = env.step(hidden_action)
+                    observation, reward_, done, info = env.step(hidden_action)
                     if done:
                         break
                     log("Navigation step: " + str(hidden_step + 1))
                     log("Observation: " + observation + "\n\n")
         else:
-            observation, reward, done, info = env.step(action)
+            observation, reward_, done, info = env.step(action)
             
         act_for_hist = action.lower()
         if is_nav or "north" in act_for_hist or "south" in act_for_hist or "east" in act_for_hist or "west" in act_for_hist:

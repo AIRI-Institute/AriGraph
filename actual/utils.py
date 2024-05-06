@@ -206,7 +206,7 @@ def clear_triplet(triplet):
         triplet = ("player", triplet[1], triplet[2])
     if triplet[1] == "P":
         triplet = (triplet[0], "player", triplet[2])
-    return (triplet[0].lower(), triplet[1].lower(), {"label": triplet[2]["label"].lower()})
+    return [triplet[0].lower(), triplet[1].lower(), {"label": triplet[2]["label"].lower()}]
 
 def find_relation(spatial_graph, parent, loc, first):
     reverse = {

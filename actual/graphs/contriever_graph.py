@@ -31,15 +31,16 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         log("Outdated triplets: " + response)
        
         if curr_location != previous_location:
-            new_triplets_raw.append((curr_location, previous_location, {"label": find_direction(action)}))
+            new_triplets_raw.append([curr_location, previous_location, {"label": find_direction(action)}])
             new_triplets_raw.append([previous_location, curr_location, {"label": find_opposite_direction(action)}])  
 
 
         self.add_triplets(new_triplets_raw)
         
         # associated_subgraph = self.reasoning(items)  
-        self.expand_graph(threshold = 0.9)
-        associated_subgraph = self.beam_search_on_triplets(items, observation, plan, deepcopy(new_triplets_raw), depth = 4, width = 7, log = log)
+        self.expand_graph(threshold = 1.1)
+        associated_subgraph = self.heuristic_connections(observation, plan, items) + self.extended_bfs(items, steps = 1)
+        associated_subgraph = list(set(self.filter_associated(associated_subgraph)))
  
         return associated_subgraph
     
@@ -63,7 +64,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     
     # Use for subgraph retrieve
     def beam_search_on_triplets(self, items, observation, plan, visited, depth, width, log):
-        items = set(items)
+        items = set(self.find_items(items))
         visited = {self.str(clear_triplet(triplet)) for triplet in visited}
         chosen = set()
         for step in range(depth):
@@ -92,6 +93,32 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             for j in range(i + 1, len(items)):
                 connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}")
         return list(set(connections))
+    
+    # Use for subgraph retrieve
+    def extended_bfs(self, items, steps = 2):
+        items = deepcopy([string.lower() for string in items])
+        associated_triplets = set()
+        
+        for i in range(steps):
+            now = set()
+            for item in items:
+                for triplet in self.triplets:                    
+                    if (item == triplet[0] or item == triplet[1]) and self.str(triplet) not in associated_triplets:
+                        associated_triplets.add(self.str(triplet))
+                        if item == triplet[0]:
+                            if triplet[2]["label"] == "is associated with":
+                                items.append(triplet[1])    
+                            else:
+                                now.add(triplet[1])
+                        if item == triplet[1]:
+                            if triplet[2]["label"] == "is associated with":
+                                items.append(triplet[0])    
+                            else:
+                                now.add(triplet[0])                    
+            if "itself" in now:
+                now.remove("itself")  
+            items = list(now)
+        return list(associated_triplets)
     
     
     
@@ -229,6 +256,8 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             for triplet in self.triplets:
                 if triplet[0] == current:
                     # heuristic there
+                    if triplet[1] not in items_scores:
+                        items_scores[triplet[1]] = np.inf
                     final_score = triplets_scores[self.str(triplet)] + items_scores[triplet[1]] * mean_score
                     if final_score < next_score:
                         next_item = triplet[1]
@@ -237,13 +266,17 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                         
                 if triplet[1] == current:
                     # heuristic there
+                    if triplet[0] not in items_scores:
+                        items_scores[triplet[0]] = np.inf
                     final_score = triplets_scores[self.str(triplet)] + items_scores[triplet[0]] * mean_score
                     if final_score < next_score:
                         next_item = triplet[0]
                         next_score = final_score
                         best_triplet = self.str(triplet)
                         
-            assert next_item is not None
+            if best_triplet is None:
+                it = max_iter
+                break
             path.append(best_triplet)
             current = next_item
             
@@ -275,30 +308,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     
     def filter_associated(self, triplets):
         return [triplet for triplet in triplets if "associated with" not in triplet]
-    
-    def extended_bfs(self, items, steps = 2):
-        items = deepcopy([string.lower() for string in items])
-        associated_triplets = set()
-        now = set()
-        for i in range(steps):
-            for item in items:
-                for triplet in self.triplets:                    
-                    if (item == triplet[0] or item == triplet[1]) and self.str(triplet) not in associated_triplets:
-                        associated_triplets.add(self.str(triplet))
-                        if item == triplet[0]:
-                            if triplet[2]["label"] == "is associated with":
-                                items.append(triplet[1])    
-                            else:
-                                now.add(triplet[1])
-                        if item == triplet[1]:
-                            if triplet[2]["label"] == "is associated with":
-                                items.append(triplet[0])    
-                            else:
-                                now.add(triplet[0])                    
-            if "itself" in now:
-                now.remove("itself")  
-            items = now
-        return list(associated_triplets)
+
             
                     
         

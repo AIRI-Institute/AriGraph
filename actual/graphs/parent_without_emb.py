@@ -54,8 +54,9 @@ class GraphWithoutEmbeddings(TripletGraph):
     def get_associated_triplets(self, items, steps = 2):
         items = deepcopy([string.lower() for string in items])
         associated_triplets = []
-        now = set()
+        
         for i in range(steps):
+            now = set()
             for triplet in self.triplets:
                 for item in items:
                     
@@ -72,6 +73,27 @@ class GraphWithoutEmbeddings(TripletGraph):
                 now.remove("itself")  
             items = now
         return associated_triplets
+    
+    def get_associated_triplets1(self, items, steps=2):
+        items = set(item.lower() for item in items)  # Using a set for items, start with initial items
+        associated_triplets = set()  # Using a set for efficient lookup and avoid duplicates
+
+        for _ in range(steps):
+            next_items = set()
+            for triplet in self.triplets:
+                for item in items:
+                    if item == triplet[0]:
+                        associated_triplets.add(self.str(triplet))
+                        next_items.add(triplet[1])
+                    elif item == triplet[1]:
+                        associated_triplets.add(self.str(triplet))
+                        next_items.add(triplet[0])
+
+            if "itself" in next_items:
+                next_items.remove("itself")
+            items = next_items  # Update items for the next step
+
+        return list(associated_triplets)
     
     # Exclude facts from 'triplets' which already in graph
     def exclude(self, triplets):
