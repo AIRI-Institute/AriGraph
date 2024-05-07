@@ -17,8 +17,8 @@ class Retriever:
 
     @staticmethod
     def load_embedder_and_tokenizer(device="cpu"):
-        embedder = Contriever.from_pretrained("facebook/contriever").to(device)
-        tokenizer = AutoTokenizer.from_pretrained("facebook/contriever")
+        embedder = Contriever.from_pretrained("facebook/mcontriever").to(device)
+        tokenizer = AutoTokenizer.from_pretrained("facebook/mcontriever")
         return embedder, tokenizer
 
     @staticmethod

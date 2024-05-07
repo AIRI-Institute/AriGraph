@@ -104,6 +104,15 @@ class TripletGraph:
         embeddings = self.instructor.encode([[instruction, text]])
         return list(map(float, list(embeddings[0])))
     
+    def get_embedding(self, text):
+        response = requests.post(
+            f"http://{VPS_IP}:{port}/openai_api_embedding",
+            json={"api_key": API_KEY, "messages": [text], "model_type": "text-embedding-3-large", "jsn": False, "temperature": 0.2}
+        )
+        emb = response.json()["response"]
+        sleep(1)
+        return emb
+    
     def is_equal(self, text1, text2, entity = False):
         embedding1, embedding2 = self.get_embedding_local(text1, entity), self.get_embedding_local(text2, entity)
         return euclidean(embedding1, embedding2) < self.threshold

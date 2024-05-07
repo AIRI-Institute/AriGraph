@@ -1,10 +1,16 @@
 import numpy as np
+import requests
+from time import sleep
 
 from utils import *
 from prompts import *
 from prompts_v2 import *
 from graphs.parent_without_emb import GraphWithoutEmbeddings
 from contriever import Retriever
+
+VPS_IP = "146.0.73.157"
+port = 8000
+API_KEY = "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"
 
 class ContrieverGraph(GraphWithoutEmbeddings):
     def __init__(self, model, system_prompt, depth, threshold = None, topk = None, device = "cpu"):
@@ -38,9 +44,10 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         self.add_triplets(new_triplets_raw)
         
         # associated_subgraph = self.reasoning(items)  
-        self.expand_graph(threshold = 1.1, force_connect=False)
+        self.expand_graph(threshold = 1.65, force_connect=True)
         # associated_subgraph = self.heuristic_connections(observation, plan, items, log) + self.extended_bfs(items, steps = 1)
-        associated_subgraph = self.extended_bfs(items, steps = 2)
+        # associated_subgraph = self.extended_bfs(items, steps = 2)
+        associated_subgraph = self.heuristic_connections(observation, plan, items, log)
         associated_subgraph = list(set(self.filter_associated(associated_subgraph)))
  
         return associated_subgraph
@@ -123,10 +130,19 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     
     
     
-    def get_emb(self, text, instruction = ""):
+    def get_embedding_local(self, text):
         # embeddings = self.instructor.encode([[instruction, text]])
         # return list(map(float, list(embeddings[0])))
         return self.retriever.embed([text])[0].cpu().detach().numpy()
+    
+    def get_embedding(self, text):
+        response = requests.post(
+            f"http://{VPS_IP}:{port}/openai_api_embedding",
+            json={"api_key": API_KEY, "messages": [text], "model_type": "text-embedding-3-large", "jsn": False, "temperature": 0.2}
+        )
+        emb = response.json()["response"]
+        sleep(1)
+        return emb
     
     def add_triplets(self, triplets):
         for triplet in triplets:
