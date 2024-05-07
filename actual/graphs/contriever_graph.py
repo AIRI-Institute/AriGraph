@@ -38,8 +38,9 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         self.add_triplets(new_triplets_raw)
         
         # associated_subgraph = self.reasoning(items)  
-        self.expand_graph(threshold = 1.1)
-        associated_subgraph = self.heuristic_connections(observation, plan, items) + self.extended_bfs(items, steps = 1)
+        self.expand_graph(threshold = 1.1, force_connect=False)
+        # associated_subgraph = self.heuristic_connections(observation, plan, items, log) + self.extended_bfs(items, steps = 1)
+        associated_subgraph = self.extended_bfs(items, steps = 2)
         associated_subgraph = list(set(self.filter_associated(associated_subgraph)))
  
         return associated_subgraph
@@ -48,7 +49,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     def reasoning(self, items):
         scores_hist = []
         scores = np.zeros(len(self.triplets))
-        current_items = {item: self.retriever.embed([item])[0].cpu().detach().numpy() if item not in self.items_emb\
+        current_items = {item: self.get_emb(item) if item not in self.items_emb\
                             else self.items_emb[item]\
                             for item in items}
         for it in range(self.depth):
@@ -86,12 +87,12 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         return chosen
     
     # Use for subgraph retrieve
-    def heuristic_connections(self, observation, plan, items):
+    def heuristic_connections(self, observation, plan, items, log):
         items = self.find_items(items)
         connections = []
         for i in range(len(items)):
             for j in range(i + 1, len(items)):
-                connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}")
+                connections += self.A_star(items[i], items[j], observation + f"\nYour plan: {plan}", log)
         return list(set(connections))
     
     # Use for subgraph retrieve
@@ -122,6 +123,11 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     
     
     
+    def get_emb(self, text, instruction = ""):
+        # embeddings = self.instructor.encode([[instruction, text]])
+        # return list(map(float, list(embeddings[0])))
+        return self.retriever.embed([text])[0].cpu().detach().numpy()
+    
     def add_triplets(self, triplets):
         for triplet in triplets:
             if triplet[2]["label"] == "free":
@@ -129,11 +135,11 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             triplet = clear_triplet(triplet)
             if triplet not in self.triplets:
                 self.triplets.append(triplet)
-                self.triplets_emb[self.str(triplet)] = self.retriever.embed([self.str(triplet)])[0].cpu().detach().numpy()
+                self.triplets_emb[self.str(triplet)] = self.get_emb(self.str(triplet))
                 if triplet[0] not in self.items_emb:
-                    self.items_emb[triplet[0]] = self.retriever.embed([triplet[0]])[0].cpu().detach().numpy()
+                    self.items_emb[triplet[0]] = self.get_emb(triplet[0])
                 if triplet[1] not in self.items_emb:
-                    self.items_emb[triplet[1]] = self.retriever.embed([triplet[1]])[0].cpu().detach().numpy()
+                    self.items_emb[triplet[1]] = self.get_emb(triplet[1])
                     
     def delete_triplets(self, triplets, locations):
         for triplet in triplets:
@@ -234,7 +240,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                 found_items.append(item)
                 continue
             for_add, best_score = None, -1
-            current_emb = self.retriever.embed(item)[0].cpu().detach().numpy()
+            current_emb = self.get_emb(item)
             for existed_item, emb in self.items_emb.items():
                 if np.dot(emb, current_emb) > best_score and np.dot(emb, current_emb) > threshold:
                     for_add, best_score = existed_item, np.dot(emb, current_emb)
@@ -242,12 +248,13 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                 found_items.append(for_add)
         return found_items
     
-    def A_star(self, start, goal, descr, max_iter = 10000):
-        descr_emb = self.retriever.embed(descr)[0].cpu().detach().numpy()
+    def A_star(self, start, goal, descr, log, max_iter = 10000):
+        descr_emb = self.get_emb(descr)
         triplets_scores = {key: 1 / (np.dot(value, descr_emb) + 1e-10) for key, value in self.triplets_emb.items()}
         mean_score = np.mean(list(triplets_scores.values()))
         
         items_scores = self.find_depths(goal)
+        # log("All items are gathered: " + str(np.all([item in items_scores for item in self.items_emb])))
         current = start
         path, it = [], 0
         while current != goal and it < max_iter:
