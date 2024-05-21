@@ -1,0 +1,2157 @@
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'meal': 2, 'kitchen': 2, 'living room': 1, 'sofa': 1, 'stove': 1, 'oven': 1, 'bbq': 1}
+New triplets: ['2. "living room, has exit, south', '3. "sofa, is in, living room', '4. "cookbook, contains, recipe', '5. "recipe, to be followed, in kitchen', '6. "meal, to be prepared, in kitchen', '7. "meal, to be eaten, after preparation', '8. "frying, done with, stove', '9. "roasting, done with, oven']
+Outdated triplets: []
+Length of subgraph: 0
+Associated triplets: []
+Episodic memory: []
+If explore: False
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the kitchen",
+      "reason": "The kitchen is likely where the cookbook is located, and it's necessary for preparing the meal."
+    },
+    {
+      "sub_goal_2": "Locate the cookbook",
+      "reason": "The cookbook contains the recipe needed to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather ingredients for the recipe",
+      "reason": "Ingredients are necessary to follow the recipe and prepare the meal."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared by following the specific instructions in the recipe."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "The final step of the main goal is to enjoy the meal that has been prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to start the process of preparing a meal and fulfilling the main goal."
+    }
+}
+Action: {
+  "reason_for_action": "There is a mistake in the action list. Despite being in the living room, the only action available is to go to the living room. Needed to choose a different action, but it's impossible based on the given options.",
+  "action_to_take": "None"
+}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'living room': 1, 'sofa': 1}
+New triplets: ['2. living room, has exit, south', '3. cookbook, is in, kitchen', '4. meal, to be prepared, in kitchen', '5. frying, done with, stove', '6. roasting, done with, oven', '7. grilling, done with, bbq', '8. meal, to be, eaten.']
+Outdated triplets: []
+Length of subgraph: 0
+Associated triplets: []
+Episodic memory: []
+If explore: False
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "To find the cookbook and check the recipe, I need to be in the kitchen."
+    },
+    {
+      "sub_goal_2": "Find the cookbook and read the recipe",
+      "reason": "I need to know what ingredients and tools are required to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Once I know the recipe, I need to collect all the ingredients mentioned."
+    },
+    {
+      "sub_goal_4": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need specific kitchen tools mentioned in the recipe."
+    },
+    {
+      "sub_goal_5": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_6": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "I'm excited to start this culinary adventure and satisfy my hunger."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the cookbook and check the recipe, I need to be in the kitchen.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.05$, attempt amount: 0.05$, step amount: 0.05$
+Total time: 33.92 sec, attempt time: 33.92 sec, step time: 33.92 sec
+======================================================================
+
+
+REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 2, 'fridge': 2, 'orange bell pepper': 1, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 2, 'table': 2, 'cookbook': 2, 'knife': 2, 'counter': 1, 'stove': 1, 'recipe': 2, 'ingredients': 2, 'kitchen tools': 2, 'meal': 2}
+New triplets: ['kitchen, contains, fridge', 'kitchen, contains, oven', 'kitchen, contains, table', 'kitchen, contains, counter', 'kitchen, contains, stove', 'fridge, contains, orange bell pepper', 'fridge, contains, red bell pepper', 'fridge, contains, raw white tuna', 'table, has on it, cookbook', 'table, has on it, knife', 'kitchen, has exit, south', 'kitchen, has exit, east', 'kitchen, has exit, north', 'stove, is, conventional', 'door, is, frosted-glass', 'door, leads to, south.']
+Outdated triplets: [["3. cookbook, is in, kitchen" -> "table, has on it, cookbook"]]
+Length of subgraph: 8
+Associated triplets: ['8. meal, to be, eaten.', 'kitchen, is south of, livingroom', '4. meal, to be prepared, in kitchen', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #1\n$ \n\nYou are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!\n\n-= Living room =-\nYou're now in the living room.\n\nYou see a sofa. Looks like someone's already been here and taken everything off it, though.\n\nThere is an exit to the east. You need an exit without a door? You should try going south.\n\n\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the cookbook and read the recipe",
+      "reason": "Now that I'm in the kitchen, the next step is to find the cookbook on the table and read the recipe to know what ingredients and tools are required."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Once I know the recipe, I need to collect all the ingredients mentioned."
+    },
+    {
+      "sub_goal_3": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need specific kitchen tools mentioned in the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_5": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "I'm in the kitchen with all the essentials around me, ready to start cooking."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now that I'm in the kitchen, the next step is to find the cookbook on the table and read the recipe to know what ingredients and tools are required."
+  ,"action_to_take": "take cookbook from table"
+}
+
+Total amount: 0.14$, attempt amount: 0.14$, step amount: 0.08$
+Total time: 79.02 sec, attempt time: 79.02 sec, step time: 45.1 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You take the cookbook from the table.
+
+
+
+
+Crucial items: {'cookbook': 2, 'table': 1, 'recipe': 2, 'ingredients': 2, 'kitchen tools': 2, 'prepare meal': 2, 'eat': 2}
+New triplets: ['cookbook, is in, inventory']
+Outdated triplets: [["table, has on it, cookbook" -> "cookbook, is in, inventory"]]
+Length of subgraph: 22
+Associated triplets: ['kitchen, contains, oven', 'kitchen, contains, fridge', 'kitchen, contains, table', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'table, has on it, knife', 'fridge, contains, red bell pepper', 'fridge, contains, orange bell pepper', 'kitchen, has exit, north', 'fridge, contains, raw white tuna', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #1\n$ \n\nYou are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!\n\n-= Living room =-\nYou're now in the living room.\n\nYou see a sofa. Looks like someone's already been here and taken everything off it, though.\n\nThere is an exit to the east. You need an exit without a door? You should try going south.\n\n\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.", "Game step #2\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Read the recipe from the cookbook",
+      "reason": "Now that I have the cookbook, I need to read the recipe to understand what ingredients and tools are required."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Once I know the recipe, I need to collect all the ingredients mentioned."
+    },
+    {
+      "sub_goal_3": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need specific kitchen tools mentioned in the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_5": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "I have the cookbook in my inventory, ready to discover the recipe and start cooking."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now that I have the cookbook, I need to read the recipe to understand what ingredients and tools are required.",
+  "action_to_take": "examine cookbook"
+}
+
+Total amount: 0.21$, attempt amount: 0.21$, step amount: 0.08$
+Total time: 111.89 sec, attempt time: 111.89 sec, step time: 32.87 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:
+
+Recipe
+---------
+Gather all following ingredients and follow the directions to prepare this tasty meal.
+
+Ingredients:
+green bell pepper
+  orange bell pepper
+  yellow potato
+
+Directions:
+dice the green bell pepper
+  fry the green bell pepper
+  dice the orange bell pepper
+  grill the orange bell pepper
+  slice the yellow potato
+  grill the yellow potato
+  prepare meal
+
+
+
+
+
+Crucial items: {'cooking: a modern approach (3rd ed.)': 2, 'green bell pepper': 2, 'orange bell pepper': 2, 'yellow potato': 2, 'dice': 2, 'fry': 1, 'grill': 1, 'prepare meal': 2, 'cookbook': 2, 'ingredients': 2, 'kitchen tools': 2, 'recipe': 2}
+New triplets: ['cooking: a modern approach (3rd ed.), contains, recipe', 'recipe, requires, green bell pepper', 'recipe, requires, orange bell pepper', 'recipe, requires, yellow potato', 'green bell pepper, to be, diced', 'green bell pepper, to be, fried', 'orange bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, sliced', 'yellow potato, to be, grilled', 'recipe, to prepare, meal']
+Outdated triplets: []
+Length of subgraph: 23
+Associated triplets: ['kitchen, contains, oven', 'kitchen, contains, fridge', 'kitchen, contains, table', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'table, has on it, knife', 'fridge, contains, red bell pepper', 'fridge, contains, orange bell pepper', 'kitchen, has exit, north', 'fridge, contains, raw white tuna', '4. meal, to be prepared, in kitchen', 'kitchen, has exit, south', 'cookbook, is in, inventory', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #2\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", 'Game step #3\n\nYou take the cookbook from the table.\n\n\n\n']
+If explore: False
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The recipe has been read. Next, I need to collect the green bell pepper, orange bell pepper, and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need a knife for dicing and slicing, and access to a stove and BBQ for frying and grilling."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "The recipe is known, and I'm ready to gather the ingredients and tools to start cooking."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The recipe has been read. Next, I need to collect the green bell pepper, orange bell pepper, and yellow potato.",
+  "action_to_take": "take orange bell pepper from fridge"
+}
+
+Total amount: 0.3$, attempt amount: 0.3$, step amount: 0.08$
+Total time: 159.68 sec, attempt time: 159.68 sec, step time: 47.79 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0]
+
+
+Step: 5
+Observation: Game step #5
+
+You take the orange bell pepper from the fridge.
+
+
+
+Your score has just gone up by one point.
+
+
+Crucial items: {'orange bell pepper': 2, 'fridge': 1.5, 'score': 1, 'prepare meal by following the recipe and eat it': 2, 'gather all necessary ingredients': 2, 'green bell pepper': 1.5, 'yellow potato': 1.5, 'gather all necessary kitchen tools': 1, 'knife': 1, 'stove': 1, 'bbq': 1, 'prepare the meal according to the recipe': 1.5, 'eat the prepared meal': 1, 'focused': 1}
+New triplets: ['orange bell pepper, is in, inventory', 'score, increased by, one point']
+Outdated triplets: [['fridge, contains, orange bell pepper -> orange bell pepper, is in, inventory']]
+Length of subgraph: 29
+Associated triplets: ['kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'table, has on it, knife', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'kitchen, has exit, north', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #2\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", 'Game step #3\n\nYou take the cookbook from the table.\n\n\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need a knife for dicing and slicing, and access to a stove and BBQ for frying and grilling. The knife has been seen on the table."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I have successfully started gathering the necessary ingredients and am progressing towards my goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The recipe requires a green bell pepper and a yellow potato, which are not currently in the inventory. Exploring unvisited locations may help to find these ingredients.",
+  "action_to_take": "go east"
+}
+
+Total amount: 0.38$, attempt amount: 0.38$, step amount: 0.08$
+Total time: 200.91 sec, attempt time: 200.91 sec, step time: 41.23 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 6
+Observation: Game step #6
+
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+
+Crucial items: {'corridor': 1, 'open screen door': 1, 'green bell pepper': 2, 'yellow potato': 2, 'knife': 2, 'stove': 2, 'bbq': 2}
+New triplets: ['corridor, has exit, east', 'corridor, has exit, north', 'corridor, has exit, south', 'corridor, has exit, west']
+Outdated triplets: []
+Length of subgraph: 34
+Associated triplets: ['kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'table, has on it, knife', 'door, is, frosted-glass', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'kitchen, has exit, north', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', 'Game step #5\n\nYou take the orange bell pepper from the fridge.\n\n\n\nYour score has just gone up by one point.\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need a knife for dicing and slicing, and access to a stove and BBQ for frying and grilling. The knife has been seen on the table."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I have successfully started gathering the necessary ingredients and am progressing towards my goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To gather all necessary ingredients as per the recipe, I need to return to the kitchen to continue searching for the remaining ingredients."
+  ,"action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/7
+
+
+
+Total amount: 0.46$, attempt amount: 0.46$, step amount: 0.08$
+Total time: 234.54 sec, attempt time: 234.54 sec, step time: 33.63 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 7
+Observation: Game step #7
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'oven': 1, 'table': 1, 'knife': 2, 'counter': 1, 'stove': 2, 'prepare meal by following the recipe and eat it': 2, 'orange bell pepper': 1, 'green bell pepper': 2, 'yellow potato': 2, 'bbq': 1}
+New triplets: ['counter, is, vast', 'door, leads to, south', 'kitchen, has exit, north.']
+Outdated triplets: []
+Length of subgraph: 22
+Associated triplets: ['orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'orange bell pepper, is in, inventory', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', 'Game step #5\n\nYou take the orange bell pepper from the fridge.\n\n\n\nYour score has just gone up by one point.\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. The fridge in the kitchen does not contain these items, so I need to explore other areas."
+    },
+    {
+      "sub_goal_2": "Gather all necessary kitchen tools",
+      "reason": "To prepare the meal, I'll need a knife for dicing and slicing, and access to a stove and BBQ for frying and grilling. The knife has been seen on the table. I should take the knife next."
+    },
+    {
+      "sub_goal_3": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_5": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To prepare the meal, I'll need a knife for dicing and slicing. The knife has been seen on the table. I should take the knife next.",
+  "action_to_take": "take knife from table"
+}
+
+Total amount: 0.55$, attempt amount: 0.55$, step amount: 0.09$
+Total time: 282.26 sec, attempt time: 282.26 sec, step time: 47.72 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You take the knife from the table.
+
+
+
+
+Crucial items: {'knife': 2, 'table': 1, 'prepare meal by following the recipe and eat it': 2, 'green bell pepper': 2, 'yellow potato': 2, 'fridge': 1, 'kitchen': 2, 'stove': 2, 'bbq': 2, 'corridor': 2, 'recipe': 2}
+New triplets: ['knife, is in, inventory']
+Outdated triplets: [["table, has on it, knife -> knife, is in, inventory"]]
+Length of subgraph: 39
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #1\n$ \n\nYou are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!\n\n-= Living room =-\nYou're now in the living room.\n\nYou see a sofa. Looks like someone's already been here and taken everything off it, though.\n\nThere is an exit to the east. You need an exit without a door? You should try going south.\n\n\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. The fridge in the kitchen does not contain these items, so I need to explore other areas."
+    },
+    {
+      "sub_goal_2": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The knife has been obtained, so the sub-goal of gathering all necessary kitchen tools is complete."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor.",
+  "action_to_take": "go north"
+}
+
+Total amount: 0.64$, attempt amount: 0.64$, step amount: 0.09$
+Total time: 328.28 sec, attempt time: 328.28 sec, step time: 46.02 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 9
+Observation: Game step #9
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'orange bell pepper': 2, 'green bell pepper': 2, 'yellow potato': 2, 'fridge': 1, 'kitchen': 2, 'corridor': 2, 'knife': 2, 'recipe': 2, 'meal': 2}
+New triplets: ['living room, contains, sofa', 'living room, has exit, east', 'living room, has exit, south']
+Outdated triplets: []
+Length of subgraph: 42
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", 'Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. The fridge in the kitchen does not contain these items, so I need to explore other areas."
+    },
+    {
+      "sub_goal_2": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The living room has been explored and found to be a dead end for the purpose of gathering ingredients."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor, as directed by my current sub-goal.",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/10
+
+
+
+Total amount: 0.73$, attempt amount: 0.73$, step amount: 0.09$
+Total time: 378.4 sec, attempt time: 378.4 sec, step time: 50.12 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 10
+Observation: Game step #10
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'oven': 1, 'table': 1, 'counter': 1, 'stove': 1, 'recipe': 2, 'orange bell pepper': 2, 'green bell pepper': 2, 'yellow potato': 2, 'prepare meal': 2, 'eat': 2}
+New triplets: ['table, is, empty']
+Outdated triplets: []
+Length of subgraph: 23
+Associated triplets: ['orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', 'door, leads to, south.', 'orange bell pepper, is in, inventory', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", 'Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), exploring unexplored exits in the kitchen as per the current sub-goal."
+  ,"action_to_take": "go north"
+}
+
+Total amount: 0.83$, attempt amount: 0.83$, step amount: 0.1$
+Total time: 428.87 sec, attempt time: 428.87 sec, step time: 50.48 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 11
+Observation: Game step #11
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'prepare meal': 2, 'recipe': 2, 'eat': 2, 'explore unexplored exits': 2, 'kitchen': 2, 'corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 2, 'ingredients': 2, 'tools': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 43
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'kitchen, has exit, south', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen as per the plan sub_goal_1.",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/12
+
+
+
+Total amount: 0.92$, attempt amount: 0.92$, step amount: 0.09$
+Total time: 479.83 sec, attempt time: 479.83 sec, step time: 50.96 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 12
+Observation: Game step #12
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 2, 'fridge': 2, 'red bell pepper': 1.5, 'raw white tuna': 1.5, 'oven': 2, 'stove': 1.5, 'recipe': 2, 'unexplored exits': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 1.5, 'prepare meal': 2, 'eat': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 29
+Associated triplets: ['corridor, has exit, north', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #10\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet. The corridor also has unexplored exits to the north, east, and south."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen. Going north from the kitchen has not been explored yet, which aligns with the current sub-goal to explore unexplored exits.",
+  "action_to_take": "go north"
+}
+
+Total amount: 1.02$, attempt amount: 1.02$, step amount: 0.1$
+Total time: 537.66 sec, attempt time: 537.66 sec, step time: 57.82 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 13
+Observation: Game step #13
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'exit to the east': 1, 'exit to the south': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the kitchen and corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 2, 'kitchen': 2, 'corridor': 2, 'prepare the meal according to the recipe': 2, 'eat the prepared meal': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 44
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'kitchen, has exit, south', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet. The corridor also has unexplored exits to the north, east, and south."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), exploring unexplored exits per sub_goal_1 is the current priority, and the kitchen has not been fully explored yet.",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/14
+
+
+
+Total amount: 1.12$, attempt amount: 1.12$, step amount: 0.1$
+Total time: 586.03 sec, attempt time: 586.03 sec, step time: 48.37 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 14
+Observation: Game step #14
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 1.5, 'red bell pepper': 1.5, 'raw white tuna': 1.5, 'oven': 1.5, 'table': 1, 'counter': 1, 'stove': 1, 'frosted-glass door': 1, 'open exits': 1.5, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 1.5, 'recipe': 2, 'prepare meal': 2, 'eat meal': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 30
+Associated triplets: ['corridor, has exit, north', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'corridor, has exit, east', 'door, is, frosted-glass', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet. The corridor also has unexplored exits to the north, east, and south."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To explore unexplored exits in the kitchen as outlined in sub_goal_1 for finding remaining ingredients."
+   ,
+  "action_to_take": "go north"
+  
+}
+
+Total amount: 1.22$, attempt amount: 1.22$, step amount: 0.11$
+Total time: 641.52 sec, attempt time: 641.52 sec, step time: 55.49 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 15
+Observation: Game step #15
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'exit to the east': 1, 'exit without a door': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the kitchen and corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 1, 'prepare the meal according to the recipe': 2, 'eat the prepared meal': 2, 'focused': 1}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 44
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet. The corridor also has unexplored exits to the north, east, and south."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients by exploring unexplored exits in the kitchen as outlined in the plan.",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/16
+
+
+
+Total amount: 1.32$, attempt amount: 1.32$, step amount: 0.1$
+Total time: 686.63 sec, attempt time: 686.63 sec, step time: 45.11 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 16
+Observation: Game step #16
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 2, 'fridge': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'oven': 2, 'table': 1, 'counter': 1, 'stove': 1, 'frosted-glass door': 1, 'prepare meal by following the recipe and eat it': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 24
+Associated triplets: ['orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', 'orange bell pepper, is in, inventory', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "To find the remaining ingredients (green bell pepper and yellow potato), I need to explore unexplored exits in the kitchen and corridor. The kitchen has exits to the north and south that have not been explored yet. The corridor also has unexplored exits to the north, east, and south."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Need to explore new areas to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "I am methodically working through the steps to gather all necessary items and prepare the meal, despite the setback of not finding ingredients in the living room."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the remaining ingredients (green bell pepper and yellow potato), exploring unexplored exits in the kitchen is necessary according to the plan.",
+  "action_to_take": "go north"
+}
+
+Total amount: 1.43$, attempt amount: 1.43$, step amount: 0.11$
+Total time: 740.38 sec, attempt time: 740.38 sec, step time: 53.74 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 17
+Observation: Game step #17
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'exit to the east': 1, 'exit south': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the kitchen and corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'kitchen': 2, 'corridor': 2, 'orange bell pepper': 1, 'recipe': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 43
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato)."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Exploring new areas is essential to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing to explore and gather necessary ingredients for the meal preparation keeps me focused on the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato).",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/18
+
+
+
+Total amount: 1.53$, attempt amount: 1.53$, step amount: 0.1$
+Total time: 784.06 sec, attempt time: 784.06 sec, step time: 43.69 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 18
+Observation: Game step #18
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 2, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1, 'table': 1, 'counter': 1, 'stove': 1, 'open frosted-glass door': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the kitchen and corridor': 2, 'gather all necessary ingredients': 2, 'prepare the meal according to the recipe': 2, 'eat the prepared meal': 2, 'green bell pepper': 2, 'yellow potato': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 35
+Associated triplets: ['corridor, has exit, north', 'orange bell pepper, to be, diced', 'living room, contains, sofa', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'living room, has exit, east', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'corridor, has exit, east', 'door, is, frosted-glass', 'kitchen, is west of, corridor', 'living room, has exit, south', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'door, leads to, south.', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato)."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Exploring new areas is essential to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing to explore and gather necessary ingredients for the meal preparation keeps me focused on the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Need to explore the unexplored exits in the kitchen (north and south) as per sub_goal_1 to find the remaining ingredients (green bell pepper and yellow potato).",
+  "action_to_take": "go north"
+}
+
+Total amount: 1.63$, attempt amount: 1.63$, step amount: 0.11$
+Total time: 835.42 sec, attempt time: 835.42 sec, step time: 51.35 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 19
+Observation: Game step #19
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'kitchen': 2, 'corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 1, 'recipe': 2, 'meal': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 43
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #14\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato)."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Exploring new areas is essential to find these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing to explore and gather necessary ingredients for the meal preparation keeps me focused on the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Need to explore the unexplored exits in the kitchen (north and south) to find the remaining ingredients (green bell pepper and yellow potato).",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/20
+
+
+
+Total amount: 1.73$, attempt amount: 1.73$, step amount: 0.1$
+Total time: 877.21 sec, attempt time: 877.21 sec, step time: 41.79 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 20
+Observation: Game step #20
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 1.5, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1.5, 'table': 1, 'counter': 1, 'stove': 1, 'open frosted-glass door': 1, 'prepare meal by following the recipe and eat it': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 1.5}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 27
+Associated triplets: ['orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'door, is, frosted-glass', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', 'livingroom, is north of, kitchen', 'door, leads to, south.', 'orange bell pepper, is in, inventory', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato). The kitchen's south exit has been identified as leading to the corridor, and the north exit remains unexplored."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "The orange bell pepper has been collected. Still need to collect the green bell pepper and yellow potato. Exploring new areas is essential to find these items. The fridge in the kitchen has been checked, but the green bell pepper and yellow potato have not been found yet."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients and tools, I need to follow the recipe steps to prepare the meal. The recipe requires dicing and grilling the orange bell pepper, which is already in the inventory."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Once the meal is prepared, the final step is to eat it to complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Identifying the next steps to find the remaining ingredients and preparing for meal preparation keeps me focused on the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Need to explore the unexplored exits in the kitchen (north and south) and corridor (north, east, south) to find the remaining ingredients (green bell pepper and yellow potato). The kitchen's south exit has been identified as leading to the corridor, and the north exit remains unexplored.",
+  "action_to_take": "go north"
+}
+
+Total amount: 1.84$, attempt amount: 1.84$, step amount: 0.11$
+Total time: 933.06 sec, attempt time: 933.06 sec, step time: 55.85 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 21
+Observation: Game step #21
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'exit to the east': 1, 'exit without a door': 1, 'south': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the kitchen and corridor': 2, 'kitchen': 2, 'corridor': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 2, 'gather all necessary ingredients': 2, 'fridge': 2, 'prepare the meal according to the recipe': 2, 'eat the prepared meal': 2, 'focused': 1}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 44
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "The kitchen's north exit remains unexplored. Need to explore it to potentially find the green bell pepper and yellow potato. The corridor's unexplored exits (north, east, south) may also lead to areas with these ingredients."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Still need to find the green bell pepper and yellow potato. Exploring unexplored exits may lead to discovering these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering all ingredients, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing to explore and gather the necessary ingredients for the meal keeps me focused on achieving the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The kitchen's north exit remains unexplored. Need to explore it to potentially find the green bell pepper and yellow potato, which aligns with sub_goal_1 to explore unexplored exits in the kitchen and corridor.",
+  "action_to_take": "go to kitchen"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/22
+
+
+
+Total amount: 1.94$, attempt amount: 1.94$, step amount: 0.1$
+Total time: 985.5 sec, attempt time: 985.5 sec, step time: 52.44 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 22
+Observation: Game step #22
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 1, 'fridge': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'oven': 2, 'stove': 1, 'green bell pepper': 2, 'yellow potato': 2, 'recipe': 2, 'meal preparation': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 24
+Associated triplets: ['orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'orange bell pepper, is in, inventory', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "Need to explore the kitchen's south exit next, as the north exit has been explored without finding the needed ingredients. The corridor's unexplored exits (north, east, south) remain options for finding the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the kitchen's south exit and the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing to explore and gather the necessary ingredients for the meal keeps me focused on achieving the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Need to explore the kitchen's south exit next, as the north exit has been explored without finding the needed ingredients.",
+  "action_to_take": "go south"
+}
+
+Total amount: 2.04$, attempt amount: 2.04$, step amount: 0.1$
+Total time: 1031.51 sec, attempt time: 1031.51 sec, step time: 46.01 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 23
+Observation: Game step #23
+
+
+-= Pantry =-
+You find yourself in a pantry. An usual kind of place.
+
+You bend down to tie your shoe. When you stand up, you notice a shelf. The shelf is wooden. Unfortunately, there isn't a thing on it.
+
+There is an open frosted-glass door leading north.
+
+
+
+
+Crucial items: {'pantry': 1, 'shelf': 1, 'frosted-glass door': 1, 'recipe': 2, 'green bell pepper': 2, 'yellow potato': 2, 'kitchen': 2, 'corridor': 2, 'orange bell pepper': 2, 'meal': 2}
+New triplets: ['pantry, is, place', 'shelf, is, wooden', 'shelf, has, nothing', 'door, is, open', 'door, material, frosted-glass', 'door, leads to, north']
+Outdated triplets: Replacing: [["door, is, frosted-glass" -> "door, material, frosted-glass"]]
+Length of subgraph: 43
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'kitchen, is north of, pantry', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq', 'pantry, is south of, kitchen']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "The pantry south of the kitchen did not contain the needed ingredients. Need to explore the kitchen's north exit next, as it is the last unexplored exit in the kitchen. The corridor's unexplored exits (north, east, south) remain options for finding the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the kitchen's north exit and the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "determined",
+      "reason_behind_emotion": "Despite not finding the needed ingredients in the pantry, I remain determined to explore the remaining unexplored exits to gather all necessary ingredients."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Unexplored exits in the kitchen offer the possibility of finding the uncollected ingredients. Going north aligns with the immediate sub_goal of exploring unexplored exits in the kitchen.",
+  "action_to_take": "go north"
+}
+
+Total amount: 2.14$, attempt amount: 2.14$, step amount: 0.1$
+Total time: 1081.52 sec, attempt time: 1081.52 sec, step time: 50.01 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 24
+Observation: Game step #24
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Crucial items: {'kitchen': 2, 'open fridge': 2, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1, 'stove': 1, 'frosted-glass door': 2, 'prepare meal': 2, 'eat': 2, 'green bell pepper': 2, 'yellow potato': 2, 'recipe': 2, 'north exit': 2, 'corridor': 2}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 33
+Associated triplets: ['corridor, has exit, north', 'orange bell pepper, to be, diced', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'recipe, to prepare, meal', 'recipe, requires, orange bell pepper', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'corridor, has exit, east', 'kitchen, is west of, corridor', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'door, material, frosted-glass', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', '5. frying, done with, stove', '6. roasting, done with, oven', 'door, leads to, south.', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'shelf, is, wooden', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the kitchen and corridor",
+      "reason": "The kitchen's north exit has been explored, leading back to the living room, which does not contain the needed ingredients. Next, need to explore the corridor's unexplored exits (north, east, south) to find the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "determined",
+      "reason_behind_emotion": "Continuing to explore for the needed ingredients, maintaining determination to complete the meal preparation."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To explore unexplored exits in the kitchen and corridor, as per sub_goal_1 to find the green bell pepper and yellow potato."
+  ,"action_to_take": "go to corridor"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+>                                                                                                                                -= Corridor =-1/25
+
+
+
+Total amount: 2.25$, attempt amount: 2.25$, step amount: 0.11$
+Total time: 1139.26 sec, attempt time: 1139.26 sec, step time: 57.74 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 25
+Observation: Game step #25
+
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+
+Crucial items: {'corridor': 1, 'screen door': 1, 'north exit': 2, 'south exit': 2, 'west exit': 2, 'green bell pepper': 2, 'yellow potato': 2, 'kitchen': 1, 'living room': 1, 'recipe': 2, 'ingredients': 2, 'meal preparation': 2, 'determined': 1}
+New triplets: ['screen door, is, open']
+Outdated triplets: []
+Length of subgraph: 45
+Associated triplets: ['kitchen, contains, oven', 'orange bell pepper, to be, diced', 'living room, contains, sofa', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'kitchen, is south of, livingroom', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'kitchen, is west of, corridor', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'corridor, is east of, kitchen', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'kitchen, has exit, east', 'shelf, is, wooden', '7. grilling, done with, bbq']
+Episodic memory: ["Game step #24\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the corridor",
+      "reason": "The kitchen's north exit leads back to the living room, which does not contain the needed ingredients. The corridor's unexplored exits (north, east, south) need to be explored to find the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "determined",
+      "reason_behind_emotion": "Continuing to explore for the needed ingredients, maintaining determination to complete the meal preparation."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore unexplored exits in the corridor to find the green bell pepper and yellow potato.",
+  "action_to_take": "go north"
+}
+
+Total amount: 2.35$, attempt amount: 2.35$, step amount: 0.1$
+Total time: 1184.04 sec, attempt time: 1184.04 sec, step time: 44.78 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 26
+Observation: Game step #26
+
+
+-= Bedroom =-
+Guess what, you are in a place we're calling a bedroom.
+
+Oh wow! Is that what I think it is? It is! It's a bed. The bed is large. But there isn't a thing on it. Silly bed, silly, empty, good for nothing bed.
+
+There is an exit to the south. There is an exit to the west.
+
+
+
+
+Crucial items: {'bedroom': 1, 'bed': 1, 'south exit': 1, 'west exit': 1, 'green bell pepper': 2, 'yellow potato': 2, 'corridor': 2, 'recipe': 2, 'meal preparation': 2, 'determined': 1}
+New triplets: ['bedroom, contains, bed', 'bed, is, large', 'bed, is, empty', 'bedroom, has exit, south', 'bedroom, has exit, west.']
+Outdated triplets: []
+Length of subgraph: 47
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'living room, contains, sofa', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'corridor, is south of, bedroom', 'kitchen, has exit, north.', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'table, is, empty', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'kitchen, has exit, south', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'bedroom, is north of, corridor', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the bedroom",
+      "reason": "The bedroom has an unexplored exit to the west that needs to be explored to find the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the bedroom's unexplored exit may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "determined",
+      "reason_behind_emotion": "Adjusting the plan to explore new areas in search of ingredients, maintaining determination to complete the meal preparation."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The bedroom has an unexplored exit to the west that needs to be explored to find the green bell pepper and yellow potato.",
+  "action_to_take": "go west"
+}
+
+Total amount: 2.44$, attempt amount: 2.44$, step amount: 0.1$
+Total time: 1226.18 sec, attempt time: 1226.18 sec, step time: 42.14 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 27
+Observation: Game step #27
+
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+
+
+Crucial items: {'living room': 1, 'sofa': 1, 'prepare meal by following the recipe and eat it': 2, 'explore unexplored exits in the bedroom': 2, 'green bell pepper': 2, 'yellow potato': 2, 'gather all necessary ingredients': 2, 'prepare the meal according to the recipe': 2, 'eat the prepared meal': 2, 'determined': 1}
+New triplets: []
+Outdated triplets: []
+Length of subgraph: 53
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'orange bell pepper, to be, diced', 'bedroom, is east of, livingroom', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'screen door, is, open', 'counter, is, vast', 'kitchen, contains, fridge', 'bed, is, empty', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'corridor, is south of, bedroom', 'kitchen, has exit, north.', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'bedroom, contains, bed', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'table, is, empty', 'green bell pepper, to be, diced', 'bed, is, large', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'bedroom, has exit, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'bedroom, is north of, corridor', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'livingroom, is north of, kitchen', 'stove, is, conventional', 'door, leads to, south.', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'kitchen, has exit, east', 'shelf, is, wooden', '7. grilling, done with, bbq', 'bedroom, has exit, west.']
+Episodic memory: ["Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #16\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the corridor",
+      "reason": "The bedroom's unexplored exit led to the living room, which did not contain the needed ingredients. The corridor has unexplored exits that might lead to finding the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Redirecting efforts to explore new areas in the corridor to find the remaining ingredients and proceed with meal preparation."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore unexplored exits in the corridor to potentially find the missing ingredients.",
+  "action_to_take": "go to corridor"
+}
+
+
+NAVIGATION
+
+
+Navigation step: 1
+Observation: 
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+>                                                                                                                                -= Kitchen =-1/28
+
+
+Navigation step: 2
+Observation: 
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+>                                                                                                                                -= Corridor =-1/29
+
+
+
+Total amount: 2.54$, attempt amount: 2.54$, step amount: 0.1$
+Total time: 1278.7 sec, attempt time: 1278.7 sec, step time: 52.52 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 28
+Observation: Game step #28
+
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+
+Crucial items: {'corridor': 1, 'screen door': 1, 'green bell pepper': 2, 'yellow potato': 2, 'recipe': 2, 'meal preparation': 2, 'dicing': 1, 'grilling': 1, 'orange bell pepper': 1, 'explore unexplored exits': 2, 'ingredients': 2}
+New triplets: ['south exit, is not, blocked by door']
+Outdated triplets: []
+Length of subgraph: 49
+Associated triplets: ['kitchen, contains, oven', 'orange bell pepper, to be, diced', 'living room, contains, sofa', 'bedroom, is east of, livingroom', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'bed, is, empty', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'corridor, is south of, bedroom', 'kitchen, has exit, north.', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'bedroom, contains, bed', 'fridge, contains, red bell pepper', 'table, is, empty', 'bed, is, large', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'bedroom, has exit, south', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'bedroom, is north of, corridor', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'stove, is, conventional', 'orange bell pepper, is in, inventory', 'kitchen, contains, counter', 'pantry, is, place', 'kitchen, has exit, east', 'shelf, is, wooden', '7. grilling, done with, bbq', 'bedroom, has exit, west.']
+Episodic memory: ["Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #7\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the corridor",
+      "reason": "The corridor has unexplored exits east and south that might lead to finding the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the corridor's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Continuing the search for the remaining ingredients to complete the meal preparation."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore unexplored exits in the corridor to find the green bell pepper and yellow potato as per sub_goal_1",
+  "action_to_take": "go east"
+}
+
+Total amount: 2.64$, attempt amount: 2.64$, step amount: 0.1$
+Total time: 1325.62 sec, attempt time: 1325.62 sec, step time: 46.92 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 29
+Observation: Game step #29
+
+
+-= Backyard =-
+You find yourself in a backyard. An ordinary kind of place.
+
+Oh wow! Is that what I think it is? It is! It's a patio table. The patio table appears to be empty. You see a patio chair. The patio chair is stylish. However, the patio chair, like an empty patio chair, has nothing on it. You see a BBQ.
+
+There is an open wooden door leading east. There is an open screen door leading west. There is an exit to the north.
+
+
+
+
+Crucial items: {'backyard': 1, 'patio table': 1, 'patio chair': 1, 'bbq': 2, 'green bell pepper': 2, 'yellow potato': 2, 'orange bell pepper': 2, 'recipe': 2, 'meal': 2, 'corridor': 1}
+New triplets: ['backyard, contains, patio table', 'patio table, is, empty', 'backyard, contains, patio chair', 'patio chair, is, stylish', 'patio chair, is, empty', 'backyard, contains, bbq', 'backyard, has exit, east', 'backyard, has exit, west', 'backyard, has exit, north.']
+Outdated triplets: []
+Length of subgraph: 48
+Associated triplets: ['corridor, has exit, north', 'kitchen, contains, oven', 'backyard, is east of, corridor', 'living room, contains, sofa', 'bedroom, is east of, livingroom', 'door, is, open', 'orange bell pepper, to be, diced', 'recipe, requires, green bell pepper', 'shelf, has, nothing', 'counter, is, vast', 'kitchen, contains, fridge', 'bed, is, empty', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'door, leads to, north', 'knife, is in, inventory', '8. meal, to be, eaten.', 'bedroom, contains, bed', 'recipe, requires, yellow potato', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'table, is, empty', 'bed, is, large', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'corridor, is west of, backyard', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'bedroom, is north of, corridor', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'corridor, has exit, south', 'shelf, is, wooden', '7. grilling, done with, bbq']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #24\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore unexplored exits in the backyard",
+      "reason": "The backyard has unexplored exits east and north that might lead to finding the green bell pepper and yellow potato."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must find the green bell pepper and yellow potato to proceed with the recipe. Exploring the backyard's unexplored exits may lead to these items."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "Once all ingredients are gathered, the next step is to follow the recipe steps for meal preparation, including dicing and grilling the orange bell pepper."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Adjusting the plan to explore new areas in search of the remaining ingredients."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore unexplored exits in the backyard to potentially find the green bell pepper and yellow potato.",
+  "action_to_take": "go north"
+}
+
+Total amount: 2.73$, attempt amount: 2.73$, step amount: 0.1$
+Total time: 1376.31 sec, attempt time: 1376.31 sec, step time: 50.69 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 30
+Observation: Game step #30
+
+
+-= Garden =-
+You arrive in a garden. A typical one. You start to take note of what's in the room.
+
+
+
+There is an exit to the south. Don't worry, there is no door.
+
+There is a raw yellow potato, a green bell pepper, a green hot pepper, a red hot pepper, a yellow apple, a raw purple potato and a red onion on the floor.
+
+
+
+Crucial items: {'garden': 1, 'raw yellow potato': 2, 'green bell pepper': 2, 'green hot pepper': 1, 'red hot pepper': 1, 'yellow apple': 1, 'raw purple potato': 1, 'red onion': 1, 'prepare meal': 2, 'recipe': 2, 'eat': 2}
+New triplets: ['garden, has exit, south', 'yellow potato, is on, floor', 'green bell pepper, is on, floor', 'green hot pepper, is on, floor', 'red hot pepper, is on, floor', 'yellow apple, is on, floor', 'purple potato, is on, floor', 'red onion, is on, floor']
+Outdated triplets: []
+Length of subgraph: 45
+Associated triplets: ['kitchen, contains, oven', 'orange bell pepper, to be, diced', 'door, is, open', 'shelf, has, nothing', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'bed, is, empty', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'door, leads to, north', 'patio table, is, empty', 'backyard, is south of, garden', 'knife, is in, inventory', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'bedroom, contains, bed', 'fridge, contains, red bell pepper', 'table, is, empty', 'bed, is, large', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'patio chair, is, empty', 'garden, is north of, backyard', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '7. grilling, done with, bbq', 'door, leads to, south.', 'stove, is, conventional', 'kitchen, contains, counter', 'orange bell pepper, is in, inventory', 'kitchen, has exit, east']
+Episodic memory: ["Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n", "Game step #24\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Collect the green bell pepper, yellow potato, and red onion from the garden",
+      "reason": "Found the green bell pepper and yellow potato in the garden, which are necessary for the recipe. Also, collecting the red onion as it might be useful."
+    },
+    {
+      "sub_goal_2": "Return to the kitchen to prepare the meal",
+      "reason": "Once all ingredients are collected, the next step is to use the kitchen facilities to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "With all ingredients gathered, follow the recipe steps for meal preparation, including dicing, grilling, and frying the necessary items."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "The final step to complete the main goal is to eat the meal once it is prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "optimistic",
+      "reason_behind_emotion": "Successfully located the remaining ingredients needed for the recipe."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Found the green bell pepper and yellow potato in the garden, which are necessary for the recipe. Also, collecting the red onion as it might be useful.",
+  "action_to_take": "take green bell pepper"
+}
+
+Total amount: 2.83$, attempt amount: 2.83$, step amount: 0.1$
+Total time: 1434.42 sec, attempt time: 1434.42 sec, step time: 58.11 sec
+======================================================================
+
+
+REWARDS: [0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0]
+
+
+Step: 31
+Observation: Game step #31
+
+You pick up the green bell pepper from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Crucial items: {'green bell pepper': 2, 'yellow potato': 2, 'red onion': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'dicing': 1.5, 'grilling': 1.5, 'frying': 1.5, 'optimistic': 1}
+New triplets: ['green bell pepper, is in, inventory', 'score, went up by, one point']
+Outdated triplets: [["green bell pepper, is on, floor -> green bell pepper, is in, inventory"], ["score, increased by, one point -> score, went up by, one point"]]
+Length of subgraph: 55
+Associated triplets: ['kitchen, contains, oven', 'red hot pepper, is on, floor', 'orange bell pepper, to be, diced', 'door, is, open', 'recipe, requires, green bell pepper', 'counter, is, vast', 'kitchen, contains, fridge', 'purple potato, is on, floor', 'bed, is, empty', 'recipe, to prepare, meal', 'kitchen, contains, table', 'recipe, requires, orange bell pepper', 'kitchen, has exit, north.', 'door, leads to, north', 'knife, is in, inventory', 'patio table, is, empty', '8. meal, to be, eaten.', 'recipe, requires, yellow potato', 'bedroom, contains, bed', 'fridge, contains, red bell pepper', 'corridor, has exit, east', 'backyard, contains, bbq', 'table, is, empty', 'bed, is, large', 'green bell pepper, to be, diced', 'orange bell pepper, to be, grilled', 'yellow potato, to be, grilled', 'corridor, has exit, west', 'kitchen, has exit, north', 'door, leads to, south', 'fridge, contains, raw white tuna', 'cooking: a modern approach (3rd ed.), contains, recipe', 'patio chair, is, empty', '4. meal, to be prepared, in kitchen', 'cookbook, is in, inventory', 'green bell pepper, to be, fried', 'yellow potato, to be, sliced', 'yellow potato, is on, floor', 'kitchen, contains, stove', '5. frying, done with, stove', '6. roasting, done with, oven', '2. living room, has exit, south', 'kitchen, is north of, pantry', 'door, leads to, south.', 'stove, is, conventional', 'yellow apple, is on, floor', 'orange bell pepper, is in, inventory', 'kitchen, contains, counter', 'red onion, is on, floor', 'green hot pepper, is on, floor', 'pantry, is, place', 'kitchen, has exit, east', 'shelf, is, wooden', '7. grilling, done with, bbq', 'pantry, is south of, kitchen']
+Episodic memory: ['Game step #4\n\nYou open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:\n\nRecipe\n---------\nGather all following ingredients and follow the directions to prepare this tasty meal.\n\nIngredients:\ngreen bell pepper\n  orange bell pepper\n  yellow potato\n\nDirections:\ndice the green bell pepper\n  fry the green bell pepper\n  dice the orange bell pepper\n  grill the orange bell pepper\n  slice the yellow potato\n  grill the yellow potato\n  prepare meal\n\n\n\n\n', "Game step #12\n\n\n-= Kitchen =-\nYou find yourself in a kitchen. An usual one.\n\nAn open fridge is in the corner. The fridge contains a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. But the thing is empty, unfortunately. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.\n\nThere is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
