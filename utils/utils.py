@@ -360,3 +360,4 @@ def action_processing(action):
         action = action.replace("cook", "roast")
     if "cook" in action and "BBQ" in action:
         action = action.replace("cook", "grill")
+    return action
