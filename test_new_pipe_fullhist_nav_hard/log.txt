@@ -1,0 +1,269 @@
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Room A =-
+You find yourself in a Room A.
+
+You can make out a locked Golden locker here.
+
+There is an unblocked exit to the west.
+
+There is a Key 1 on the floor.
+
+
+Your task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further.
+Plan0: {
+  "main_goal": "Find the treasure",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Pick up Key 1 from the floor",
+      "reason": "Key 1 is required to unlock the white locker which might contain another key or a clue to progress towards finding the treasure."
+    },
+    {
+      "sub_goal_2": "Find the white locker",
+      "reason": "The white locker is locked and requires Key 1 to unlock. It may contain another key or a clue to find the golden key."
+    },
+    {
+      "sub_goal_3": "Search for the golden key",
+      "reason": "The golden key is necessary to unlock the golden locker where the treasure is hidden."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "curious",
+      "reason_behind_emotion": "Starting a new game and the process of finding the treasure is intriguing."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Key 1 is required to unlock the white locker which might contain another key or a clue to progress towards finding the treasure.",
+  "action_to_take": "take Key 1"
+}
+
+Total amount: 0.02$, attempt amount: 0.02$, step amount: 0.02$
+Total time: 14.17 sec, attempt time: 14.17 sec, step time: 14.17 sec
+======================================================================
+
+
+REWARDS: [1.0]
+
+
+Step: 2
+Observation: Game step #2
+
+You pick up the Key 1 from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Plan0: {
+  "main_goal": "Find the treasure",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the white locker",
+      "reason": "Now that Key 1 is in the inventory, the next step is to find the white locker which may contain another key or a clue to find the golden key."
+    },
+    {
+      "sub_goal_2": "Search for the golden key",
+      "reason": "The golden key is necessary to unlock the golden locker where the treasure is hidden."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully picking up Key 1 has brought me closer to finding the treasure."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now that Key 1 is in the inventory, the next step is to explore further to find the white locker.",
+  "action_to_take": "go west"
+}
+
+Total amount: 0.05$, attempt amount: 0.05$, step amount: 0.02$
+Total time: 27.09 sec, attempt time: 27.09 sec, step time: 12.92 sec
+======================================================================
+
+
+REWARDS: [1.0, 1.0]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Room B =-
+Here we are in the Room B. You decide to start listing off everything you see in the room, as if you were in a text adventure.
+
+What's that over there? It looks like it's a Blue locker.
+
+There is an unblocked exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south.
+
+
+
+
+Plan0: {
+  "main_goal": "Find the treasure",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the white locker",
+      "reason": "Key 1, which unlocks the white locker, is already in the inventory. However, the white locker has not been located yet."
+    },
+    {
+      "sub_goal_2": "Search for the golden key",
+      "reason": "The golden key is essential for unlocking the golden locker that contains the treasure, but it has not been found yet."
+    },
+    {
+      "sub_goal_3": "Explore the exits in Room B",
+      "reason": "Room B has unblocked exits to the east, north, and south, which need to be explored to find the white locker and potentially the golden key."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "curious",
+      "reason_behind_emotion": "Entering a new room with multiple exits and a blue locker presents new opportunities to explore and possibly find the white locker or clues."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore the exits in Room B to find the white locker and potentially the golden key",
+  "action_to_take": "go north"
+}
+
+Total amount: 0.07$, attempt amount: 0.07$, step amount: 0.03$
+Total time: 41.6 sec, attempt time: 41.6 sec, step time: 14.51 sec
+======================================================================
+
+
+REWARDS: [1.0, 1.0, 1.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Room F =-
+You've entered a Room F.
+
+As if things weren't amazing enough already, you can even see a Green locker.
+
+There is an exit to the south. Don't worry, it is unblocked.
+
+
+
+
+Plan0: {
+  "main_goal": "Find the treasure",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the white locker",
+      "reason": "Key 1, which unlocks the white locker, is already in the inventory. However, the white locker has not been located yet."
+    },
+    {
+      "sub_goal_2": "Search for the golden key",
+      "reason": "The golden key is essential for unlocking the golden locker that contains the treasure, but it has not been found yet."
+    },
+    {
+      "sub_goal_3": "Explore the exit in Room F",
+      "reason": "Room F has an unblocked exit to the south that needs to be explored to continue searching for the white locker and potentially the golden key."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "curious",
+      "reason_behind_emotion": "Discovering a new room with a green locker and an unexplored exit keeps the exploration interesting and promising for finding the white locker or the golden key."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Room F has an unblocked exit to the south that needs to be explored to continue searching for the white locker and potentially the golden key."
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, "action_to_take": "go south"
+  
+}
+
+Total amount: 0.1$, attempt amount: 0.1$, step amount: 0.03$
+Total time: 57.99 sec, attempt time: 57.99 sec, step time: 16.38 sec
+======================================================================
+
+
+REWARDS: [1.0, 1.0, 1.0, 1.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Room B =-
+Here we are in the Room B. You decide to start listing off everything you see in the room, as if you were in a text adventure.
+
+What's that over there? It looks like it's a Blue locker.
+
+There is an unblocked exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south.
+
+
+
+
+Plan0: {
+  "main_goal": "Find the treasure",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the white locker",
+      "reason": "Key 1, which unlocks the white locker, is already in the inventory. However, the white locker has not been located yet."
+    },
+    {
+      "sub_goal_2": "Search for the golden key",
+      "reason": "The golden key is essential for unlocking the golden locker that contains the treasure, but it has not been found yet."
+    },
+    {
+      "sub_goal_3": "Explore the exit in Room B to the east",
+      "reason": "Having returned to Room B and with no white locker found in the rooms visited so far, the next step is to explore the unexplored exit to the east in Room B."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "determined",
+      "reason_behind_emotion": "The plan is clear, and each step brings closer to finding the treasure."
+    }
+  
+}

@@ -11,7 +11,7 @@ from prompts.system_prompts import default_system_prompt, system_plan_agent, \
     system_action_agent_sub_expl, if_exp_prompt
 
 from utils.utils import Logger, observation_processing, find_unexplored_exits, \
-    simulate_environment_actions, action_processing
+    simulate_environment_actions, action_processing, action_deprocessing
 
 
 
@@ -187,7 +187,7 @@ def choose_action(observations, observation, subgraph, top_episodic, plan0, all_
         log("!!!INCORRECT ACTION CHOICE!!!")
         action = "look"
 
-    action = action_processing(action) if "cook" in env_name else action
+    action = action_deprocessing(action) if "cook" in env_name else action
     return action
 
 

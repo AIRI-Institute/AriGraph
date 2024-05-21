@@ -12,7 +12,7 @@ from utils.textworld_adapter import TextWorldWrapper, graph_from_facts
 from prompts.system_prompts import system_plan_agent, system_action_agent_sub_expl
 
 from utils.utils import Logger, observation_processing, simulate_environment_actions, \
-    action_processing
+    action_processing, action_deprocessing
 
 
 # Changeable part of pipeline
@@ -150,7 +150,7 @@ Possible actions in current situation: {valid_actions}'''
         log("!!!INCORRECT ACTION CHOICE!!!")
         action = "look"
 
-    action = action_processing(action) if "cook" in env_name else action
+    action = action_deprocessing(action) if "cook" in env_name else action
     return action
 
 

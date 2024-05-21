@@ -11,7 +11,7 @@ from prompts.system_prompts import default_system_prompt, system_plan_agent, \
     system_action_agent_sub_expl, if_exp_prompt
 
 from utils.utils import Logger, observation_processing, find_unexplored_exits, \
-    simulate_environment_actions, action_processing
+    simulate_environment_actions, action_processing, action_deprocessing
 
 
 
@@ -22,7 +22,7 @@ log_file = "human_game_Nastya"
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "cook"
+env_name = "clean"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"
@@ -89,6 +89,8 @@ def run():
             log("Observation: " + observation)            
 
             action = input("Action that you choose: ")
+            if "cook" in env_name:
+                action = action_deprocessing(action)
             log("Skinny have chosen: " + str(action))
 
             observation, step_reward, done, info = process_action_get_reward(action, env, info, env_name)
@@ -148,7 +150,7 @@ def choose_action(observations, observation, subgraph, top_episodic, plan0, all_
         log("!!!INCORRECT ACTION CHOICE!!!")
         action = "look"
 
-    action = action_processing(action) if "cook" in env_name else action
+    action = action_deprocessing(action) if "cook" in env_name else action
     return action
 
 

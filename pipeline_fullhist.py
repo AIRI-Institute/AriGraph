@@ -10,20 +10,20 @@ from prompts.system_prompts import default_system_prompt, system_plan_agent, \
     system_action_agent_sub_expl
 
 from utils.utils import Logger, observation_processing, simulate_environment_actions, \
-    action_processing
+    action_processing, action_deprocessing
 
 
 # Changeable part of pipeline
 
-log_file = "test_new_pipe_fullhist"
+log_file = "test_new_pipe_fullhist_nav_hard"
 
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "clean"
+env_name = "hunt_hard"
 model = "gpt-4-0125-preview"
 api_key = "insert your key here"
-max_steps, n_attempts = 5, 1
+max_steps, n_attempts = 150, 1
 
 # End of changeable part of pipeline
 
@@ -135,7 +135,7 @@ Possible actions in current situation: {valid_actions}'''
         log("!!!INCORRECT ACTION CHOICE!!!")
         action = "look"
 
-    action = action_processing(action) if "cook" in env_name else action
+    action = action_deprocessing(action) if "cook" in env_name else action
     return action
 
 
