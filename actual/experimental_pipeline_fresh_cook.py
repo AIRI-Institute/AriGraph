@@ -11,6 +11,7 @@ from graphs.extended_graphs import ExtendedGraphSubgraphStrategy, ExtendedGraphP
     ExtendedGraphMixtralPagerankStrategy, ExtendedGraphDescriptionPagerankStrategy
 from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
 from graphs.parent_without_emb import GraphWithoutEmbeddings
+from graphs.contriever_graph_retrieve import ContrieverGraphNew 
 from graphs.dummy_graph import DummyGraph
 from graphs.steps_in_triplets import StepsInTripletsGraph
 from graphs.contriever_graph import ContrieverGraph
@@ -23,16 +24,17 @@ from win_cond import *
 # If you add some parameters, please, edit config
 log_file = "exp_cooking_agent"
 env_name = "benchmark/cook/game.z8"
-main_goal = "Cook a meal by following the recipe in a cookbook and eat it"
+main_goal = ""
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = ContrieverGraph
+graph_instance = ContrieverGraphNew
 history_instance = HistoryWithPlan
 goal_freq = 10
 threshold, topk, depth = None, 5, 25
 n_prev, majority_part = 3, 0.51
+topk_episodic = 2
 
-max_steps, n_attempts = 150, 1
+max_steps, n_attempts = 100, 1
 n_neighbours = 4
 
 system_prompt = system_prompt
@@ -131,17 +133,30 @@ for i in range(n_attempts):
     reward = 0
     step_reward = 0
     rewards = []
+    obs_episodic = {}
+    obs_episodic_list = []
+    top_episodic_dict_list = []
     for step in range(max_steps):
         step_reward = 0
     # for step, new_action in enumerate(walkthrough[:25]):
         start = time()
         log("Step: " + str(step + 1))
         observation = observation.split("$$$")[-1]
+        observation = remove_trailing_part(observation)
+        if 'livingroom' in observation:
+            observation = observation.replace("livingroom", "living room")
+        if 'Livingroom' in observation:
+            observation = observation.replace("Livingroom", "Living room")   
+
+        if 'Recipe #1' in observation:
+            observation = observation.replace("Recipe #1", "Recipe") 
         G_true = graph_from_facts(info)    
         full_graph = G_true.edges(data = True)
         # if step == 0:
         #     observation += f""" \n Your task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further."""
         observation = "Step: " + str(step + 1) + "\n" + observation
+        if step == 0:
+            observation += 'Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.'
         inventory = env.get_inventory()
         # if "Key 1" in inventory:
         #     key1 = True
@@ -157,22 +172,42 @@ for i in range(n_attempts):
             log("\n" * 10)
             break
 
-        observation += f"\nInventory: {inventory}"
-        observation += f"\nAction that led to this observation: {action}"
         # if env.curr_location.lower() in tried_action:
         #     observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         # observation += f"\nActions that you made since game started: {action_history}"
         # observation += f"\nGoal that led to this: {goal}"
         log("Observation: " + observation)
+        log("Inventory: " + inventory)
         
-        locations.add(env.curr_location.lower())
+        location = env.curr_location.lower()
+        if location == 'livingroom':
+            location = 'living room'
+        locations.add(location)
         
-        observed_items = agent.bigraph_processing1(observation, plan0)
-        items = [list(item.keys())[0] for item in observed_items]
+        observed_items, cost_items = agent.bigraph_processing_scores(observation, plan0)
+        items = {key.lower(): value for key, value in observed_items.items()}
         log("Crucial items: " + str(items))
-        items_lower = [element.lower() for element in items]
         # associated_subgraph = graph.update(observation=observation, observations=observations, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items=items, goal="")
-        subgraph = graph.update(observation, observations, plan=plan0, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items = items_lower)
+        subgraph, cost_graph, triplets = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=location, previous_location=previous_location, action=action, log=log, step = step + 1, items1 = items)
+        observation += f"\nInventory: {inventory}"
+        observation += f"\nAction that led to this observation: {action}"
+
+        #Retrieve episodic memories
+        #obs_plan_embeddings = retriever.embed((obs + plan0))
+        obs_plan_embeddings = graph.retriever.embed((plan0))
+        top_episodic_dict = find_top_episodic_emb(subgraph, obs_episodic, obs_plan_embeddings, graph.retriever)
+        top_episodic = top_k_obs(top_episodic_dict, k=topk_episodic)
+        
+        #top_episodic = find_top_episodic(associated_subgraph, obs_episodic, 1)
+        top_episodic = [item for item in top_episodic if item not in observations]
+        
+        obs_embedding = graph.retriever.embed(observation)
+        obs_value = [triplets, obs_embedding]
+        obs_episodic[observation] = obs_value
+
+        log("Episodic memory: " + str(top_episodic))
+        obs_episodic_list.append(obs_episodic)
+        top_episodic_dict_list.append(top_episodic_dict)
         
         log("Length of subgraph: " + str(len(subgraph)))
         log("Associated triplets: " + str(subgraph))
@@ -184,6 +219,15 @@ for i in range(n_attempts):
         
         # if if_explore == True:
         valid_actions = env.get_valid_actions() + [f"go to {loc}" for loc in locations]
+        for i in range(len(valid_actions)):
+            if "cook" in valid_actions[i] and "stove" in valid_actions[i]:
+                valid_actions[i] = valid_actions[i].replace("cook", "fry")
+            if "cook" in valid_actions[i] and "oven" in valid_actions[i]:
+                valid_actions[i] = valid_actions[i].replace("cook", "roast")
+            if "cook" in valid_actions[i] and "BBQ" in valid_actions[i]:
+                valid_actions[i] = valid_actions[i].replace("cook", "grill")
+        if 'cookbook' in inventory:
+             valid_actions.append('examine cookbook')
         tried_now = {act[0] for act in tried_action[env.curr_location.lower()]}\
             if env.curr_location.lower() in tried_action else {}
         not_yet_tried = list({act for act in valid_actions if act not in tried_now})
@@ -192,9 +236,8 @@ for i in range(n_attempts):
     \n2. History of {n_prev} last observations and actions: {observations} 
     \n3. Your current observation: {observation}
     \n4. Information from the memory module that can be relevant to current situation: {subgraph}
-    \n5. Your current plan: {plan0}
-    \n6. Actions you haven't tried yet: {not_yet_tried}
-    \n7. History of your actions: {action_history}
+    \n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
+    \n6. Your current plan: {plan0}
     
     Remember that you should not visit locations and states that you visited before when you are exploring.
     '''
@@ -227,34 +270,24 @@ for i in range(n_attempts):
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation:  {subgraph}
-\n5. Your current plan: {plan0}
-\n6. Actions you haven't tried yet: {not_yet_tried}
-\n7. History of your actions: {action_history}
+\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
+\n6. Your current plan: {plan0}
 
 Possible actions in current situation (you should choose several actions from this list and estimate their probabilities): {valid_actions}'''          
-        action0, cost_action = agent_action.generate(prompt, jsn=True, t=0.2)
-        action_json = json.loads(action0)
+        action0, cost_action = agent_action.generate(prompt, jsn=True, t=1)
+        try:
+            action_json = json.loads(action0)
+            action = action_json["action_to_take"]
+        except:
+            action = "look"
         log("Action: " + action0)
         
-        for key in action_json:
-            action_json[key] = float(action_json[key])
-        
-        # if env.curr_location.lower() in tried_action and if_explore:
-        #     loc_act = tried_action[env.curr_location.lower()]
-        #     scores = {val_act: 1 / loc_act[val_act] if val_act in loc_act else 1 / 0.3 for val_act in valid_actions}
-        #     sum_scores = sum(list(scores.values()))
-        #     alpha = 2 / sum_scores
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores
-        #         if val_act in action_json:
-        #             scores[val_act] += action_json[val_act] * alpha
-        #     sum_scores = sum(list(scores.values()))
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores      
-        #     action_json = scores
-            
-        action = sorted([(score, act) for act, score in action_json.items()])[-1][1]
-        log("Actions scores: " + str(sorted([(score, act) for act, score in action_json.items()], reverse = True)))
+        if "fry" in action:
+                action = action.replace("fry", "cook")
+        if "roast" in action:
+                action = action.replace("roast", "cook")
+        if "grill" in action:
+                action = action.replace("grill", "cook") 
         
         observations.append(observation)
         observations = observations[-n_prev:]
@@ -263,7 +296,10 @@ Possible actions in current situation (you should choose several actions from th
         is_nav = "go to" in action
         if is_nav:
             destination = action.split('go to ')[1]
-            path = graph.find_path(env.curr_location, destination, locations)
+            location = env.curr_location.lower()
+            if location == 'livingroom':
+                location = 'living room'
+            path = graph.find_path(location, destination, locations)
             print("path", path)
             if not isinstance(path, list):
                 observation = path
@@ -282,7 +318,7 @@ Possible actions in current situation (you should choose several actions from th
             
         act_for_hist = action.lower()
         if is_nav or "north" in act_for_hist or "south" in act_for_hist or "east" in act_for_hist or "west" in act_for_hist:
-            act_for_hist += f" (found yourself at {env.curr_location})"
+            act_for_hist += f" (found yourself at {location})"
         action_history.append(act_for_hist)
         
         if previous_location not in tried_action:

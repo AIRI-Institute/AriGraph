@@ -1,4 +1,4 @@
-system_prompt = '''You play at the text game, goal and some needful information are given in Task note. 
+system_prompt = '''You play at the text game. 
 Please, try to achieve the goal fast and effective. 
 If you think you haven’t some crucial knowledges about the game, explore new areas and items. 
 Otherwise, go to the goal in the Task note and pay no attention to noisy things. 

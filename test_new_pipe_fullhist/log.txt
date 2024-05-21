@@ -1,0 +1,339 @@
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+Look around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?
+
+You make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.
+
+There is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Identify items that are out of place in the Dining Room",
+      "reason": "To clean the house, we need to first identify which items do not belong in their current location. The toothbrush seems out of place on the dining table."
+    },
+    {
+      "sub_goal_2": "Pick up the toothbrush from the dining table",
+      "reason": "The toothbrush is identified as out of place and needs to be moved to its proper location, likely a bathroom."
+    },
+    {
+      "sub_goal_3": "Explore the house to find the bathroom",
+      "reason": "After picking up the toothbrush, we need to find the bathroom to return it to its proper place."
+    },
+    {
+      "sub_goal_4": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, place the toothbrush in its proper location to tidy up the house."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Starting the task of cleaning the house by identifying and planning to relocate items feels like a productive challenge."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The toothbrush is identified as out of place and needs to be moved to its proper location, likely a bathroom.",
+  "action_to_take": "take toothbrush from dining table"
+}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+Look around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?
+
+You make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.
+
+There is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Identify items that are out of place in the Dining Room",
+      "reason": "To clean the house, items that don't belong in their current location need to be identified first. The toothbrush is likely out of place in the Dining Room."
+    },
+    {
+      "sub_goal_2": "Pick up the toothbrush from the dining table",
+      "reason": "The toothbrush is identified as out of place and needs to be picked up to be returned to its proper location, presumably a bathroom."
+    },
+    {
+      "sub_goal_3": "Explore the house to find the bathroom",
+      "reason": "After picking up the toothbrush, the next step is to find the bathroom where the toothbrush likely belongs."
+    },
+    {
+      "sub_goal_4": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house by putting items back in their proper places."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Starting a new task of cleaning the house and organizing items is always refreshing and gives a sense of purpose."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The toothbrush is identified as out of place and needs to be picked up to be returned to its proper location, presumably a bathroom.",
+  "action_to_take": "take toothbrush from dining table"
+}
+
+Total amount: 0.03$, attempt amount: 0.03$, step amount: 0.03$
+Total time: 17.15 sec, attempt time: 17.15 sec, step time: 17.15 sec
+======================================================================
+
+
+REWARDS: [1]
+
+
+Step: 2
+Observation: Game step #2
+
+You take the toothbrush from the dining table.
+
+
+
+
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush has been picked up. Now, the next step is to find the bathroom where the toothbrush likely belongs."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_3": "Identify other items that are out of place in the Dining Room",
+      "reason": "After dealing with the toothbrush, continue cleaning by identifying and relocating any other items that don't belong in the Dining Room."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Successfully starting the task of cleaning by picking up the toothbrush has sharpened my focus on the main goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The toothbrush has been picked up, and the next step is to explore the house to find the bathroom where it likely belongs.",
+  "action_to_take": "go east"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.03$
+Total time: 32.67 sec, attempt time: 32.67 sec, step time: 15.52 sec
+======================================================================
+
+
+REWARDS: [1, 1]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Master Bedroom =-
+You've just sauntered into a Master Bedroom. You try to gain information on your surroundings by using a technique you call "looking."
+
+You see a wardrobe. Look out! It's a- oh, never mind, it's just a king size bed. On the king size bed you can make out a wet towel. You can make out a bedside table. On the bedside table you can make out an alarm clock and a bed lamp. You shudder, but continue examining the room.
+
+There is an unblocked exit to the north. You need an unguarded exit? You should try going south. You need an unblocked exit? You should try going west.
+
+
+
+
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush has been picked up. Continuing to search for the bathroom where the toothbrush likely belongs."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_3": "Identify other items that are out of place in the Master Bedroom",
+      "reason": "The wet towel in the Master Bedroom is likely out of place and needs to be returned to a bathroom or laundry area."
+    },
+    {
+      "sub_goal_4": "Pick up the wet towel from the king size bed",
+      "reason": "Before the towel can be returned to its proper place, it needs to be picked up."
+    },
+    {
+      "sub_goal_5": "Identify other items that are out of place in the Dining Room",
+      "reason": "After dealing with the toothbrush and the wet towel, continue cleaning by identifying and relocating any other items that don't belong in the Dining Room."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Finding another item out of place (the wet towel) in the Master Bedroom has maintained my focus on efficiently cleaning the house."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The wet towel is identified as being out of place, aligning with sub_goal_4 to pick it up for proper relocation.",
+  "action_to_take": "take wet towel from king size bed"
+}
+
+Total amount: 0.09$, attempt amount: 0.09$, step amount: 0.04$
+Total time: 51.18 sec, attempt time: 51.18 sec, step time: 18.5 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2]
+
+
+Step: 4
+Observation: Game step #4
+
+You take the wet towel from the king size bed.
+
+
+
+
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush and the wet towel have been picked up. Continuing to search for the bathroom where both items likely belong."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_3": "Return the wet towel to the bathroom or laundry area",
+      "reason": "After finding the bathroom or laundry area, the wet towel should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_4": "Identify other items that are out of place in the Master Bedroom",
+      "reason": "Need to check if there are more items out of place in the Master Bedroom after dealing with the wet towel."
+    },
+    {
+      "sub_goal_5": "Identify other items that are out of place in the Dining Room",
+      "reason": "Need to continue cleaning by identifying and relocating any other items that don't belong in the Dining Room."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully picking up the wet towel and having a clear plan for the next steps has increased my motivation to clean the house efficiently."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Expanding the exploration of the house to find the bathroom, in alignment with sub_goal_1.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.13$, attempt amount: 0.13$, step amount: 0.04$
+Total time: 76.03 sec, attempt time: 76.03 sec, step time: 24.85 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2, 2]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Library =-
+Well I'll be, you are in the place we're calling the Library.
+
+You smell an awful smell, and follow it to a bookcase. You see a detective book on the bookcase. You make out a reading table. On the reading table you make out a swimming fins and a reading glasses.
+
+There is an exit to the north. Don't worry, it is unguarded. There is an exit to the west. Don't worry, it is unblocked.
+
+
+
+
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush and the wet towel have been picked up. Continuing to search for the bathroom where both items likely belong."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_3": "Return the wet towel to the bathroom or laundry area",
+      "reason": "After finding the bathroom or laundry area, the wet towel should be returned there to clean the house by putting items back in their proper places."
+    },
+    {
+      "sub_goal_4": "Take the swimming fins from the reading table",
+      "reason": "Swimming fins found in the Library are out of place and should be taken to be returned to their proper location, likely a storage area or near a swimming pool if available."
+    },
+    {
+      "sub_goal_5": "Identify other items that are out of place in the Library",
+      "reason": "Need to continue cleaning by identifying and relocating any other items that don't belong in the Library."
+    },
+    {
+      "sub_goal_6": "Identify other items that are out of place in the Master Bedroom",
+      "reason": "Need to check if there are more items out of place in the Master Bedroom after dealing with the wet towel."
+    },
+    {
+      "sub_goal_7": "Identify other items that are out of place in the Dining Room",
+      "reason": "Need to continue cleaning by identifying and relocating any other items that don't belong in the Dining Room."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "focused",
+      "reason_behind_emotion": "Discovering more items that are out of place has sharpened my focus on the task of cleaning and organizing the house."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Swimming fins found in the Library are out of place and should be taken to be returned to their proper location, likely a storage area or near a swimming pool if available.",
+  "action_to_take": "take swimming fins from reading table"
+}
+
+Total amount: 0.18$, attempt amount: 0.18$, step amount: 0.05$
+Total time: 102.76 sec, attempt time: 102.76 sec, step time: 26.73 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2, 2, 3]
+
+

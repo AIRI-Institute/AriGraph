@@ -1,0 +1,362 @@
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+Look around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?
+
+You make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.
+
+There is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Crucial items: {'dining room': 1, 'dining table': 1, 'toothbrush': 2, 'centerpiece': 1, 'candles': 1, 'salt and pepper shakers': 1}
+New triplets: ['dining room, contains, dining table', 'dining table, has on, toothbrush', 'dining table, has on, centerpiece', 'dining table, has on, candles', 'dining table, has on, salt and pepper shakers', 'dining room, has exit, east', 'dining room, has exit, north', 'dining room, has exit, south', 'dining room, has exit, west', 'toothbrush, is out of place, true', 'task, is to, clean the house', 'task, involves, locating items', 'task, involves, returning items', 'items, to be returned, proper locations.']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+Look around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?
+
+You make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.
+
+There is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Crucial items: {'dining room': 1, 'dining table': 1, 'toothbrush': 2, 'centerpiece': 2, 'candles': 2, 'salt and pepper shakers': 2}
+New triplets: ['dining room, contains, dining table', 'dining table, has on it, toothbrush', 'dining table, has on it, centerpiece', 'dining table, has on it, candles', 'dining table, has on it, salt and pepper shakers', 'dining room, has exit, east', 'dining room, has exit, north', 'dining room, has exit, south', 'dining room, has exit, west', 'task, is to, clean the house', 'task, involves, locating items', 'task, involves, taking items', 'task, involves, returning items', 'items, are out of place, in house', 'items, to be returned, to proper locations.']
+Outdated triplets: []
+Length of subgraph: 0
+Associated triplets: []
+Episodic memory: []
+If explore: False
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+Look around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?
+
+You make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.
+
+There is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Crucial items: {'dining room': 1, 'dining table': 1, 'toothbrush': 2, 'centerpiece': 1, 'candles': 1, 'salt and pepper shakers': 1}
+New triplets: ['dining room, contains, dining table', 'dining table, has on, toothbrush', 'dining table, has on, centerpiece', 'dining table, has on, candles', 'dining table, has on, salt and pepper shakers', 'dining room, has exit, east', 'dining room, has exit, north', 'dining room, has exit, south', 'dining room, has exit, west', 'task, is to, clean house', 'items, are out of place, in house', 'items, to be returned, to proper locations.']
+Outdated triplets: []
+Length of subgraph: 0
+Associated triplets: []
+Episodic memory: []
+If explore: False
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Pick up the toothbrush from the dining table",
+      "reason": "The toothbrush is out of place in the dining room and needs to be returned to its proper location"
+    },
+    {
+      "sub_goal_2": "Explore the house to find the bathroom",
+      "reason": "The toothbrush likely belongs in the bathroom"
+    },
+    {
+      "sub_goal_3": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house"
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to start the task of cleaning and organizing the house"
+    }
+  
+}
+Action: {
+  "reason_for_action": "The toothbrush is out of place in the dining room and needs to be returned to its proper location",
+  "action_to_take": "take toothbrush from dining table"
+}
+
+Total amount: 0.05$, attempt amount: 0.05$, step amount: 0.05$
+Total time: 28.36 sec, attempt time: 28.36 sec, step time: 28.36 sec
+======================================================================
+
+
+REWARDS: [1]
+
+
+Step: 2
+Observation: Game step #2
+
+You take the toothbrush from the dining table.
+
+
+
+
+Crucial items: {'toothbrush': 2, 'dining table': 1, 'house': 1, 'bathroom': 2, 'clean the house': 2}
+New triplets: ['toothbrush, is in, inventory']
+Outdated triplets: [['dining table, has on, toothbrush' -> 'toothbrush, is in, inventory']]
+Length of subgraph: 11
+Associated triplets: ['dining room, contains, dining table', 'dining room, has exit, north', 'dining room, has exit, south', 'dining room, has exit, west', 'dining table, has on, centerpiece', 'dining room, has exit, east', 'items, are out of place, in house', 'task, is to, clean house', 'dining table, has on, candles', 'dining table, has on, salt and pepper shakers', 'items, to be returned, to proper locations.']
+Episodic memory: ["Game step #1\n$ \n\n\n\n-= Dining Room =-\nLook around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?\n\nYou make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.\n\nThere is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.\n\n\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house."]
+If explore: True
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush has been picked up. Need to find the bathroom to return it to its proper location."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house"
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully started the task by picking up the toothbrush, now looking forward to finding the bathroom."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore the house to find the bathroom, as the unexplored exits could lead to it",
+  "action_to_take": "go east"
+}
+
+Total amount: 0.11$, attempt amount: 0.11$, step amount: 0.06$
+Total time: 59.18 sec, attempt time: 59.18 sec, step time: 30.82 sec
+======================================================================
+
+
+REWARDS: [1, 1]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Master Bedroom =-
+You've just sauntered into a Master Bedroom. You try to gain information on your surroundings by using a technique you call "looking."
+
+You see a wardrobe. Look out! It's a- oh, never mind, it's just a king size bed. On the king size bed you can make out a wet towel. You can make out a bedside table. On the bedside table you can make out an alarm clock and a bed lamp. You shudder, but continue examining the room.
+
+There is an unblocked exit to the north. You need an unguarded exit? You should try going south. You need an unblocked exit? You should try going west.
+
+
+
+
+Crucial items: {'master bedroom': 1, 'wardrobe': 1, 'king size bed': 1, 'wet towel': 2, 'bedside table': 1, 'alarm clock': 1, 'bed lamp': 1, 'toothbrush': 2, 'bathroom': 2}
+New triplets: ['master bedroom, contains, wardrobe', 'master bedroom, contains, king size bed', 'king size bed, has on, wet towel', 'master bedroom, contains, bedside table', 'bedside table, has on, alarm clock', 'bedside table, has on, bed lamp', 'master bedroom, has exit, north', 'master bedroom, has exit, south', 'master bedroom, has exit, west.']
+Outdated triplets: []
+Length of subgraph: 13
+Associated triplets: ['dining room, has exit, north', 'toothbrush, is in, inventory', 'dining room, contains, dining table', 'dining table, has on, salt and pepper shakers', 'dining room, has exit, south', 'dining table, has on, candles', 'items, to be returned, to proper locations.', 'dining room, has exit, east', 'items, are out of place, in house', 'dining room, has exit, west', 'master bedroom, is east of, dining room', 'task, is to, clean house', 'dining table, has on, centerpiece']
+Episodic memory: ["Game step #1\n$ \n\n\n\n-= Dining Room =-\nLook around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?\n\nYou make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.\n\nThere is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.\n\n\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.", 'Game step #2\n\nYou take the toothbrush from the dining table.\n\n\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush has been picked up. Need to find the bathroom to return it to its proper location. Currently in the Master Bedroom, will explore unexplored exits here."
+    },
+    {
+      "sub_goal_2": "Pick up the wet towel from the king size bed",
+      "reason": "The wet towel in the Master Bedroom is likely out of place and should be returned to a bathroom or laundry area."
+    },
+    {
+      "sub_goal_3": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house"
+    },
+    {
+      "sub_goal_4": "Return the wet towel to its proper location",
+      "reason": "After picking up the wet towel, it should be returned to either a bathroom or laundry area, depending on where it belongs."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully started the task by picking up the toothbrush, and identified another item to be returned. Eager to continue exploring and cleaning."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The wet towel in the Master Bedroom is likely out of place and should be returned to a bathroom or laundry area.",
+  "action_to_take": "take wet towel from king size bed"
+}
+
+Total amount: 0.18$, attempt amount: 0.18$, step amount: 0.07$
+Total time: 95.26 sec, attempt time: 95.26 sec, step time: 36.08 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2]
+
+
+Step: 4
+Observation: Game step #4
+
+You take the wet towel from the king size bed.
+
+
+
+
+Crucial items: {'wet towel': 2, 'king size bed': 1, 'toothbrush': 2, 'bathroom': 2, 'laundry area': 2, 'master bedroom': 1, 'clean the house': 2}
+New triplets: ['wet towel, is in, inventory']
+Outdated triplets: [["king size bed, has on, wet towel" -> "wet towel, is in, inventory"]]
+Length of subgraph: 21
+Associated triplets: ['dining room, has exit, north', 'bedside table, has on, bed lamp', 'toothbrush, is in, inventory', 'bedside table, has on, alarm clock', 'dining room, contains, dining table', 'dining table, has on, salt and pepper shakers', 'dining room, has exit, south', 'master bedroom, has exit, north', 'master bedroom, has exit, west.', 'dining table, has on, candles', 'items, to be returned, to proper locations.', 'master bedroom, has exit, south', 'dining room, has exit, east', 'master bedroom, contains, king size bed', 'items, are out of place, in house', 'dining room, has exit, west', 'master bedroom, is east of, dining room', 'task, is to, clean house', 'dining table, has on, centerpiece', 'master bedroom, contains, wardrobe', 'master bedroom, contains, bedside table']
+Episodic memory: ["Game step #1\n$ \n\n\n\n-= Dining Room =-\nLook around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?\n\nYou make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.\n\nThere is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.\n\n\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.", 'Game step #2\n\nYou take the toothbrush from the dining table.\n\n\n\n']
+If explore: True
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush and wet towel have been picked up. Need to find the bathroom to return them to their proper locations. Currently in the Master Bedroom, will explore unexplored exits here."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house."
+    },
+    {
+      "sub_goal_3": "Return the wet towel to its proper location",
+      "reason": "After picking up the wet towel, it should be returned to either a bathroom or laundry area, depending on where it belongs."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully picked up both the toothbrush and the wet towel. Ready to find their proper locations and continue cleaning."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore the house to find the bathroom for returning the toothbrush and wet towel. North is an unexplored exit from the Master Bedroom.",
+  "action_to_take": "go north"
+}
+
+Total amount: 0.26$, attempt amount: 0.26$, step amount: 0.07$
+Total time: 127.89 sec, attempt time: 127.89 sec, step time: 32.63 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2, 2]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Living Room =-
+You've entered a Living Room. You can barely contain your excitement.
+
+You make out a TV table. On the TV table you make out a TV. You shudder, but continue examining the room. What's that over there? It looks like it's a sofa. The sofa is ordinary. On the sofa you can make out a raw meat and a decorative pillow. You scan the room, seeing a game consol cabinet. On the game consol cabinet you make out a gaming consol.
+
+There is an unblocked exit to the south. There is an exit to the west. Don't worry, it is unblocked.
+
+
+
+
+Crucial items: {'living room': 1, 'tv table': 1, 'tv': 1, 'sofa': 1, 'raw meat': 2, 'decorative pillow': 2, 'game consol cabinet': 1, 'gaming consol': 2, 'toothbrush': 2, 'wet towel': 2}
+New triplets: ['living room, contains, tv table', 'tv table, has on, tv', 'living room, contains, sofa', 'sofa, has on, raw meat', 'sofa, has on, decorative pillow', 'living room, contains, game console cabinet', 'game console cabinet, has on, gaming console', 'living room, has exit, south', 'living room, has exit, west.']
+Outdated triplets: []
+Length of subgraph: 18
+Associated triplets: ['dining room, has exit, north', 'bedside table, has on, bed lamp', 'toothbrush, is in, inventory', 'bedside table, has on, alarm clock', 'dining room, contains, dining table', 'dining table, has on, salt and pepper shakers', 'wet towel, is in, inventory', 'dining room, has exit, south', 'master bedroom, has exit, north', 'dining table, has on, candles', 'items, to be returned, to proper locations.', 'dining room, has exit, east', 'master bedroom, contains, king size bed', 'items, are out of place, in house', 'dining room, has exit, west', 'task, is to, clean house', 'dining table, has on, centerpiece', 'master bedroom, contains, bedside table']
+Episodic memory: ['Game step #3\n\n\n-= Master Bedroom =-\nYou\'ve just sauntered into a Master Bedroom. You try to gain information on your surroundings by using a technique you call "looking."\n\nYou see a wardrobe. Look out! It\'s a- oh, never mind, it\'s just a king size bed. On the king size bed you can make out a wet towel. You can make out a bedside table. On the bedside table you can make out an alarm clock and a bed lamp. You shudder, but continue examining the room.\n\nThere is an unblocked exit to the north. You need an unguarded exit? You should try going south. You need an unblocked exit? You should try going west.\n\n\n\n', "Game step #1\n$ \n\n\n\n-= Dining Room =-\nLook around you. Take it all in. It's not every day someone gets to be in a Dining Room. You decide to just list off a complete list of everything you see in the room, because hey, why not?\n\nYou make out a dining table. On the dining table you can make out a toothbrush, a centerpiece, a candles and a salt and papper shakers. Something scurries by right in the corner of your eye. Probably nothing.\n\nThere is an unguarded exit to the east. There is an exit to the north. Don't worry, it is unguarded. There is an unguarded exit to the south. There is an unblocked exit to the west.\n\n\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house."]
+If explore: True
+Plan0: {
+  "main_goal": "Clean the house by returning items that are out of place to their proper locations",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Explore the house to find the bathroom",
+      "reason": "The toothbrush and wet towel have been picked up. Need to find the bathroom to return them to their proper locations. Currently in the Living Room, will explore unexplored exits here."
+    },
+    {
+      "sub_goal_2": "Return the toothbrush to the bathroom",
+      "reason": "Once the bathroom is found, the toothbrush should be returned there to clean the house."
+    },
+    {
+      "sub_goal_3": "Return the wet towel to its proper location",
+      "reason": "After picking up the wet towel, it should be returned to either a bathroom or laundry area, depending on where it belongs."
+    },
+    {
+      "sub_goal_4": "Take the raw meat from the sofa",
+      "reason": "Observed raw meat on the sofa in the Living Room, which is out of place. It should be taken and returned to its proper location, likely the kitchen."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully navigated to a new room and identified another item that is out of place. Ready to continue cleaning and organizing."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Explore the house to find the bathroom, prioritizing unexplored areas to fulfill sub_goal_1."
+  ,"action_to_take": "go west"
+}
+
+Total amount: 0.34$, attempt amount: 0.34$, step amount: 0.09$
+Total time: 165.65 sec, attempt time: 165.65 sec, step time: 37.76 sec
+======================================================================
+
+
+REWARDS: [1, 1, 2, 2, 2]
+
+

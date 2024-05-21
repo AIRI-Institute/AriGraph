@@ -4,6 +4,7 @@ import torch
 from time import time, sleep
 from InstructorEmbedding import INSTRUCTOR
 from scipy.spatial.distance import cosine
+import ast
 
 from utils import *
 from prompts import *
@@ -127,6 +128,20 @@ Importain entities: [entitie_1, entitie_2, ...]
         observed_items = self.process_bigraph_response1(response)
 
         return observed_items
+    
+    def bigraph_processing_scores(self, observation, plan):
+        prompt = "####\n" + \
+             "You are a retriever part of the agent system that navigates the environment in a text-based game.\n" + \
+             "You will be provided with agents' observation, what it carries and a plan that it follows.\n" + \
+             "Your task is to extract entities from this data that can later be used to queue the agent's memory module to find relevant information that can help to solve the task. Assign a relevance score from 1 to 2 to every entity, that will reflect the importance of this entity and potential memories connected to this entity for the current plan and goals of the agent. Do not extract items like 'west', 'east', 'east exit', 'south exit'. Pay attention to the main goal of the plan. \n\n" + \
+             "Current observation: {}\n".format(observation) + \
+             "Current plan: {}\n\n".format(plan) + \
+             "Answer in the following format:\n" + \
+             "{'entity_1': score1, 'entity_2': score2, ...}\n" + \
+             "Do not write anything else\n"
+        response, cost = self.generate(prompt)
+        entities_dict = ast.literal_eval(response)
+        return entities_dict, cost
         
         
             

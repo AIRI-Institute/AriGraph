@@ -181,28 +181,13 @@ Your summary: '''
 
 Possible actions in current situation (you should choose several actions from this list and estimate their probabilities): {valid_actions}'''          
         action0, cost_action = agent_action.generate(prompt, jsn=True, t=0.2)
-        action_json = json.loads(action0)
         log("Action: " + action0)
         
-        for key in action_json:
-            action_json[key] = float(action_json[key])
-        
-        # if env.curr_location.lower() in tried_action and if_explore:
-        #     loc_act = tried_action[env.curr_location.lower()]
-        #     scores = {val_act: 1 / loc_act[val_act] if val_act in loc_act else 1 / 0.3 for val_act in valid_actions}
-        #     sum_scores = sum(list(scores.values()))
-        #     alpha = 2 / sum_scores
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores
-        #         if val_act in action_json:
-        #             scores[val_act] += action_json[val_act] * alpha
-        #     sum_scores = sum(list(scores.values()))
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores      
-        #     action_json = scores
-            
-        action = sorted([(score, act) for act, score in action_json.items()])[-1][1]
-        log("Actions scores: " + str(sorted([(score, act) for act, score in action_json.items()], reverse = True)))
+        try:
+            action_json = json.loads(action0)
+            action = action_json["action_to_take"]
+        except:
+            action = "look"
         
         observations.append(observation)
         observations = observations[-n_prev:]

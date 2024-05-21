@@ -10,6 +10,7 @@ from graphs.history import History, HistoryWithPlan
 from graphs.extended_graphs import ExtendedGraphSubgraphStrategy, ExtendedGraphPagerankStrategy, \
     ExtendedGraphMixtralPagerankStrategy, ExtendedGraphDescriptionPagerankStrategy
 from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
+from graphs.contriever_graph_retrieve import ContrieverGraphNew 
 from graphs.parent_without_emb import GraphWithoutEmbeddings
 from graphs.dummy_graph import DummyGraph
 from graphs.steps_in_triplets import StepsInTripletsGraph
@@ -26,11 +27,12 @@ env_name = "benchmark/clean_3x3/clean_3x3_mess_1.z8"
 main_goal = "You are at large house and your goal is to clean up it. Namely, you should find items that are out of place and return them to their place"
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = ContrieverGraph
+graph_instance = ContrieverGraphNew
 history_instance = HistoryWithPlan
 goal_freq = 10
 threshold, topk, depth = None, 5, 25
 n_prev, majority_part = 3, 0.51
+topk_episodic = 2
 
 max_steps, n_attempts = 150, 1
 n_neighbours = 4
@@ -131,6 +133,9 @@ for i in range(n_attempts):
     reward = 0
     step_reward = 0
     rewards = []
+    obs_episodic = {}
+    obs_episodic_list = []
+    top_episodic_dict_list = []
     for step in range(max_steps):
     # for step, new_action in enumerate(walkthrough[:25]):
         start = time()
@@ -156,8 +161,6 @@ for i in range(n_attempts):
             log("\n" * 10)
             break
 
-        observation += f"\nInventory: {inventory}"
-        observation += f"\nAction that led to this observation: {action}"
         # if env.curr_location.lower() in tried_action:
         #     observation += f"\nActions that you tried here before: {tried_action[env.curr_location.lower()]}"
         # observation += f"\nActions that you made since game started: {action_history}"
@@ -166,22 +169,34 @@ for i in range(n_attempts):
         
         locations.add(env.curr_location.lower())
         
-        observed_items = agent.bigraph_processing1(observation, plan0)
-        items = [list(item.keys())[0] for item in observed_items]
+        observed_items, cost_items = agent.bigraph_processing_scores(observation, plan0)
+        items = {key.lower(): value for key, value in observed_items.items()}
         log("Crucial items: " + str(items))
-        items_lower = [element.lower() for element in items]
         # associated_subgraph = graph.update(observation=observation, observations=observations, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items=items, goal="")
-        subgraph = graph.update(observation, observations, plan=plan0, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items = items_lower)
+        subgraph, cost_graph, triplets = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items1 = items)
+        observation += f"\nInventory: {inventory}"
+        observation += f"\nAction that led to this observation: {action}"
         
         log("Length of subgraph: " + str(len(subgraph)))
         log("Associated triplets: " + str(subgraph))
-        # while True:
-        #     triplet = input("Enter triplet: ")
-        #     if triplet == "end":
-        #         break
-        #     subgraph.append(f"Step {step + 1}: {triplet}")
         
-        # if if_explore == True:
+        
+        obs_plan_embeddings = graph.retriever.embed((plan0))
+        top_episodic_dict = find_top_episodic_emb(subgraph, obs_episodic, obs_plan_embeddings, graph.retriever)
+        top_episodic = top_k_obs(top_episodic_dict, k=topk_episodic)
+        
+        #top_episodic = find_top_episodic(associated_subgraph, obs_episodic, 1)
+        top_episodic = [item for item in top_episodic if item not in observations]
+        
+        obs_embedding = graph.retriever.embed(observation)
+        obs_value = [triplets, obs_embedding]
+        obs_episodic[observation] = obs_value
+
+        log("Episodic memory: " + str(top_episodic))
+        obs_episodic_list.append(obs_episodic)
+        top_episodic_dict_list.append(top_episodic_dict)
+        
+        
         valid_actions = env.get_valid_actions()
         tried_now = {act[0] for act in tried_action[env.curr_location.lower()]}\
             if env.curr_location.lower() in tried_action else {}
@@ -191,7 +206,8 @@ for i in range(n_attempts):
     \n2. History of {n_prev} last observations and actions: {observations} 
     \n3. Your current observation: {observation}
     \n4. Information from the memory module that can be relevant to current situation: {subgraph}
-    \n5. Your current plan: {plan0}
+    \n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
+    \n6. Your current plan: {plan0}
     
     Remember that you should not visit locations and states that you visited before when you are exploring.
     '''
@@ -224,32 +240,18 @@ for i in range(n_attempts):
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation:  {subgraph}
-\n5. Your current plan: {plan0}
+\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
+\n6. Your current plan: {plan0}
 
 Possible actions in current situation (you should choose several actions from this list and estimate their probabilities): {valid_actions}'''          
-        action0, cost_action = agent_action.generate(prompt, jsn=True, t=0.2)
-        action_json = json.loads(action0)
+        action0, cost_action = agent_action.generate(prompt, jsn=True, t=1)
         log("Action: " + action0)
         
-        for key in action_json:
-            action_json[key] = float(action_json[key])
-        
-        # if env.curr_location.lower() in tried_action and if_explore:
-        #     loc_act = tried_action[env.curr_location.lower()]
-        #     scores = {val_act: 1 / loc_act[val_act] if val_act in loc_act else 1 / 0.3 for val_act in valid_actions}
-        #     sum_scores = sum(list(scores.values()))
-        #     alpha = 2 / sum_scores
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores
-        #         if val_act in action_json:
-        #             scores[val_act] += action_json[val_act] * alpha
-        #     sum_scores = sum(list(scores.values()))
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores      
-        #     action_json = scores
-            
-        action = sorted([(score, act) for act, score in action_json.items()])[-1][1]
-        log("Actions scores: " + str(sorted([(score, act) for act, score in action_json.items()], reverse = True)))
+        try:
+            action_json = json.loads(action0)
+            action = action_json["action_to_take"]
+        except:
+            action = "look"
         
         observations.append(observation)
         observations = observations[-n_prev:]

@@ -13,10 +13,9 @@ port = 8000
 API_KEY = "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"
 
 class ContrieverGraph(GraphWithoutEmbeddings):
-    def __init__(self, model, system_prompt, depth, threshold = None, topk = None, device = "cpu"):
+    def __init__(self, model, system_prompt, device = "cpu"):
         super().__init__(model, system_prompt, 0.1)
         self.retriever = Retriever(device)
-        self.threshold, self.topk, self.depth = threshold, topk, depth
         self.triplets_emb, self.items_emb = {}, {}
         
     def update(self, observation, observations, plan, locations, curr_location, previous_location, action, log, step, items):        
@@ -45,9 +44,9 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         
         # associated_subgraph = self.reasoning(items)  
         self.expand_graph(threshold = 1.65, force_connect=True)
-        # associated_subgraph = self.heuristic_connections(observation, plan, items, log) + self.extended_bfs(items, steps = 1)
+        associated_subgraph = self.heuristic_connections(observation, plan, items, log) + self.get_associated_triplets(items, steps = 1)
         # associated_subgraph = self.extended_bfs(items, steps = 2)
-        associated_subgraph = self.heuristic_connections(observation, plan, items, log)
+        # associated_subgraph = self.heuristic_connections(observation, plan, items, log)
         associated_subgraph = list(set(self.filter_associated(associated_subgraph)))
  
         return associated_subgraph
@@ -56,7 +55,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
     def reasoning(self, items):
         scores_hist = []
         scores = np.zeros(len(self.triplets))
-        current_items = {item: self.get_emb(item) if item not in self.items_emb\
+        current_items = {item: self.get_embedding_local(item) if item not in self.items_emb\
                             else self.items_emb[item]\
                             for item in items}
         for it in range(self.depth):
@@ -151,11 +150,11 @@ class ContrieverGraph(GraphWithoutEmbeddings):
             triplet = clear_triplet(triplet)
             if triplet not in self.triplets:
                 self.triplets.append(triplet)
-                self.triplets_emb[self.str(triplet)] = self.get_emb(self.str(triplet))
+                self.triplets_emb[self.str(triplet)] = self.get_embedding_local(self.str(triplet))
                 if triplet[0] not in self.items_emb:
-                    self.items_emb[triplet[0]] = self.get_emb(triplet[0])
+                    self.items_emb[triplet[0]] = self.get_embedding_local(triplet[0])
                 if triplet[1] not in self.items_emb:
-                    self.items_emb[triplet[1]] = self.get_emb(triplet[1])
+                    self.items_emb[triplet[1]] = self.get_embedding_local(triplet[1])
                     
     def delete_triplets(self, triplets, locations):
         for triplet in triplets:
@@ -256,7 +255,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
                 found_items.append(item)
                 continue
             for_add, best_score = None, -1
-            current_emb = self.get_emb(item)
+            current_emb = self.get_embedding_local(item)
             for existed_item, emb in self.items_emb.items():
                 if np.dot(emb, current_emb) > best_score and np.dot(emb, current_emb) > threshold:
                     for_add, best_score = existed_item, np.dot(emb, current_emb)
@@ -265,7 +264,7 @@ class ContrieverGraph(GraphWithoutEmbeddings):
         return found_items
     
     def A_star(self, start, goal, descr, log, max_iter = 10000):
-        descr_emb = self.get_emb(descr)
+        descr_emb = self.get_embedding_local(descr)
         triplets_scores = {key: 1 / (np.dot(value, descr_emb) + 1e-10) for key, value in self.triplets_emb.items()}
         mean_score = np.mean(list(triplets_scores.values()))
         

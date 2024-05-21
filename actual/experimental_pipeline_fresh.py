@@ -11,6 +11,8 @@ from graphs.extended_graphs import ExtendedGraphSubgraphStrategy, ExtendedGraphP
     ExtendedGraphMixtralPagerankStrategy, ExtendedGraphDescriptionPagerankStrategy
 from graphs.description_graphs import DescriptionGraphBeamSearchStrategy
 from graphs.parent_without_emb import GraphWithoutEmbeddings
+from graphs.contriever_graph_retrieve import ContrieverGraphNew 
+from graphs.contriever_graph import ContrieverGraph
 from graphs.dummy_graph import DummyGraph
 from graphs.steps_in_triplets import StepsInTripletsGraph
 from prompts import *
@@ -21,16 +23,16 @@ from prompts_diff_agents import *
 # If you add some parameters, please, edit config
 log_file = "exp_nav3_big"
 env_name = "benchmark/navigation3/navigation3_1.z8"
-main_goal = "Find the treasure"
+main_goal = ""
 model = "gpt-4-0125-preview"
 agent_instance = GPTagent
-graph_instance = StepsInTripletsGraph
+graph_instance = ContrieverGraphNew
 history_instance = HistoryWithPlan
 goal_freq = 10
 threshold = 0.02
 n_prev, majority_part = 3, 0.51
 
-max_steps, n_attempts = 150, 5
+max_steps, n_attempts = 150, 2
 n_neighbours = 4
 
 system_prompt = system_prompt
@@ -156,12 +158,11 @@ for i in range(n_attempts):
         
         locations.add(env.curr_location.lower())
         
-        observed_items = agent.bigraph_processing1(observation, plan0)
-        items = [list(item.keys())[0] for item in observed_items]
+        observed_items, cost_items = agent.bigraph_processing_scores(observation, plan0)
+        items = {key.lower(): value for key, value in observed_items.items()}
         log("Crucial items: " + str(items))
-        items_lower = [element.lower() for element in items]
         # associated_subgraph = graph.update(observation=observation, observations=observations, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items=items, goal="")
-        subgraph = graph.update(observation, observations, plan=plan0, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items = items)
+        subgraph, _, _ = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, step = step + 1, items1 = items)
         
         log("Length of subgraph: " + str(len(subgraph)))
         log("Associated triplets: " + str(subgraph))
@@ -217,29 +218,15 @@ for i in range(n_attempts):
 \n5. Your current plan: {plan0}
 
 Possible actions in current situation (you should choose several actions from this list and estimate their probabilities): {valid_actions}'''          
-        action0, cost_action = agent_action.generate(prompt, jsn=True, t=0.2)
-        action_json = json.loads(action0)
+        action0, cost_action = agent_action.generate(prompt, jsn=True, t=1.2)
+        
         log("Action: " + action0)
         
-        for key in action_json:
-            action_json[key] = float(action_json[key])
-        
-        # if env.curr_location.lower() in tried_action and if_explore:
-        #     loc_act = tried_action[env.curr_location.lower()]
-        #     scores = {val_act: 1 / loc_act[val_act] if val_act in loc_act else 1 / 0.3 for val_act in valid_actions}
-        #     sum_scores = sum(list(scores.values()))
-        #     alpha = 2 / sum_scores
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores
-        #         if val_act in action_json:
-        #             scores[val_act] += action_json[val_act] * alpha
-        #     sum_scores = sum(list(scores.values()))
-        #     for val_act in scores:
-        #         scores[val_act] /= sum_scores      
-        #     action_json = scores
-            
-        action = sorted([(score, act) for act, score in action_json.items()])[-1][1]
-        log("Actions scores: " + str(sorted([(score, act) for act, score in action_json.items()], reverse = True)))
+        try:
+            action_json = json.loads(action0)
+            action = action_json["action_to_take"]
+        except:
+            action = "look"
         
         observations.append(observation)
         observations = observations[-n_prev:]

@@ -54,7 +54,7 @@ class GraphWithoutEmbeddings(TripletGraph):
     def get_associated_triplets(self, items, steps = 2):
         items = deepcopy([string.lower() for string in items])
         associated_triplets = []
-        
+
         for i in range(steps):
             now = set()
             for triplet in self.triplets:
@@ -138,48 +138,52 @@ class GraphWithoutEmbeddings(TripletGraph):
 
     # Find shortest path between A and B if both in locations
     def find_path(self, a, b, locations):
-        A = a.lower()
-        B = b.lower()
-        if A == 'Kids" Room':
-            A = "Kids' Room"
-        if B == 'Kids" Room':
-            B = "Kids' Room"
-        if A == B:
-            return "You are already there"
-        
-        if A.lower() not in locations or B.lower() not in locations:
-            return "Destination is unknown. Please, choose another destination or explore new paths and locations."
-        spatial_graph = self.compute_spatial_graph(locations)
-        current_set = {A}
-        future_set = set()
-        total_set = {A}
-        found = False
-        while len(current_set) > 0:
-            for loc in current_set:
-                for child in spatial_graph[loc]["connections"]:
-                    if child[1] not in total_set:
-                        future_set.add(child[1])
-                        total_set.add(child[1])
-                        spatial_graph[child[1]]["parent"] = loc
-                        if child[1] == B:
-                            found = True
-                            break
+        try:
+            A = a.lower()
+            B = b.lower()
+            if A == 'Kids" Room':
+                A = "Kids' Room"
+            if B == 'Kids" Room':
+                B = "Kids' Room"
+            if A == B:
+                return "You are already there"
+            
+            if A.lower() not in locations or B.lower() not in locations:
+                breakpoint()
+                return f"Destination is unknown. Please, choose another destination or explore new paths and locations. Available locations: {locations}. Your choice: from {A} to {B}"
+            spatial_graph = self.compute_spatial_graph(locations)
+            current_set = {A}
+            future_set = set()
+            total_set = {A}
+            found = False
+            while len(current_set) > 0:
+                for loc in current_set:
+                    for child in spatial_graph[loc]["connections"]:
+                        if child[1] not in total_set:
+                            future_set.add(child[1])
+                            total_set.add(child[1])
+                            spatial_graph[child[1]]["parent"] = loc
+                            if child[1] == B:
+                                found = True
+                                break
+                    if found:
+                        break
                 if found:
                     break
-            if found:
-                break
-            current_set = future_set
-            future_set = set()
-        if not found:
-            return "Destination isn't available according to had knowledges. Please, choose another destination or explore new paths and locations."
-        path = []
-        current_loc = B
-        while current_loc != A:
-            parent = spatial_graph[current_loc]["parent"]
-            relation = find_relation(spatial_graph, parent, current_loc, True)
-            path.append(relation)
-            current_loc = parent
-        return list(reversed(path))
+                current_set = future_set
+                future_set = set()
+            if not found:
+                return "Destination isn't available according to had knowledges. Please, choose another destination or explore new paths and locations."
+            path = []
+            current_loc = B
+            while current_loc != A:
+                parent = spatial_graph[current_loc]["parent"]
+                relation = find_relation(spatial_graph, parent, current_loc, True)
+                path.append(relation)
+                current_loc = parent
+            return list(reversed(path))
+        except:
+            return "You can't navigate now through 'go to', please, use actions like north or west"
     
     def print_graph(self):
     # Print all triplets

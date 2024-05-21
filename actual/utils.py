@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import torch
 import numpy as np
 from inspect import signature
 from copy import deepcopy
@@ -310,3 +311,115 @@ def remove_trailing_part(text):
     # Replace the matched pattern with an empty string
     cleaned_text = re.sub(pattern, "", text, flags=re.DOTALL)
     return cleaned_text
+
+def find_top_episodic_emb(A, B, obs_plan_embedding, retriever):
+    results = {}
+    if not B:
+        return results
+    # List of all embeddings from the dictionary B
+    key_embeddings = torch.cat([value[1] for value in B.values()])
+
+
+    # Get the similarity scores using the provided retriever
+    similarity_results = retriever.search_in_embeds(
+        key_embeds=key_embeddings,
+        query_embeds=obs_plan_embedding,
+        topk=len(B),  # Get scores for all entries
+        return_scores=True
+    )
+
+    similarity_results = sort_scores(similarity_results)
+    
+    # Total elements in A to normalize match scores
+    total_elements = len(A)
+    
+    # Extract the first (and only) list of scores from the nested list structure
+    if similarity_results['scores']:
+        similarity_scores = similarity_results['scores'][0]
+    else:
+        similarity_scores = [0] * len(B)  # Default to zero scores if nothing is returned
+
+    # Normalize similarity scores
+    max_similarity_score = max(similarity_scores, default=0).item() if similarity_scores else 0
+    similarity_scores = [score.item() / max_similarity_score if max_similarity_score else 0 for score in similarity_scores]
+
+    # Calculate and normalize match counts
+    match_counts = [sum(1 for element in A if element in value_list) for _, (value_list, _) in B.items()]
+    
+    match_counts_relative = []
+    for i, values in enumerate(B.values()):
+        match_counts_relative.append((match_counts[i]/(len(values[0]) + 1e-9))*np.log((len(values[0]) + 1e-9)))
+    
+    max_match_count = max(match_counts_relative, default=0)
+    normalized_match_scores = [count / max_match_count if max_match_count else 0 for count in match_counts_relative]
+
+    # Store in results dictionary, combining normalized scores
+    for idx, (key, _) in enumerate(B.items()):
+        results[key] = [normalized_match_scores[idx], similarity_scores[idx]]
+
+    return results
+
+def top_k_obs(input_dict, k):
+    # Sum values in each key's list
+    sum_dict = {key: sum(values) for key, values in input_dict.items()}
+    
+    # Sort the dictionary by the sum of the values in descending order
+    sorted_keys = sorted(sum_dict, key=sum_dict.get, reverse=True)
+    
+    # Return the top k keys
+    return sorted_keys[:k]
+
+def sort_scores(data):
+    sorted_data = {}
+    for idx_list, score_list in zip(data['idx'], data['scores']):
+        # Pair indices with scores and sort by index
+        paired_sorted = sorted(zip(idx_list, score_list), key=lambda x: x[0])
+        # Unzip the pairs
+        _, sorted_scores = zip(*paired_sorted)
+        # Assign sorted values back to the dictionary
+        sorted_data['idx'] = [idx_list]
+        sorted_data['scores'] = [list(sorted_scores)]
+    return sorted_data
+
+def find_unexplored_exits(location, triplets):
+    exits = set()  # To store exits from the given location
+    explored_directions = set()  # To store directions that are explored
+
+    # First pass: Identify all exits from the location
+    for triplet in triplets:
+        elements = triplet.split(', ')
+        if elements[0] == location and 'has exit' in elements[1]:
+            exits.add(elements[2])  # Add the direction of the exit 
+        elif elements[0] == location and any(x in elements[1] for x in ['exit', 'lead', 'entr', 'path']) and any(x in elements[1] for x in ['north', 'south', 'east', 'west']):
+            if 'north' in elements[1]:
+                exits.add('north')
+            if 'south' in elements[1]:
+                exits.add('south')
+            if 'east' in elements[1]:
+                exits.add('east')
+            if 'west' in elements[1]:
+                exits.add('west')        
+        elif elements[0] == location and any(x in elements[1] for x in ['exit', 'lead', 'entr', 'path']) and any(x in elements[2] for x in ['north', 'south', 'east', 'west']):
+            if 'north' in elements[2]:
+                exits.add('north')
+            if 'south' in elements[2]:
+                exits.add('south')
+            if 'east' in elements[2]:
+                exits.add('east')
+            if 'west' in elements[2]:
+                exits.add('west')      
+
+    # Second pass: Identify which exits are explored
+    for triplet in triplets:
+        elements = triplet.split(', ')
+        if elements[2] == location:
+            direction = elements[1].split(' ')[1]  # Get the direction part
+            if direction in exits:
+                explored_directions.add(direction)  # Mark this exit as explored
+
+    # Find unexplored exits by checking which exits are not in the explored directions
+    unexplored_exits = exits - explored_directions
+    output = list(unexplored_exits)
+    if unexplored_exits == set():
+        output = 'none'  
+    return output
