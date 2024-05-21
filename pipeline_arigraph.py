@@ -22,12 +22,12 @@ log_file = "test_new_pipe_arigraph"
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "clean"
+env_name = "cook"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 5, 1
+max_steps, n_attempts = 150, 1
 need_exp = True
 
 # End of changeable part of pipeline

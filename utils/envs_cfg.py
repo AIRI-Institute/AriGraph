@@ -1,10 +1,10 @@
 ENV_NAMES = {
-    "hunt": "./clean/envs/hunt/hunt.z8",
-    "hunt_hard": "./clean/envs/hunt_hard/hunt_hard.z8",
-    "cook": "./clean/envs/cook/game.z8",
-    "cook_hard": "./clean/envs/cook_hard/game.z8",
-    "cook_rl_baseline": "./clean/envs/cook_rl_baseline/game.z8",
-    "clean": "./clean/envs/clean_3x3/clean_3x3_mess_1.z8",
+    "hunt": "./envs/hunt/hunt.z8",
+    "hunt_hard": "./envs/hunt_hard/hunt_hard.z8",
+    "cook": "./envs/cook/game.z8",
+    "cook_hard": "./envs/cook_hard/game.z8",
+    "cook_rl_baseline": "./envs/cook_rl_baseline/game.z8",
+    "clean": "./envs/clean_3x3/clean_3x3_mess_1.z8",
 }
 
 FIRST_OBS = {
