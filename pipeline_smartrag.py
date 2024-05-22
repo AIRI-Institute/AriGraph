@@ -46,7 +46,7 @@ def run():
     for attempt in range(n_attempts):
         log("\n\n\n\n\n\n\nAttempt: " + str(attempt + 1))
         log("=" * 70)
-        observations = []
+        observations, history = [], []
         observation, info = env.reset()
         action = "start"
         plan0 = f'''{{
@@ -80,13 +80,12 @@ def run():
             log("Observation: " + observation)        
             
             observation += f"\nInventory: {inventory}"
-            observation += f"\nAction that led to this observation: {action}"
 
             observation_with_plan = observation + f"\nPlan: {plan0}"
             current_emb = retriever.embed([observation_with_plan])[0].cpu().detach().numpy()
 
             relevant_observations = smart_rag(current_emb, step, observations, n = n_retrieve)
-            relevant_observations += [observations[-i][0] for i in range(min(n_prev, len(observations)))]
+            relevant_observations += [f"Observations: {observations[-i][0]}\nAction taken: {observations[-i][4]}" for i in range(min(n_prev, len(observations)))]
             relevant_observations = list(set(relevant_observations))
             log("RELEVANT OBSERVATIONS: " + str(relevant_observations))
 
@@ -96,7 +95,7 @@ def run():
             action = choose_action(relevant_observations, observation, plan0, valid_actions)
             
             score = get_score(observation, plan0)
-            observations.append((observation, step, score, current_emb))
+            observations.append((observation, step, score, current_emb, action))
 
             observation, step_reward, done, info = process_action_get_reward(action, env, info, env_name)
             reward += step_reward
@@ -176,7 +175,7 @@ def smart_rag(current_emb, step, observations, n = 3):
     def minmax(arr):
         return (np.array(arr) - np.min(arr)) / (np.max(arr) - np.min(arr) + 1e-9)
     best_idx = np.argsort(minmax(time_scores) + minmax(importance_scores) + minmax(relative_scores))[-n:]
-    return [observations[i][0] for i in best_idx]
+    return [f"Observations: {observations[i][0]}\nAction taken: {observations[i][4]}" for i in best_idx]
 
 def get_score(observation, plan0):
     prompt = f"""On the scale of 1 to 10, where 1 is purely mundane

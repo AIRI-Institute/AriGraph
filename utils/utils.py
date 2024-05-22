@@ -112,8 +112,9 @@ class Logger:
         self.path = path
         os.makedirs(path, exist_ok=True)
         
-    def __call__(self, text, filename = "log.txt"):
-        print(text)
+    def __call__(self, text, filename = "log.txt", verbose = True):
+        if verbose:
+            print(text)
         with open(self.path + "/" + filename, "a") as file:
             file.write(text + "\n")
             
@@ -167,7 +168,7 @@ def clear_triplet(triplet):
         triplet = ("player", triplet[1], triplet[2])
     if triplet[1] == "P":
         triplet = (triplet[0], "player", triplet[2])
-    return [triplet[0].lower(), triplet[1].lower(), {"label": triplet[2]["label"].lower()}]
+    return [triplet[0].lower().strip('''"'. `;:'''), triplet[1].lower().strip('''"'. `;:'''), {"label": triplet[2]["label"].lower().strip('''"'. `;:''')}]
 
 def find_relation(spatial_graph, parent, loc, first):
     reverse = {
@@ -342,6 +343,8 @@ def find_unexplored_exits(location, triplets):
     for triplet in triplets:
         elements = triplet.split(', ')
         if elements[2] == location:
+            if len(elements[1].split(' ')) < 2:
+                continue
             direction = elements[1].split(' ')[1]  # Get the direction part
             if direction in exits:
                 explored_directions.add(direction)  # Mark this exit as explored

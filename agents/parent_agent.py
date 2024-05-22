@@ -17,8 +17,8 @@ class GPTagent:
             api_key=api_key,
         )
 
-    # def generate(self, prompt, json = False, t = 0.7):
-    #     if json == True:   
+    # def generate(self, prompt, jsn = False, t = 0.7):
+    #     if jsn:   
     #         chat_completion = self.client.chat.completions.create(
     #             messages=[
     #                 {
@@ -54,6 +54,7 @@ class GPTagent:
     #     completion_tokens = chat_completion.usage.completion_tokens
 
     #     cost = completion_tokens * 3 / 100000 + prompt_tokens * 1 / 100000
+        # self.total_amount += cost
     #     return response, cost
         
 

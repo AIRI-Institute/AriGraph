@@ -108,7 +108,7 @@ def run():
             log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             log("=" * 70)
             
-            log(f"\n\nREWARDS: {rewards}\n\n")
+            log(f"\n\nREWARDS: {rewards}\n\n", verbose = False)
 
 
 def process_action_get_reward(action, env, info, env_name):

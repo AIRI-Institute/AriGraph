@@ -17,18 +17,18 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 
 # Changeable part of pipeline
 
-log_file = "test_new_pipe_arigraph"
+log_file = "test_new_pipe_arigraph_without_hunt_1"
 
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "cook"
+env_name = "hunt"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 150, 1
-need_exp = True
+max_steps, n_attempts = 150, 3
+need_exp = False
 
 # End of changeable part of pipeline
 
@@ -47,7 +47,7 @@ def run():
     for attempt in range(n_attempts):
         log("\n\n\n\n\n\n\nAttempt: " + str(attempt + 1))
         log("=" * 70)
-        observations = []
+        observations, history = [], []
         locations = set()
         observation, info = env.reset()
         action = "start"
@@ -91,14 +91,13 @@ def run():
             
             subgraph, top_episodic = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items1 = items, topk_episodic=topk_episodic)
             observation += f"\nInventory: {inventory}"
-            observation += f"\nAction that led to this observation: {action}"
             
             log("Length of subgraph: " + str(len(subgraph)))
             log("Associated triplets: " + str(subgraph))
             log("Episodic memory: " + str(top_episodic))
             
-            if_explore, _ = agent_if_expl.generate(prompt=f"Plan: \n{plan0}", t=0.2)
-            if_explore = if_explore == "True" and need_exp
+            if_explore, _ = agent_if_expl.generate(prompt=f"Plan: \n{plan0}", t=0.2) if need_exp else ("False", 0)
+            if_explore = "True" in if_explore
             log('If explore: ' + str(if_explore))
             
             #Exploration
@@ -106,12 +105,15 @@ def run():
 
             valid_actions = [action_processing(action) for action in env.get_valid_actions()] if "cook" in env_name else env.get_valid_actions()
             valid_actions += [f"go to {loc}" for loc in locations]
+            hist_obs = "\n".join(history)
 
-            plan0 = planning(observations, observation, plan0, subgraph, top_episodic, if_explore, all_unexpl_exits)
-            action = choose_action(observations, observation, subgraph, top_episodic, plan0, all_unexpl_exits, valid_actions, if_explore)
+            plan0 = planning(hist_obs, observation, plan0, subgraph, top_episodic, if_explore, all_unexpl_exits)
+            action = choose_action(hist_obs, observation, subgraph, top_episodic, plan0, all_unexpl_exits, valid_actions, if_explore)
             
             observations.append(observation)
             observations = observations[-n_prev:]
+            history.append(f"Observation: {observation}\nAction taken: {action}")
+            history = history[-n_prev:]
             previous_location = env.curr_location.lower()
 
             observation, step_reward, done, info = process_action_get_reward(action, env, info, graph, locations, env_name)
@@ -174,10 +176,12 @@ def choose_action(observations, observation, subgraph, top_episodic, plan0, all_
 \n6. Your current plan: {plan0}'''
 
     if if_explore:
-        prompt += f'''\n7. Yet unexplored exits in the environment: {all_unexpl_exits}'''   
+        prompt += f'''\n7. Yet unexplored exits in the environment: {all_unexpl_exits}'''
+        
 
-    prompt += f'''Possible actions in current situation: {valid_actions}'''       
-    action0, cost_action = agent_action.generate(prompt, jsn=True, t=1)
+    prompt += f'''\n\nPossible actions in current situation: {valid_actions}'''  
+    t = 0.2 if need_exp else 1
+    action0, cost_action = agent_action.generate(prompt, jsn=True, t = t)
     log("Action: " + action0)
     
     try:

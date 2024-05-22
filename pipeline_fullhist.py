@@ -40,7 +40,7 @@ def run():
     for attempt in range(n_attempts):
         log("\n\n\n\n\n\n\nAttempt: " + str(attempt + 1))
         log("=" * 70)
-        observations = []
+        observations, history = [], []
         observation, info = env.reset()
         action = "start"
         plan0 = f'''{{
@@ -74,14 +74,12 @@ def run():
             log("Observation: " + observation)        
             
             observation += f"\nInventory: {inventory}"
-            observation += f"\nAction that led to this observation: {action}"
 
             valid_actions = [action_processing(action) for action in env.get_valid_actions()] if "cook" in env_name else env.get_valid_actions()
 
             plan0 = planning(observations, observation, plan0)
             action = choose_action(observations, observation, plan0, valid_actions)
-            
-            observations.append(observation)
+            observations.append(f"\nObservation: {observation}\nAction taken: {action}")
 
             observation, step_reward, done, info = process_action_get_reward(action, env, info, env_name)
             reward += step_reward
