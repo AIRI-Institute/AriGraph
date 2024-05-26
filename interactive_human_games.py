@@ -17,12 +17,12 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 
 # Changeable part of pipeline
 
-log_file = "human_game_Nastya"
+log_file = "human_game_Ksusha"
 
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "clean"
+env_name = "cook"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"
