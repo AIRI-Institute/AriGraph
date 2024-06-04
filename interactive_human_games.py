@@ -20,9 +20,9 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 log_file = "human_game_Ksusha"
 
 # env_name can be picked from:
-# ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
+# ["hunt", "hunt_hard", "cook", "cook_hard", "cook_hardest", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "hunt"
+env_name = "cook_hardest"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"
@@ -82,7 +82,7 @@ def run():
                 log("\n" * 10)
                 break
 
-            valid_actions = [action_processing(action) for action in env.get_valid_actions()] if "cook" in env_name else env.get_valid_actions()
+            valid_actions = [action_processing(action) for action in env.get_valid_actions()] + env.expand_action_space() if "cook" in env_name else env.get_valid_actions()
             observation += f"\nInventory: {inventory}"
             observation += f"\nAction that led to this observation: {action}"
             observation += f"\nValid actions now: {valid_actions}"
@@ -108,7 +108,7 @@ def run():
             log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             log("=" * 70)
             
-            log(f"\n\nREWARDS: {rewards}\n\n", verbose = False)
+            log(f"\n\nTOTAL REWARDS: {rewards}\n\n", verbose = False)
 
 
 def process_action_get_reward(action, env, info, env_name):

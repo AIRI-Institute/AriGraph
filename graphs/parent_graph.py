@@ -216,7 +216,9 @@ class TripletGraph:
                 path.append(relation)
                 current_loc = parent
             return list(reversed(path))
-        except:
+        except Exception as e:
+            print(e)
+            breakpoint()
             return "You can't navigate now through 'go to', please, use actions like north or west"
     
     def print_graph(self):

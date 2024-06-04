@@ -2802,3 +2802,2481 @@ Would you like to RESTART, RESTORE a saved game, QUIT or UNDO the last command?
 
 
 
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: south
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 12.86 sec, attempt time: 12.86 sec, step time: 12.86 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Living room =-
+You find yourself in a living room. An ordinary one.
+
+You can make out a sofa. But oh no! there's nothing on this piece of trash.
+
+There is a closed front door leading south. There is an exit to the north. You need an exit without a door? You should try going west.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: south
+Valid actions now: ['examine sofa', 'go north', 'go west', 'inventory', 'look', 'open front door']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+You're now in a Dining Room. You try to gain information on your surroundings by using a technique you call "looking."
+
+You can see a dining table. The dining table is typical. On the dining table you see a toothbrush, a centerpiece, a candles and a salt and papper shakers.
+
+You need an unblocked exit? You should try going east. There is an exit to the north. Don't worry, it is unguarded. You need an unblocked exit? You should try going south. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table', 'take toothbrush from dining table']
+Skinny have chosen: take toothbrush from dining table
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+You're now in a Dining Room. You try to gain information on your surroundings by using a technique you call "looking."
+
+You can see a dining table. The dining table is typical. On the dining table you see a toothbrush, a centerpiece, a candles and a salt and papper shakers.
+
+You need an unblocked exit? You should try going east. There is an exit to the north. Don't worry, it is unguarded. You need an unblocked exit? You should try going south. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table', 'take toothbrush from dining table']
+Skinny have chosen: take toothbrush from dining table
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+You're now in a Dining Room. You try to gain information on your surroundings by using a technique you call "looking."
+
+You can see a dining table. The dining table is typical. On the dining table you see a toothbrush, a centerpiece, a candles and a salt and papper shakers.
+
+You need an unblocked exit? You should try going east. There is an exit to the north. Don't worry, it is unguarded. You need an unblocked exit? You should try going south. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table', 'take toothbrush from dining table']
+Skinny have chosen: take toothbrush from dining table
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 34.68 sec, attempt time: 34.68 sec, step time: 34.68 sec
+======================================================================
+
+
+TOTAL REWARDS: [1]
+
+
+Step: 2
+Observation: Game step #2
+
+You take the toothbrush from the dining table.
+
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: take toothbrush from dining table
+Valid actions now: ['drop toothbrush', 'examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'put toothbrush on dining table', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 40.28 sec, attempt time: 40.28 sec, step time: 5.6 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Kids Room =-
+Well, here we are in a Kids Room. Let's see what's in here.
+
+You make out a closed toy storage cabinet nearby. Were you looking for a study table? Because look over there, it's a study table. On the study table you can see a school notebooks, a felt tip pens and a dumbbell. If you haven't noticed it already, there seems to be something there by the wall, it's a kids bed. The kids bed is normal. On the kids bed you can make out a dirty plate.
+
+There is an exit to the east. Don't worry, it is unguarded. You don't like doors? Why not try going south, that entranceway is unguarded. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: north
+Valid actions now: ['drop toothbrush', 'examine dirty plate', 'examine dumbbell', 'examine felt tip pens', 'examine kids bed', 'examine school notebooks', 'examine study table', 'examine toothbrush', 'examine toy storage cabinet', 'go east', 'go south', 'go west', 'inventory', 'look', 'open toy storage cabinet', 'put toothbrush on kids bed', 'put toothbrush on study table', 'take dirty plate from kids bed', 'take dumbbell from study table', 'take felt tip pens from study table', 'take school notebooks from study table']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 42.88 sec, attempt time: 42.88 sec, step time: 2.6 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Bathroom =-
+You arrive in a Bathroom. A typical one. Let's see what's in here.
+
+What's that over there? It looks like it's a toilet. The toilet is typical. On the toilet you can see a toilet paper and a sleeping lamp. You can see a bathroom sink. On the bathroom sink you can see a deodorant. What's that over there? It looks like it's a towel rack. The towel rack is typical. But oh no! there's nothing on this piece of trash.
+
+There is an exit to the east. Don't worry, it is unblocked. There is an unblocked exit to the south.
+
+There is an elegant table runner on the floor.
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: west
+Valid actions now: ['drop toothbrush', 'examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'put toothbrush on bathroom sink', 'put toothbrush on toilet', 'put toothbrush on towel rack', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet']
+Skinny have chosen: put toothbrush on bathroom sink
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 57.32 sec, attempt time: 57.32 sec, step time: 14.43 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1, 2]
+
+
+Step: 5
+Observation: Game step #5
+
+You put the toothbrush on the bathroom sink.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: put toothbrush on bathroom sink
+Valid actions now: ['examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet', 'take toothbrush from bathroom sink']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+
+
+-= Dining Room =-
+You're now in a Dining Room. You try to gain information on your surroundings by using a technique you call "looking."
+
+You can see a dining table. The dining table is typical. On the dining table you see a toothbrush, a centerpiece, a candles and a salt and papper shakers.
+
+You need an unblocked exit? You should try going east. There is an exit to the north. Don't worry, it is unguarded. You need an unblocked exit? You should try going south. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+Your task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table', 'take toothbrush from dining table']
+Skinny have chosen: take toothbrush from dining table
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 5.48 sec, attempt time: 5.48 sec, step time: 5.48 sec
+======================================================================
+
+
+TOTAL REWARDS: [1]
+
+
+Step: 2
+Observation: Game step #2
+
+You take the toothbrush from the dining table.
+
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: take toothbrush from dining table
+Valid actions now: ['drop toothbrush', 'examine candles', 'examine centerpiece', 'examine dining table', 'examine salt and papper shakers', 'examine toothbrush', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'put toothbrush on dining table', 'take candles from dining table', 'take centerpiece from dining table', 'take salt and papper shakers from dining table']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 9.49 sec, attempt time: 9.49 sec, step time: 4.01 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Kids Room =-
+Well, here we are in a Kids Room. Let's see what's in here.
+
+You make out a closed toy storage cabinet nearby. Were you looking for a study table? Because look over there, it's a study table. On the study table you can see a school notebooks, a felt tip pens and a dumbbell. If you haven't noticed it already, there seems to be something there by the wall, it's a kids bed. The kids bed is normal. On the kids bed you can make out a dirty plate.
+
+There is an exit to the east. Don't worry, it is unguarded. You don't like doors? Why not try going south, that entranceway is unguarded. You don't like doors? Why not try going west, that entranceway is unguarded.
+
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: north
+Valid actions now: ['drop toothbrush', 'examine dirty plate', 'examine dumbbell', 'examine felt tip pens', 'examine kids bed', 'examine school notebooks', 'examine study table', 'examine toothbrush', 'examine toy storage cabinet', 'go east', 'go south', 'go west', 'inventory', 'look', 'open toy storage cabinet', 'put toothbrush on kids bed', 'put toothbrush on study table', 'take dirty plate from kids bed', 'take dumbbell from study table', 'take felt tip pens from study table', 'take school notebooks from study table']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 11.46 sec, attempt time: 11.46 sec, step time: 1.97 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Bathroom =-
+You arrive in a Bathroom. A typical one. Let's see what's in here.
+
+What's that over there? It looks like it's a toilet. The toilet is typical. On the toilet you can see a toilet paper and a sleeping lamp. You can see a bathroom sink. On the bathroom sink you can see a deodorant. What's that over there? It looks like it's a towel rack. The towel rack is typical. But oh no! there's nothing on this piece of trash.
+
+There is an exit to the east. Don't worry, it is unblocked. There is an unblocked exit to the south.
+
+There is an elegant table runner on the floor.
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: west
+Valid actions now: ['drop toothbrush', 'examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'put toothbrush on bathroom sink', 'put toothbrush on toilet', 'put toothbrush on towel rack', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet']
+Skinny have chosen: put toothbrush on bathroom sink
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 18.53 sec, attempt time: 18.53 sec, step time: 7.07 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1, 2]
+
+
+Step: 5
+Observation: Game step #5
+
+You put the toothbrush on the bathroom sink.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: put toothbrush on bathroom sink
+Valid actions now: ['examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet', 'take toothbrush from bathroom sink']
+Skinny have chosen: take toothbrush from bathroom sink
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 30.27 sec, attempt time: 30.27 sec, step time: 11.74 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1, 2, 1]
+
+
+Step: 6
+Observation: Game step #6
+
+You take the toothbrush from the bathroom sink.
+
+
+
+
+Inventory: You are carrying: a toothbrush.
+Action that led to this observation: take toothbrush from bathroom sink
+Valid actions now: ['drop toothbrush', 'examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'put toothbrush on bathroom sink', 'put toothbrush on toilet', 'put toothbrush on towel rack', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet']
+Skinny have chosen: put toothbrush on bathroom sink
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 36.6 sec, attempt time: 36.6 sec, step time: 6.33 sec
+======================================================================
+
+
+TOTAL REWARDS: [1, 1, 1, 2, 1, 2]
+
+
+Step: 7
+Observation: Game step #7
+
+You put the toothbrush on the bathroom sink.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: put toothbrush on bathroom sink
+Valid actions now: ['examine bathroom sink', 'examine deodorant', 'examine elegant table runner', 'examine sleeping lamp', 'examine toilet', 'examine toilet paper', 'examine toothbrush', 'examine towel rack', 'go east', 'go south', 'inventory', 'look', 'take deodorant from bathroom sink', 'take elegant table runner', 'take sleeping lamp from toilet', 'take toilet paper from toilet', 'take toothbrush from bathroom sink']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 30.02 sec, attempt time: 30.02 sec, step time: 30.02 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: take knife
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 38.92 sec, attempt time: 38.92 sec, step time: 8.9 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You take the knife from the table.
+
+
+
+
+Inventory: You are carrying: a knife.
+Action that led to this observation: take knife
+Valid actions now: ['drop knife', 'examine cookbook', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'put knife on counter', 'put knife on stove', 'put knife on table', 'take cookbook from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: take tomato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 45.27 sec, attempt time: 45.27 sec, step time: 6.35 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You take the tomato from the counter.
+
+
+
+
+Inventory: You are carrying: a tomato and a knife.
+Action that led to this observation: take tomato
+Valid actions now: ['chop tomato with knife', 'roast tomato with oven', 'fry tomato with stove', 'dice tomato with knife', 'drop knife', 'drop tomato', 'eat tomato', 'examine cookbook', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'put knife on counter', 'put knife on stove', 'put knife on table', 'put tomato on counter', 'put tomato on stove', 'put tomato on table', 'slice tomato with knife', 'take cookbook from table', 'take yellow apple from counter']
+Skinny have chosen: take cookbook
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 60.8 sec, attempt time: 60.8 sec, step time: 15.53 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+You take the cookbook from the table.
+
+
+
+
+Inventory: You are carrying: a cookbook, a tomato and a knife.
+Action that led to this observation: take cookbook
+Valid actions now: ['chop tomato with knife', 'roast tomato with oven', 'fry tomato with stove', 'dice tomato with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'eat tomato', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'put knife on counter', 'put knife on stove', 'put knife on table', 'put tomato on counter', 'put tomato on stove', 'put tomato on table', 'slice tomato with knife', 'take yellow apple from counter']
+Skinny have chosen: take yellow apple
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 74.68 sec, attempt time: 74.68 sec, step time: 13.87 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+You take the yellow apple from the counter.
+
+
+
+
+Inventory: You are carrying: a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: take yellow apple
+Valid actions now: ['chop tomato with knife', 'chop yellow apple with knife', 'roast tomato with oven', 'fry tomato with stove', 'roast yellow apple with oven', 'fry yellow apple with stove', 'dice tomato with knife', 'dice yellow apple with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat tomato', 'eat yellow apple', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'put knife on counter', 'put knife on stove', 'put knife on table', 'put tomato on counter', 'put tomato on stove', 'put tomato on table', 'put yellow apple on counter', 'put yellow apple on stove', 'put yellow apple on table', 'slice tomato with knife', 'slice yellow apple with knife']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 92.6 sec, attempt time: 92.6 sec, step time: 17.92 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You have to open the screen door first.
+
+
+
+Inventory: You are carrying: a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: north
+Valid actions now: ['chop tomato with knife', 'chop yellow apple with knife', 'roast tomato with oven', 'fry tomato with stove', 'roast yellow apple with oven', 'fry yellow apple with stove', 'dice tomato with knife', 'dice yellow apple with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat tomato', 'eat yellow apple', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'put knife on counter', 'put knife on stove', 'put knife on table', 'put tomato on counter', 'put tomato on stove', 'put tomato on table', 'put yellow apple on counter', 'put yellow apple on stove', 'put yellow apple on table', 'slice tomato with knife', 'slice yellow apple with knife']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 99.06 sec, attempt time: 99.06 sec, step time: 6.46 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You open screen door.
+
+
+
+Inventory: You are carrying: a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: open screen door
+Valid actions now: ['chop tomato with knife', 'chop yellow apple with knife', 'close screen door', 'roast tomato with oven', 'fry tomato with stove', 'roast yellow apple with oven', 'fry yellow apple with stove', 'dice tomato with knife', 'dice yellow apple with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat tomato', 'eat yellow apple', 'examine counter', 'examine fridge', 'examine oven', 'examine stove', 'examine table', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'put knife on counter', 'put knife on stove', 'put knife on table', 'put tomato on counter', 'put tomato on stove', 'put tomato on table', 'put yellow apple on counter', 'put yellow apple on stove', 'put yellow apple on table', 'slice tomato with knife', 'slice yellow apple with knife']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 102.3 sec, attempt time: 102.3 sec, step time: 3.24 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 9
+Observation: Game step #9
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying: a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: north
+Valid actions now: ['chop tomato with knife', 'chop yellow apple with knife', 'close screen door', 'grill tomato with BBQ', 'grill yellow apple with BBQ', 'dice tomato with knife', 'dice yellow apple with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat tomato', 'eat yellow apple', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door', 'put cookbook on patio chair', 'put cookbook on patio table', 'put knife on patio chair', 'put knife on patio table', 'put tomato on patio chair', 'put tomato on patio table', 'put yellow apple on patio chair', 'put yellow apple on patio table', 'slice tomato with knife', 'slice yellow apple with knife']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 106.18 sec, attempt time: 106.18 sec, step time: 3.88 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 10
+Observation: Game step #10
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying: a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: north
+Valid actions now: ['chop tomato with knife', 'chop yellow apple with knife', 'dice tomato with knife', 'dice yellow apple with knife', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat tomato', 'eat yellow apple', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'slice tomato with knife', 'slice yellow apple with knife', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 116.12 sec, attempt time: 116.12 sec, step time: 9.94 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 11
+Observation: Game step #11
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: take banana
+Valid actions now: ['chop banana with knife', 'chop tomato with knife', 'chop yellow apple with knife', 'dice banana with knife', 'dice tomato with knife', 'dice yellow apple with knife', 'drop banana', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat banana', 'eat tomato', 'eat yellow apple', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'slice banana with knife', 'slice tomato with knife', 'slice yellow apple with knife']
+Skinny have chosen: take yellow onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 130.52 sec, attempt time: 130.52 sec, step time: 14.39 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 12
+Observation: Game step #12
+
+You're carrying too many things already.
+
+
+
+
+Inventory: You are carrying: a banana, a yellow apple, a cookbook, a tomato and a knife.
+Action that led to this observation: take yellow onion
+Valid actions now: ['chop banana with knife', 'chop tomato with knife', 'chop yellow apple with knife', 'dice banana with knife', 'dice tomato with knife', 'dice yellow apple with knife', 'drop banana', 'drop cookbook', 'drop knife', 'drop tomato', 'drop yellow apple', 'eat banana', 'eat tomato', 'eat yellow apple', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'slice banana with knife', 'slice tomato with knife', 'slice yellow apple with knife']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 4.63 sec, attempt time: 4.63 sec, step time: 4.63 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 3.89 sec, attempt time: 3.89 sec, step time: 3.89 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 8.07 sec, attempt time: 8.07 sec, step time: 4.19 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You have to open the screen door first.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 12.87 sec, attempt time: 12.87 sec, step time: 4.8 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 15.25 sec, attempt time: 15.25 sec, step time: 2.38 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 16.8 sec, attempt time: 16.8 sec, step time: 1.55 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 23.22 sec, attempt time: 23.22 sec, step time: 6.42 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion.
+Action that led to this observation: take white onion
+Valid actions now: ['drop white onion', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 27.0 sec, attempt time: 27.0 sec, step time: 3.78 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana and a white onion.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop white onion', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 31.75 sec, attempt time: 31.75 sec, step time: 4.75 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the lettuce from the ground.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana and a white onion.
+Action that led to this observation: take lettuce
+Valid actions now: ['drop banana', 'drop lettuce', 'drop white onion', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take green apple
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 41.15 sec, attempt time: 41.15 sec, step time: 9.4 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the green apple from the ground.
+
+
+
+
+Inventory: You are carrying: a green apple, a lettuce, a banana and a white onion.
+Action that led to this observation: take green apple
+Valid actions now: ['drop banana', 'drop green apple', 'drop lettuce', 'drop white onion', 'eat banana', 'eat green apple', 'eat lettuce', 'eat white onion', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take green bell pepper', 'take green hot pepper', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 50.08 sec, attempt time: 50.08 sec, step time: 8.93 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 11
+Observation: Game step #11
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato, a green apple, a lettuce, a banana and a white onion.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop banana', 'drop green apple', 'drop lettuce', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat green apple', 'eat lettuce', 'eat white onion', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'go south', 'inventory', 'look']
+Skinny have chosen: drop banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 70.51 sec, attempt time: 70.51 sec, step time: 20.43 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 12
+Observation: Game step #12
+
+You drop the banana on the ground.
+
+
+
+Inventory: You are carrying: a raw yellow potato, a green apple, a lettuce and a white onion.
+Action that led to this observation: drop banana
+Valid actions now: ['drop green apple', 'drop lettuce', 'drop white onion', 'drop yellow potato', 'eat green apple', 'eat lettuce', 'eat white onion', 'examine banana', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green bell pepper', 'take green hot pepper', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion']
+Skinny have chosen: q
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 112.39 sec, attempt time: 112.39 sec, step time: 41.88 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 13
+Observation: Game step #13
+
+Are you sure you want to quit?                                                                                                                                 -= Garden =-1/12
+Inventory: You are carrying: a raw yellow potato, a green apple, a lettuce and a white onion.
+Action that led to this observation: q
+Valid actions now: ['drop green apple', 'drop lettuce', 'drop white onion', 'drop yellow potato', 'eat green apple', 'eat lettuce', 'eat white onion', 'examine banana', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green bell pepper', 'take green hot pepper', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take yellow onion']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 129.98 sec, attempt time: 129.98 sec, step time: 129.98 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 142.87 sec, attempt time: 142.87 sec, step time: 12.89 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You have to open the screen door first.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 151.23 sec, attempt time: 151.23 sec, step time: 8.36 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 156.18 sec, attempt time: 156.18 sec, step time: 4.95 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 159.69 sec, attempt time: 159.69 sec, step time: 3.51 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take red potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 175.01 sec, attempt time: 175.01 sec, step time: 15.32 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the red potato from the ground.
+
+
+
+
+Inventory: You are carrying: a raw red potato.
+Action that led to this observation: take red potato
+Valid actions now: ['drop red potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 193.66 sec, attempt time: 193.66 sec, step time: 18.65 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion and a raw red potato.
+Action that led to this observation: take white onion
+Valid actions now: ['drop red potato', 'drop white onion', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 200.96 sec, attempt time: 200.96 sec, step time: 7.29 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a white onion and a raw red potato.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop red potato', 'drop white onion', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 207.32 sec, attempt time: 207.32 sec, step time: 6.36 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the lettuce from the ground.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion and a raw red potato.
+Action that led to this observation: take lettuce
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 215.19 sec, attempt time: 215.19 sec, step time: 7.87 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 11
+Observation: Game step #11
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato, a lettuce, a banana, a white onion and a raw red potato.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look']
+Skinny have chosen: look
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 224.38 sec, attempt time: 224.38 sec, step time: 9.2 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 12
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 4.05 sec, attempt time: 4.05 sec, step time: 4.05 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 9.27 sec, attempt time: 9.27 sec, step time: 5.21 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 13.68 sec, attempt time: 13.68 sec, step time: 4.41 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 16.85 sec, attempt time: 16.85 sec, step time: 3.17 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take red potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 23.98 sec, attempt time: 23.98 sec, step time: 7.13 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+You pick up the red potato from the ground.
+
+
+
+
+Inventory: You are carrying: a raw red potato.
+Action that led to this observation: take red potato
+Valid actions now: ['drop red potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 31.03 sec, attempt time: 31.03 sec, step time: 7.05 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop red potato', 'drop yellow potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion']
+Skinny have chosen: take whit onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 38.37 sec, attempt time: 38.37 sec, step time: 7.34 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You can't see any such thing.
+
+
+Inventory: You are carrying: a raw yellow potato and a raw red potato.
+Action that led to this observation: take whit onion
+Valid actions now: ['drop red potato', 'drop yellow potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 47.58 sec, attempt time: 47.58 sec, step time: 9.21 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take white onion
+Valid actions now: ['drop red potato', 'drop white onion', 'drop yellow potato', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 53.76 sec, attempt time: 53.76 sec, step time: 6.18 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 59.48 sec, attempt time: 59.48 sec, step time: 5.72 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 11
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 3.63 sec, attempt time: 3.63 sec, step time: 3.63 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 10.17 sec, attempt time: 10.17 sec, step time: 6.54 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 29.52 sec, attempt time: 29.52 sec, step time: 19.35 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 33.14 sec, attempt time: 33.14 sec, step time: 3.62 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take red potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 41.92 sec, attempt time: 41.92 sec, step time: 8.78 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+You pick up the red potato from the ground.
+
+
+
+
+Inventory: You are carrying: a raw red potato.
+Action that led to this observation: take red potato
+Valid actions now: ['drop red potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 49.06 sec, attempt time: 49.06 sec, step time: 7.14 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop red potato', 'drop yellow potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 62.12 sec, attempt time: 62.12 sec, step time: 13.06 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take white onion
+Valid actions now: ['drop red potato', 'drop white onion', 'drop yellow potato', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 67.88 sec, attempt time: 67.88 sec, step time: 5.76 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 72.76 sec, attempt time: 72.76 sec, step time: 4.88 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the lettuce from the ground.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take lettuce
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: take carrot
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 82.22 sec, attempt time: 82.22 sec, step time: 9.46 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 11
+Observation: Game step #11
+
+You can't see any such thing.
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take carrot
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: take yellow bell pepper
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 111.78 sec, attempt time: 111.78 sec, step time: 29.56 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 12
+Observation: Game step #12
+
+You can't see any such thing.
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow bell pepper
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: take orange bell pepper
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 131.84 sec, attempt time: 131.84 sec, step time: 20.06 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 13
+Observation: Game step #13
+
+You can't see any such thing.
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take orange bell pepper
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: take green apple
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 174.33 sec, attempt time: 174.33 sec, step time: 42.49 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 14
+Observation: Game step #14
+
+You're carrying too many things already.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take green apple
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take yellow onion', 'take block of cheese', 'take red tuna', 'take white onion', 'take red apple', 'take red bell pepper', 'take yellow bell pepper', 'take pork chop', 'take green bell pepper', 'take red onion', 'take red hot pepper', 'take tomato', 'take green apple', 'take white tuna', 'take orange bell pepper', 'take green hot pepper', 'take red potato', 'take yellow apple', 'take banana', 'take yellow potato', 'take lettuce', 'take purple potato', 'take carrot']
+Skinny have chosen: q
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 180.68 sec, attempt time: 180.68 sec, step time: 6.35 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 15
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look', 'take green bell pepper', 'take red onion', 'take banana', 'take carrot', 'take red apple', 'take red hot pepper', 'take orange bell pepper', 'take red potato', 'take yellow bell pepper', 'take green apple', 'take pork chop', 'take white tuna', 'take lettuce', 'take yellow onion', 'take red tuna', 'take green hot pepper', 'take white onion', 'take yellow apple', 'take red bell pepper', 'take yellow potato', 'take purple potato', 'take tomato', 'take block of cheese']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 4.13 sec, attempt time: 4.13 sec, step time: 4.13 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: look
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 11.48 sec, attempt time: 11.48 sec, step time: 7.34 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 4.48 sec, attempt time: 4.48 sec, step time: 4.48 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 9.71 sec, attempt time: 9.71 sec, step time: 5.22 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 13.76 sec, attempt time: 13.76 sec, step time: 4.05 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 17.11 sec, attempt time: 17.11 sec, step time: 3.36 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take red potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 27.72 sec, attempt time: 27.72 sec, step time: 10.61 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+You pick up the red potato from the ground.
+
+
+
+
+Inventory: You are carrying: a raw red potato.
+Action that led to this observation: take red potato
+Valid actions now: ['drop red potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 36.28 sec, attempt time: 36.28 sec, step time: 8.56 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop red potato', 'drop yellow potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 42.57 sec, attempt time: 42.57 sec, step time: 6.29 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take white onion
+Valid actions now: ['drop red potato', 'drop white onion', 'drop yellow potato', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 50.95 sec, attempt time: 50.95 sec, step time: 8.38 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 56.26 sec, attempt time: 56.26 sec, step time: 5.31 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the lettuce from the ground.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take lettuce
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look']
+Skinny have chosen: look
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 61.56 sec, attempt time: 61.56 sec, step time: 5.3 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 11
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Corridor =-
+You've entered a corridor.
+
+
+
+You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Action that led to this observation: start
+Valid actions now: ['go north', 'go south', 'go west', 'inventory', 'look']
+Skinny have chosen: west
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 2.39 sec, attempt time: 2.39 sec, step time: 2.39 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An ordinary one.
+
+Hey, want to see a fridge? Look over there, a fridge. You can see a closed conventional looking oven in the room. You rest your hand against a wall, but you miss the wall and fall onto a table. The table is massive. On the table you can see a cookbook and a knife. You hear a noise behind you and spin around, but you can't see anything other than a counter. On the counter you can make out a tomato and a yellow apple. You can make out a stove. What a coincidence, weren't you just thinking about a stove? Looks like someone's already been here and taken everything off it, though.
+
+There is a closed screen door leading north. There is a closed frosted-glass door leading west. There is an exit to the east. Don't worry, there is no door.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: west
+Valid actions now: ['examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'open screen door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: open screen door
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 7.51 sec, attempt time: 7.51 sec, step time: 5.12 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You open screen door.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: open screen door
+Valid actions now: ['close screen door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine oven', 'examine stove', 'examine table', 'examine tomato', 'examine yellow apple', 'go east', 'go north', 'inventory', 'look', 'open fridge', 'open frosted-glass door', 'take cookbook from table', 'take knife from table', 'take tomato from counter', 'take yellow apple from counter']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 9.87 sec, attempt time: 9.87 sec, step time: 2.36 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Backyard =-
+You arrive in a backyard. A standard kind of place. You start to take note of what's in the room.
+
+You can see a patio chair. But there isn't a thing on it. Oh! Why couldn't there just be stuff on it? You can see a patio table. The patio table is stylish. But the thing is empty, unfortunately. As if things weren't amazing enough already, you can even see a BBQ.
+
+There is an open screen door leading south. There is a closed wooden door leading west. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['close screen door', 'examine BBQ', 'examine patio chair', 'examine patio table', 'go north', 'go south', 'inventory', 'look', 'open wooden door']
+Skinny have chosen: north
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 12.18 sec, attempt time: 12.18 sec, step time: 2.31 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Garden =-
+You arrive in a garden. A standard one. You begin looking for stuff.
+
+
+
+You don't like doors? Why not try going south, that entranceway is not blocked by one.
+
+There is a green hot pepper, a raw red potato, a lettuce, a white onion, a banana, a green apple, a red hot pepper, a raw purple potato, a raw yellow potato, a green bell pepper, a red bell pepper and a yellow onion on the floor.
+
+
+
+Inventory: You are carrying nothing.
+Action that led to this observation: north
+Valid actions now: ['examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine red potato', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take red potato', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take red potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 18.16 sec, attempt time: 18.16 sec, step time: 5.98 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+You pick up the red potato from the ground.
+
+
+
+
+Inventory: You are carrying: a raw red potato.
+Action that led to this observation: take red potato
+Valid actions now: ['drop red potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'examine yellow potato', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion', 'take yellow potato']
+Skinny have chosen: take yellow potato
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 23.55 sec, attempt time: 23.55 sec, step time: 5.39 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You pick up the yellow potato from the ground.
+
+
+
+Your score has just gone up by one point.
+
+
+Inventory: You are carrying: a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow potato
+Valid actions now: ['drop red potato', 'drop yellow potato', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine white onion', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take white onion', 'take yellow onion']
+Skinny have chosen: take white onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 27.87 sec, attempt time: 27.87 sec, step time: 4.32 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You pick up the white onion from the ground.
+
+
+
+
+Inventory: You are carrying: a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take white onion
+Valid actions now: ['drop red potato', 'drop white onion', 'drop yellow potato', 'eat white onion', 'examine banana', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take banana', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take banana
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 30.35 sec, attempt time: 30.35 sec, step time: 2.48 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
+
+
+Step: 9
+Observation: Game step #9
+
+You pick up the banana from the ground.
+
+
+
+
+Inventory: You are carrying: a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take banana
+Valid actions now: ['drop banana', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine lettuce', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take lettuce', 'take purple potato', 'take red bell pepper', 'take red hot pepper', 'take yellow onion']
+Skinny have chosen: take lettuce
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 35.91 sec, attempt time: 35.91 sec, step time: 5.56 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 10
+Observation: Game step #10
+
+You pick up the lettuce from the ground.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take lettuce
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take yellow onion', 'take purple potato', 'take red bell pepper', 'take red hot pepper']
+Skinny have chosen: take red hot pepper
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 43.48 sec, attempt time: 43.48 sec, step time: 7.58 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 11
+Observation: Game step #11
+
+You're carrying too many things already.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take red hot pepper
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take yellow onion', 'take purple potato', 'take red bell pepper', 'take red hot pepper']
+Skinny have chosen: take green hot pepper
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 52.72 sec, attempt time: 52.72 sec, step time: 9.23 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 12
+Observation: Game step #12
+
+You're carrying too many things already.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take green hot pepper
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take yellow onion', 'take purple potato', 'take red bell pepper', 'take red hot pepper']
+Skinny have chosen: take yellow onion
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 68.98 sec, attempt time: 68.98 sec, step time: 16.26 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 13
+Observation: Game step #13
+
+You're carrying too many things already.
+
+
+
+
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: take yellow onion
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take yellow onion', 'take purple potato', 'take red bell pepper', 'take red hot pepper']
+Skinny have chosen: q
+
+Total amount: 0$, attempt amount: 0$, step amount: 0$
+Total time: 75.06 sec, attempt time: 75.06 sec, step time: 6.08 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+
+Step: 14
+Observation: Game step #14
+
+Are you sure you want to quit?                                                                                                                                 -= Garden =-1/13
+Inventory: You are carrying: a lettuce, a banana, a white onion, a raw yellow potato and a raw red potato.
+Action that led to this observation: q
+Valid actions now: ['drop banana', 'drop lettuce', 'drop red potato', 'drop white onion', 'drop yellow potato', 'eat banana', 'eat lettuce', 'eat white onion', 'examine green apple', 'examine green bell pepper', 'examine green hot pepper', 'examine purple potato', 'examine red bell pepper', 'examine red hot pepper', 'examine yellow onion', 'go south', 'inventory', 'look', 'take green apple', 'take green bell pepper', 'take green hot pepper', 'take yellow onion', 'take purple potato', 'take red bell pepper', 'take red hot pepper']

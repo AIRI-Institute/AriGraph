@@ -39,7 +39,7 @@ Guidelines for Building the Knowledge Graph:
 Creating Nodes and Triplets: Nodes should depict entities or concepts, similar to Wikipedia nodes. Use a structured triplet format to capture data, as follows: "subject, relation, object". For example, from "Albert Einstein, born in Germany, is known for developing the theory of relativity," extract "Albert Einstein, country of birth, Germany; Albert Einstein, developed, Theory of Relativity." 
 Remember that you should break complex triplets like "John, position, engineer in Google" into simple triplets like "John, position, engineer", "John, work at, Google".
 Length of your triplet should not be more than 7 words. You should extract only concrete knowledges, any assumptions must be described as hypothesis.
-For example, from phrase "John have scored many points and potentiallyy will be winner" you should extract "John, scored many, points; John, could be, winner" and should not extract "John, will be, winner".
+For example, from phrase "John have scored many points and potentially will be winner" you should extract "John, scored many, points; John, could be, winner" and should not extract "John, will be, winner".
 Remember that object and subject must be an atomary units while relation can be more complex and long.
 If observation states that you take item, the triplet shoud be: 'item, is in, inventory' and nothing else. 
 
@@ -58,3 +58,68 @@ Observation: {observation}
 Remember that triplets must be extracted in format: "subject_1, relation_1, object_1; subject_2, relation_2, object_2; ..."
 
 Extracted triplets:'''
+
+
+
+prompt_extraction_thesises = '''Your task is to decompose input text into set of expressive, accurate and short thesises with their entities.
+Every thesis must contain completed truth information which contains in the input text.
+For example, from text "Little boy always like sweety and that's because he is going to kitchen to pick up candies" you should extract following thesises:
+{
+    "thesises": [
+        {
+            "thesis": "Little boy always like sweety",
+            "entities": ["little boy", "sweety"]
+        },
+        {
+            "thesis": "Little boy is going to kitchen",
+            "entities": ["little boy", "kitchen"]
+        },
+        {
+            "thesis": "Little boy is going to pick up candies",
+            "entities": ["little boy", "candies"]
+        },
+        {
+            "thesis": "Kitchen contains candies",
+            "entities": ["kitchen", "candies"]
+        },
+    ]
+}
+Remember that thesises must be absolutely truth and contain strictly information that is contained into input text. Entities must not be
+a verb and must explicitly appear in the thesis. Thesises must be consistency without context, so, you should not to use phrases like "there is",
+"that", "now" and etc. For example, from text "Step 1. Now you are at the kitchen. There is a table and fridge" you should not extract thesises 
+"There is a table", "There is a fridge", "Now you are at kitchen", better extract "table located at the kitchen", "fridge located at the kitchen", 
+"At step 1 you are at the kitchen".
+
+Write your answer strictly in following json format:
+{
+    "thesises": [
+        {
+            "thesis": your first thesis,
+            "entities": list of entities in the first thesis
+        },
+        ...
+    ]
+}'''
+
+prompt_refining_thesises = '''Your task is to remove inaccurate knowledges from database.
+You provide with new truth thesises and old thesises. You should list old thesises which are inaccurate with respect to new thesises.
+Example:
+Old thesises: ["fridge is open", "fridge located at kitchen", "fridge contain apple", "inventory contain meat", "table located at kitchen"]
+New thesises: ["player closed fridge", "inventory contain apple", "meat located at table"]
+Inaccurate thesises: ["fridge is open", "fridge contain apple", "inventory contain meat"]
+Be accurate and list ONLY old thesises which explicitly contradict with new thesises. If some old thesis contain information
+which has no interaction with new thesises, you MUST NOT include it into inaccurate thesises.
+For example, if new thesises are ["table at the kitchen", "fridge in the kithcen"] and old thesises are ["you are at living room", "sofa located at living room"],
+you must include nothing into inaccurate thesises because new information isn't contradict with old thesises.
+Your answer must contain exactly list of inaccurate old thesises and nothing else.
+####
+Old thesises: {ex_thesises}
+New thesises: {new_thesises}
+Inaccurate thesises: '''
+
+reflex_prompt = '''You are a learner in system of AI agents which play in text games. Your task is to find useful patterns in observations and explain it for future usage. Namely, you should find the unefficiency in previous behaviour and the patterns that can help to avoid this unefficiency.
+Your answer must be brief and accurate and contain only three sentences. 
+####
+{for_reflex}
+####
+Your answer: '''

@@ -81,7 +81,7 @@ def run():
 
             summary = get_summary(hist_obs, observation, summary)
 
-            valid_actions = [action_processing(action) for action in env.get_valid_actions()] if "cook" in env_name else env.get_valid_actions()
+            valid_actions = [action_processing(action) for action in env.get_valid_actions()] + env.expand_action_space() if "cook" in env_name else env.get_valid_actions()
             
             plan0 = planning(hist_obs, observation, summary, plan0)
             action = choose_action(hist_obs, observation, plan0, valid_actions, summary)
@@ -104,7 +104,7 @@ def run():
             log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             log("=" * 70)
             
-            log(f"\n\nREWARDS: {rewards}\n\n")
+            log(f"\n\nTOTAL REWARDS: {rewards}\n\n")
 
 
 def process_action_get_reward(action, env, info, env_name):

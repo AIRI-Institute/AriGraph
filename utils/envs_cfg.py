@@ -3,8 +3,10 @@ ENV_NAMES = {
     "hunt_hard": "./envs/hunt_hard/hunt_hard.z8",
     "cook": "./envs/cook/game.z8",
     "cook_hard": "./envs/cook_hard/game.z8",
+    "cook_hardest": "./envs/cook_hardest_7/game.z8",
     "cook_rl_baseline": "./envs/cook_rl_baseline/game.z8",
-    "clean": "./envs/clean_3x3/clean_3x3_mess_1.z8",
+    "clean": "./envs/clean_3x3/clean_3x3_mess_2.z8",
+    "detective": "./envs/jericho-game-suite/detective.z5",
 }
 
 FIRST_OBS = {
@@ -12,8 +14,10 @@ FIRST_OBS = {
     "hunt_hard": '\nYour task is to get a treasure. Treasure is hidden in the golden locker. You need a golden key to unlock it. The key is hidden in one of the other lockers located in the environment. All lockers are locked and require a specific key to unlock. The key 1 you found in room A unlocks white locker. Read the notes that you find, they will guide you further.',
     "cook": '\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.',
     "cook_hard": '\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.',
+    "cook_hardest": '\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.',
     "cook_rl_baseline": '\nYour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.',
-    "clean": '\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.'
+    "clean": '\nYour task is to clean the house by locating and taking items that are out of place and returning them to their proper locations in the house.',
+    "detective": "",
 }
 
 MAIN_GOALS = {
@@ -21,8 +25,10 @@ MAIN_GOALS = {
     "hunt_hard": "Find the treasure",
     "cook": "Prepare meal by following the recipe and eat it",
     "cook_hard": "Prepare meal by following the recipe and eat it",
+    "cook_hardest": "Prepare meal by following the recipe and eat it",
     "cook_rl_baseline": "Prepare meal by following the recipe and eat it",
-    "clean": "Clean the house by returning items that are out of place to their proper locations"
+    "clean": "Clean the house by returning items that are out of place to their proper locations",
+    "detective": "Investigate the crime"
 }
 
 WALKTHROUGH = {

@@ -1,3 +1,4 @@
+import numpy as np
 import networkx as nx
 import textworld as tw
 import textworld.gym as tw_gym
@@ -66,6 +67,19 @@ class TextWorldWrapper:
 
     def get_valid_actions(self):
         return self.curr_info['admissible_commands']
+    
+    def expand_action_space(self):
+        new_actions = set()
+        need_expand = all(["take" not in action for action in self.curr_info['admissible_commands']])
+        needful_facts = [fact for fact in self.curr_info['facts'] if len(fact.arguments) > 1]
+        can_be_taked = {obj.arguments[0].name for obj in needful_facts if obj.arguments[0].type == 'f' and obj.arguments[1].name.lower() == self.curr_location.lower()}         
+        if need_expand:
+            for entity in self.curr_info['entities']:
+                if entity in can_be_taked:
+                    new_actions.add(f"take {entity}")
+        return list(new_actions)
+                    
+            
 
 
 def graph_from_facts(info, only_entities=False, verbose=False, need_tags = True):

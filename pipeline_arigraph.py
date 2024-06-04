@@ -17,18 +17,18 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 
 # Changeable part of pipeline
 
-log_file = "test_new_pipe_arigraph_without_hunt_1"
+log_file = "arigraph_cook_hardest"
 
 # env_name can be picked from:
-# ["hunt", "hunt_hard", "cook", "cook_hard", "cook_rl_baseline", "clean"]
+# ["hunt", "hunt_hard", "cook", "cook_hard", "cook_hardest", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "hunt"
-model = "gpt-4-0125-preview"
+env_name = "cook_hardest"
+model = "gpt-4-turbo"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 150, 3
-need_exp = False
+max_steps, n_attempts = 150, 1
+need_exp = True
 
 # End of changeable part of pipeline
 
@@ -37,8 +37,8 @@ log = Logger(log_file)
 env = TextWorldWrapper(ENV_NAMES[env_name])
 
 agent = GPTagent(model = model, system_prompt=default_system_prompt, api_key = api_key)
-agent_plan = GPTagent(model = model, system_prompt=system_plan_agent, api_key = api_key)
-agent_action = GPTagent(model = model, system_prompt=system_action_agent_sub_expl, api_key = api_key)
+agent_plan = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_plan_agent, api_key = api_key)
+agent_action = GPTagent(model = "gpt-4-0125-preview", system_prompt=system_action_agent_sub_expl, api_key = api_key)
 agent_if_expl = GPTagent(model = model, system_prompt=if_exp_prompt, api_key = api_key)
 
 def run():        
@@ -61,7 +61,7 @@ def run():
 ],
 }}'''
         subgraph = []
-        previous_location = env.curr_location.lower()
+        previous_location = observation_processing(env.curr_location).lower()
         attempt_amount, attempt_time = 0, 0
         done = False
         graph = ContrieverGraph(model, system_prompt = "You are a helpful assistant", device = retriever_device, api_key = api_key)
@@ -74,7 +74,7 @@ def run():
             observation = observation_processing(observation)
             if step == 0:
                 observation += FIRST_OBS[env_name]
-            observation = "Game step #" + str(step + 1) + "\n" + observation
+            observation = "Game step #" + str(step + 1) + "\n" + observation 
             inventory = env.get_inventory()
 
             if done:
@@ -83,13 +83,14 @@ def run():
                 break
 
             log("Observation: " + observation)        
-            locations.add(env.curr_location.lower())
+            log("Inventory: " + str(inventory))
+            locations.add(observation_processing(env.curr_location).lower())
             
             observed_items, _ = agent.item_processing_scores(observation, plan0)
             items = {key.lower(): value for key, value in observed_items.items()}
             log("Crucial items: " + str(items))
             
-            subgraph, top_episodic = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=env.curr_location.lower(), previous_location=previous_location, action=action, log=log, items1 = items, topk_episodic=topk_episodic)
+            subgraph, top_episodic = graph.update(observation, observations, plan=plan0, prev_subgraph=subgraph, locations=list(locations), curr_location=observation_processing(env.curr_location).lower(), previous_location=previous_location, action=action, log=log, items1 = items, topk_episodic=topk_episodic)
             observation += f"\nInventory: {inventory}"
             
             log("Length of subgraph: " + str(len(subgraph)))
@@ -102,9 +103,12 @@ def run():
             
             #Exploration
             all_unexpl_exits = get_unexpl_exits(locations, graph) if if_explore else ""
+            if if_explore:
+                log(all_unexpl_exits)
 
-            valid_actions = [action_processing(action) for action in env.get_valid_actions()] if "cook" in env_name else env.get_valid_actions()
+            valid_actions = [action_processing(action) for action in env.get_valid_actions()] + env.expand_action_space() if "cook" in env_name else env.get_valid_actions()
             valid_actions += [f"go to {loc}" for loc in locations]
+            log("Valid actions: " + str(valid_actions))
             hist_obs = "\n".join(history)
 
             plan0 = planning(hist_obs, observation, plan0, subgraph, top_episodic, if_explore, all_unexpl_exits)
@@ -114,7 +118,7 @@ def run():
             observations = observations[-n_prev:]
             history.append(f"Observation: {observation}\nAction taken: {action}")
             history = history[-n_prev:]
-            previous_location = env.curr_location.lower()
+            previous_location = observation_processing(env.curr_location).lower()
 
             observation, step_reward, done, info = process_action_get_reward(action, env, info, graph, locations, env_name)
             reward += step_reward
@@ -131,7 +135,7 @@ def run():
             log(f"Total time: {round(total_time, 2)} sec, attempt time: {round(attempt_time, 2)} sec, step time: {round(step_time, 2)} sec")
             log("=" * 70)
             
-            log(f"\n\nREWARDS: {rewards}\n\n")
+            log(f"\n\nTOTAL REWARDS: {rewards}\n\n")
 
 
 def process_action_get_reward(action, env, info, graph, locations, env_name):
@@ -140,9 +144,10 @@ def process_action_get_reward(action, env, info, graph, locations, env_name):
     
     step_reward = 0
     is_nav = "go to" in action
+    done = False
     if is_nav:
         destination = action.split('go to ')[1]
-        path = graph.find_path(env.curr_location, destination, locations)
+        path = graph.find_path(observation_processing(env.curr_location).lower(), destination, locations)
         if not isinstance(path, list):
             observation = path
         else:

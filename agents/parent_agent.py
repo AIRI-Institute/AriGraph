@@ -80,7 +80,7 @@ class GPTagent:
              "Current observation: {}\n".format(observation) + \
              "Current plan: {}\n\n".format(plan) + \
              "Answer in the following format:\n" + \
-             "{'entity_1': score1, 'entity_2': score2, ...}\n" + \
+             '{"entity_1": score1, "entity_2": score2, ...}\n' + \
              "Do not write anything else\n"
         response, cost = self.generate(prompt)
         entities_dict = ast.literal_eval(response)
