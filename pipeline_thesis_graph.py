@@ -27,7 +27,7 @@ model = "gpt-4-turbo"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 50, 1
+max_steps, n_attempts = 75, 3
 need_exp = True
 
 # End of changeable part of pipeline
@@ -82,7 +82,8 @@ def run():
                 log("\n" * 10)
                 break
 
-            log("Observation: " + observation)        
+            log("Observation: " + observation)         
+            log("Inventory: " + str(inventory))       
             locations.add(observation_processing(env.curr_location).lower())
             
             observed_items, _ = agent.item_processing_scores(observation, plan0)
@@ -102,10 +103,12 @@ def run():
             
             #Exploration
             all_unexpl_exits = get_unexpl_exits(locations, graph) if if_explore else ""
-            log("Unexplored exits: " + str(all_unexpl_exits))
+            if if_explore:
+                log("Unexplored exits: " + str(all_unexpl_exits))
 
             valid_actions = [action_processing(action) for action in env.get_valid_actions()] + env.expand_action_space() if "cook" in env_name else env.get_valid_actions()
             valid_actions += [f"go to {loc}" for loc in locations]
+            log("Valid actions: " + str(valid_actions))
             hist_obs = "\n".join(history)
 
             plan0 = planning(hist_obs, observation, plan0, subgraph, top_episodic, if_explore, all_unexpl_exits)

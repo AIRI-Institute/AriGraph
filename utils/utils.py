@@ -215,11 +215,9 @@ def get_reward_for_changes(env_change, env_backward, win_cond_take, win_cond_pla
     step_reward = 0
     # Check if taken items were correct
     skip_actions = ['examine', 'open', 'close', 'look', 'inventory']
-    if env_change !=[]:   
-        if (env_change[0] in win_cond_take and env_backward[0] not in win_cond_place) or (env_change[0] in win_cond_place):
+    if env_change !=[]:
+        if (env_change[0][1] == "I" and env_backward[0] not in win_cond_place) or (env_change[0] in win_cond_place):
             step_reward += 1
-        elif (env_backward[0] in win_cond_place):
-            step_reward -= 1
         elif env_change[0][0] == "P" or [s for s in skip_actions if s in env_change[0][2]['label']]:
             step_reward = step_reward 
         else:

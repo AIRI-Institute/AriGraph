@@ -17,17 +17,17 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 
 # Changeable part of pipeline
 
-log_file = "arigraph_cook_hardest"
+log_file = "arigraph_clean_without_episodic"
 
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_hardest", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "cook_hardest"
+env_name = "clean"
 model = "gpt-4-turbo"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 150, 1
+max_steps, n_attempts = 150, 3
 need_exp = True
 
 # End of changeable part of pipeline
@@ -173,11 +173,11 @@ def process_action_get_reward(action, env, info, graph, locations, env_name):
 
 
 def choose_action(observations, observation, subgraph, top_episodic, plan0, all_unexpl_exits, valid_actions, if_explore):
+    # \n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
     prompt = f'''\n1. Main goal: {main_goal}
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation:  {subgraph}
-\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
 \n6. Your current plan: {plan0}'''
 
     if if_explore:
@@ -201,11 +201,11 @@ def choose_action(observations, observation, subgraph, top_episodic, plan0, all_
 
 
 def planning(observations, observation, plan0, subgraph, top_episodic, if_explore, all_unexpl_exits):
+# \n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
     prompt = f'''\n1. Main goal: {main_goal}
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation: {subgraph}
-\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
 \n6. Your previous plan: {plan0}'''
 
     if if_explore:

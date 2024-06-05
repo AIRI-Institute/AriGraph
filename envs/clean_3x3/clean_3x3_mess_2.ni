@@ -20,19 +20,18 @@ The r_1 and the r_6 and the r_2 and the r_3 and the r_4 and the r_5 and the r_7 
 Understand "Kids Room" as r_1.
 The internal name of r_1 is "Kids Room".
 The printed name of r_1 is "-= Kids Room =-".
-The Kids Room part 0 is some text that varies. The Kids Room part 0 is "Well, here we are in a Kids Room. Let's see what's in here.
+The Kids Room part 0 is some text that varies. The Kids Room part 0 is "Look around you. Take it all in. It's not every day someone gets to be in a Kids Room.
 
- You make out [if c_3 is locked]a locked[else if c_3 is open]an opened[otherwise]a closed[end if]".
-The Kids Room part 1 is some text that varies. The Kids Room part 1 is " toy storage cabinet nearby.[if c_3 is open and there is something in the c_3] The toy storage cabinet contains [a list of things in the c_3].[end if]".
-The Kids Room part 2 is some text that varies. The Kids Room part 2 is "[if c_3 is open and the c_3 contains nothing] The toy storage cabinet is empty! This is the worst thing that could possibly happen, ever![end if]".
-The Kids Room part 3 is some text that varies. The Kids Room part 3 is " Were you looking for a study table? Because look over there, it's a study table. [if there is something on the s_10]On the study table you can see [a list of things on the s_10].[end if]".
-The Kids Room part 4 is some text that varies. The Kids Room part 4 is "[if there is nothing on the s_10]But the thing hasn't got anything on it. You make a mental note to not get your hopes up the next time you see a study table in a room.[end if]".
-The Kids Room part 5 is some text that varies. The Kids Room part 5 is " If you haven't noticed it already, there seems to be something there by the wall, it's a kids bed. The kids bed is normal.[if there is something on the s_9] On the kids bed you can make out [a list of things on the s_9].[end if]".
-The Kids Room part 6 is some text that varies. The Kids Room part 6 is "[if there is nothing on the s_9] But oh no! there's nothing on this piece of garbage.[end if]".
-The Kids Room part 7 is some text that varies. The Kids Room part 7 is "
+ You make out a toy storage cabinet. There's something strange about this thing being here, but you don't have time to worry about that now.[if c_3 is open and there is something in the c_3] The toy storage cabinet contains [a list of things in the c_3].[end if]".
+The Kids Room part 1 is some text that varies. The Kids Room part 1 is "[if c_3 is open and the c_3 contains nothing] The toy storage cabinet is empty! What a waste of a day![end if]".
+The Kids Room part 2 is some text that varies. The Kids Room part 2 is " Oh wow! Is that what I think it is? It is! It's a study table. [if there is something on the s_10]You see [a list of things on the s_10] on the study table.[end if]".
+The Kids Room part 3 is some text that varies. The Kids Room part 3 is "[if there is nothing on the s_10]But there isn't a thing on it.[end if]".
+The Kids Room part 4 is some text that varies. The Kids Room part 4 is " You scan the room, seeing a kids bed. [if there is something on the s_9]You see [a list of things on the s_9] on the kids bed.[end if]".
+The Kids Room part 5 is some text that varies. The Kids Room part 5 is "[if there is nothing on the s_9]But there isn't a thing on it. Sometimes, just sometimes, TextWorld can just be the worst.[end if]".
+The Kids Room part 6 is some text that varies. The Kids Room part 6 is "
 
 There is an exit to the east. Don't worry, it is unguarded. You don't like doors? Why not try going south, that entranceway is unguarded. You don't like doors? Why not try going west, that entranceway is unguarded.".
-The description of r_1 is "[Kids Room part 0][Kids Room part 1][Kids Room part 2][Kids Room part 3][Kids Room part 4][Kids Room part 5][Kids Room part 6][Kids Room part 7]".
+The description of r_1 is "[Kids Room part 0][Kids Room part 1][Kids Room part 2][Kids Room part 3][Kids Room part 4][Kids Room part 5][Kids Room part 6]".
 
 The r_6 is mapped west of r_1.
 The r_2 is mapped south of r_1.
@@ -151,14 +150,16 @@ The internal name of r_0 is "Gym".
 The printed name of r_0 is "-= Gym =-".
 The Gym part 0 is some text that varies. The Gym part 0 is "Guess what, you are in a place we're calling a Gym.
 
- You see a dumbbell stand. [if there is something on the s_14]You see [a list of things on the s_14] on the dumbbell stand.[end if]".
-The Gym part 1 is some text that varies. The Gym part 1 is "[if there is nothing on the s_14]But there isn't a thing on it.[end if]".
-The Gym part 2 is some text that varies. The Gym part 2 is " You make out a treadmill. [if there is something on the s_15]On the treadmill you can see [a list of things on the s_15].[end if]".
-The Gym part 3 is some text that varies. The Gym part 3 is "[if there is nothing on the s_15]However, the treadmill, like an empty treadmill, has nothing on it.[end if]".
-The Gym part 4 is some text that varies. The Gym part 4 is "
+ You see a locker.[if c_4 is open and there is something in the c_4] The locker contains [a list of things in the c_4]. You idly wonder how they came up with the name TextWorld for this place. It's pretty fitting.[end if]".
+The Gym part 1 is some text that varies. The Gym part 1 is "[if c_4 is open and the c_4 contains nothing] The locker is empty! What a waste of a day![end if]".
+The Gym part 2 is some text that varies. The Gym part 2 is " You make out a dumbbell stand. The dumbbell stand is standard.[if there is something on the s_14] On the dumbbell stand you can make out [a list of things on the s_14].[end if]".
+The Gym part 3 is some text that varies. The Gym part 3 is "[if there is nothing on the s_14] However, the dumbbell stand, like an empty dumbbell stand, has nothing on it. It would have been so cool if there was stuff on the dumbbell stand.[end if]".
+The Gym part 4 is some text that varies. The Gym part 4 is " You see a treadmill. [if there is something on the s_15]On the treadmill you can see [a list of things on the s_15].[end if]".
+The Gym part 5 is some text that varies. The Gym part 5 is "[if there is nothing on the s_15]Unfortunately, there isn't a thing on it.[end if]".
+The Gym part 6 is some text that varies. The Gym part 6 is "
 
-You need an unblocked exit? You should try going east. There is an unblocked exit to the north.".
-The description of r_0 is "[Gym part 0][Gym part 1][Gym part 2][Gym part 3][Gym part 4]".
+There is an unguarded exit to the east. You don't like doors? Why not try going north, that entranceway is unguarded.".
+The description of r_0 is "[Gym part 0][Gym part 1][Gym part 2][Gym part 3][Gym part 4][Gym part 5][Gym part 6]".
 
 The r_3 is mapped north of r_0.
 The r_7 is mapped east of r_0.
@@ -167,24 +168,24 @@ The internal name of r_8 is "Library".
 The printed name of r_8 is "-= Library =-".
 The Library part 0 is some text that varies. The Library part 0 is "You've entered a Library.
 
- You can see a bookcase. [if there is something on the s_4]On the bookcase you see [a list of things on the s_4].[end if]".
-The Library part 1 is some text that varies. The Library part 1 is "[if there is nothing on the s_4]Looks like someone's already been here and taken everything off it, though.[end if]".
-The Library part 2 is some text that varies. The Library part 2 is " You make out a reading table. [if there is something on the s_5]On the reading table you make out [a list of things on the s_5].[end if]".
-The Library part 3 is some text that varies. The Library part 3 is "[if there is nothing on the s_5]But the thing is empty. Oh! Why couldn't there just be stuff on it?[end if]".
+ You scan the room for a bookcase, and you find a bookcase. The bookcase is usual.[if there is something on the s_4] On the bookcase you see [a list of things on the s_4].[end if]".
+The Library part 1 is some text that varies. The Library part 1 is "[if there is nothing on the s_4] The bookcase appears to be empty.[end if]".
+The Library part 2 is some text that varies. The Library part 2 is " Oh, great. Here's a reading table. The reading table is typical.[if there is something on the s_5] On the reading table you make out [a list of things on the s_5].[end if]".
+The Library part 3 is some text that varies. The Library part 3 is "[if there is nothing on the s_5] But oh no! there's nothing on this piece of junk.[end if]".
 The Library part 4 is some text that varies. The Library part 4 is "
 
-There is an unguarded exit to the north. There is an unblocked exit to the west.".
+There is an unblocked exit to the north. There is an exit to the west. Don't worry, it is unguarded.".
 The description of r_8 is "[Library part 0][Library part 1][Library part 2][Library part 3][Library part 4]".
 
 The r_7 is mapped west of r_8.
 The r_5 is mapped north of r_8.
 
-The c_0 and the c_1 and the c_2 and the c_3 are containers.
-The c_0 and the c_1 and the c_2 and the c_3 are privately-named.
+The c_0 and the c_1 and the c_2 and the c_3 and the c_4 are containers.
+The c_0 and the c_1 and the c_2 and the c_3 and the c_4 are privately-named.
 The f_0 and the f_1 and the f_2 are foods.
 The f_0 and the f_1 and the f_2 are privately-named.
-The o_15 and the o_16 and the o_21 and the o_22 and the o_25 and the o_11 and the o_9 and the o_0 and the o_1 and the o_10 and the o_12 and the o_13 and the o_14 and the o_17 and the o_18 and the o_19 and the o_2 and the o_20 and the o_23 and the o_24 and the o_26 and the o_27 and the o_28 and the o_29 and the o_3 and the o_4 and the o_5 and the o_6 and the o_7 and the o_8 are object-likes.
-The o_15 and the o_16 and the o_21 and the o_22 and the o_25 and the o_11 and the o_9 and the o_0 and the o_1 and the o_10 and the o_12 and the o_13 and the o_14 and the o_17 and the o_18 and the o_19 and the o_2 and the o_20 and the o_23 and the o_24 and the o_26 and the o_27 and the o_28 and the o_29 and the o_3 and the o_4 and the o_5 and the o_6 and the o_7 and the o_8 are privately-named.
+The o_21 and the o_22 and the o_25 and the o_11 and the o_15 and the o_16 and the o_9 and the o_0 and the o_1 and the o_10 and the o_12 and the o_13 and the o_14 and the o_17 and the o_18 and the o_19 and the o_2 and the o_20 and the o_23 and the o_24 and the o_26 and the o_27 and the o_28 and the o_29 and the o_3 and the o_4 and the o_5 and the o_6 and the o_7 and the o_8 are object-likes.
+The o_21 and the o_22 and the o_25 and the o_11 and the o_15 and the o_16 and the o_9 and the o_0 and the o_1 and the o_10 and the o_12 and the o_13 and the o_14 and the o_17 and the o_18 and the o_19 and the o_2 and the o_20 and the o_23 and the o_24 and the o_26 and the o_27 and the o_28 and the o_29 and the o_3 and the o_4 and the o_5 and the o_6 and the o_7 and the o_8 are privately-named.
 The r_1 and the r_6 and the r_2 and the r_3 and the r_4 and the r_5 and the r_7 and the r_0 and the r_8 are rooms.
 The r_1 and the r_6 and the r_2 and the r_3 and the r_4 and the r_5 and the r_7 and the r_0 and the r_8 are privately-named.
 The s_0 and the s_1 and the s_10 and the s_11 and the s_12 and the s_13 and the s_14 and the s_15 and the s_16 and the s_17 and the s_2 and the s_3 and the s_4 and the s_5 and the s_6 and the s_7 and the s_8 and the s_9 are supporters.
@@ -213,18 +214,10 @@ Understand "storage" as c_3.
 Understand "cabinet" as c_3.
 The c_3 is in r_1.
 The c_3 is closed.
-The description of o_15 is "yoga mat".
-The printed name of o_15 is "yoga mat".
-Understand "yoga mat" as o_15.
-Understand "yoga" as o_15.
-Understand "mat" as o_15.
-The o_15 is in r_0.
-The description of o_16 is "jump rope".
-The printed name of o_16 is "jump rope".
-Understand "jump rope" as o_16.
-Understand "jump" as o_16.
-Understand "rope" as o_16.
-The o_16 is in r_0.
+The description of c_4 is "The locker looks strong, and impossible to crack. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
+The printed name of c_4 is "locker".
+Understand "locker" as c_4.
+The c_4 is in r_0.
 The description of o_21 is "a tale about elf wizard".
 The printed name of o_21 is "fantasy book".
 Understand "fantasy book" as o_21.
@@ -363,6 +356,18 @@ Understand "toy sword" as o_11.
 Understand "toy" as o_11.
 Understand "sword" as o_11.
 The o_11 is in the c_3.
+The description of o_15 is "yoga mat".
+The printed name of o_15 is "yoga mat".
+Understand "yoga mat" as o_15.
+Understand "yoga" as o_15.
+Understand "mat" as o_15.
+The o_15 is in the c_4.
+The description of o_16 is "jump rope".
+The printed name of o_16 is "jump rope".
+Understand "jump rope" as o_16.
+Understand "jump" as o_16.
+Understand "rope" as o_16.
+The o_16 is in the c_4.
 The description of o_9 is "beautifull evening dress".
 The printed name of o_9 is "evening dress".
 Understand "evening dress" as o_9.

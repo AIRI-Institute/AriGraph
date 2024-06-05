@@ -22,7 +22,7 @@ log_file = "human_game_Ksusha"
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_hardest", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "cook_hardest"
+env_name = "clean"
 model = "gpt-4-0125-preview"
 retriever_device = "cpu"
 api_key = "insert your key here"

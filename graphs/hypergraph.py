@@ -152,7 +152,7 @@ Your answer: '''
 
         prompt = prompt_refining_thesises.format(ex_thesises = associated_subgraph, new_thesises = only_names)
         response, _ = self.generate(prompt, t = 0.)
-        predicted_outdated = ast.literal_eval(response)
+        predicted_outdated = ast.literal_eval("[" + response.split("[")[-1].split("]")[0] + "]")
         self.delete_thesises(predicted_outdated)
         self.add(new_thesises_raw, observation)
         log("Outdated thesises: " + response)

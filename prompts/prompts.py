@@ -62,7 +62,7 @@ Extracted triplets:'''
 
 
 prompt_extraction_thesises = '''Your task is to decompose input text into set of expressive, accurate and short thesises with their entities.
-Every thesis must contain completed truth information which contains in the input text.
+Every thesis must contain completed truth information which contains in the input text. Pay attention on full text and extract only contextually and factologically truth information.
 For example, from text "Little boy always like sweety and that's because he is going to kitchen to pick up candies" you should extract following thesises:
 {
     "thesises": [
@@ -76,7 +76,7 @@ For example, from text "Little boy always like sweety and that's because he is g
         },
         {
             "thesis": "Little boy is going to pick up candies",
-            "entities": ["little boy", "candies"]
+            "entities": ["little boy", "candies", "kitchen"]
         },
         {
             "thesis": "Kitchen contains candies",
@@ -85,10 +85,16 @@ For example, from text "Little boy always like sweety and that's because he is g
     ]
 }
 Remember that thesises must be absolutely truth and contain strictly information that is contained into input text. Entities must not be
-a verb and must explicitly appear in the thesis. Thesises must be consistency without context, so, you should not to use phrases like "there is",
+a verb and must explicitly or implicitly appear in the thesis. Don't forget to include entities which aren't explicitly appeared
+in the text but crucial for current thesis (like entity "kitchen" for thesis "Little boy is going to pick up candies" from example).
+Thesises must be consistency without context, so, you should not to use phrases like "there is",
 "that", "now" and etc. For example, from text "Step 1. Now you are at the kitchen. There is a table and fridge" you should not extract thesises 
 "There is a table", "There is a fridge", "Now you are at kitchen", better extract "table located at the kitchen", "fridge located at the kitchen", 
 "At step 1 you are at the kitchen".
+You should add the context into thesises for better understanding in the future. Thesises must be complete and useful
+without source text. For example, thesis "north window is open" is not clear since "north window" can appears at many different locations.
+You should extract "north window at kitchen is open" (if you are at the kitchen) instead.
+Pay attention on full text and extract only contextually and factologically truth information.
 
 Write your answer strictly in following json format:
 {
