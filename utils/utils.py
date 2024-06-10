@@ -1,5 +1,6 @@
 import os
 import re
+import ast
 import json
 import torch
 import numpy as np
@@ -376,10 +377,13 @@ def action_deprocessing(action):
     return action
 
 def process_thesises(response):
-    thesises = json.loads(response)["thesises"]
-    thesises = [
-        {"name": thesis["thesis"], "entities": thesis["entities"]} for thesis in thesises 
-    ]
+    raw_thesises = response.split(".")
+    thesises = []
+    for raw_thesis in raw_thesises:
+        if ";" not in raw_thesis:
+            continue
+        raw_thesis = raw_thesis.split(";")
+        thesises.append({"name": raw_thesis[0], "entities": ast.literal_eval(raw_thesis[1].strip(''' .,/'''))})
     return thesises
 
 def find_unexplored_exits_thesises(location, triplets, thesises):

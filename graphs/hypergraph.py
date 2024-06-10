@@ -138,7 +138,7 @@ class Hypergraph(ContrieverGraph):
 INPUT TEXT: {observation}
 ####
 Your answer: '''
-        response, _ = self.generate(prompt, jsn = True, t = 0.)
+        response, _ = self.generate(prompt, t = 0.)
         new_thesises_raw = process_thesises(response)
         
         only_names = [thesis["name"] for thesis in new_thesises_raw]
@@ -152,10 +152,12 @@ Your answer: '''
 
         prompt = prompt_refining_thesises.format(ex_thesises = associated_subgraph, new_thesises = only_names)
         response, _ = self.generate(prompt, t = 0.)
-        predicted_outdated = ast.literal_eval("[" + response.split("[")[-1].split("]")[0] + "]")
+        predicted_outdated = response.split("[")[-1].split("]")[0].split(";")
+        predicted_outdated = [pair.strip().split("<-")[1].strip(''' '".,''') for pair in predicted_outdated if "<-" in pair]
         self.delete_thesises(predicted_outdated)
         self.add(new_thesises_raw, observation)
-        log("Outdated thesises: " + response)
+        log("Outdated thesises: " + str(predicted_outdated))
+        log("Original replacement: " + str(response))
 
         # Legacy navigation part
         if "go to" not in action:

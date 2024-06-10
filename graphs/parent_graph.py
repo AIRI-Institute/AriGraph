@@ -183,7 +183,6 @@ class TripletGraph:
                 return "You are already there"
             
             if A.lower() not in locations or B.lower() not in locations:
-                breakpoint()
                 return f"Destination is unknown. Please, choose another destination or explore new paths and locations. Available locations: {locations}. Your choice: from {A} to {B}"
             spatial_graph = self.compute_spatial_graph(locations)
             current_set = {A}
@@ -218,7 +217,6 @@ class TripletGraph:
             return list(reversed(path))
         except Exception as e:
             print(e)
-            breakpoint()
             return "You can't navigate now through 'go to', please, use actions like north or west"
     
     def print_graph(self):

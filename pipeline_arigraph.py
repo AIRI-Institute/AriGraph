@@ -17,17 +17,17 @@ from utils.utils import Logger, observation_processing, find_unexplored_exits, \
 
 # Changeable part of pipeline
 
-log_file = "arigraph_clean_without_episodic"
+log_file = "arigraph_nav4_without_episodic"
 
 # env_name can be picked from:
 # ["hunt", "hunt_hard", "cook", "cook_hard", "cook_hardest", "cook_rl_baseline", "clean"]
 # for test another envs edit utils.envs_cfg
-env_name = "clean"
-model = "gpt-4-turbo"
+env_name = "hunt_hard"
+model = "gpt-4o"
 retriever_device = "cpu"
 api_key = "insert your key here"
 n_prev, topk_episodic = 5, 2
-max_steps, n_attempts = 150, 3
+max_steps, n_attempts = 150, 1
 need_exp = True
 
 # End of changeable part of pipeline

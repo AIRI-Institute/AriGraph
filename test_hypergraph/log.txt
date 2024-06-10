@@ -18800,3 +18800,1478 @@ New thesises: {
         }
     ]
 }
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'living room': 1, 'sofa': 1}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'kitchen': 2, 'meal': 2, 'stove': 1, 'oven': 1, 'bbq': 1}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'stove': 1, 'oven': 1, 'bbq': 1}
+New thesises: Living room has sofa; ['Living room', 'sofa']. Living room has exit east; ['Living room', 'exit east']. Exit south is without door; ['exit south', 'without door']. Cookbook contains recipe; ['Cookbook', 'recipe']. Meal should be prepared in kitchen; ['Meal', 'kitchen']. Frying is done with stove; ['Frying', 'stove']. Roasting is done with oven; ['Roasting', 'oven']. Grilling is done with BBQ; ['Grilling', 'BBQ']. Meal should be eaten; ['Meal', 'eaten'].
+Outdated thesises: Replacing: []
+Length of subgraph: 9
+Associated thesises: ['living room has exit east', 'meal should be prepared in kitchen', 'roasting is done with oven', 'frying is done with stove', 'grilling is done with bbq', 'meal should be eaten', 'living room has sofa', 'cookbook contains recipe', 'exit south is without door']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The cookbook with the recipe is located in the kitchen, which is necessary for preparing the meal."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "The cookbook contains the recipe needed to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather ingredients for the recipe",
+      "reason": "Ingredients are needed to follow the recipe and prepare the meal."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared by following the recipe's instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To complete the task, the prepared meal needs to be eaten."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to prepare and enjoy a delicious meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The cookbook with the recipe is located in the kitchen, which is necessary for preparing the meal. The current location is the living room, and the kitchen is not directly accessible from here, but moving towards unexplored areas might lead to finding the kitchen.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 36.62 sec, attempt time: 36.62 sec, step time: 36.62 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 1, 'cookbook': 2, 'recipe': 2, 'orange bell pepper': 1, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1, 'knife': 1, 'stove': 1}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Kitchen has exit south; ['Kitchen', 'exit', 'south']. Kitchen has exit east; ['Kitchen', 'exit', 'east']. Kitchen has exit north; ['Kitchen', 'exit', 'north'].
+
+Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna'].
+
+Table has cookbook; ['Table', 'has', 'cookbook']. Table has knife; ['Table', 'has', 'knife'].
+
+Stove is conventional; ['Stove', 'is', 'conventional'].
+Outdated thesises: Replacing: ["frying is done with stove", "roasting is done with oven"]
+Length of subgraph: 15
+Associated thesises: ['kitchen has exit east', '\n\ntable has cookbook', 'open fridge contains red bell pepper', 'kitchen contains stove', 'meal should be eaten', 'table has knife', 'kitchen has exit south', '\n\nopen fridge contains orange bell pepper', 'cookbook contains recipe', 'kitchen has exit north', 'kitchen contains oven', 'open fridge contains raw white tuna', 'kitchen contains counter', 'kitchen contains table', '\n\nstove is conventional']
+Episodic memory: ["game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Unexplored exits: 
+Unexplored exits for kitchen: ['south', 'east']
+Unexplored exits for living room: ['east']
+Valid actions: ['close fridge', 'close frosted-glass door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'inventory', 'look', 'take cookbook from table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to kitchen', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the cookbook",
+      "reason": "Now in the kitchen, the next step is to find the cookbook which contains the recipe needed to prepare the meal."
+    },
+    {
+      "sub_goal_2": "Gather ingredients for the recipe",
+      "reason": "Ingredients are needed to follow the recipe and prepare the meal."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared by following the recipe's instructions."
+    },
+    {
+      "sub_goal_4": "Eat the meal",
+      "reason": "To complete the task, the prepared meal needs to be eaten."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully found the kitchen and ready to proceed with the next steps."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Find the cookbook as per the current sub-goal to proceed with the meal preparation.",
+  "action_to_take": "take cookbook from table"
+}
+
+Total amount: 0.14$, attempt amount: 0.14$, step amount: 0.08$
+Total time: 78.01 sec, attempt time: 78.01 sec, step time: 41.39 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You take the cookbook from the table.
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'meal': 2, 'ingredients': 2, 'kitchen': 1}
+New thesises: Cookbook is in inventory; ['Cookbook', 'in', 'inventory'].
+Outdated thesises: Replacing: []
+Length of subgraph: 18
+Associated thesises: ['kitchen has exit east', 'meal should be prepared in kitchen', '\n\ntable has cookbook', 'open fridge contains red bell pepper', 'kitchen contains stove', 'kitchen contains open fridge', 'meal should be eaten', 'table has knife', 'kitchen has exit south', 'open fridge contains raw white tuna', 'cookbook contains recipe', 'cookbook is in inventory', 'kitchen contains oven', 'kitchen has exit north', '\n\nopen fridge contains orange bell pepper', 'kitchen contains counter', 'kitchen contains table', '\n\nstove is conventional']
+Episodic memory: ['game step #3\n\nyou take the cookbook from the table.\n\n\n\n', "game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for kitchen: ['south', 'east']
+Unexplored exits for living room: ['east']
+Valid actions: ['close fridge', 'close frosted-glass door', 'drop cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'insert cookbook into fridge', 'inventory', 'look', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to kitchen', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Read the cookbook to find out the recipe",
+      "reason": "Now that the cookbook is in the inventory, the next step is to read it to know which ingredients are needed and how to prepare the meal."
+    },
+    {
+      "sub_goal_2": "Gather ingredients for the recipe",
+      "reason": "Ingredients are needed to follow the recipe and prepare the meal. The exact ingredients will be known after reading the cookbook."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared by following the recipe's instructions. This step will be detailed after knowing the recipe."
+    },
+    {
+      "sub_goal_4": "Eat the meal",
+      "reason": "To complete the task, the prepared meal needs to be eaten."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully found the cookbook and ready to proceed with the next steps."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now that the cookbook is in the inventory, the next step is to read it to know which ingredients are needed and how to prepare the meal.",
+  "action_to_take": "examine cookbook"
+}
+
+Total amount: 0.2$, attempt amount: 0.2$, step amount: 0.07$
+Total time: 109.51 sec, attempt time: 109.51 sec, step time: 31.5 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:
+
+Recipe
+---------
+Gather all following ingredients and follow the directions to prepare this tasty meal.
+
+Ingredients:
+green bell pepper
+  orange bell pepper
+  yellow potato
+
+Directions:
+dice the green bell pepper
+  fry the green bell pepper
+  dice the orange bell pepper
+  grill the orange bell pepper
+  slice the yellow potato
+  grill the yellow potato
+  prepare meal
+
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'green bell pepper': 2, 'orange bell pepper': 2, 'yellow potato': 1, 'dice': 1, 'fry': 1, 'grill': 1, 'prepare meal': 2}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'living room': 1, 'sofa': 1}
+New thesises: Living room has sofa; ['Living room', 'sofa']. Living room has exit east; ['Living room', 'exit east']. Exit south from living room has no door; ['Living room', 'exit south', 'no door']. Cookbook contains recipe; ['Cookbook', 'recipe']. Meal should be prepared in kitchen; ['Meal', 'kitchen']. Frying is done with stove; ['Frying', 'stove']. Roasting is done with oven; ['Roasting', 'oven']. Grilling is done with BBQ; ['Grilling', 'BBQ']. Meal should be eaten after preparation; ['Meal', 'eating'].
+Outdated thesises: Replacing: []
+Length of subgraph: 9
+Associated thesises: ['meal should be prepared in kitchen', 'roasting is done with oven', 'exit south from living room has no door', 'grilling is done with bbq', 'living room has exit east', 'living room has sofa', 'cookbook contains recipe', 'meal should be eaten after preparation', 'frying is done with stove']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The cookbook with the recipe is located in the kitchen, which is necessary for preparing the meal."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "The cookbook contains the recipe needed to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather ingredients according to the recipe",
+      "reason": "Ingredients are needed to prepare the meal as per the recipe in the cookbook."
+    },
+    {
+      "sub_goal_4": "Prepare the meal using the kitchen appliances",
+      "reason": "The meal needs to be prepared in the kitchen using the appropriate appliances as per the cooking method mentioned in the recipe."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "The final step of the main goal is to eat the meal after it has been prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to start the cooking process and satisfy the hunger."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The cookbook with the recipe is located in the kitchen, which is necessary for preparing the meal.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 52.92 sec, attempt time: 52.92 sec, step time: 52.92 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 1, 'cookbook': 2, 'knife': 1, 'oven': 1, 'stove': 1, 'orange bell pepper': 2, 'red bell pepper': 2, 'raw white tuna': 2}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Table has cookbook; ['Table', 'contains', 'cookbook']. Table has knife; ['Table', 'contains', 'knife']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Kitchen has exit south through frosted-glass door; ['Kitchen', 'exit south', 'frosted-glass door']. Kitchen has exit east without door; ['Kitchen', 'exit east', 'no door']. Kitchen has exit north not blocked by door; ['Kitchen', 'exit north', 'not blocked by door'].
+Outdated thesises: ["frying is done with stove", "roasting is done with oven"]
+Length of subgraph: 13
+Associated thesises: ['table has cookbook', 'meal should be prepared in kitchen', 'kitchen contains counter', 'kitchen contains stove', 'kitchen contains oven', 'open fridge contains red bell pepper', 'table has knife', 'open fridge contains raw white tuna', 'cookbook contains recipe', 'kitchen contains open fridge', 'meal should be eaten after preparation', 'kitchen contains table', 'open fridge contains orange bell pepper']
+Episodic memory: ["game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying is done only with stove, roasting is done only with oven and grilling is done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'frying': 1, 'stove': 1, 'roasting': 1, 'oven': 1, 'grilling': 1, 'bbq': 1}
+New thesises: Cookbook contains recipe; ['Cookbook', 'recipe']. Recipe is in Cookbook; ['Recipe', 'Cookbook']. Meal should be prepared in kitchen; ['Meal', 'kitchen']. Meal should be eaten; ['Meal', 'eating']. Frying is done with stove; ['Frying', 'stove']. Roasting is done with oven; ['Roasting', 'oven']. Grilling is done with BBQ; ['Grilling', 'BBQ']. Living room has exit east; ['Living room', 'exit east']. Living room has exit south; ['Living room', 'exit south']. Sofa is in living room; ['Sofa', 'Living room'].
+Outdated thesises: Replacing: []
+Length of subgraph: 10
+Associated thesises: ['recipe is in cookbook', 'meal should be eaten', 'meal should be prepared in kitchen', 'roasting is done with oven', 'living room has exit east', 'grilling is done with bbq', 'cookbook contains recipe', 'living room has exit south', 'frying is done with stove', 'sofa is in living room']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the kitchen",
+      "reason": "The cookbook with the recipe is located in the kitchen. Need to find the kitchen to get the recipe."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "The cookbook contains the recipe needed to prepare the meal. It's located in the kitchen."
+    },
+    {
+      "sub_goal_3": "Follow the recipe to gather and process ingredients",
+      "reason": "Once the recipe is known, ingredients need to be gathered and processed according to the recipe instructions."
+    },
+    {
+      "sub_goal_4": "Prepare the meal in the kitchen",
+      "reason": "After gathering and processing all ingredients, the meal should be prepared in the kitchen using the appropriate method (frying, roasting, grilling)."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "After preparing the meal, the final step is to eat it to satisfy hunger."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to start the process of preparing a meal and satisfying hunger."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The kitchen needs to be found to get the recipe, and the living room has exits to the east and south.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 42.68 sec, attempt time: 42.68 sec, step time: 42.68 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 2, 'cookbook': 2, 'recipe': 2, 'orange bell pepper': 1, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1, 'stove': 1, 'knife': 1}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Table has cookbook; ['Table', 'contains', 'cookbook']. Table has knife; ['Table', 'contains', 'knife']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Kitchen has exit south through frosted-glass door; ['Kitchen', 'exit south', 'frosted-glass door']. Kitchen has unblocked exit east; ['Kitchen', 'exit east', 'unblocked']. Kitchen has unblocked exit north; ['Kitchen', 'exit north', 'unblocked'].
+Outdated thesises: ["cookbook contains recipe", "recipe is in cookbook"]
+Length of subgraph: 12
+Associated thesises: ['kitchen contains oven', 'open fridge contains orange bell pepper', 'meal should be eaten', 'open fridge contains raw white tuna', 'table has cookbook', 'roasting is done with oven', 'kitchen contains counter', 'open fridge contains red bell pepper', 'kitchen contains table', 'kitchen contains stove', 'frying is done with stove', 'table has knife']
+Episodic memory: ["game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Unexplored exits: 
+Unexplored exits for kitchen: ['south', 'east']
+Unexplored exits for living room: ['east']
+Valid actions: ['close fridge', 'close frosted-glass door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'inventory', 'look', 'take cookbook from table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to kitchen', 'go to living room']
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'kitchen': 2, 'meal': 2}
+New thesises: Living room has sofa; ['Living room', 'sofa']. Living room has exit east; ['Living room', 'exit east']. Exit south from living room has no door; ['Living room', 'exit south', 'no door']. Cookbook contains recipe; ['Cookbook', 'recipe']. Meal should be prepared in kitchen; ['Meal', 'kitchen']. Frying is done with stove; ['Frying', 'stove']. Roasting is done with oven; ['Roasting', 'oven']. Grilling is done with BBQ; ['Grilling', 'BBQ']. Meal should be eaten after preparation; ['Meal', 'eating'].
+Outdated thesises: []
+Length of subgraph: 9
+Associated thesises: ['roasting is done with oven', 'meal should be prepared in kitchen', 'living room has exit east', 'cookbook contains recipe', 'living room has sofa', 'exit south from living room has no door', 'grilling is done with bbq', 'frying is done with stove', 'meal should be eaten after preparation']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "To find the cookbook with the recipe, as the kitchen is likely where it is located."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "To know the ingredients and the method for preparing the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to prepare and enjoy a delicious meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "To find the cookbook with the recipe, as the kitchen is likely where it is located.",
+  "action_to_take": "go east"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 39.7 sec, attempt time: 39.7 sec, step time: 39.7 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Bedroom =-
+Guess what, you are in a place we're calling a bedroom.
+
+Oh wow! Is that what I think it is? It is! It's a bed. The bed is large. But there isn't a thing on it. Silly bed, silly, empty, good for nothing bed.
+
+There is an exit to the south. There is an exit to the west.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'bedroom': 1, 'bed': 1, 'kitchen': 2, 'cookbook': 2, 'recipe': 2, 'ingredients': 2, 'meal': 2}
+New thesises: Bedroom contains bed; ['Bedroom', 'contains', 'bed']. Bedroom has exit south; ['Bedroom', 'exit', 'south']. Bedroom has exit west; ['Bedroom', 'exit', 'west']. Bed is large; ['Bed', 'is', 'large']. Bed is empty; ['Bed', 'is', 'empty'].
+Outdated thesises: []
+Length of subgraph: 13
+Associated thesises: ['roasting is done with oven', 'meal should be prepared in kitchen', 'living room has exit east', 'cookbook contains recipe', 'living room has sofa', 'bedroom contains bed', 'bedroom has exit south', 'grilling is done with bbq', 'frying is done with stove', 'bedroom has exit west', 'bed is large', 'meal should be eaten after preparation', 'bed is empty']
+Episodic memory: ["game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Unexplored exits: 
+Unexplored exits for bedroom: ['south']
+Unexplored exits for living room: ['south']
+Valid actions: ['examine bed', 'go south', 'go west', 'inventory', 'look', 'go to bedroom', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The bedroom does not lead directly to the kitchen. Need to find another route, possibly through the living room."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "To know the ingredients and the method for preparing the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Still excited to prepare and enjoy a delicious meal, despite the detour."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Exploring unvisited areas to find the kitchen as per sub_goal_1",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.12$, attempt amount: 0.12$, step amount: 0.07$
+Total time: 85.19 sec, attempt time: 85.19 sec, step time: 45.49 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'corridor': 1, 'kitchen': 2, 'cookbook': 2, 'ingredients': 2, 'meal': 2}
+New thesises: Corridor has open screen door leading east; ['Corridor', 'open screen door', 'east']. Corridor has exit north without a door; ['Corridor', 'exit north', 'without door']. Corridor has entranceway south not blocked by door; ['Corridor', 'entranceway south', 'not blocked by door']. Corridor has exit west without a door; ['Corridor', 'exit west', 'without door'].
+Outdated thesises: []
+Length of subgraph: 17
+Associated thesises: ['roasting is done with oven', 'meal should be prepared in kitchen', 'living room has exit east', 'cookbook contains recipe', 'living room has sofa', 'bedroom contains bed', 'bedroom has exit south', 'bedroom has exit west', 'grilling is done with bbq', 'corridor has open screen door leading east', 'corridor has entranceway south not blocked by door', 'corridor has exit north without a door', 'corridor has exit west without a door', 'bed is large', 'frying is done with stove', 'meal should be eaten after preparation', 'bed is empty']
+Episodic memory: ["game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n", "game step #3\n\n\n-= corridor =-\nyou arrive in a corridor. an usual one. you can barely contain your excitement.\n\n\n\nthere is an open screen door leading east. you need an exit without a door? you should try going north. you don't like doors? why not try going south, that entranceway is not blocked by one. you need an exit without a door? you should try going west.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for corridor: ['south', 'east', 'west']
+Unexplored exits for bedroom: none
+Unexplored exits for living room: ['south']
+Valid actions: ['close screen door', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'go to corridor', 'go to bedroom', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The corridor has multiple unexplored exits; need to find the kitchen to proceed with the meal preparation."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "To know the ingredients and the method for preparing the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Exploring new areas in search of the kitchen adds to the excitement of preparing the meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The corridor has multiple unexplored exits; need to find the kitchen to proceed with the meal preparation.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.19$, attempt amount: 0.19$, step amount: 0.07$
+Total time: 129.24 sec, attempt time: 129.24 sec, step time: 44.05 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+
+-= Bathroom =-
+Well, here we are in a bathroom.
+
+You can make out a toilet. Unfortunately, there isn't a thing on it.
+
+You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'bathroom': 1, 'toilet': 1, 'north': 1}
+New thesises: Bathroom contains toilet; ['Bathroom', 'toilet']. Bathroom has unblocked north entrance; ['Bathroom', 'north entrance', 'unblocked'].
+Outdated thesises: []
+Length of subgraph: 9
+Associated thesises: ['living room has sofa', 'bathroom contains toilet', 'bedroom contains bed', 'bathroom has unblocked north entrance', 'bedroom has exit south', 'corridor has exit north without a door', 'bedroom has exit west', 'bed is large', 'bed is empty']
+Episodic memory: ["game step #4\n\n\n-= bathroom =-\nwell, here we are in a bathroom.\n\nyou can make out a toilet. unfortunately, there isn't a thing on it.\n\nyou don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for corridor: ['east', 'west']
+Unexplored exits for bathroom: none
+Unexplored exits for bedroom: none
+Unexplored exits for living room: ['south']
+Valid actions: ['examine toilet', 'go north', 'inventory', 'look', 'go to corridor', 'go to bathroom', 'go to bedroom', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The bathroom does not lead to the kitchen; need to explore other areas. The corridor has unexplored exits that might lead to the kitchen."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "To know the ingredients and the method for preparing the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "The process of elimination and exploration is narrowing down the possible locations of the kitchen."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The bathroom does not lead to the kitchen; need to explore other areas. The corridor has unexplored exits that might lead to the kitchen.",
+  "action_to_take": "go north"
+}
+
+Total amount: 0.26$, attempt amount: 0.26$, step amount: 0.06$
+Total time: 171.1 sec, attempt time: 171.1 sec, step time: 41.86 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+
+-= Corridor =-
+You arrive in a corridor. An usual one. You can barely contain your excitement.
+
+
+
+There is an open screen door leading east. You need an exit without a door? You should try going north. You don't like doors? Why not try going south, that entranceway is not blocked by one. You need an exit without a door? You should try going west.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 2, 'cookbook': 2, 'ingredients': 2, 'meal': 2, 'recipe': 2}
+New thesises: Corridor has open screen door leading east; ['Corridor', 'open screen door', 'east']. Corridor has exit north without a door; ['Corridor', 'exit north', 'no door']. Corridor has entranceway south not blocked by door; ['Corridor', 'entranceway south', 'not blocked by door']. Corridor has exit west without a door; ['Corridor', 'exit west', 'no door'].
+Outdated thesises: []
+Length of subgraph: 15
+Associated thesises: ['roasting is done with oven', 'meal should be prepared in kitchen', 'living room has exit east', 'cookbook contains recipe', 'living room has sofa', 'bathroom contains toilet', 'bedroom contains bed', 'bathroom has unblocked north entrance', 'bedroom has exit south', 'grilling is done with bbq', 'frying is done with stove', 'bedroom has exit west', 'bed is large', 'meal should be eaten after preparation', 'bed is empty']
+Episodic memory: ["game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n", "game step #4\n\n\n-= bathroom =-\nwell, here we are in a bathroom.\n\nyou can make out a toilet. unfortunately, there isn't a thing on it.\n\nyou don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for corridor: ['east', 'west']
+Unexplored exits for bathroom: none
+Unexplored exits for bedroom: none
+Unexplored exits for living room: ['south']
+Valid actions: ['close screen door', 'go east', 'go north', 'go south', 'go west', 'inventory', 'look', 'go to corridor', 'go to bathroom', 'go to bedroom', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The corridor has unexplored exits east and west that might lead to the kitchen."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "To know the ingredients and the method for preparing the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Exploring new areas brings me closer to finding the kitchen and advancing towards my goal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The corridor has unexplored exits east and west that might lead to the kitchen, aligning with the sub_goal_1 to go to the kitchen.",
+  "action_to_take": "go west"
+}
+
+Total amount: 0.33$, attempt amount: 0.33$, step amount: 0.07$
+Total time: 223.67 sec, attempt time: 223.67 sec, step time: 52.57 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 6
+Observation: Game step #6
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 2, 'cookbook': 2, 'oven': 1, 'stove': 1, 'orange bell pepper': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'knife': 1}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Table has cookbook; ['Table', 'contains', 'cookbook']. Table has knife; ['Table', 'contains', 'knife']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Kitchen has exit south through frosted-glass door; ['Kitchen', 'exit south', 'frosted-glass door']. Kitchen has exit east without door; ['Kitchen', 'exit east', 'no door']. Kitchen has north entranceway not blocked by door; ['Kitchen', 'north entranceway', 'not blocked by door'].
+Outdated thesises: []
+Length of subgraph: 16
+Associated thesises: ['kitchen contains counter', 'roasting is done with oven', 'open fridge contains raw white tuna', 'cookbook contains recipe', 'open fridge contains red bell pepper', 'table has knife', 'bedroom contains bed', 'kitchen contains table', 'bed is empty', 'kitchen contains oven', 'frying is done with stove', 'kitchen contains open fridge', 'bed is large', 'open fridge contains orange bell pepper', 'kitchen contains stove', 'table has cookbook']
+Episodic memory: ["game step #4\n\n\n-= bathroom =-\nwell, here we are in a bathroom.\n\nyou can make out a toilet. unfortunately, there isn't a thing on it.\n\nyou don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for bathroom: none
+Unexplored exits for kitchen: ['south', 'north']
+Unexplored exits for living room: ['south']
+Unexplored exits for bedroom: none
+Unexplored exits for corridor: ['east']
+Valid actions: ['close fridge', 'close frosted-glass door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'inventory', 'look', 'take cookbook from table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to bathroom', 'go to kitchen', 'go to living room', 'go to bedroom', 'go to corridor']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the cookbook",
+      "reason": "Now in the kitchen, the next step is to find the cookbook to know the recipe."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_3": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions."
+    },
+    {
+      "sub_goal_4": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "excited",
+      "reason_behind_emotion": "Finally found the kitchen and spotted the cookbook, which is a crucial step towards preparing the meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now in the kitchen, the next step is to find the cookbook to know the recipe.",
+  "action_to_take": "take cookbook from table"
+}
+
+Total amount: 0.41$, attempt amount: 0.41$, step amount: 0.08$
+Total time: 275.67 sec, attempt time: 275.67 sec, step time: 51.99 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 7
+Observation: Game step #7
+
+You take the cookbook from the table.
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'meal': 2, 'kitchen': 1}
+New thesises: Cookbook is in inventory; ['Cookbook', 'inventory'].
+Outdated thesises: []
+Length of subgraph: 14
+Associated thesises: ['kitchen contains counter', 'roasting is done with oven', 'meal should be prepared in kitchen', 'cookbook is in inventory', 'cookbook contains recipe', 'table has knife', 'bedroom contains bed', 'kitchen contains table', 'kitchen contains oven', 'bed is large', 'kitchen contains stove', 'meal should be eaten after preparation', 'bed is empty', 'table has cookbook']
+Episodic memory: ["game step #4\n\n\n-= bathroom =-\nwell, here we are in a bathroom.\n\nyou can make out a toilet. unfortunately, there isn't a thing on it.\n\nyou don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #2\n\n\n-= bedroom =-\nguess what, you are in a place we're calling a bedroom.\n\noh wow! is that what i think it is? it is! it's a bed. the bed is large. but there isn't a thing on it. silly bed, silly, empty, good for nothing bed.\n\nthere is an exit to the south. there is an exit to the west.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for bathroom: none
+Unexplored exits for kitchen: ['south', 'north']
+Unexplored exits for living room: ['south']
+Unexplored exits for bedroom: none
+Unexplored exits for corridor: ['east']
+Valid actions: ['close fridge', 'close frosted-glass door', 'drop cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'insert cookbook into fridge', 'inventory', 'look', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to bathroom', 'go to kitchen', 'go to living room', 'go to bedroom', 'go to corridor']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Read the cookbook to know the recipe",
+      "reason": "Now that the cookbook is in the inventory, the next step is to read it to know what meal to prepare and what ingredients are needed."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to prepare the meal according to the recipe. This step will be updated once the recipe is known."
+    },
+    {
+      "sub_goal_3": "Prepare the meal",
+      "reason": "To cook the meal using the appropriate kitchen appliance as per the recipe instructions. This step will be detailed further after gathering all ingredients and knowing the recipe."
+    },
+    {
+      "sub_goal_4": "Eat the meal",
+      "reason": "To satisfy hunger and complete the main goal. This is the final step after the meal has been prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "anticipative",
+      "reason_behind_emotion": "Eager to read the cookbook and discover what meal will be prepared."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now that the cookbook is in the inventory, the next step is to read it to know what meal to prepare and what ingredients are needed.",
+  "action_to_take": "examine cookbook"
+}
+
+Total amount: 0.48$, attempt amount: 0.48$, step amount: 0.07$
+Total time: 311.89 sec, attempt time: 311.89 sec, step time: 36.22 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+
+Step: 8
+Observation: Game step #8
+
+You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:
+
+Recipe
+---------
+Gather all following ingredients and follow the directions to prepare this tasty meal.
+
+Ingredients:
+green bell pepper
+  orange bell pepper
+  yellow potato
+
+Directions:
+dice the green bell pepper
+  fry the green bell pepper
+  dice the orange bell pepper
+  grill the orange bell pepper
+  slice the yellow potato
+  grill the yellow potato
+  prepare meal
+
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'green bell pepper': 2, 'orange bell pepper': 2, 'yellow potato': 2, 'dice': 1, 'fry': 1, 'grill': 1, 'slice': 1, 'prepare meal': 2}
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'stove': 1, 'oven': 1, 'bbq': 1}
+New thesises: Living room has exit east; ['Living room', 'exit east']. Living room has exit south; ['Living room', 'exit south']. Living room contains sofa; ['Living room', 'sofa']. Cookbook contains recipe; ['Cookbook', 'recipe']. Meal should be prepared in kitchen; ['Meal', 'prepared', 'kitchen']. Frying requires stove; ['Frying', 'requires', 'stove']. Roasting requires oven; ['Roasting', 'requires', 'oven']. Grilling requires BBQ; ['Grilling', 'requires', 'BBQ']. Meal should be eaten after preparation; ['Meal', 'eaten', 'after preparation'].
+Outdated thesises: []
+Original replacement: []
+Length of subgraph: 9
+Associated thesises: ['meal should be eaten after preparation', 'roasting requires oven', 'grilling requires bbq', 'living room has exit south', 'living room has exit east', 'frying requires stove', 'meal should be prepared in kitchen', 'living room contains sofa', 'cookbook contains recipe']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Go to the kitchen",
+      "reason": "The cookbook with the recipe is located in the kitchen, and the meal should be prepared there."
+    },
+    {
+      "sub_goal_2": "Find the cookbook",
+      "reason": "The cookbook contains the recipe needed to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather ingredients for the recipe",
+      "reason": "Ingredients are necessary to prepare the meal according to the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal following the recipe",
+      "reason": "The meal needs to be prepared by following the specific instructions in the recipe."
+    },
+    {
+      "sub_goal_5": "Eat the meal",
+      "reason": "The final step of the goal is to eat the meal after it has been prepared."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to cook and eat a delicious meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The cookbook with the recipe is located in the kitchen, and the meal should be prepared there. The living room has an exit south that could lead to the kitchen.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 67.34 sec, attempt time: 67.34 sec, step time: 67.34 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 2, 'cookbook': 2, 'orange bell pepper': 1, 'red bell pepper': 1, 'raw white tuna': 1, 'oven': 1, 'knife': 1, 'stove': 1}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Kitchen has exit south; ['Kitchen', 'exit', 'south']. Kitchen has exit east; ['Kitchen', 'exit', 'east']. Kitchen has unblocked exit north; ['Kitchen', 'unblocked exit', 'north'].
+
+Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna'].
+
+Table has cookbook; ['Table', 'has', 'cookbook']. Table has knife; ['Table', 'has', 'knife'].
+Outdated thesises: ['frying requires stove', 'roasting requires oven']
+Original replacement: Replacing: [" Kitchen contains stove <- frying requires stove"; " Kitchen contains oven <- roasting requires oven"]
+Length of subgraph: 14
+Associated thesises: ['open fridge contains raw white tuna', '\n\nopen fridge contains orange bell pepper', 'kitchen contains oven', 'kitchen has exit east', 'open fridge contains red bell pepper', 'living room has exit east', 'table has knife', 'kitchen contains table', '\n\ntable has cookbook', 'meal should be eaten after preparation', 'kitchen contains counter', 'kitchen has exit south', 'cookbook contains recipe', 'kitchen contains stove']
+Episodic memory: ["game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Unexplored exits: 
+Unexplored exits for living room: ['east']
+Unexplored exits for kitchen: ['east', 'south']
+Valid actions: ['close fridge', 'close frosted-glass door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'inventory', 'look', 'take cookbook from table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to living room', 'go to kitchen']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the cookbook",
+      "reason": "The cookbook is observed on the table in the kitchen, need to check it for the recipe."
+    },
+    {
+      "sub_goal_2": "Gather ingredients for the recipe",
+      "reason": "Ingredients are necessary to prepare the meal according to the recipe. Need to identify ingredients after finding the recipe."
+    },
+    {
+      "sub_goal_3": "Prepare the meal following the recipe",
+      "reason": "The meal needs to be prepared by following the specific instructions in the recipe. This step is pending finding the recipe and gathering ingredients."
+    },
+    {
+      "sub_goal_4": "Eat the meal",
+      "reason": "The final step of the goal is to eat the meal after it has been prepared. This is pending the completion of the meal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "In the kitchen with all necessary tools and ingredients nearby, ready to start cooking."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The cookbook is observed on the table in the kitchen, need to check it for the recipe.",
+  "action_to_take": "take cookbook from table"
+}
+
+Total amount: 0.14$, attempt amount: 0.14$, step amount: 0.08$
+Total time: 152.32 sec, attempt time: 152.32 sec, step time: 84.98 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You take the cookbook from the table.
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'meal': 2, 'ingredients': 2}
+New thesises: Cookbook is in inventory; ['Cookbook', 'inventory'].
+Outdated thesises: []
+Original replacement: Replacing: []
+Length of subgraph: 16
+Associated thesises: ['open fridge contains raw white tuna', '\n\nopen fridge contains orange bell pepper', 'kitchen contains oven', 'kitchen has exit east', 'open fridge contains red bell pepper', 'kitchen contains open fridge', 'cookbook is in inventory', '\n\ntable has cookbook', 'kitchen contains table', 'table has knife', 'meal should be eaten after preparation', 'meal should be prepared in kitchen', 'kitchen contains counter', 'kitchen has exit south', 'cookbook contains recipe', 'kitchen contains stove']
+Episodic memory: ['game step #3\n\nyou take the cookbook from the table.\n\n\n\n', "game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+
+
+
+
+
+
+
+Attempt: 1
+======================================================================
+Step: 1
+Observation: Game step #1
+$ 
+
+You are hungry! Let's cook a delicious meal. Check the cookbook in the kitchen for the recipe. Once done, enjoy your meal!
+
+-= Living room =-
+You're now in the living room.
+
+You see a sofa. Looks like someone's already been here and taken everything off it, though.
+
+There is an exit to the east. You need an exit without a door? You should try going south.
+
+
+Your task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. Do not forget the content of recipe when you find it. When you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with BBQ. Meal shoud be prepared in the kitchen. Do not forget to prepate meal after you gathered and processed all individual ingredients.
+Inventory: You are carrying nothing.
+Crucial items: {'cookbook': 2, 'kitchen': 2, 'recipe': 2, 'meal': 2, 'stove': 1, 'oven': 1, 'bbq': 1}
+New thesises: Living room has sofa; ['Living room', 'sofa']. Living room has exit east; ['Living room', 'exit east']. Living room has exit south; ['Living room', 'exit south']. Cookbook contains recipe; ['Cookbook', 'recipe']. Meal should be prepared in kitchen; ['Meal', 'kitchen']. Frying is done with stove; ['Frying', 'stove']. Roasting is done with oven; ['Roasting', 'oven']. Grilling is done with BBQ; ['Grilling', 'BBQ']. Meal should be eaten after preparation; ['Meal', 'eating'].
+Outdated thesises: []
+Original replacement: Replacing: []
+Length of subgraph: 9
+Associated thesises: ['living room has exit east', 'frying is done with stove', 'roasting is done with oven', 'living room has exit south', 'cookbook contains recipe', 'grilling is done with bbq', 'meal should be eaten after preparation', 'living room has sofa', 'meal should be prepared in kitchen']
+Episodic memory: ["game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: False
+Valid actions: ['examine sofa', 'go east', 'go south', 'inventory', 'look', 'go to living room']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Find the kitchen",
+      "reason": "The cookbook with the recipe is located in the kitchen, which is necessary for preparing the meal."
+    },
+    {
+      "sub_goal_2": "Locate and read the cookbook",
+      "reason": "To know the ingredients and steps required to prepare the meal."
+    },
+    {
+      "sub_goal_3": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to follow the recipe."
+    },
+    {
+      "sub_goal_4": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared in the kitchen using the appropriate method (frying, roasting, grilling) as per the recipe."
+    },
+    {
+      "sub_goal_5": "Eat the prepared meal",
+      "reason": "To satisfy hunger and complete the main goal."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Excited to prepare and enjoy a delicious meal."
+    }
+  
+}
+Action: {
+  "reason_for_action": "The kitchen is necessary for finding the cookbook and preparing the meal, and going south is a direct action towards finding the kitchen based on the current observation and memory module information.",
+  "action_to_take": "go south"
+}
+
+Total amount: 0.06$, attempt amount: 0.06$, step amount: 0.06$
+Total time: 64.14 sec, attempt time: 64.14 sec, step time: 64.14 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0]
+
+
+Step: 2
+Observation: Game step #2
+
+
+-= Kitchen =-
+You find yourself in a kitchen. An usual one.
+
+An open fridge is in the corner. The fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. Were you looking for an oven? Because look over there, it's an oven. You can make out a table. You see a cookbook and a knife on the table. You can make out a counter. I guess it's true what they say, if you're looking for a counter, go to TextWorld. The counter is vast. But the thing hasn't got anything on it. Aw, and here you were, all excited for there to be things on it! Look out! It's a- oh, never mind, it's just a stove. The stove is conventional. Looks like someone's already been here and taken everything off it, though.
+
+There is an open frosted-glass door leading south. You need an exit without a door? You should try going east. You don't like doors? Why not try going north, that entranceway is not blocked by one.
+
+
+
+
+Inventory: You are carrying nothing.
+Crucial items: {'kitchen': 1, 'cookbook': 2, 'orange bell pepper': 2, 'red bell pepper': 2, 'raw white tuna': 2, 'oven': 2, 'knife': 2, 'stove': 1}
+New thesises: Kitchen contains open fridge; ['Kitchen', 'contains', 'open fridge']. Open fridge contains orange bell pepper; ['Open fridge', 'contains', 'orange bell pepper']. Open fridge contains red bell pepper; ['Open fridge', 'contains', 'red bell pepper']. Open fridge contains raw white tuna; ['Open fridge', 'contains', 'raw white tuna']. Kitchen contains oven; ['Kitchen', 'contains', 'oven']. Kitchen contains table; ['Kitchen', 'contains', 'table']. Table has cookbook; ['Table', 'contains', 'cookbook']. Table has knife; ['Table', 'contains', 'knife']. Kitchen contains counter; ['Kitchen', 'contains', 'counter']. Kitchen contains stove; ['Kitchen', 'contains', 'stove']. Stove is conventional; ['Stove', 'is', 'conventional']. Kitchen has exit south through open frosted-glass door; ['Kitchen', 'exit south', 'open frosted-glass door']. Kitchen has unblocked exit east; ['Kitchen', 'exit east', 'unblocked']. Kitchen has unblocked exit north; ['Kitchen', 'exit north', 'unblocked'].
+Outdated thesises: ['frying is done with stove', 'roasting is done with oven']
+Original replacement: ["Kitchen contains stove <- frying is done with stove"; "Kitchen contains oven <- roasting is done with oven"]
+Length of subgraph: 14
+Associated thesises: ['table has knife', 'open fridge contains orange bell pepper', 'table has cookbook', 'kitchen contains open fridge', 'kitchen contains table', 'open fridge contains red bell pepper', 'kitchen contains oven', 'kitchen contains stove', 'open fridge contains raw white tuna', 'meal should be eaten after preparation', 'cookbook contains recipe', 'stove is conventional', 'meal should be prepared in kitchen', 'kitchen contains counter']
+Episodic memory: ["game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n", "game step #1\n$ \n\nyou are hungry! let's cook a delicious meal. check the cookbook in the kitchen for the recipe. once done, enjoy your meal!\n\n-= living room =-\nyou're now in the living room.\n\nyou see a sofa. looks like someone's already been here and taken everything off it, though.\n\nthere is an exit to the east. you need an exit without a door? you should try going south.\n\n\nyour task is to prepare the meal by following the recipe from a cookbook and eating it aftewards. do not forget the content of recipe when you find it. when you will prepare food, remember that frying can be done only with stove, roasting can be done only with oven and grilling can be done only with bbq. meal shoud be prepared in the kitchen. do not forget to prepate meal after you gathered and processed all individual ingredients."]
+If explore: True
+Unexplored exits: 
+Unexplored exits for living room: ['east']
+Unexplored exits for kitchen: ['east', 'south']
+Valid actions: ['close fridge', 'close frosted-glass door', 'examine cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'inventory', 'look', 'take cookbook from table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to living room', 'go to kitchen']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Locate and read the cookbook",
+      "reason": "Now in the kitchen, the next step is to locate and read the cookbook to know the recipe."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to follow the recipe. Need to check the recipe first to know what ingredients are required."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared in the kitchen using the appropriate method (frying, roasting, grilling) as per the recipe. Ingredients must be gathered first."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "To satisfy hunger and complete the main goal. The meal must be prepared first."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully found the kitchen and ready to proceed with the recipe."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Now in the kitchen, the next step is to locate and read the cookbook to know the recipe."
+  , "action_to_take": "take cookbook from table"
+}
+
+Total amount: 0.14$, attempt amount: 0.14$, step amount: 0.08$
+Total time: 145.86 sec, attempt time: 145.86 sec, step time: 81.72 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0]
+
+
+Step: 3
+Observation: Game step #3
+
+You take the cookbook from the table.
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'meal': 2}
+New thesises: Cookbook is in inventory; ['Cookbook', 'inventory'].
+Outdated thesises: []
+Original replacement: Replacing: []
+Length of subgraph: 11
+Associated thesises: ['table has knife', 'table has cookbook', 'cookbook is in inventory', 'kitchen contains table', 'kitchen contains oven', 'kitchen contains stove', 'meal should be eaten after preparation', 'cookbook contains recipe', 'stove is conventional', 'meal should be prepared in kitchen', 'kitchen contains counter']
+Episodic memory: ['game step #3\n\nyou take the cookbook from the table.\n\n\n\n', "game step #2\n\n\n-= kitchen =-\nyou find yourself in a kitchen. an usual one.\n\nan open fridge is in the corner. the fridge contains an orange bell pepper, a red bell pepper and a raw white tuna. were you looking for an oven? because look over there, it's an oven. you can make out a table. you see a cookbook and a knife on the table. you can make out a counter. i guess it's true what they say, if you're looking for a counter, go to textworld. the counter is vast. but the thing hasn't got anything on it. aw, and here you were, all excited for there to be things on it! look out! it's a- oh, never mind, it's just a stove. the stove is conventional. looks like someone's already been here and taken everything off it, though.\n\nthere is an open frosted-glass door leading south. you need an exit without a door? you should try going east. you don't like doors? why not try going north, that entranceway is not blocked by one.\n\n\n\n"]
+If explore: True
+Unexplored exits: 
+Unexplored exits for living room: ['east']
+Unexplored exits for kitchen: ['east', 'south']
+Valid actions: ['close fridge', 'close frosted-glass door', 'drop cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'insert cookbook into fridge', 'inventory', 'look', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to living room', 'go to kitchen']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Read the cookbook to know the recipe",
+      "reason": "Cookbook is now in inventory, need to read it to know what ingredients and steps are required for the meal."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Ingredients are needed to follow the recipe. Need to check the recipe first to know what ingredients are required."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "The meal needs to be prepared in the kitchen using the appropriate method (frying, roasting, grilling) as per the recipe. Ingredients must be gathered first."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "To satisfy hunger and complete the main goal. The meal must be prepared first."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Successfully obtained the cookbook and ready to move on to the next step."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Cookbook is now in inventory, need to read it to know what ingredients and steps are required for the meal.",
+  "action_to_take": "inventory"
+}
+
+Total amount: 0.21$, attempt amount: 0.21$, step amount: 0.07$
+Total time: 199.92 sec, attempt time: 199.92 sec, step time: 54.06 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0]
+
+
+Step: 4
+Observation: Game step #4
+
+You are carrying: a cookbook.
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'cookbook': 2, 'recipe': 2, 'ingredients': 2, 'meal': 2, 'kitchen': 2}
+New thesises: Cookbook is in inventory; ['Cookbook', 'inventory'].
+Outdated thesises: ['cookbook is in inventory']
+Original replacement: Replacing: ["Cookbook is in inventory <- cookbook is in inventory"]
+Length of subgraph: 15
+Associated thesises: ['table has knife', 'open fridge contains orange bell pepper', 'table has cookbook', 'kitchen contains open fridge', 'cookbook is in inventory', 'kitchen contains table', 'open fridge contains red bell pepper', 'kitchen contains oven', 'kitchen contains stove', 'open fridge contains raw white tuna', 'meal should be eaten after preparation', 'cookbook contains recipe', 'stove is conventional', 'meal should be prepared in kitchen', 'kitchen contains counter']
+Episodic memory: ['game step #4\n\nyou are carrying: a cookbook.\n\n\n\n', 'game step #3\n\nyou take the cookbook from the table.\n\n\n\n']
+If explore: True
+Unexplored exits: 
+Unexplored exits for living room: ['east']
+Unexplored exits for kitchen: ['east', 'south']
+Valid actions: ['close fridge', 'close frosted-glass door', 'drop cookbook', 'examine counter', 'examine fridge', 'examine knife', 'examine orange bell pepper', 'examine oven', 'examine red bell pepper', 'examine stove', 'examine table', 'examine white tuna', 'go east', 'go north', 'go south', 'insert cookbook into fridge', 'inventory', 'look', 'put cookbook on counter', 'put frybook on stove', 'put cookbook on table', 'take knife from table', 'take orange bell pepper from fridge', 'take red bell pepper from fridge', 'take white tuna from fridge', 'go to living room', 'go to kitchen']
+Plan0: {
+  "main_goal": "Prepare meal by following the recipe and eat it",
+  "plan_steps": [
+    {
+      "sub_goal_1": "Read the cookbook to know the recipe",
+      "reason": "Cookbook is in inventory, next immediate step is to read it to understand the recipe requirements."
+    },
+    {
+      "sub_goal_2": "Gather all necessary ingredients",
+      "reason": "Must identify the ingredients required by the recipe after reading it."
+    },
+    {
+      "sub_goal_3": "Prepare the meal according to the recipe",
+      "reason": "After gathering ingredients, the meal needs to be prepared in the kitchen as per the recipe instructions."
+    },
+    {
+      "sub_goal_4": "Eat the prepared meal",
+      "reason": "Final step to satisfy hunger and achieve the main goal. The meal must be prepared first."
+    }
+  ],
+  "your_emotion":
+    {
+      "your_current_emotion": "motivated",
+      "reason_behind_emotion": "Ready to read the cookbook and find out what delicious meal will be prepared."
+    }
+  
+}
+Action: {
+  "reason_for_action": "Cookbook is in inventory, next immediate step is to read it to understand the recipe requirements.",
+  "action_to_take": "examine cookbook"
+}
+
+Total amount: 0.27$, attempt amount: 0.27$, step amount: 0.06$
+Total time: 249.75 sec, attempt time: 249.75 sec, step time: 49.84 sec
+======================================================================
+
+
+TOTAL REWARDS: [0.0, 0.0, 0.0, 0.0]
+
+
+Step: 5
+Observation: Game step #5
+
+You open the copy of "Cooking: A Modern Approach (3rd Ed.)" and start reading:
+
+Recipe
+---------
+Gather all following ingredients and follow the directions to prepare this tasty meal.
+
+Ingredients:
+green bell pepper
+  orange bell pepper
+  yellow potato
+
+Directions:
+dice the green bell pepper
+  fry the green bell pepper
+  dice the orange bell pepper
+  grill the orange bell pepper
+  slice the yellow potato
+  grill the yellow potato
+  prepare meal
+
+
+
+
+
+Inventory: You are carrying: a cookbook.
+Crucial items: {'green bell pepper': 2, 'orange bell pepper': 2, 'yellow potato': 2, 'dice': 2, 'fry': 2, 'grill': 2, 'prepare meal': 2, 'meal': 2}
