@@ -27,7 +27,13 @@ To complete requirements installation, you need Python 3.11+ and to run
     pip install -r requirements.txt
 
 ## Repository structure
-- **agents** 
+- **agents** contains GPTagent.
+- **envs** contains TextWorld files for environment loading.
+- **graphs** contains TripletGraph in parent_graph.py and other graphs which inherit it.
+- **logs** contains logs of every reported run of our agent.
+- **prompts** contains prompts used in pipelines.
+- **src** and **utils** contains service classes and functions.
+Other python files contains pipeline for every agent and also code for running game in interactive mode in console. Each pipeline has highlighted changeable part with parameters of running.
 
 ## Citation
 If you find our work useful, please cite the [AriGraph](https://arxiv.org/abs/2207.06881):
@@ -36,7 +42,6 @@ If you find our work useful, please cite the [AriGraph](https://arxiv.org/abs/22
 anokhin2024arigraph,
 title={AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents},
 author={Petr Anokhin and Nikita Semenov and Artyom Sorokin and Dmitry Evseev and Michail Burtsev and Evgeny Burnaev},
-year={2024},
-url={https://openreview.net/forum?id=Uynr3iPhksa}
+year={2024}
 }
 ```
