@@ -11,3 +11,13 @@ AriGraph (ours) | 1.0 | 0.79 | 1.0 | 1.0 | 1.0
 Full History | 0.49 | 0.05 | 0.18 |  | 
 Summary | 0.33 | 0.39 | 0.52 | 0.17 | 0.21
 RAG | 0.33 | 0.35 | 0.36 | 0.17 | 0.17
+
+## Requirements
+Due to TextWorld dependencies, you first need to install some system libraries.
+On a Debian/Ubuntu-based system, these can be installed with
+
+    sudo apt update && sudo apt install build-essential libffi-dev python3-dev curl git
+
+And on macOS, with
+
+    brew install libffi curl git
