@@ -178,6 +178,7 @@ def choose_action(observations, observation, subgraph, top_episodic, plan0, all_
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation:  {subgraph}
+\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
 \n6. Your current plan: {plan0}'''
 
     if if_explore:
@@ -206,6 +207,7 @@ def planning(observations, observation, plan0, subgraph, top_episodic, if_explor
 \n2. History of {n_prev} last observations and actions: {observations} 
 \n3. Your current observation: {observation}
 \n4. Information from the memory module that can be relevant to current situation: {subgraph}
+\n5. Your {topk_episodic} most relevant episodic memories from the past for the current situation: {top_episodic}.
 \n6. Your previous plan: {plan0}'''
 
     if if_explore:
