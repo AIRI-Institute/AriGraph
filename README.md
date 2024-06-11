@@ -33,6 +33,7 @@ To complete requirements installation, you need Python 3.11+ and to run
 - **logs** contains logs of every reported run of our agent.
 - **prompts** contains prompts used in pipelines.
 - **src** and **utils** contains service classes and functions.
+  
 Other python files contains pipeline for every agent and also code for running game in interactive mode in console. Each pipeline has highlighted changeable part with parameters of running.
 
 ## Citation
