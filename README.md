@@ -22,8 +22,21 @@ And on macOS, with
 
     brew install libffi curl git
 
-To complete requirements installation, you need Python 3.11+ and to run the following command
+To complete requirements installation, you need Python 3.11+ and to run 
 
     pip install -r requirements.txt
 
+## Repository structure
+- **agents** 
 
+## Citation
+If you find our work useful, please cite the [AriGraph](https://arxiv.org/abs/2207.06881):
+```
+@misc{
+anokhin2024arigraph,
+title={AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents},
+author={Petr Anokhin and Nikita Semenov and Artyom Sorokin and Dmitry Evseev and Michail Burtsev and Evgeny Burnaev},
+year={2024},
+url={https://openreview.net/forum?id=Uynr3iPhksa}
+}
+```
