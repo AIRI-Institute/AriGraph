@@ -9,6 +9,7 @@ We implement five TextWorld environments for three different tasks: Treasure Hun
 Type of memory | Treasure Hunt | Cleaning | Cooking | Treasure Hunt Hard | Cooking Hard
 -- | -- | -- | -- | -- | -- 
 AriGraph (ours) | 1.0 | 0.79 | 1.0 | 1.0 | 1.0
+Human Players | 1.0 | 0.85 | 1.0 | - | -
 Full History | 0.49 | 0.05 | 0.18 | - | -
 Summary | 0.33 | 0.39 | 0.52 | 0.17 | 0.21
 RAG | 0.33 | 0.35 | 0.36 | 0.17 | 0.17
