@@ -5,11 +5,12 @@ AriGraph serves as the external memory architecture for large language models (L
 ![**Ariadne agent and his results**](img/Architecture.png?raw=True)
 
 ## Performance
-We implement five TextWorld environments for three different tasks: Treasure Hunt, Cleaning and Cooking. The first task involves navigating a maze and searching for treasure, the second entails tidying up a house by placing items in their designated spots, and the third focuses on gathering ingredients and preparing a meal. Each tested LLM agent had an identical decision-making module, and the agents differed from each other only in the implementation of memory. There is a mean normalized game scores in the following table: 
+We implement five TextWorld environments for three different tasks: Treasure Hunt, Cleaning and Cooking. The first task involves navigating a maze and searching for treasure, the second entails tidying up a house by placing items in their designated spots, and the third focuses on gathering ingredients and preparing a meal. Each tested LLM agent had an identical decision-making module, and the agents differed from each other only in the implementation of memory. We reported human scores averaged across both all runs and top-3 performance runs. There is a mean normalized game scores in the following table: 
 Type of memory | Treasure Hunt | Cleaning | Cooking | Treasure Hunt Hard | Cooking Hard
 -- | -- | -- | -- | -- | -- 
 AriGraph (ours) | 1.0 | 0.79 | 1.0 | 1.0 | 1.0
-Human Players | 1.0 | 0.85 | 1.0 | - | -
+Human Players Top-3 | 1.0 | 0.85 | 1.0 | - | -
+Human Players All | 0.96 | 0.59 | 0.32 | - | -
 Full History | 0.49 | 0.05 | 0.18 | - | -
 Summary | 0.33 | 0.39 | 0.52 | 0.17 | 0.21
 RAG | 0.33 | 0.35 | 0.36 | 0.17 | 0.17
