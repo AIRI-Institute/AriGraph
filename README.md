@@ -1,6 +1,6 @@
 # AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents
 
-AriGraph functions as the external memory architecture for large language models (LLMs), featuring a knowledge graph that is built from the ground up. This memory, configured as a semantic knowledge graph with added episodic vertices and edges, greatly improves the performance of Retrieval-Augmented Generation (RAG) in text-based games. Currently, AriGraph is a key component of the Ariadne agent, crafted to navigate the challenges of text-based games within the [TextWorld](https://github.com/microsoft/TextWorld) framework. This agent markedly surpasses all pre-existing baselines in these scenarios and showcases exceptional scalability in more expansive environments. For more detailed information about AriGraph and the Ariadne agent, please refer to the accompanying [paper](). Experience the games used to evaluate our agent by following the provided [link](http://158.255.5.225/).
+AriGraph functions as the external memory architecture for large language models (LLMs), featuring a knowledge graph that is built from the ground up. This memory, configured as a semantic knowledge graph with added episodic vertices and edges, greatly improves the performance of Retrieval-Augmented Generation (RAG) in text-based games. Currently, AriGraph is a key component of the Ariadne agent, crafted to navigate the challenges of text-based games within the [TextWorld](https://github.com/microsoft/TextWorld) framework. This agent markedly surpasses all pre-existing baselines in these scenarios and showcases exceptional scalability in more expansive environments. For more detailed information about AriGraph and the Ariadne agent, please refer to the accompanying [paper](https://arxiv.org/abs/2407.04363). Experience the games used to evaluate our agent by following the provided [link](http://158.255.5.225/).
 
 ![**Ariadne agent and its results**](img/Architecture.png?raw=True)
 
@@ -40,12 +40,15 @@ To complete requirements installation, you need Python 3.11+ and to run
 The other Python files contain a pipeline for each agent as well as code for running the game in interactive mode in the console. Each pipeline includes a highlighted, changeable section with parameters for execution.
 
 ## Citation
-If you find our work useful, please cite the [AriGraph]():
+If you find our work useful, please cite the [AriGraph](https://arxiv.org/abs/2407.04363):
 ```
-@misc{
-anokhin2024arigraph,
-title={AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents},
-author={Petr Anokhin and Nikita Semenov and Artyom Sorokin and Dmitry Evseev and Michail Burtsev and Evgeny Burnaev},
-year={2024}
+@misc{anokhin2024arigraphlearningknowledgegraph,
+      title={AriGraph: Learning Knowledge Graph World Models with Episodic Memory for LLM Agents}, 
+      author={Petr Anokhin and Nikita Semenov and Artyom Sorokin and Dmitry Evseev and Mikhail Burtsev and Evgeny Burnaev},
+      year={2024},
+      eprint={2407.04363},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2407.04363}, 
 }
 ```
