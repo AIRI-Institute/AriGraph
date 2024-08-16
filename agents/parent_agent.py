@@ -67,6 +67,19 @@ class GPTagent:
         response, cost = self.generate(prompt)
         entities_dict = ast.literal_eval(response)
         return entities_dict, cost
+    
+    def item_processing_scores_qa(self, text):
+        prompt = "####\n" + \
+             "You are a retriever part of the agent system that solve some problem.\n" + \
+             "You will be provided with agents' problem which may be appeared while solving problem.\n" + \
+             "Your task is to extract entities from this data that can later be used to queue the agent's memory module to find relevant information that can help to solve the task. Assign a relevance score from 1 to 3 to every entity, that will reflect the importance of this entity and potential memories connected to this entity for the current plan and goals of the agent.\n\n" + \
+             "Problem: {}\n".format(text) + \
+             "Give list of entities from the problem in the following format:\n" + \
+             '{"entity_1": score1, "entity_2": score2, ...}\n' + \
+             "Do not write anything else\n"
+        response, cost = self.generate(prompt)
+        entities_dict = ast.literal_eval(response)
+        return entities_dict, cost
         
         
             
