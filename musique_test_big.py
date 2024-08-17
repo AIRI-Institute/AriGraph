@@ -10,13 +10,14 @@ from utils.utils import Logger
 
 
 log_path = "MusiqueTestGPTmini"
-data_path = 'musique_ans_v1.0_dev.jsonl'
+# musique | hotpotqa 
+task_name = "musique"
 topk_episodic = 2
 graph_model, qa_model = "gpt-4o-mini", "gpt-4o-mini"
 log = Logger(log_path)
 
 def run():
-    tasks = get_data(data_path)
+    tasks = get_data(task_name)
     agent_items, agent_qa, graph = load_setup(graph_model, qa_model)
     trueP, pred_len, true_len, EM = [], [], [], []
 
@@ -50,14 +51,19 @@ def run():
 
 
 
-def get_data(fiename):
-    with open(fiename, 'r') as json_file:
-        json_list = list(json_file)
+def get_data(task_name):
+    if task_name == "musique":
+        with open('qa_data/musique_ans_v1.0_dev.jsonl', 'r') as json_file:
+            json_list = list(json_file)
 
-    tasks = []
-    for json_str in json_list:
-        result = json.loads(json_str)
-        tasks.append(result)
+        tasks = []
+        for json_str in json_list:
+            result = json.loads(json_str)
+            tasks.append(result)
+    if task_name == "hotpotqa":
+        with open('qa_data/hotpot_dev_distractor_v1.json', 'r') as inp:
+            data = json.load(inp)
+        tasks = [" ".join(task["context"][-1]) for task in data]
     ids = np.random.RandomState(seed=42).permutation(len(tasks))[:200]
     tasks = [tasks[i] for i in ids]
 

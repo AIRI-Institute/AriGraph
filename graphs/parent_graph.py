@@ -15,41 +15,7 @@ class TripletGraph:
             api_key=api_key,
         )
 
-    def generate(self, prompt, jsn = False, t = 0.7):
-        if jsn:   
-            chat_completion = self.client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system",
-                        "content": self.system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
-                ],
-                model=self.model,
-                response_format={"type": "json_object"},
-                temperature=t
-            )
-        else:
-            chat_completion = self.client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system",
-                        "content": self.system_prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
-                ],
-                model=self.model,
-                temperature=t
-            )
-        response = chat_completion.choices[0].message.content
-        prompt_tokens = chat_completion.usage.prompt_tokens
-        completion_tokens = chat_completion.usage.completion_tokens
+
     def generate(self, prompt, jsn = False, t = 0.7):
         if jsn:   
             chat_completion = self.client.chat.completions.create(
