@@ -6,7 +6,7 @@ AriGraph functions as the external memory architecture for large language models
 
 ## Performance
 We implemented five TextWorld environments for three distinct tasks: Treasure Hunt, Cleaning, and Cooking. The Treasure Hunt task requires navigating a maze and searching for treasure, while the Cleaning task involves tidying up a house by placing items in their designated spots. The Cooking task focuses on gathering ingredients and preparing a meal. Each LLM agent tested had the same decision-making module, differing only in memory implementation. We reported average human scores across all runs and for the top-3 performing runs. The table below presents the mean normalized game scores: 
-Type of memory | Treasure Hunt | Cleaning | Cooking | Treasure Hunt Hard | Cooking Hard
+Method | Treasure Hunt | Cleaning | Cooking | Treasure Hunt Hard | Cooking Hard
 -- | -- | -- | -- | -- | -- 
 AriGraph (ours) | 1.0 | 0.79 | 1.0 | 1.0 | 1.0
 Human Players Top-3 | 1.0 | 0.85 | 1.0 | - | -
@@ -14,6 +14,26 @@ Human Players All | 0.96 | 0.59 | 0.32 | - | -
 Full History | 0.49 | 0.05 | 0.18 | - | -
 Summary | 0.33 | 0.39 | 0.52 | 0.17 | 0.21
 RAG | 0.33 | 0.35 | 0.36 | 0.17 | 0.17
+
+We also test AriGraph on QA task (particularly, on MuSiQue and HotpotQA datasets). Despite that our memory was designed for text games, it shows comparable performance on another domain with no changes in the architecture (including most prompts):
+
+Method | MuSiQue EM | MuSiQue F1 | HotpotQA EM| HotpotQA F1 
+-- | -- | -- | -- | -- 
+BM25(top-3) | 25.0 | 31.1 | 45.7 | 58.5 
+Ada-002(top-3) | 24.5 | 32.1 | 45.0 | 58.1 
+GPT-4 full context | 33.5 | 42.7 | 53.0 | 68.4
+ReadAgent(GPT-4) | 35.0 | 45.1 | 48.0 | 62.0
+ GraphReader(GPT-4) | 38.0 | 47.4 | 55.0 | 70.0 
+GraphRAG(GPT-4o-mini) | 40.0 | 53.5 | 58.7 | 63.3 
+HOLMES(GPT-4) | 48.0 | 58.0 | 66.0 | 78.0
+AriGraph(GPT-3.5) | 14.5 | 23.3 |- | - 
+AriGraph(GPT-4o-mini)| 23.0 | 35.1| 50.9 | 60.3 
+AriGraph(LLaMA-3-70B) | 27.0 | 36.7 | 43.0 | 51.8 
+AriGraph(LLaMA-3-70B) + GPT-4 | 28.5 | 36.4 | - | - 
+AriGraph(GPT-4) | 37.0 | 47.4 | 59.5 | 69.9
+GPT-4 + supporting facts | 45.0 | 56.0 | 57.0 | 73.8 
+
+Detailed description of the results is givn in the paper.
 
 ## Requirements
 Due to dependencies required by TextWorld, our code can only be executed on Linux systems, specifically after installing certain system libraries.
@@ -32,6 +52,7 @@ To complete requirements installation, you need Python 3.11+ and to run
 ## Repository structure
 - **agents** contains GPTagent.
 - **envs** contains TextWorld files for environment loading.
+- **qa_data** contains QA datasets which were used in our tests.  
 - **graphs** contains TripletGraph in parent_graph.py and other graphs which inherit it.
 - **logs** contains logs of every reported run of our agent.
 - **prompts** contains prompts used in pipelines.
