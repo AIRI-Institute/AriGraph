@@ -66,6 +66,7 @@ def get_data(task_name):
         tasks = [" ".join(task["context"][-1]) for task in data]
     ids = np.random.RandomState(seed=42).permutation(len(tasks))[:200]
     tasks = [tasks[i] for i in ids]
+    return tasks
 
 def get_answer(agent, question, subgraph, episodic):
     prompt = f'''Your task is answer the following question: "{question}"
