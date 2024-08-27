@@ -124,5 +124,37 @@ class ContrieverGraph(TripletGraph):
 
             
                     
+class LLaMAContrieverGraph(ContrieverGraph):
+    def __init__(self, model, system_prompt, api_key, pipeline, device = "cpu"):
+        super().__init__(model, system_prompt, api_key, device)
+        self.pipeline = pipeline
+
+    def generate(self, prompt, jsn = False, t = 0.2):
+        print("Prompt: ", prompt)
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": prompt},
+        ]
+
+        prompt = self.pipeline.tokenizer.apply_chat_template(
+                messages, 
+                tokenize=False, 
+                add_generation_prompt=True
+        )
+
+        terminators = [
+            self.pipeline.tokenizer.eos_token_id,
+            self.pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+        ]
         
+        outputs = self.pipeline(
+            prompt,
+            max_new_tokens=2048,
+            eos_token_id=terminators,
+            do_sample=True,
+            temperature=t,
+            top_p=0.9,
+        )
+        print("response: ", outputs[0]["generated_text"])
+        return outputs[0]["generated_text"][len(prompt):], 0        
             
