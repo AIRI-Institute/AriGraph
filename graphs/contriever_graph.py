@@ -16,6 +16,12 @@ class ContrieverGraph(TripletGraph):
         self.retriever = Retriever(device)
         self.triplets_emb, self.items_emb = {}, {}
         self.obs_episodic, self.obs_episodic_list, self.top_episodic_dict_list = {}, [], []
+
+    def clear(self):
+        self.triplets = []
+        self.total_amount = 0
+        self.triplets_emb, self.items_emb = {}, {}
+        self.obs_episodic, self.obs_episodic_list, self.top_episodic_dict_list = {}, [], []
         
     def update(self, observation, observations, plan, prev_subgraph, locations, curr_location, previous_location, action, items1, log, topk_episodic):        
         example = [re.sub(r"Step \d+: ", "", triplet) for triplet in prev_subgraph]
