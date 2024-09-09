@@ -16,7 +16,7 @@ class ContrieverGraph(TripletGraph):
         self.retriever = Retriever(device)
         self.triplets_emb, self.items_emb = {}, {}
         self.obs_episodic, self.obs_episodic_list, self.top_episodic_dict_list = {}, [], []
-
+        
     def clear(self):
         self.triplets = []
         self.total_amount = 0
@@ -26,23 +26,24 @@ class ContrieverGraph(TripletGraph):
     def update(self, observation, observations, plan, prev_subgraph, locations, curr_location, previous_location, action, items1, log, topk_episodic):        
         example = [re.sub(r"Step \d+: ", "", triplet) for triplet in prev_subgraph]
         prompt = prompt_extraction_current.format(observation = observation, example = example)
-        response, _ = self.generate(prompt, t = 0.)
+        response, _ = self.generate(prompt, t = 0.001)
         new_triplets_raw = process_triplets(response)
         
         new_triplets = self.exclude(new_triplets_raw)
         new_triplets_str = self.convert(new_triplets_raw)
         
-        log("New triplets: " + str(new_triplets))        
+        log("New triplets: " + str(new_triplets))       
         items_ = {triplet[0] for triplet in new_triplets_raw} | {triplet[1] for triplet in new_triplets_raw}        
         associated_subgraph = self.get_associated_triplets(items_, steps = 1)
         words_to_exclude = ['west', 'east', 'south', 'north', 'associated with', 'used for', 'to be']
         associated_subgraph = [item for item in associated_subgraph if not any(word in item for word in words_to_exclude)]
 
         prompt = prompt_refining_items.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
-        response, _ = self.generate(prompt, t = 0.)
+        response, _ = self.generate(prompt, t = 0.001)
         predicted_outdated = parse_triplets_removing(response)
         self.delete_triplets(predicted_outdated, locations)
         log("Outdated triplets: " + response)
+        log("NUMBER OF REPLACEMENTS: " + str(len(predicted_outdated)))
        
         if "go to" not in action:
             if curr_location != previous_location:
@@ -74,12 +75,63 @@ class ContrieverGraph(TripletGraph):
         top_episodic = [item for item in top_episodic if item not in observations]
         
         obs_embedding = self.retriever.embed(observation)
-        obs_value = [triplets, obs_embedding]
+        obs_value = [new_triplets_str, obs_embedding]
         self.obs_episodic[observation] = obs_value
 
         self.obs_episodic_list.append(deepcopy(self.obs_episodic))
         self.top_episodic_dict_list.append(top_episodic_dict)
         
+        return associated_subgraph, top_episodic
+    
+    def update_without_retrieve(self, observation, prev_subgraph, log):
+        example = [re.sub(r"Step \d+: ", "", triplet) for triplet in prev_subgraph]
+        prompt = prompt_extraction_current.format(observation = observation, example = example)
+        response, _ = self.generate(prompt, t = 0.001)
+        new_triplets_raw = process_triplets(response)
+        
+        new_triplets = self.exclude(new_triplets_raw)
+        new_triplets_str = self.convert(new_triplets_raw)
+        
+        log("New triplets: " + str(new_triplets))        
+        # items_ = {triplet[0] for triplet in new_triplets_raw} | {triplet[1] for triplet in new_triplets_raw}        
+        # associated_subgraph = self.get_associated_triplets(items_, steps = 1)
+        # words_to_exclude = []
+        # associated_subgraph = [item for item in associated_subgraph if not any(word in item for word in words_to_exclude)]
+
+        # prompt = prompt_refining_items.format(ex_triplets = associated_subgraph, new_triplets = new_triplets)
+        # response, _ = self.generate(prompt, t = 0.001)
+        # predicted_outdated = parse_triplets_removing(response)
+        # self.delete_triplets(predicted_outdated, set())
+        # log("Outdated triplets: " + response)
+        self.add_triplets(new_triplets_raw)
+        
+        obs_embedding = self.retriever.embed(observation)
+        obs_value = [new_triplets_str, obs_embedding]
+        self.obs_episodic[observation] = obs_value
+        return new_triplets_raw, obs_value
+    
+    def retrieve(self, items1, retrieve_base, retrieve_facts, topk_episodic):
+        triplets = self.triplets_to_str(self.triplets)
+        associated_subgraph = set()
+        
+        #retrieve for dict of items
+
+        for query, depth in items1.items():  # items1 is now a dictionary
+            results = graph_retr_search(
+                query, triplets, self.retriever, max_depth=depth,  
+                topk=6,
+                post_retrieve_threshold=0.75, 
+                verbose=2
+            )
+            associated_subgraph.update(results)
+
+        associated_subgraph = [element for element in associated_subgraph]
+
+        obs_plan_embeddings = self.retriever.embed((retrieve_base))
+        top_episodic_dict = find_top_episodic_emb(associated_subgraph, deepcopy(self.obs_episodic), obs_plan_embeddings, self.retriever)
+        top_episodic = top_k_obs(top_episodic_dict, k=topk_episodic)
+
+        top_episodic = [item for item in top_episodic]
         return associated_subgraph, top_episodic
     
     def triplets_to_str(self, triplets):
@@ -127,6 +179,8 @@ class ContrieverGraph(TripletGraph):
     
     def filter_associated(self, triplets):
         return [triplet for triplet in triplets if "associated with" not in triplet]
+        
+            
 
             
                     
