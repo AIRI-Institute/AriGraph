@@ -106,3 +106,39 @@ def eval_triplets(triplets):
     print(f"Found {sum(is_found)}/{len(is_found)} from reference_full")
     
     
+def graph_retr_search_thesises(
+        start_query,
+        thesises, entities,
+        retriever: Retriever,
+        max_depth :int=2,
+        topk :int=3,
+        post_retrieve_threshold: float=0.7, #not exclusive with topk here
+        verbose=2,
+):
+
+    queue = deque()
+    queue.append(start_query)
+    d = {start_query:0}
+
+    result = []
+
+    while queue:
+        q = queue.popleft()
+        if d[q] >= max_depth: continue
+
+        only_names = [thesis.name for thesis in thesises.values()]
+        list_of_ids = [key for key in thesises.keys()]
+        res = retriever.search(only_names, q, topk=topk, return_scores=True)
+        for i, score in zip(res['idx'], res['scores']):
+            if score < post_retrieve_threshold: continue
+            for v_id in thesises[list_of_ids[i]].children:
+                v = entities[v_id].name
+                if v not in d:
+                    queue.append(v)
+                    d[v] = d[q] + 1
+            if thesises[list_of_ids[i]].name not in result:
+                result.append(thesises[list_of_ids[i]].name)
+
+    return result
+
+   
